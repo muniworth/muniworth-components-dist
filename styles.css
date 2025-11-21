@@ -3,34 +3,34 @@
 @layer reset{
   html,:host {
     --font-fallback: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    line-height: 1.5;
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -moz-tab-size: 4;
     tab-size: 4;
-    -webkit-tap-highlight-color: transparent;
-    line-height: 1.5;
     font-family: var(--global-font-body, var(--font-fallback));
+    -webkit-tap-highlight-color: transparent;
 }
 
   *,::before,::after,::backdrop,::file-selector-button {
     margin: 0px;
     padding: 0px;
-    box-sizing: border-box;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--global-color-border, currentColor);
+    border-color: var(--global-color-border, currentcolor);
+    box-sizing: border-box;
 }
 
   hr {
-    height: 0px;
     color: inherit;
+    height: 0px;
     border-top-width: 1px;
 }
 
   body {
-    height: 100%;
     line-height: inherit;
+    height: 100%;
 }
 
   img {
@@ -68,17 +68,27 @@
 
   button,input,optgroup,select,textarea,::file-selector-button {
     font: inherit;
+    background: var(--colors-transparent);
     font-feature-settings: inherit;
     font-variation-settings: inherit;
     letter-spacing: inherit;
     color: inherit;
-    background: var(--colors-transparent);
 }
 
   ::placeholder {
+    --placeholder-fallback: rgba(0, 0, 0, 0.5);
     opacity: 1;
-    --placeholder-fallback: color-mix(in srgb, currentColor 50%, transparent);
     color: var(--global-color-placeholder, var(--placeholder-fallback));
+}
+
+  @supports (not (-webkit-appearance: -apple-pay-button)) or (contain-intrinsic-size: 1px) {
+    ::placeholder {
+      --placeholder-fallback: color-mix(in oklab, currentcolor 50%, transparent);
+}
+}
+
+  ::selection {
+    background-color: var(--global-color-selection, rgba(0, 115, 255, 0.3));
 }
 
   textarea {
@@ -86,9 +96,9 @@
 }
 
   table {
+    border-color: inherit;
     text-indent: 0px;
     border-collapse: collapse;
-    border-color: inherit;
 }
 
   summary {
@@ -100,10 +110,10 @@
 }
 
   sub,sup {
-    position: relative;
-    vertical-align: baseline;
     font-size: 75%;
     line-height: 0;
+    position: relative;
+    vertical-align: baseline;
 }
 
   sub {
@@ -119,8 +129,8 @@
 }
 
   a {
-    color: inherit;
     text-decoration: inherit;
+    color: inherit;
 }
 
   abbr:where([title]) {
@@ -133,10 +143,10 @@
 
   code,kbd,samp,pre {
     --font-mono-fallback: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New';
-    font-feature-settings: normal;
-    font-variation-settings: normal;
     font-family: var(--global-font-mono, var(--font-mono-fallback));
     font-size: 1em;
+    font-feature-settings: normal;
+    font-variation-settings: normal;
 }
 
   progress {
@@ -226,8 +236,8 @@
     --letter-spacings-wide: 0.025em;
     --letter-spacings-wider: 0.05em;
     --letter-spacings-widest: 0.1em;
-    --blurs-sm: 4px;
-    --blurs-base: 8px;
+    --blurs-xs: 4px;
+    --blurs-sm: 8px;
     --blurs-md: 12px;
     --blurs-lg: 16px;
     --blurs-xl: 24px;
@@ -551,6 +561,8 @@
     --spacing-1\.5: 0.375rem;
     --spacing-2\.5: 0.625rem;
     --spacing-3\.5: 0.875rem;
+    --spacing-4\.5: 1.125rem;
+    --spacing-5\.5: 1.375rem;
     --spacing-2xs: 4px;
     --spacing-xs: 8px;
     --spacing-sm: 12px;
@@ -598,13 +610,16 @@
     --radii-md: 8px;
     --radii-lg: 12px;
     --radii-pill: 9999px;
+    --shadows-2xs: 0 1px rgb(0 0 0 / 0.05);
     --shadows-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadows-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     --shadows-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadows-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadows-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     --shadows-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-    --shadows-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+    --shadows-inset-2xs: inset 0 1px rgb(0 0 0 / 0.05);
+    --shadows-inset-xs: inset 0 1px 1px rgb(0 0 0 / 0.05);
+    --shadows-inset-sm: inset 0 2px 4px rgb(0 0 0 / 0.05);
     --shadows-soft: 0 2px 6px rgba(0, 0, 0, 0.08);
     --shadows-strong: 0 6px 24px rgba(0, 0, 0, 0.12);
     --durations-fastest: 50ms;
@@ -655,6 +670,8 @@
     --sizes-1\.5: 0.375rem;
     --sizes-2\.5: 0.625rem;
     --sizes-3\.5: 0.875rem;
+    --sizes-4\.5: 1.125rem;
+    --sizes-5\.5: 1.375rem;
     --sizes-xs: 20rem;
     --sizes-sm: 24rem;
     --sizes-md: 28rem;
