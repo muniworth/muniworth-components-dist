@@ -3,7 +3,6 @@ import { ElementType, ComponentType, Component, JSX as JSX$1, ComponentPropsWith
 import * as Panda from '@pandacss/dev';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ColumnDef } from '@tanstack/react-table';
-export { ColumnDef } from '@tanstack/react-table';
 
 /* eslint-disable */
 interface ConditionOptions {

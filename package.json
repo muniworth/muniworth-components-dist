@@ -22,6 +22,7 @@
     "clean": "rm -rf dist styles.css"
   },
   "dependencies": {
+    "@pandacss/types": "^1.5.1",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-checkbox": "^1.1.8",
     "@radix-ui/react-dialog": "^1.1.8",
