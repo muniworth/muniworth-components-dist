@@ -1,5 +1,5 @@
 import * as react from 'react';
-import { ElementType, ComponentType, Component, JSX as JSX$1, ComponentPropsWithRef, ButtonHTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes, HTMLAttributes, ComponentProps as ComponentProps$1, ReactElement, ReactNode } from 'react';
+import { ElementType, ComponentType, Component, JSX as JSX$1, ComponentPropsWithRef, ButtonHTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes, HTMLAttributes, ComponentProps as ComponentProps$1, ReactElement, ReactNode, ComponentPropsWithoutRef, AnchorHTMLAttributes } from 'react';
 import * as Panda from '@pandacss/dev';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ColumnDef } from '@tanstack/react-table';
@@ -6129,6 +6129,10 @@ interface StandardShorthandProperties<TLength = (string & {}) | 0, TTime = strin
   viewTimeline?: Property.ViewTimeline | undefined;
 }
 
+interface StandardProperties<TLength = (string & {}) | 0, TTime = string & {}>
+  extends StandardLonghandProperties<TLength, TTime>,
+    StandardShorthandProperties<TLength, TTime> {}
+
 interface VendorLonghandProperties<TLength = (string & {}) | 0, TTime = string & {}> {
   /**
    * The **`animation-delay`** CSS property specifies the amount of time to wait from applying the animation to an element before beginning to perform the animation. The animation can start later, immediately from its beginning, or immediately and partway through the animation.
@@ -8037,6 +8041,8 @@ interface VendorShorthandProperties<TLength = (string & {}) | 0, TTime = string 
   WebkitTransition?: Property.Transition<TTime> | undefined;
 }
 
+interface VendorProperties<TLength = (string & {}) | 0, TTime = string & {}> extends VendorLonghandProperties<TLength, TTime>, VendorShorthandProperties<TLength, TTime> {}
+
 interface ObsoleteProperties<TLength = (string & {}) | 0, TTime = string & {}> {
   /**
    * In combination with `elevation`, the **`azimuth`** CSS property enables different audio sources to be positioned spatially for aural presentation. This is important in that it provides a natural way to tell several voices apart, as each can be positioned to originate at a different location on the sound stage. Stereo output produce a lateral sound stage, while binaural headphones and multi-speaker setups allow for a fully three-dimensional stage.
@@ -9154,6 +9160,12 @@ interface SvgProperties<TLength = (string & {}) | 0, TTime = string & {}> {
   wordSpacing?: Property.WordSpacing<TLength> | undefined;
   writingMode?: Property.WritingMode | undefined;
 }
+
+interface Properties<TLength = (string & {}) | 0, TTime = string & {}>
+  extends StandardProperties<TLength, TTime>,
+    VendorProperties<TLength, TTime>,
+    ObsoleteProperties<TLength, TTime>,
+    SvgProperties<TLength, TTime> {}
 
 type StandardLonghandPropertiesFallback<TLength = (string & {}) | 0, TTime = string & {}> = Fallback<StandardLonghandProperties<TLength, TTime>>;
 
@@ -12011,7 +12023,7 @@ interface UtilityValues {
 	transitionProperty: "common" | "colors" | "size" | "position" | "background";
 	transition: "all" | "common" | "size" | "position" | "background" | "colors" | "opacity" | "shadow" | "transform";
 	animation: Tokens["animations"];
-	animationName: "ping" | "pulse" | "bounce" | "spin" | "progress-indeterminate" | "slideIn" | "slideOut" | "swipeOut" | "slideDown" | "slideUp" | "fadeIn" | "fadeOut";
+	animationName: "ping" | "pulse" | "bounce" | "spin" | "progress-indeterminate" | "slideIn" | "slideOut" | "swipeOut" | "slideDown" | "slideUp" | "fadeIn" | "fadeOut" | "slideInFromRight" | "slideOutToRight" | "slideInFromLeft" | "slideOutToLeft" | "overlayShow" | "overlayHide";
 	animationTimingFunction: Tokens["easings"];
 	animationDuration: Tokens["durations"];
 	animationDelay: Tokens["durations"];
@@ -20707,6 +20719,163 @@ interface PopoverProps {
 }
 declare const Popover: react.ForwardRefExoticComponent<PopoverProps & react.RefAttributes<HTMLDivElement>>;
 
+interface SeparatorProps extends Omit<ComponentPropsWithoutRef<'div'>, 'dir'> {
+    orientation?: 'horizontal' | 'vertical';
+    decorative?: boolean;
+}
+declare const Separator: react.ForwardRefExoticComponent<SeparatorProps & react.RefAttributes<HTMLDivElement>>;
+
+/* eslint-disable */
+
+
+interface GridProperties {
+   gap?: SystemProperties["gap"]
+	columnGap?: SystemProperties["gap"]
+	rowGap?: SystemProperties["gap"]
+	columns?: ConditionalValue<number>
+	minChildWidth?: ConditionalValue<Tokens["sizes"] | Properties["width"]>
+}
+
+interface GridProps extends GridProperties, Omit<HTMLAttributes<HTMLDivElement>, 'className'> {
+    children: ReactNode;
+}
+declare const Grid: react.ForwardRefExoticComponent<GridProps & react.RefAttributes<HTMLDivElement>>;
+
+/* eslint-disable */
+
+
+interface GridItemProperties {
+   colSpan?: ConditionalValue<number>
+	rowSpan?: ConditionalValue<number>
+	colStart?: ConditionalValue<number>
+	rowStart?: ConditionalValue<number>
+	colEnd?: ConditionalValue<number>
+	rowEnd?: ConditionalValue<number>
+}
+
+interface GridItemProps extends GridItemProperties, Omit<HTMLAttributes<HTMLDivElement>, 'className'> {
+    children: ReactNode;
+}
+declare const GridItem: react.ForwardRefExoticComponent<GridItemProps & react.RefAttributes<HTMLDivElement>>;
+
+interface BreadcrumbsProps extends HTMLAttributes<HTMLElement> {
+    separator?: ReactNode;
+    children: ReactNode;
+}
+declare const Breadcrumbs: react.ForwardRefExoticComponent<BreadcrumbsProps & react.RefAttributes<HTMLElement>>;
+interface BreadcrumbItemProps extends HTMLAttributes<HTMLSpanElement> {
+    isCurrentPage?: boolean;
+    children: ReactNode;
+}
+declare const BreadcrumbItem: react.ForwardRefExoticComponent<BreadcrumbItemProps & react.RefAttributes<HTMLSpanElement>>;
+interface BreadcrumbLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+    asChild?: boolean;
+    children: ReactNode;
+}
+declare const BreadcrumbLink: react.ForwardRefExoticComponent<BreadcrumbLinkProps & react.RefAttributes<HTMLAnchorElement>>;
+interface BreadcrumbSeparatorProps extends HTMLAttributes<HTMLSpanElement> {
+    children?: ReactNode;
+}
+declare const BreadcrumbSeparator: react.ForwardRefExoticComponent<BreadcrumbSeparatorProps & react.RefAttributes<HTMLSpanElement>>;
+
+interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange'> {
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (page: number) => void;
+    siblingCount?: number;
+    boundaryCount?: number;
+    showFirstLast?: boolean;
+}
+interface PaginationButtonProps extends HTMLAttributes<HTMLButtonElement> {
+    isActive?: boolean;
+    disabled?: boolean;
+    children: ReactNode;
+}
+declare const PaginationButton: react.ForwardRefExoticComponent<PaginationButtonProps & react.RefAttributes<HTMLButtonElement>>;
+type PaginationEllipsisProps = HTMLAttributes<HTMLSpanElement>;
+declare const PaginationEllipsis: react.ForwardRefExoticComponent<PaginationEllipsisProps & react.RefAttributes<HTMLSpanElement>>;
+declare const Pagination: react.ForwardRefExoticComponent<PaginationProps & react.RefAttributes<HTMLElement>>;
+
+declare const paginationButtonRecipe: RecipeRuntimeFn<{
+    isActive: {
+        true: {
+            bg: "accent.primary";
+            borderColor: "accent.primary";
+            color: "text.on-dark";
+            _hover: {
+                bg: "button.primary.bgHover";
+                borderColor: "button.primary.bgHover";
+            };
+        };
+    };
+    variant: {
+        page: {};
+        nav: {
+            fontWeight: "regular";
+            gap: "2xs";
+        };
+    };
+}>;
+type PaginationButtonVariants = RecipeVariantProps<typeof paginationButtonRecipe>;
+
+interface SidePanelProps {
+    open?: boolean;
+    defaultOpen?: boolean;
+    onOpenChange?: (open: boolean) => void;
+    trigger?: TriggerElement;
+    side?: 'left' | 'right';
+    size?: 'sm' | 'md' | 'lg' | 'full';
+    title?: ReactNode;
+    description?: ReactNode;
+    children: ReactNode;
+}
+declare const SidePanel: react.ForwardRefExoticComponent<SidePanelProps & react.RefAttributes<HTMLDivElement>>;
+
+declare const sidePanelContentRecipe: RecipeRuntimeFn<{
+    side: {
+        left: {
+            left: "0";
+            borderRight: "1px solid";
+            borderColor: "border.subtle";
+            '&[data-state="open"]': {
+                animation: "slideInFromLeft 0.2s ease-out";
+            };
+            '&[data-state="closed"]': {
+                animation: "slideOutToLeft 0.15s ease-in";
+            };
+        };
+        right: {
+            right: "0";
+            borderLeft: "1px solid";
+            borderColor: "border.subtle";
+            '&[data-state="open"]': {
+                animation: "slideInFromRight 0.2s ease-out";
+            };
+            '&[data-state="closed"]': {
+                animation: "slideOutToRight 0.15s ease-in";
+            };
+        };
+    };
+    size: {
+        sm: {
+            width: "320px";
+            maxWidth: "90vw";
+        };
+        md: {
+            width: "480px";
+            maxWidth: "90vw";
+        };
+        lg: {
+            width: "640px";
+            maxWidth: "90vw";
+        };
+        full: {
+            width: "100vw";
+        };
+    };
+}>;
+type SidePanelContentVariants = RecipeVariantProps<typeof sidePanelContentRecipe>;
+
 interface TableProps<TData> {
     columns: ColumnDef<TData, unknown>[];
     data: TData[];
@@ -20717,4 +20886,4 @@ declare const Table: <TData>(props: TableProps<TData> & {
     ref?: React.Ref<HTMLDivElement>;
 }) => JSX.Element;
 
-export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, Button, type ButtonProps, type ButtonVariants, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, Dialog, type DialogProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, Input, type InputProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, Select, type SelectOption, type SelectProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement };
+export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, Dialog, type DialogProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, Grid, GridItem, type GridItemProps, type GridProps, Input, type InputProps, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement };

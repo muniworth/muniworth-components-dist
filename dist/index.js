@@ -96,6 +96,11 @@ function walkObject(target, predicate, options = {}) {
   }
   return inner(target);
 }
+function mapObject(obj, fn) {
+  if (Array.isArray(obj)) return obj.map((value) => fn(value));
+  if (!isObject(obj)) return fn(obj);
+  return walkObject(obj, (value) => fn(value));
+}
 function toResponsiveObject(values, breakpoints) {
   return values.reduce(
     (acc, current, index) => {
@@ -184,9 +189,23 @@ var hypenateProperty = memo((property) => {
 });
 var fns = ["min", "max", "clamp", "calc"];
 var fnRegExp = new RegExp(`^(${fns.join("|")})\\(.*\\)`);
+var isCssFunction = (v) => typeof v === "string" && fnRegExp.test(v);
 var lengthUnits = "cm,mm,Q,in,pc,pt,px,em,ex,ch,rem,lh,rlh,vw,vh,vmin,vmax,vb,vi,svw,svh,lvw,lvh,dvw,dvh,cqw,cqh,cqi,cqb,cqmin,cqmax,%";
 var lengthUnitsPattern = `(?:${lengthUnits.split(",").join("|")})`;
 var lengthRegExp = new RegExp(`^[+-]?[0-9]*.?[0-9]+(?:[eE][+-]?[0-9]+)?${lengthUnitsPattern}$`);
+var isCssUnit = (v) => typeof v === "string" && lengthRegExp.test(v);
+var isCssVar = (v) => typeof v === "string" && /^var\(--.+\)$/.test(v);
+var patternFns = {
+  map: mapObject,
+  isCssFunction,
+  isCssVar,
+  isCssUnit
+};
+var getPatternStyles = (pattern, styles) => {
+  if (!pattern?.defaultValues) return styles;
+  const defaults2 = typeof pattern.defaultValues === "function" ? pattern.defaultValues(styles) : pattern.defaultValues;
+  return Object.assign({}, defaults2, compact(styles));
+};
 function splitProps(props, ...keys) {
   const descriptors = Object.getOwnPropertyDescriptors(props);
   const dKeys = Object.keys(descriptors);
@@ -464,6 +483,54 @@ function createJsxFactory() {
   });
 }
 var styled = /* @__PURE__ */ createJsxFactory();
+
+// styled-system/patterns/grid.mjs
+var gridConfig = {
+  transform(props, { map, isCssUnit: isCssUnit2 }) {
+    const { columnGap, rowGap, gap, columns, minChildWidth, ...rest } = props;
+    const getValue = (v) => isCssUnit2(v) ? v : `token(sizes.${v}, ${v})`;
+    return {
+      display: "grid",
+      gridTemplateColumns: columns != null ? map(columns, (v) => `repeat(${v}, minmax(0, 1fr))`) : minChildWidth != null ? map(minChildWidth, (v) => `repeat(auto-fit, minmax(${getValue(v)}, 1fr))`) : void 0,
+      gap,
+      columnGap,
+      rowGap,
+      ...rest
+    };
+  },
+  defaultValues(props) {
+    return { gap: props.columnGap || props.rowGap ? void 0 : "8px" };
+  }
+};
+var getGridStyle = (styles = {}) => {
+  const _styles = getPatternStyles(gridConfig, styles);
+  return gridConfig.transform(_styles, patternFns);
+};
+var grid = (styles) => css(getGridStyle(styles));
+grid.raw = getGridStyle;
+
+// styled-system/patterns/grid-item.mjs
+var gridItemConfig = {
+  transform(props, { map }) {
+    const { colSpan, rowSpan, colStart, rowStart, colEnd, rowEnd, ...rest } = props;
+    const spanFn = (v) => v === "auto" ? v : `span ${v}`;
+    return {
+      gridColumn: colSpan != null ? map(colSpan, spanFn) : void 0,
+      gridRow: rowSpan != null ? map(rowSpan, spanFn) : void 0,
+      gridColumnStart: colStart,
+      gridColumnEnd: colEnd,
+      gridRowStart: rowStart,
+      gridRowEnd: rowEnd,
+      ...rest
+    };
+  }
+};
+var getGridItemStyle = (styles = {}) => {
+  const _styles = getPatternStyles(gridItemConfig, styles);
+  return gridItemConfig.transform(_styles, patternFns);
+};
+var gridItem = (styles) => css(getGridItemStyle(styles));
+gridItem.raw = getGridItemStyle;
 
 // src/button/button.recipes.ts
 var buttonRecipe = cva({
@@ -1804,7 +1871,7 @@ var DropdownMenu = forwardRef14(
         onOpenChange,
         children: [
           /* @__PURE__ */ jsx13(DropdownMenuPrimitive.Trigger, { asChild: true, children: trigger }),
-          /* @__PURE__ */ jsx13(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx13(Content6, { ref, sideOffset: 4, children: items.map((item) => /* @__PURE__ */ jsx13(
+          /* @__PURE__ */ jsx13(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx13(Content6, { ref, sideOffset: 4, align: "start", alignOffset: -8, children: items.map((item) => /* @__PURE__ */ jsx13(
             Item6,
             {
               onSelect: item.onSelect,
@@ -2476,6 +2543,750 @@ var Popover = forwardRef20(
 );
 Popover.displayName = "Popover";
 
+// src/separator/Separator.tsx
+import { forwardRef as forwardRef21 } from "react";
+import * as SeparatorPrimitive from "@radix-ui/react-separator";
+import { jsx as jsx20 } from "react/jsx-runtime";
+var StyledSeparator = styled(SeparatorPrimitive.Root, {
+  base: {
+    bg: "border.subtle",
+    flexShrink: 0,
+    '&[data-orientation="horizontal"]': {
+      height: "1px",
+      width: "100%"
+    },
+    '&[data-orientation="vertical"]': {
+      width: "1px",
+      height: "100%"
+    }
+  }
+});
+var Separator = forwardRef21(
+  ({ orientation = "horizontal", decorative = true, ...props }, ref) => {
+    return /* @__PURE__ */ jsx20(
+      StyledSeparator,
+      {
+        ref,
+        orientation,
+        decorative,
+        ...props
+      }
+    );
+  }
+);
+Separator.displayName = "Separator";
+
+// src/grid/Grid.tsx
+import { forwardRef as forwardRef22 } from "react";
+import { jsx as jsx21 } from "react/jsx-runtime";
+var Grid = forwardRef22(
+  ({ columns, gap, columnGap, rowGap, minChildWidth, children, ...props }, ref) => {
+    return /* @__PURE__ */ jsx21(
+      "div",
+      {
+        ref,
+        className: grid({ columns, gap, columnGap, rowGap, minChildWidth }),
+        ...props,
+        children
+      }
+    );
+  }
+);
+Grid.displayName = "Grid";
+
+// src/grid/GridItem.tsx
+import { forwardRef as forwardRef23 } from "react";
+import { jsx as jsx22 } from "react/jsx-runtime";
+var GridItem = forwardRef23(
+  ({ colSpan, rowSpan, colStart, rowStart, colEnd, rowEnd, children, ...props }, ref) => {
+    return /* @__PURE__ */ jsx22(
+      "div",
+      {
+        ref,
+        className: gridItem({ colSpan, rowSpan, colStart, rowStart, colEnd, rowEnd }),
+        ...props,
+        children
+      }
+    );
+  }
+);
+GridItem.displayName = "GridItem";
+
+// src/breadcrumbs/Breadcrumbs.tsx
+import {
+  forwardRef as forwardRef25,
+  Children as Children2,
+  cloneElement as cloneElement2,
+  isValidElement as isValidElement6
+} from "react";
+
+// ../../node_modules/@radix-ui/react-slot/dist/index.mjs
+import * as React2 from "react";
+
+// ../../node_modules/@radix-ui/react-compose-refs/dist/index.mjs
+import * as React from "react";
+function setRef(ref, value) {
+  if (typeof ref === "function") {
+    return ref(value);
+  } else if (ref !== null && ref !== void 0) {
+    ref.current = value;
+  }
+}
+function composeRefs(...refs) {
+  return (node) => {
+    let hasCleanup = false;
+    const cleanups = refs.map((ref) => {
+      const cleanup = setRef(ref, node);
+      if (!hasCleanup && typeof cleanup == "function") {
+        hasCleanup = true;
+      }
+      return cleanup;
+    });
+    if (hasCleanup) {
+      return () => {
+        for (let i = 0; i < cleanups.length; i++) {
+          const cleanup = cleanups[i];
+          if (typeof cleanup == "function") {
+            cleanup();
+          } else {
+            setRef(refs[i], null);
+          }
+        }
+      };
+    }
+  };
+}
+
+// ../../node_modules/@radix-ui/react-slot/dist/index.mjs
+import { Fragment as Fragment2, jsx as jsx23 } from "react/jsx-runtime";
+// @__NO_SIDE_EFFECTS__
+function createSlot(ownerName) {
+  const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
+  const Slot2 = React2.forwardRef((props, forwardedRef) => {
+    const { children, ...slotProps } = props;
+    const childrenArray = React2.Children.toArray(children);
+    const slottable = childrenArray.find(isSlottable);
+    if (slottable) {
+      const newElement = slottable.props.children;
+      const newChildren = childrenArray.map((child) => {
+        if (child === slottable) {
+          if (React2.Children.count(newElement) > 1) return React2.Children.only(null);
+          return React2.isValidElement(newElement) ? newElement.props.children : null;
+        } else {
+          return child;
+        }
+      });
+      return /* @__PURE__ */ jsx23(SlotClone, { ...slotProps, ref: forwardedRef, children: React2.isValidElement(newElement) ? React2.cloneElement(newElement, void 0, newChildren) : null });
+    }
+    return /* @__PURE__ */ jsx23(SlotClone, { ...slotProps, ref: forwardedRef, children });
+  });
+  Slot2.displayName = `${ownerName}.Slot`;
+  return Slot2;
+}
+var Slot = /* @__PURE__ */ createSlot("Slot");
+// @__NO_SIDE_EFFECTS__
+function createSlotClone(ownerName) {
+  const SlotClone = React2.forwardRef((props, forwardedRef) => {
+    const { children, ...slotProps } = props;
+    if (React2.isValidElement(children)) {
+      const childrenRef = getElementRef(children);
+      const props2 = mergeProps2(slotProps, children.props);
+      if (children.type !== React2.Fragment) {
+        props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
+      }
+      return React2.cloneElement(children, props2);
+    }
+    return React2.Children.count(children) > 1 ? React2.Children.only(null) : null;
+  });
+  SlotClone.displayName = `${ownerName}.SlotClone`;
+  return SlotClone;
+}
+var SLOTTABLE_IDENTIFIER = Symbol("radix.slottable");
+function isSlottable(child) {
+  return React2.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
+}
+function mergeProps2(slotProps, childProps) {
+  const overrideProps = { ...childProps };
+  for (const propName in childProps) {
+    const slotPropValue = slotProps[propName];
+    const childPropValue = childProps[propName];
+    const isHandler = /^on[A-Z]/.test(propName);
+    if (isHandler) {
+      if (slotPropValue && childPropValue) {
+        overrideProps[propName] = (...args) => {
+          const result = childPropValue(...args);
+          slotPropValue(...args);
+          return result;
+        };
+      } else if (slotPropValue) {
+        overrideProps[propName] = slotPropValue;
+      }
+    } else if (propName === "style") {
+      overrideProps[propName] = { ...slotPropValue, ...childPropValue };
+    } else if (propName === "className") {
+      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(" ");
+    }
+  }
+  return { ...slotProps, ...overrideProps };
+}
+function getElementRef(element) {
+  let getter = Object.getOwnPropertyDescriptor(element.props, "ref")?.get;
+  let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
+  if (mayWarn) {
+    return element.ref;
+  }
+  getter = Object.getOwnPropertyDescriptor(element, "ref")?.get;
+  mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
+  if (mayWarn) {
+    return element.props.ref;
+  }
+  return element.props.ref || element.ref;
+}
+
+// src/breadcrumbs/Breadcrumbs.tsx
+import { jsx as jsx24, jsxs as jsxs13 } from "react/jsx-runtime";
+var BreadcrumbNav = styled("nav", {
+  base: {
+    display: "flex",
+    alignItems: "center"
+  }
+});
+var BreadcrumbList = styled("ol", {
+  base: {
+    display: "flex",
+    alignItems: "center",
+    gap: "xs",
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+    flexWrap: "wrap"
+  }
+});
+var Breadcrumbs = forwardRef25(
+  ({ separator = "/", children, ...props }, ref) => {
+    const items = Children2.toArray(children).filter(isValidElement6);
+    return /* @__PURE__ */ jsx24(BreadcrumbNav, { ref, "aria-label": "Breadcrumb", ...props, children: /* @__PURE__ */ jsx24(BreadcrumbList, { children: items.map((child, index) => {
+      const isLast = index === items.length - 1;
+      return /* @__PURE__ */ jsxs13("li", { style: { display: "flex", alignItems: "center", gap: "8px" }, children: [
+        cloneElement2(child, {
+          isCurrentPage: isLast
+        }),
+        !isLast && /* @__PURE__ */ jsx24(BreadcrumbSeparator, { children: separator })
+      ] }, index);
+    }) }) });
+  }
+);
+Breadcrumbs.displayName = "Breadcrumbs";
+var BreadcrumbItemRoot = styled("span", {
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    fontSize: "sm",
+    color: "text.subtle",
+    '&[aria-current="page"]': {
+      color: "text.main",
+      fontWeight: "medium"
+    }
+  }
+});
+var BreadcrumbItem = forwardRef25(
+  ({ isCurrentPage, children, ...props }, ref) => {
+    return /* @__PURE__ */ jsx24(
+      BreadcrumbItemRoot,
+      {
+        ref,
+        "aria-current": isCurrentPage ? "page" : void 0,
+        ...props,
+        children
+      }
+    );
+  }
+);
+BreadcrumbItem.displayName = "BreadcrumbItem";
+var BreadcrumbAnchor = styled("a", {
+  base: {
+    color: "text.link",
+    textDecoration: "none",
+    transition: "color 0.12s ease",
+    "&:hover": {
+      color: "text.link-hover",
+      textDecoration: "underline"
+    },
+    "&:focus-visible": {
+      outline: "2px solid",
+      outlineColor: "accent.primary",
+      outlineOffset: "2px",
+      borderRadius: "sm"
+    }
+  }
+});
+var BreadcrumbLink = forwardRef25(
+  ({ asChild, children, ...props }, ref) => {
+    if (asChild) {
+      return /* @__PURE__ */ jsx24(Slot, { ref, ...props, children });
+    }
+    return /* @__PURE__ */ jsx24(BreadcrumbAnchor, { ref, ...props, children });
+  }
+);
+BreadcrumbLink.displayName = "BreadcrumbLink";
+var SeparatorRoot = styled("span", {
+  base: {
+    color: "neutral.base",
+    fontSize: "sm",
+    userSelect: "none"
+  }
+});
+var BreadcrumbSeparator = forwardRef25(
+  ({ children = "/", ...props }, ref) => {
+    return /* @__PURE__ */ jsx24(SeparatorRoot, { ref, "aria-hidden": "true", ...props, children });
+  }
+);
+BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
+
+// src/pagination/Pagination.tsx
+import { forwardRef as forwardRef26, useMemo as useMemo2 } from "react";
+
+// src/pagination/pagination.recipes.ts
+var paginationButtonRecipe = cva({
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minWidth: "36px",
+    height: "36px",
+    px: "sm",
+    borderRadius: "md",
+    fontFamily: "brand",
+    fontSize: "sm",
+    fontWeight: "medium",
+    border: "1px solid",
+    borderColor: "border.subtle",
+    bg: "bg.base",
+    color: "text.main",
+    cursor: "pointer",
+    outline: "none",
+    transition: "all 0.12s ease",
+    userSelect: "none",
+    _hover: {
+      bg: "bg.subtle",
+      borderColor: "border.strong"
+    },
+    _focus: {
+      boxShadow: "focus.primary"
+    },
+    _disabled: {
+      opacity: 0.4,
+      cursor: "not-allowed",
+      pointerEvents: "none"
+    }
+  },
+  variants: {
+    isActive: {
+      true: {
+        bg: "accent.primary",
+        borderColor: "accent.primary",
+        color: "text.on-dark",
+        _hover: {
+          bg: "button.primary.bgHover",
+          borderColor: "button.primary.bgHover"
+        }
+      }
+    },
+    variant: {
+      page: {},
+      nav: {
+        fontWeight: "regular",
+        gap: "2xs"
+      }
+    }
+  },
+  defaultVariants: {
+    isActive: false,
+    variant: "page"
+  }
+});
+
+// src/pagination/Pagination.tsx
+import { jsx as jsx25, jsxs as jsxs14 } from "react/jsx-runtime";
+var PaginationRoot = styled("nav", {
+  base: {
+    display: "flex",
+    alignItems: "center",
+    gap: "xs"
+  }
+});
+var EllipsisContainer = styled("span", {
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minWidth: "36px",
+    height: "36px",
+    color: "text.subtle",
+    fontSize: "sm",
+    userSelect: "none"
+  }
+});
+function usePagination({
+  currentPage,
+  totalPages,
+  siblingCount = 1,
+  boundaryCount = 1
+}) {
+  return useMemo2(() => {
+    const range = (start, end) => {
+      const length = end - start + 1;
+      return Array.from({ length }, (_, i) => start + i);
+    };
+    const totalPageNumbers = boundaryCount * 2 + siblingCount * 2 + 3;
+    if (totalPages <= totalPageNumbers) {
+      return range(1, totalPages);
+    }
+    const leftSiblingIndex = Math.max(currentPage - siblingCount, boundaryCount + 1);
+    const rightSiblingIndex = Math.min(currentPage + siblingCount, totalPages - boundaryCount);
+    const showLeftEllipsis = leftSiblingIndex > boundaryCount + 2;
+    const showRightEllipsis = rightSiblingIndex < totalPages - boundaryCount - 1;
+    const firstPages = range(1, boundaryCount);
+    const lastPages = range(totalPages - boundaryCount + 1, totalPages);
+    if (!showLeftEllipsis && showRightEllipsis) {
+      const leftItemCount = 3 + 2 * siblingCount;
+      const leftRange = range(1, leftItemCount);
+      return [...leftRange, "ellipsis", ...lastPages];
+    }
+    if (showLeftEllipsis && !showRightEllipsis) {
+      const rightItemCount = 3 + 2 * siblingCount;
+      const rightRange = range(totalPages - rightItemCount + 1, totalPages);
+      return [...firstPages, "ellipsis", ...rightRange];
+    }
+    const middleRange = range(leftSiblingIndex, rightSiblingIndex);
+    return [...firstPages, "ellipsis", ...middleRange, "ellipsis", ...lastPages];
+  }, [currentPage, totalPages, siblingCount, boundaryCount]);
+}
+var ChevronLeft = () => /* @__PURE__ */ jsx25("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "currentColor", children: /* @__PURE__ */ jsx25("path", { d: "M10.53 3.47a.75.75 0 010 1.06L6.56 8l3.97 3.47a.75.75 0 11-1.06 1.06l-4.5-4a.75.75 0 010-1.06l4.5-4a.75.75 0 011.06 0z" }) });
+var ChevronRight = () => /* @__PURE__ */ jsx25("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "currentColor", children: /* @__PURE__ */ jsx25("path", { d: "M5.47 12.53a.75.75 0 010-1.06L9.44 8 5.47 4.53a.75.75 0 011.06-1.06l4.5 4a.75.75 0 010 1.06l-4.5 4a.75.75 0 01-1.06 0z" }) });
+var ChevronsLeft = () => /* @__PURE__ */ jsx25("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "currentColor", children: /* @__PURE__ */ jsx25("path", { d: "M8.53 3.47a.75.75 0 010 1.06L4.56 8l3.97 3.47a.75.75 0 11-1.06 1.06l-4.5-4a.75.75 0 010-1.06l4.5-4a.75.75 0 011.06 0zm5 0a.75.75 0 010 1.06L9.56 8l3.97 3.47a.75.75 0 11-1.06 1.06l-4.5-4a.75.75 0 010-1.06l4.5-4a.75.75 0 011.06 0z" }) });
+var ChevronsRight = () => /* @__PURE__ */ jsx25("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "currentColor", children: /* @__PURE__ */ jsx25("path", { d: "M3.47 12.53a.75.75 0 010-1.06L7.44 8 3.47 4.53a.75.75 0 011.06-1.06l4.5 4a.75.75 0 010 1.06l-4.5 4a.75.75 0 01-1.06 0zm5 0a.75.75 0 010-1.06L12.44 8 8.47 4.53a.75.75 0 011.06-1.06l4.5 4a.75.75 0 010 1.06l-4.5 4a.75.75 0 01-1.06 0z" }) });
+var PaginationButton = forwardRef26(
+  ({ isActive, disabled, children, ...props }, ref) => {
+    return /* @__PURE__ */ jsx25(
+      "button",
+      {
+        ref,
+        type: "button",
+        className: paginationButtonRecipe({ isActive, variant: "page" }),
+        disabled,
+        "aria-current": isActive ? "page" : void 0,
+        ...props,
+        children
+      }
+    );
+  }
+);
+PaginationButton.displayName = "PaginationButton";
+var PaginationEllipsis = forwardRef26(
+  (props, ref) => {
+    return /* @__PURE__ */ jsx25(EllipsisContainer, { ref, "aria-hidden": "true", ...props, children: "..." });
+  }
+);
+PaginationEllipsis.displayName = "PaginationEllipsis";
+var Pagination = forwardRef26(
+  ({
+    currentPage,
+    totalPages,
+    onPageChange,
+    siblingCount = 1,
+    boundaryCount = 1,
+    showFirstLast = false,
+    ...props
+  }, ref) => {
+    const pages = usePagination({ currentPage, totalPages, siblingCount, boundaryCount });
+    const handlePageChange = (page) => {
+      if (page >= 1 && page <= totalPages && page !== currentPage) {
+        onPageChange(page);
+      }
+    };
+    return /* @__PURE__ */ jsxs14(PaginationRoot, { ref, "aria-label": "Pagination", ...props, children: [
+      showFirstLast && /* @__PURE__ */ jsx25(
+        "button",
+        {
+          type: "button",
+          className: paginationButtonRecipe({ variant: "nav" }),
+          onClick: () => handlePageChange(1),
+          disabled: currentPage === 1,
+          "aria-label": "Go to first page",
+          children: /* @__PURE__ */ jsx25(ChevronsLeft, {})
+        }
+      ),
+      /* @__PURE__ */ jsx25(
+        "button",
+        {
+          type: "button",
+          className: paginationButtonRecipe({ variant: "nav" }),
+          onClick: () => handlePageChange(currentPage - 1),
+          disabled: currentPage === 1,
+          "aria-label": "Go to previous page",
+          children: /* @__PURE__ */ jsx25(ChevronLeft, {})
+        }
+      ),
+      pages.map(
+        (page, index) => page === "ellipsis" ? /* @__PURE__ */ jsx25(PaginationEllipsis, {}, `ellipsis-${index}`) : /* @__PURE__ */ jsx25(
+          PaginationButton,
+          {
+            isActive: page === currentPage,
+            onClick: () => handlePageChange(page),
+            "aria-label": `Go to page ${page}`,
+            children: page
+          },
+          page
+        )
+      ),
+      /* @__PURE__ */ jsx25(
+        "button",
+        {
+          type: "button",
+          className: paginationButtonRecipe({ variant: "nav" }),
+          onClick: () => handlePageChange(currentPage + 1),
+          disabled: currentPage === totalPages,
+          "aria-label": "Go to next page",
+          children: /* @__PURE__ */ jsx25(ChevronRight, {})
+        }
+      ),
+      showFirstLast && /* @__PURE__ */ jsx25(
+        "button",
+        {
+          type: "button",
+          className: paginationButtonRecipe({ variant: "nav" }),
+          onClick: () => handlePageChange(totalPages),
+          disabled: currentPage === totalPages,
+          "aria-label": "Go to last page",
+          children: /* @__PURE__ */ jsx25(ChevronsRight, {})
+        }
+      )
+    ] });
+  }
+);
+Pagination.displayName = "Pagination";
+
+// src/side-panel/SidePanel.tsx
+import { forwardRef as forwardRef27, isValidElement as isValidElement7 } from "react";
+import * as DialogPrimitive2 from "@radix-ui/react-dialog";
+
+// src/side-panel/side-panel.recipes.ts
+var sidePanelContentRecipe = cva({
+  base: {
+    bg: "background.elevated",
+    boxShadow: "component.modalShadow",
+    position: "fixed",
+    top: "0",
+    bottom: "0",
+    display: "flex",
+    flexDirection: "column",
+    zIndex: "zIndex.modal",
+    outline: "none",
+    overflow: "hidden",
+    _focus: {
+      outline: "none"
+    }
+  },
+  variants: {
+    side: {
+      left: {
+        left: "0",
+        borderRight: "1px solid",
+        borderColor: "border.subtle",
+        '&[data-state="open"]': {
+          animation: "slideInFromLeft 0.2s ease-out"
+        },
+        '&[data-state="closed"]': {
+          animation: "slideOutToLeft 0.15s ease-in"
+        }
+      },
+      right: {
+        right: "0",
+        borderLeft: "1px solid",
+        borderColor: "border.subtle",
+        '&[data-state="open"]': {
+          animation: "slideInFromRight 0.2s ease-out"
+        },
+        '&[data-state="closed"]': {
+          animation: "slideOutToRight 0.15s ease-in"
+        }
+      }
+    },
+    size: {
+      sm: {
+        width: "320px",
+        maxWidth: "90vw"
+      },
+      md: {
+        width: "480px",
+        maxWidth: "90vw"
+      },
+      lg: {
+        width: "640px",
+        maxWidth: "90vw"
+      },
+      full: {
+        width: "100vw"
+      }
+    }
+  },
+  defaultVariants: {
+    side: "right",
+    size: "md"
+  }
+});
+
+// src/side-panel/SidePanel.tsx
+import { jsx as jsx26, jsxs as jsxs15 } from "react/jsx-runtime";
+var Overlay4 = styled(DialogPrimitive2.Overlay, {
+  base: {
+    bg: "overlay.modal",
+    position: "fixed",
+    inset: "0",
+    zIndex: "zIndex.modal",
+    '&[data-state="open"]': {
+      animation: "overlayShow 0.2s ease-out"
+    },
+    '&[data-state="closed"]': {
+      animation: "overlayHide 0.15s ease-in"
+    }
+  }
+});
+var Header3 = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "xs",
+    padding: "lg",
+    borderBottom: "1px solid",
+    borderColor: "border.subtle",
+    flexShrink: 0
+  }
+});
+var Title6 = styled(DialogPrimitive2.Title, {
+  base: {
+    fontFamily: "brand",
+    fontSize: "xl",
+    fontWeight: "bold",
+    color: "text.primary",
+    margin: 0,
+    paddingRight: "xl"
+  }
+});
+var Description6 = styled(DialogPrimitive2.Description, {
+  base: {
+    fontFamily: "brand",
+    fontSize: "sm",
+    lineHeight: "normal",
+    color: "text.secondary",
+    margin: 0
+  }
+});
+var Body = styled("div", {
+  base: {
+    flex: 1,
+    padding: "lg",
+    overflowY: "auto"
+  }
+});
+var CloseButton2 = styled(DialogPrimitive2.Close, {
+  base: {
+    position: "absolute",
+    top: "md",
+    right: "md",
+    width: "32px",
+    height: "32px",
+    borderRadius: "sm",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "text.secondary",
+    cursor: "pointer",
+    border: "none",
+    bg: "transparent",
+    outline: "none",
+    transition: "all 0.15s ease",
+    zIndex: 1,
+    _hover: {
+      bg: "background.subtle",
+      color: "text.primary"
+    },
+    _focus: {
+      boxShadow: "focus.dialog"
+    }
+  }
+});
+var SidePanel = forwardRef27(
+  ({
+    open,
+    defaultOpen,
+    onOpenChange,
+    trigger,
+    side = "right",
+    size = "md",
+    title,
+    description,
+    children
+  }, ref) => {
+    if (process.env.NODE_ENV !== "production" && trigger && !isValidElement7(trigger)) {
+      console.warn(
+        "SidePanel: `trigger` prop must be a single React element. Received:",
+        typeof trigger,
+        trigger
+      );
+    }
+    return /* @__PURE__ */ jsxs15(
+      DialogPrimitive2.Root,
+      {
+        open,
+        defaultOpen,
+        onOpenChange,
+        children: [
+          trigger && /* @__PURE__ */ jsx26(DialogPrimitive2.Trigger, { asChild: true, children: trigger }),
+          /* @__PURE__ */ jsxs15(DialogPrimitive2.Portal, { children: [
+            /* @__PURE__ */ jsx26(Overlay4, {}),
+            /* @__PURE__ */ jsxs15(
+              DialogPrimitive2.Content,
+              {
+                ref,
+                className: sidePanelContentRecipe({ side, size }),
+                children: [
+                  /* @__PURE__ */ jsx26(CloseButton2, { "aria-label": "Close panel", children: /* @__PURE__ */ jsx26(
+                    "svg",
+                    {
+                      width: "16",
+                      height: "16",
+                      viewBox: "0 0 16 16",
+                      fill: "none",
+                      xmlns: "http://www.w3.org/2000/svg",
+                      children: /* @__PURE__ */ jsx26(
+                        "path",
+                        {
+                          d: "M12 4L4 12M4 4L12 12",
+                          stroke: "currentColor",
+                          strokeWidth: "2",
+                          strokeLinecap: "round"
+                        }
+                      )
+                    }
+                  ) }),
+                  (title || description) && /* @__PURE__ */ jsxs15(Header3, { children: [
+                    title && /* @__PURE__ */ jsx26(Title6, { children: title }),
+                    description && /* @__PURE__ */ jsx26(Description6, { children: description })
+                  ] }),
+                  /* @__PURE__ */ jsx26(Body, { children })
+                ]
+              }
+            )
+          ] })
+        ]
+      }
+    );
+  }
+);
+SidePanel.displayName = "SidePanel";
+
 // src/table/Table.tsx
 import {
   flexRender,
@@ -2483,8 +3294,8 @@ import {
   getSortedRowModel,
   useReactTable
 } from "@tanstack/react-table";
-import { forwardRef as forwardRef21, useEffect, useState } from "react";
-import { jsx as jsx20, jsxs as jsxs13 } from "react/jsx-runtime";
+import { forwardRef as forwardRef28, useEffect, useState } from "react";
+import { jsx as jsx27, jsxs as jsxs16 } from "react/jsx-runtime";
 var TableContainer = styled("div", {
   base: {
     width: "100%",
@@ -2595,34 +3406,34 @@ function TableComponent({
       onRowSelectionChange(selectedRows);
     }
   }, [rowSelection, onRowSelectionChange, table]);
-  return /* @__PURE__ */ jsx20(TableContainer, { ref, children: /* @__PURE__ */ jsxs13(StyledTable, { children: [
-    /* @__PURE__ */ jsx20(TableHead, { children: table.getHeaderGroups().map((headerGroup) => /* @__PURE__ */ jsx20("tr", { children: headerGroup.headers.map((header) => /* @__PURE__ */ jsx20(
+  return /* @__PURE__ */ jsx27(TableContainer, { ref, children: /* @__PURE__ */ jsxs16(StyledTable, { children: [
+    /* @__PURE__ */ jsx27(TableHead, { children: table.getHeaderGroups().map((headerGroup) => /* @__PURE__ */ jsx27("tr", { children: headerGroup.headers.map((header) => /* @__PURE__ */ jsx27(
       TableHeaderCell,
       {
         onClick: header.column.getToggleSortingHandler(),
         sortable: header.column.getCanSort(),
-        children: header.isPlaceholder ? null : /* @__PURE__ */ jsxs13(HeaderCellContent, { children: [
+        children: header.isPlaceholder ? null : /* @__PURE__ */ jsxs16(HeaderCellContent, { children: [
           flexRender(
             header.column.columnDef.header,
             header.getContext()
           ),
-          header.column.getIsSorted() && /* @__PURE__ */ jsx20("span", { children: header.column.getIsSorted() === "asc" ? "\u2191" : "\u2193" })
+          header.column.getIsSorted() && /* @__PURE__ */ jsx27("span", { children: header.column.getIsSorted() === "asc" ? "\u2191" : "\u2193" })
         ] })
       },
       header.id
     )) }, headerGroup.id)) }),
-    /* @__PURE__ */ jsx20(TableBody, { children: table.getRowModel().rows.map((row) => /* @__PURE__ */ jsx20(
+    /* @__PURE__ */ jsx27(TableBody, { children: table.getRowModel().rows.map((row) => /* @__PURE__ */ jsx27(
       TableRow,
       {
         "data-selected": row.getIsSelected(),
-        children: row.getVisibleCells().map((cell) => /* @__PURE__ */ jsx20(TableCell, { children: flexRender(cell.column.columnDef.cell, cell.getContext()) }, cell.id))
+        children: row.getVisibleCells().map((cell) => /* @__PURE__ */ jsx27(TableCell, { children: flexRender(cell.column.columnDef.cell, cell.getContext()) }, cell.id))
       },
       row.id
     )) })
   ] }) });
 }
 TableComponent.displayName = "Table";
-var Table = forwardRef21(TableComponent);
+var Table = forwardRef28(TableComponent);
 export {
   Accordion,
   AccordionContent,
@@ -2630,6 +3441,10 @@ export {
   AccordionTrigger,
   Alert,
   Badge,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  Breadcrumbs,
   Button,
   Card,
   CardActions,
@@ -2640,11 +3455,18 @@ export {
   FormHelperText,
   FormItemContainer,
   FormLabel,
+  Grid,
+  GridItem,
   Input,
+  Pagination,
+  PaginationButton,
+  PaginationEllipsis,
   Popover,
   Progress,
   RadioGroup,
   Select,
+  Separator,
+  SidePanel,
   Spinner,
   Switch,
   Table,

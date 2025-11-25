@@ -906,4 +906,975 @@
       transform: scale(0.96);
 }
 }
+
+  @keyframes slideInFromRight {
+    from {
+      transform: translateX(100%);
+}
+
+    to {
+      transform: translateX(0);
+}
+}
+
+  @keyframes slideOutToRight {
+    from {
+      transform: translateX(0);
+}
+
+    to {
+      transform: translateX(100%);
+}
+}
+
+  @keyframes slideInFromLeft {
+    from {
+      transform: translateX(-100%);
+}
+
+    to {
+      transform: translateX(0);
+}
+}
+
+  @keyframes slideOutToLeft {
+    from {
+      transform: translateX(0);
+}
+
+    to {
+      transform: translateX(-100%);
+}
+}
+
+  @keyframes overlayShow {
+    from {
+      opacity: 0;
+}
+
+    to {
+      opacity: 1;
+}
+}
+
+  @keyframes overlayHide {
+    from {
+      opacity: 1;
+}
+
+    to {
+      opacity: 0;
+}
+}
+}
+
+@layer utilities{
+
+  .gap_2xs {
+    gap: var(--spacing-2xs);
+}
+
+  .gap_xs {
+    gap: var(--spacing-xs);
+}
+
+  .gap_sm {
+    gap: var(--spacing-sm);
+}
+
+  .gap_md {
+    gap: var(--spacing-md);
+}
+
+  .gap_lg {
+    gap: var(--spacing-lg);
+}
+
+  .gap_xl {
+    gap: var(--spacing-xl);
+}
+
+  .gap_2xl {
+    gap: var(--spacing-2xl);
+}
+
+  .grid-c_span_1 {
+    grid-column: span 1;
+}
+
+  .grid-c_span_2 {
+    grid-column: span 2;
+}
+
+  .grid-c_span_3 {
+    grid-column: span 3;
+}
+
+  .grid-c_span_4 {
+    grid-column: span 4;
+}
+
+  .grid-c_span_5 {
+    grid-column: span 5;
+}
+
+  .grid-c_span_6 {
+    grid-column: span 6;
+}
+
+  .grid-c_span_12 {
+    grid-column: span 12;
+}
+
+  .grid-c_auto {
+    grid-column: auto;
+}
+
+  .grid-r_span_1 {
+    grid-row: span 1;
+}
+
+  .grid-r_span_2 {
+    grid-row: span 2;
+}
+
+  .grid-r_span_3 {
+    grid-row: span 3;
+}
+
+  .grid-r_span_4 {
+    grid-row: span 4;
+}
+
+  .grid-r_auto {
+    grid-row: auto;
+}
+
+  .d_grid {
+    display: grid;
+}
+
+  .cg_2xs {
+    column-gap: var(--spacing-2xs);
+}
+
+  .cg_xs {
+    column-gap: var(--spacing-xs);
+}
+
+  .cg_sm {
+    column-gap: var(--spacing-sm);
+}
+
+  .cg_md {
+    column-gap: var(--spacing-md);
+}
+
+  .cg_lg {
+    column-gap: var(--spacing-lg);
+}
+
+  .cg_xl {
+    column-gap: var(--spacing-xl);
+}
+
+  .cg_2xl {
+    column-gap: var(--spacing-2xl);
+}
+
+  .rg_2xs {
+    row-gap: var(--spacing-2xs);
+}
+
+  .rg_xs {
+    row-gap: var(--spacing-xs);
+}
+
+  .rg_sm {
+    row-gap: var(--spacing-sm);
+}
+
+  .rg_md {
+    row-gap: var(--spacing-md);
+}
+
+  .rg_lg {
+    row-gap: var(--spacing-lg);
+}
+
+  .rg_xl {
+    row-gap: var(--spacing-xl);
+}
+
+  .rg_2xl {
+    row-gap: var(--spacing-2xl);
+}
+
+  .grid-tc_repeat\(1\,_minmax\(0\,_1fr\)\) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+  .grid-tc_repeat\(2\,_minmax\(0\,_1fr\)\) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+  .grid-tc_repeat\(3\,_minmax\(0\,_1fr\)\) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+  .grid-tc_repeat\(4\,_minmax\(0\,_1fr\)\) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+  .grid-tc_repeat\(5\,_minmax\(0\,_1fr\)\) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+  .grid-tc_repeat\(6\,_minmax\(0\,_1fr\)\) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+  .grid-tc_repeat\(12\,_minmax\(0\,_1fr\)\) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+  .grid-tc_repeat\(auto-fit\,_minmax\(100px\,_1fr\)\) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+  .grid-tc_repeat\(auto-fit\,_minmax\(150px\,_1fr\)\) {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+  .grid-tc_repeat\(auto-fit\,_minmax\(200px\,_1fr\)\) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+  .grid-tc_repeat\(auto-fit\,_minmax\(250px\,_1fr\)\) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+  .grid-tc_repeat\(auto-fit\,_minmax\(300px\,_1fr\)\) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+  @media screen and (min-width: 30rem) {
+    .sm\:gap_2xs {
+      gap: var(--spacing-2xs);
+}
+    .sm\:gap_xs {
+      gap: var(--spacing-xs);
+}
+    .sm\:gap_sm {
+      gap: var(--spacing-sm);
+}
+    .sm\:gap_md {
+      gap: var(--spacing-md);
+}
+    .sm\:gap_lg {
+      gap: var(--spacing-lg);
+}
+    .sm\:gap_xl {
+      gap: var(--spacing-xl);
+}
+    .sm\:gap_2xl {
+      gap: var(--spacing-2xl);
+}
+    .sm\:grid-c_span_1 {
+      grid-column: span 1;
+}
+    .sm\:grid-c_span_2 {
+      grid-column: span 2;
+}
+    .sm\:grid-c_span_3 {
+      grid-column: span 3;
+}
+    .sm\:grid-c_span_4 {
+      grid-column: span 4;
+}
+    .sm\:grid-c_span_5 {
+      grid-column: span 5;
+}
+    .sm\:grid-c_span_6 {
+      grid-column: span 6;
+}
+    .sm\:grid-c_span_12 {
+      grid-column: span 12;
+}
+    .sm\:grid-c_auto {
+      grid-column: auto;
+}
+    .sm\:grid-r_span_1 {
+      grid-row: span 1;
+}
+    .sm\:grid-r_span_2 {
+      grid-row: span 2;
+}
+    .sm\:grid-r_span_3 {
+      grid-row: span 3;
+}
+    .sm\:grid-r_span_4 {
+      grid-row: span 4;
+}
+    .sm\:grid-r_auto {
+      grid-row: auto;
+}
+    .sm\:d_grid {
+      display: grid;
+}
+    .sm\:cg_2xs {
+      column-gap: var(--spacing-2xs);
+}
+    .sm\:cg_xs {
+      column-gap: var(--spacing-xs);
+}
+    .sm\:cg_sm {
+      column-gap: var(--spacing-sm);
+}
+    .sm\:cg_md {
+      column-gap: var(--spacing-md);
+}
+    .sm\:cg_lg {
+      column-gap: var(--spacing-lg);
+}
+    .sm\:cg_xl {
+      column-gap: var(--spacing-xl);
+}
+    .sm\:cg_2xl {
+      column-gap: var(--spacing-2xl);
+}
+    .sm\:rg_2xs {
+      row-gap: var(--spacing-2xs);
+}
+    .sm\:rg_xs {
+      row-gap: var(--spacing-xs);
+}
+    .sm\:rg_sm {
+      row-gap: var(--spacing-sm);
+}
+    .sm\:rg_md {
+      row-gap: var(--spacing-md);
+}
+    .sm\:rg_lg {
+      row-gap: var(--spacing-lg);
+}
+    .sm\:rg_xl {
+      row-gap: var(--spacing-xl);
+}
+    .sm\:rg_2xl {
+      row-gap: var(--spacing-2xl);
+}
+    .sm\:grid-tc_repeat\(1\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+    .sm\:grid-tc_repeat\(2\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+    .sm\:grid-tc_repeat\(3\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+    .sm\:grid-tc_repeat\(4\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+    .sm\:grid-tc_repeat\(5\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+    .sm\:grid-tc_repeat\(6\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+    .sm\:grid-tc_repeat\(12\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+    .sm\:grid-tc_repeat\(auto-fit\,_minmax\(100px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+    .sm\:grid-tc_repeat\(auto-fit\,_minmax\(150px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+    .sm\:grid-tc_repeat\(auto-fit\,_minmax\(200px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+    .sm\:grid-tc_repeat\(auto-fit\,_minmax\(250px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+    .sm\:grid-tc_repeat\(auto-fit\,_minmax\(300px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+}
+
+  @media screen and (min-width: 48rem) {
+    .md\:gap_2xs {
+      gap: var(--spacing-2xs);
+}
+    .md\:gap_xs {
+      gap: var(--spacing-xs);
+}
+    .md\:gap_sm {
+      gap: var(--spacing-sm);
+}
+    .md\:gap_md {
+      gap: var(--spacing-md);
+}
+    .md\:gap_lg {
+      gap: var(--spacing-lg);
+}
+    .md\:gap_xl {
+      gap: var(--spacing-xl);
+}
+    .md\:gap_2xl {
+      gap: var(--spacing-2xl);
+}
+    .md\:grid-c_span_1 {
+      grid-column: span 1;
+}
+    .md\:grid-c_span_2 {
+      grid-column: span 2;
+}
+    .md\:grid-c_span_3 {
+      grid-column: span 3;
+}
+    .md\:grid-c_span_4 {
+      grid-column: span 4;
+}
+    .md\:grid-c_span_5 {
+      grid-column: span 5;
+}
+    .md\:grid-c_span_6 {
+      grid-column: span 6;
+}
+    .md\:grid-c_span_12 {
+      grid-column: span 12;
+}
+    .md\:grid-c_auto {
+      grid-column: auto;
+}
+    .md\:grid-r_span_1 {
+      grid-row: span 1;
+}
+    .md\:grid-r_span_2 {
+      grid-row: span 2;
+}
+    .md\:grid-r_span_3 {
+      grid-row: span 3;
+}
+    .md\:grid-r_span_4 {
+      grid-row: span 4;
+}
+    .md\:grid-r_auto {
+      grid-row: auto;
+}
+    .md\:d_grid {
+      display: grid;
+}
+    .md\:cg_2xs {
+      column-gap: var(--spacing-2xs);
+}
+    .md\:cg_xs {
+      column-gap: var(--spacing-xs);
+}
+    .md\:cg_sm {
+      column-gap: var(--spacing-sm);
+}
+    .md\:cg_md {
+      column-gap: var(--spacing-md);
+}
+    .md\:cg_lg {
+      column-gap: var(--spacing-lg);
+}
+    .md\:cg_xl {
+      column-gap: var(--spacing-xl);
+}
+    .md\:cg_2xl {
+      column-gap: var(--spacing-2xl);
+}
+    .md\:rg_2xs {
+      row-gap: var(--spacing-2xs);
+}
+    .md\:rg_xs {
+      row-gap: var(--spacing-xs);
+}
+    .md\:rg_sm {
+      row-gap: var(--spacing-sm);
+}
+    .md\:rg_md {
+      row-gap: var(--spacing-md);
+}
+    .md\:rg_lg {
+      row-gap: var(--spacing-lg);
+}
+    .md\:rg_xl {
+      row-gap: var(--spacing-xl);
+}
+    .md\:rg_2xl {
+      row-gap: var(--spacing-2xl);
+}
+    .md\:grid-tc_repeat\(1\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+    .md\:grid-tc_repeat\(2\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+    .md\:grid-tc_repeat\(3\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+    .md\:grid-tc_repeat\(4\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+    .md\:grid-tc_repeat\(5\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+    .md\:grid-tc_repeat\(6\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+    .md\:grid-tc_repeat\(12\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+    .md\:grid-tc_repeat\(auto-fit\,_minmax\(100px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+    .md\:grid-tc_repeat\(auto-fit\,_minmax\(150px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+    .md\:grid-tc_repeat\(auto-fit\,_minmax\(200px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+    .md\:grid-tc_repeat\(auto-fit\,_minmax\(250px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+    .md\:grid-tc_repeat\(auto-fit\,_minmax\(300px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+}
+
+  @media screen and (min-width: 64rem) {
+    .lg\:gap_2xs {
+      gap: var(--spacing-2xs);
+}
+    .lg\:gap_xs {
+      gap: var(--spacing-xs);
+}
+    .lg\:gap_sm {
+      gap: var(--spacing-sm);
+}
+    .lg\:gap_md {
+      gap: var(--spacing-md);
+}
+    .lg\:gap_lg {
+      gap: var(--spacing-lg);
+}
+    .lg\:gap_xl {
+      gap: var(--spacing-xl);
+}
+    .lg\:gap_2xl {
+      gap: var(--spacing-2xl);
+}
+    .lg\:grid-c_span_1 {
+      grid-column: span 1;
+}
+    .lg\:grid-c_span_2 {
+      grid-column: span 2;
+}
+    .lg\:grid-c_span_3 {
+      grid-column: span 3;
+}
+    .lg\:grid-c_span_4 {
+      grid-column: span 4;
+}
+    .lg\:grid-c_span_5 {
+      grid-column: span 5;
+}
+    .lg\:grid-c_span_6 {
+      grid-column: span 6;
+}
+    .lg\:grid-c_span_12 {
+      grid-column: span 12;
+}
+    .lg\:grid-c_auto {
+      grid-column: auto;
+}
+    .lg\:grid-r_span_1 {
+      grid-row: span 1;
+}
+    .lg\:grid-r_span_2 {
+      grid-row: span 2;
+}
+    .lg\:grid-r_span_3 {
+      grid-row: span 3;
+}
+    .lg\:grid-r_span_4 {
+      grid-row: span 4;
+}
+    .lg\:grid-r_auto {
+      grid-row: auto;
+}
+    .lg\:d_grid {
+      display: grid;
+}
+    .lg\:cg_2xs {
+      column-gap: var(--spacing-2xs);
+}
+    .lg\:cg_xs {
+      column-gap: var(--spacing-xs);
+}
+    .lg\:cg_sm {
+      column-gap: var(--spacing-sm);
+}
+    .lg\:cg_md {
+      column-gap: var(--spacing-md);
+}
+    .lg\:cg_lg {
+      column-gap: var(--spacing-lg);
+}
+    .lg\:cg_xl {
+      column-gap: var(--spacing-xl);
+}
+    .lg\:cg_2xl {
+      column-gap: var(--spacing-2xl);
+}
+    .lg\:rg_2xs {
+      row-gap: var(--spacing-2xs);
+}
+    .lg\:rg_xs {
+      row-gap: var(--spacing-xs);
+}
+    .lg\:rg_sm {
+      row-gap: var(--spacing-sm);
+}
+    .lg\:rg_md {
+      row-gap: var(--spacing-md);
+}
+    .lg\:rg_lg {
+      row-gap: var(--spacing-lg);
+}
+    .lg\:rg_xl {
+      row-gap: var(--spacing-xl);
+}
+    .lg\:rg_2xl {
+      row-gap: var(--spacing-2xl);
+}
+    .lg\:grid-tc_repeat\(1\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+    .lg\:grid-tc_repeat\(2\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+    .lg\:grid-tc_repeat\(3\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+    .lg\:grid-tc_repeat\(4\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+    .lg\:grid-tc_repeat\(5\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+    .lg\:grid-tc_repeat\(6\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+    .lg\:grid-tc_repeat\(12\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+    .lg\:grid-tc_repeat\(auto-fit\,_minmax\(100px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+    .lg\:grid-tc_repeat\(auto-fit\,_minmax\(150px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+    .lg\:grid-tc_repeat\(auto-fit\,_minmax\(200px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+    .lg\:grid-tc_repeat\(auto-fit\,_minmax\(250px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+    .lg\:grid-tc_repeat\(auto-fit\,_minmax\(300px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+}
+
+  @media screen and (min-width: 80rem) {
+    .xl\:gap_2xs {
+      gap: var(--spacing-2xs);
+}
+    .xl\:gap_xs {
+      gap: var(--spacing-xs);
+}
+    .xl\:gap_sm {
+      gap: var(--spacing-sm);
+}
+    .xl\:gap_md {
+      gap: var(--spacing-md);
+}
+    .xl\:gap_lg {
+      gap: var(--spacing-lg);
+}
+    .xl\:gap_xl {
+      gap: var(--spacing-xl);
+}
+    .xl\:gap_2xl {
+      gap: var(--spacing-2xl);
+}
+    .xl\:grid-c_span_1 {
+      grid-column: span 1;
+}
+    .xl\:grid-c_span_2 {
+      grid-column: span 2;
+}
+    .xl\:grid-c_span_3 {
+      grid-column: span 3;
+}
+    .xl\:grid-c_span_4 {
+      grid-column: span 4;
+}
+    .xl\:grid-c_span_5 {
+      grid-column: span 5;
+}
+    .xl\:grid-c_span_6 {
+      grid-column: span 6;
+}
+    .xl\:grid-c_span_12 {
+      grid-column: span 12;
+}
+    .xl\:grid-c_auto {
+      grid-column: auto;
+}
+    .xl\:grid-r_span_1 {
+      grid-row: span 1;
+}
+    .xl\:grid-r_span_2 {
+      grid-row: span 2;
+}
+    .xl\:grid-r_span_3 {
+      grid-row: span 3;
+}
+    .xl\:grid-r_span_4 {
+      grid-row: span 4;
+}
+    .xl\:grid-r_auto {
+      grid-row: auto;
+}
+    .xl\:d_grid {
+      display: grid;
+}
+    .xl\:cg_2xs {
+      column-gap: var(--spacing-2xs);
+}
+    .xl\:cg_xs {
+      column-gap: var(--spacing-xs);
+}
+    .xl\:cg_sm {
+      column-gap: var(--spacing-sm);
+}
+    .xl\:cg_md {
+      column-gap: var(--spacing-md);
+}
+    .xl\:cg_lg {
+      column-gap: var(--spacing-lg);
+}
+    .xl\:cg_xl {
+      column-gap: var(--spacing-xl);
+}
+    .xl\:cg_2xl {
+      column-gap: var(--spacing-2xl);
+}
+    .xl\:rg_2xs {
+      row-gap: var(--spacing-2xs);
+}
+    .xl\:rg_xs {
+      row-gap: var(--spacing-xs);
+}
+    .xl\:rg_sm {
+      row-gap: var(--spacing-sm);
+}
+    .xl\:rg_md {
+      row-gap: var(--spacing-md);
+}
+    .xl\:rg_lg {
+      row-gap: var(--spacing-lg);
+}
+    .xl\:rg_xl {
+      row-gap: var(--spacing-xl);
+}
+    .xl\:rg_2xl {
+      row-gap: var(--spacing-2xl);
+}
+    .xl\:grid-tc_repeat\(1\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+    .xl\:grid-tc_repeat\(2\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+    .xl\:grid-tc_repeat\(3\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+    .xl\:grid-tc_repeat\(4\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+    .xl\:grid-tc_repeat\(5\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+    .xl\:grid-tc_repeat\(6\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+    .xl\:grid-tc_repeat\(12\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+    .xl\:grid-tc_repeat\(auto-fit\,_minmax\(100px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+    .xl\:grid-tc_repeat\(auto-fit\,_minmax\(150px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+    .xl\:grid-tc_repeat\(auto-fit\,_minmax\(200px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+    .xl\:grid-tc_repeat\(auto-fit\,_minmax\(250px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+    .xl\:grid-tc_repeat\(auto-fit\,_minmax\(300px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+}
+
+  @media screen and (min-width: 96rem) {
+    .\32xl\:gap_2xs {
+      gap: var(--spacing-2xs);
+}
+    .\32xl\:gap_xs {
+      gap: var(--spacing-xs);
+}
+    .\32xl\:gap_sm {
+      gap: var(--spacing-sm);
+}
+    .\32xl\:gap_md {
+      gap: var(--spacing-md);
+}
+    .\32xl\:gap_lg {
+      gap: var(--spacing-lg);
+}
+    .\32xl\:gap_xl {
+      gap: var(--spacing-xl);
+}
+    .\32xl\:gap_2xl {
+      gap: var(--spacing-2xl);
+}
+    .\32xl\:grid-c_span_1 {
+      grid-column: span 1;
+}
+    .\32xl\:grid-c_span_2 {
+      grid-column: span 2;
+}
+    .\32xl\:grid-c_span_3 {
+      grid-column: span 3;
+}
+    .\32xl\:grid-c_span_4 {
+      grid-column: span 4;
+}
+    .\32xl\:grid-c_span_5 {
+      grid-column: span 5;
+}
+    .\32xl\:grid-c_span_6 {
+      grid-column: span 6;
+}
+    .\32xl\:grid-c_span_12 {
+      grid-column: span 12;
+}
+    .\32xl\:grid-c_auto {
+      grid-column: auto;
+}
+    .\32xl\:grid-r_span_1 {
+      grid-row: span 1;
+}
+    .\32xl\:grid-r_span_2 {
+      grid-row: span 2;
+}
+    .\32xl\:grid-r_span_3 {
+      grid-row: span 3;
+}
+    .\32xl\:grid-r_span_4 {
+      grid-row: span 4;
+}
+    .\32xl\:grid-r_auto {
+      grid-row: auto;
+}
+    .\32xl\:d_grid {
+      display: grid;
+}
+    .\32xl\:cg_2xs {
+      column-gap: var(--spacing-2xs);
+}
+    .\32xl\:cg_xs {
+      column-gap: var(--spacing-xs);
+}
+    .\32xl\:cg_sm {
+      column-gap: var(--spacing-sm);
+}
+    .\32xl\:cg_md {
+      column-gap: var(--spacing-md);
+}
+    .\32xl\:cg_lg {
+      column-gap: var(--spacing-lg);
+}
+    .\32xl\:cg_xl {
+      column-gap: var(--spacing-xl);
+}
+    .\32xl\:cg_2xl {
+      column-gap: var(--spacing-2xl);
+}
+    .\32xl\:rg_2xs {
+      row-gap: var(--spacing-2xs);
+}
+    .\32xl\:rg_xs {
+      row-gap: var(--spacing-xs);
+}
+    .\32xl\:rg_sm {
+      row-gap: var(--spacing-sm);
+}
+    .\32xl\:rg_md {
+      row-gap: var(--spacing-md);
+}
+    .\32xl\:rg_lg {
+      row-gap: var(--spacing-lg);
+}
+    .\32xl\:rg_xl {
+      row-gap: var(--spacing-xl);
+}
+    .\32xl\:rg_2xl {
+      row-gap: var(--spacing-2xl);
+}
+    .\32xl\:grid-tc_repeat\(1\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+    .\32xl\:grid-tc_repeat\(2\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+    .\32xl\:grid-tc_repeat\(3\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+    .\32xl\:grid-tc_repeat\(4\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+    .\32xl\:grid-tc_repeat\(5\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+    .\32xl\:grid-tc_repeat\(6\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+    .\32xl\:grid-tc_repeat\(12\,_minmax\(0\,_1fr\)\) {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+    .\32xl\:grid-tc_repeat\(auto-fit\,_minmax\(100px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+    .\32xl\:grid-tc_repeat\(auto-fit\,_minmax\(150px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+    .\32xl\:grid-tc_repeat\(auto-fit\,_minmax\(200px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+    .\32xl\:grid-tc_repeat\(auto-fit\,_minmax\(250px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+    .\32xl\:grid-tc_repeat\(auto-fit\,_minmax\(300px\,_1fr\)\) {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+}
 }
