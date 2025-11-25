@@ -6129,6 +6129,306 @@ function EventCalendarComponent({
 }
 EventCalendarComponent.displayName = "EventCalendar";
 var EventCalendar = forwardRef29(EventCalendarComponent);
+
+// src/gantt-chart/GanttChart.tsx
+import { Gantt } from "@svar-ui/react-gantt";
+import "@svar-ui/react-gantt/all.css";
+import { forwardRef as forwardRef30, useCallback as useCallback2, useEffect as useEffect2, useRef, useState as useState2 } from "react";
+import { jsx as jsx29, jsxs as jsxs17 } from "react/jsx-runtime";
+var defaultColumns = [
+  { id: "text", header: "Task", width: 150 },
+  { id: "start", header: "Start date", width: 90 },
+  { id: "duration", header: "Duration", width: 70 }
+];
+var scrollNavStyles = css({
+  position: "absolute",
+  top: "8px",
+  right: "20px",
+  display: "flex",
+  gap: "4px",
+  zIndex: 10
+});
+var scrollButtonStyles = css({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "28px",
+  height: "28px",
+  borderRadius: "sm",
+  border: "1px solid",
+  borderColor: "border.subtle",
+  bg: "background.base",
+  color: "text.secondary",
+  cursor: "pointer",
+  transition: "all 0.15s ease",
+  _hover: {
+    bg: "background.subtle",
+    borderColor: "border.strong",
+    color: "text.primary"
+  },
+  _disabled: {
+    opacity: 0.4,
+    cursor: "not-allowed",
+    _hover: {
+      bg: "background.base",
+      borderColor: "border.subtle",
+      color: "text.secondary"
+    }
+  }
+});
+function ChevronLeftIcon() {
+  return /* @__PURE__ */ jsx29("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", children: /* @__PURE__ */ jsx29(
+    "path",
+    {
+      d: "M10 12L6 8L10 4",
+      stroke: "currentColor",
+      strokeWidth: "1.5",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }
+  ) });
+}
+function ChevronRightIcon() {
+  return /* @__PURE__ */ jsx29("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", children: /* @__PURE__ */ jsx29(
+    "path",
+    {
+      d: "M6 4L10 8L6 12",
+      stroke: "currentColor",
+      strokeWidth: "1.5",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }
+  ) });
+}
+var GanttContainer = styled("div", {
+  base: {
+    fontFamily: "brand",
+    borderRadius: "component.cardRadius",
+    border: "1px solid",
+    borderColor: "border.subtle",
+    overflow: "hidden",
+    bg: "background.base",
+    // Override SVAR Gantt CSS variables with brand tokens
+    // Task/bar styling
+    "--wx-gantt-task-color": token("colors.accent.primary"),
+    "--wx-gantt-task-font-color": token("colors.button.primary.text"),
+    "--wx-gantt-task-fill-color": token("colors.accent.primary"),
+    "--wx-gantt-task-border-color": token("colors.accent.primary"),
+    "--wx-gantt-project-color": token("colors.accent.secondary"),
+    "--wx-gantt-milestone-color": token("colors.accent.primary"),
+    "--wx-gantt-bar-border-radius": token("radii.sm"),
+    "--wx-gantt-link-color": token("colors.border.strong"),
+    "--wx-gantt-progress-marker-height": "8px",
+    // Grid styling
+    "--wx-grid-header-font": token("fonts.brand"),
+    "--wx-grid-header-font-color": token("colors.text.secondary"),
+    "--wx-grid-body-font": token("fonts.brand"),
+    "--wx-grid-body-row-border": `1px solid ${token("colors.border.subtle")}`,
+    // Timescale styling
+    "--wx-timescale-font": token("fonts.brand"),
+    "--wx-timescale-font-color": token("colors.text.secondary"),
+    "--wx-timescale-border": `1px solid ${token("colors.border.subtle")}`,
+    // Tooltip styling
+    "--wx-tooltip-background": token("colors.background.elevated"),
+    "--wx-tooltip-font-color": token("colors.text.primary"),
+    // Holiday/weekend styling
+    "--wx-gantt-holiday-background": token("colors.background.subtle"),
+    // Background and borders
+    "--wx-background": token("colors.background.base"),
+    "--wx-background-alt": token("colors.background.subtle"),
+    "--wx-border": token("colors.border.subtle"),
+    "--wx-color": token("colors.text.primary"),
+    "--wx-color-secondary": token("colors.text.secondary"),
+    // Component internal styling
+    "& .wx-gantt": {
+      border: "none"
+    },
+    "& .wx-header": {
+      bg: "background.subtle",
+      borderBottom: "1px solid",
+      borderColor: "border.subtle"
+    },
+    "& .wx-grid-header": {
+      fontWeight: "medium",
+      fontSize: "xs",
+      textTransform: "uppercase",
+      letterSpacing: "0.5px"
+    },
+    "& .wx-grid-cell": {
+      fontSize: "xs",
+      color: "text.primary"
+    },
+    "& .wx-timescale-cell": {
+      fontSize: "xs",
+      fontWeight: "medium"
+    },
+    "& .wx-bar": {
+      transition: "all 0.15s ease",
+      "&:hover": {
+        opacity: 0.9
+      }
+    },
+    "& .wx-bar-content": {
+      fontSize: "xs",
+      fontWeight: "medium"
+    },
+    "& .wx-link": {
+      stroke: token("colors.border.strong")
+    },
+    // Fix gap between grid and timeline
+    "& .wx-grid": {
+      borderRight: "1px solid",
+      borderColor: "border.subtle"
+    },
+    "& .wx-resizer": {
+      cursor: "col-resize",
+      bg: "#eee",
+      transition: "background 0.15s ease",
+      "&:hover": {
+        bg: "border.strong"
+      },
+      "&:active": {
+        bg: "accent.primary"
+      }
+    }
+  }
+});
+function GanttChartComponent({
+  tasks,
+  links = [],
+  scales,
+  columns,
+  start,
+  end,
+  height = 400,
+  editable = false,
+  readonly = false,
+  onTaskClick,
+  onTaskChange,
+  onLinkAdd,
+  onLinkDelete
+}, ref) {
+  const containerRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState2(false);
+  const [canScrollRight, setCanScrollRight] = useState2(false);
+  const updateScrollState = useCallback2(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const chartElement = container.querySelector(".wx-chart");
+    if (!chartElement) return;
+    const { scrollLeft, scrollWidth, clientWidth } = chartElement;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+  }, []);
+  useEffect2(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const chartElement = container.querySelector(".wx-chart");
+    if (!chartElement) return;
+    updateScrollState();
+    chartElement.addEventListener("scroll", updateScrollState);
+    const resizeObserver = new ResizeObserver(updateScrollState);
+    resizeObserver.observe(chartElement);
+    return () => {
+      chartElement.removeEventListener("scroll", updateScrollState);
+      resizeObserver.disconnect();
+    };
+  }, [updateScrollState]);
+  const scroll = (direction) => {
+    const container = containerRef.current;
+    if (!container) return;
+    const chartElement = container.querySelector(".wx-chart");
+    if (!chartElement) return;
+    const scrollAmount = chartElement.clientWidth * 0.5;
+    chartElement.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth"
+    });
+  };
+  const handleTaskSelect = (task) => {
+    if (onTaskClick) {
+      const foundTask = tasks.find((t) => t.id === task.id);
+      if (foundTask) {
+        onTaskClick(foundTask);
+      }
+    }
+  };
+  const handleTaskUpdate = (updatedTask) => {
+    if (onTaskChange) {
+      onTaskChange(updatedTask);
+    }
+  };
+  const handleLinkAdd = (link) => {
+    if (onLinkAdd) {
+      onLinkAdd(link);
+    }
+  };
+  const handleLinkDelete = (link) => {
+    if (onLinkDelete) {
+      onLinkDelete(link);
+    }
+  };
+  const ganttProps = {
+    tasks,
+    links,
+    readonly: readonly || !editable
+  };
+  if (scales) {
+    ganttProps.scales = scales;
+  }
+  if (columns === false) {
+    ganttProps.columns = [];
+  } else {
+    ganttProps.columns = columns ?? defaultColumns;
+  }
+  if (start) {
+    ganttProps.start = start;
+  }
+  if (end) {
+    ganttProps.end = end;
+  }
+  if (onTaskClick) {
+    ganttProps["select-task"] = handleTaskSelect;
+  }
+  if (onTaskChange) {
+    ganttProps["update-task"] = handleTaskUpdate;
+  }
+  if (onLinkAdd) {
+    ganttProps["add-link"] = handleLinkAdd;
+  }
+  if (onLinkDelete) {
+    ganttProps["delete-link"] = handleLinkDelete;
+  }
+  return /* @__PURE__ */ jsxs17(GanttContainer, { ref, style: { height, position: "relative" }, children: [
+    /* @__PURE__ */ jsx29("div", { ref: containerRef, style: { height: "100%" }, children: /* @__PURE__ */ jsx29(Gantt, { ...ganttProps }) }),
+    /* @__PURE__ */ jsxs17("div", { className: scrollNavStyles, children: [
+      /* @__PURE__ */ jsx29(
+        "button",
+        {
+          type: "button",
+          className: scrollButtonStyles,
+          onClick: () => scroll("left"),
+          disabled: !canScrollLeft,
+          "aria-label": "Scroll timeline left",
+          children: /* @__PURE__ */ jsx29(ChevronLeftIcon, {})
+        }
+      ),
+      /* @__PURE__ */ jsx29(
+        "button",
+        {
+          type: "button",
+          className: scrollButtonStyles,
+          onClick: () => scroll("right"),
+          disabled: !canScrollRight,
+          "aria-label": "Scroll timeline right",
+          children: /* @__PURE__ */ jsx29(ChevronRightIcon, {})
+        }
+      )
+    ] })
+  ] });
+}
+GanttChartComponent.displayName = "GanttChart";
+var GanttChart = forwardRef30(GanttChartComponent);
 export {
   Accordion,
   AccordionContent,
@@ -6151,6 +6451,7 @@ export {
   FormHelperText,
   FormItemContainer,
   FormLabel,
+  GanttChart,
   Grid,
   GridItem,
   Input,
