@@ -20886,4 +20886,28 @@ declare const Table: <TData>(props: TableProps<TData> & {
     ref?: React.Ref<HTMLDivElement>;
 }) => JSX.Element;
 
-export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, Dialog, type DialogProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, Grid, GridItem, type GridItemProps, type GridProps, Input, type InputProps, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement };
+interface CalendarEvent {
+    id: string;
+    title: string;
+    start: Date | string;
+    end?: Date | string;
+    allDay?: boolean;
+    color?: string;
+    textColor?: string;
+    extendedProps?: Record<string, unknown>;
+}
+interface EventCalendarProps {
+    events: CalendarEvent[];
+    onEventClick?: (event: CalendarEvent) => void;
+    onDateClick?: (date: Date) => void;
+    onEventDrop?: (event: CalendarEvent, newStart: Date, newEnd: Date | null) => void;
+    editable?: boolean;
+    initialDate?: Date | string;
+    initialView?: 'dayGridMonth' | 'dayGridWeek' | 'dayGridDay';
+    weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+    showWeekNumbers?: boolean;
+    height?: string | number;
+}
+declare const EventCalendar: react.ForwardRefExoticComponent<EventCalendarProps & react.RefAttributes<HTMLDivElement>>;
+
+export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, type CalendarEvent, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, Dialog, type DialogProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, EventCalendar, type EventCalendarProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, Grid, GridItem, type GridItemProps, type GridProps, Input, type InputProps, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement };
