@@ -20972,4 +20972,73 @@ interface GanttChartProps {
 }
 declare const GanttChart: react.ForwardRefExoticComponent<GanttChartProps & react.RefAttributes<HTMLDivElement>>;
 
-export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, type CalendarEvent, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, Dialog, type DialogProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, EventCalendar, type EventCalendarProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, GanttChart, type GanttChartProps, type GanttColumn, type GanttLink, type GanttScale, type GanttTask, Grid, GridItem, type GridItemProps, type GridProps, Icon, type IconName, type IconProps, type IconSize, Input, type InputProps, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement };
+interface BaseChartProps {
+    title?: string;
+    showLegend?: boolean;
+    legendPosition?: 'top' | 'bottom' | 'left' | 'right';
+    height?: number;
+    className?: string;
+}
+interface BarDataset {
+    label: string;
+    data: number[];
+    backgroundColor?: string | string[];
+    borderColor?: string | string[];
+    borderWidth?: number;
+}
+interface BarChartProps extends BaseChartProps {
+    labels: string[];
+    datasets: BarDataset[];
+    showValues?: boolean;
+    horizontal?: boolean;
+}
+interface LineDataset {
+    label: string;
+    data: number[];
+    borderColor?: string;
+    fill?: boolean;
+    backgroundColor?: string;
+    tension?: number;
+}
+interface LineChartProps extends BaseChartProps {
+    labels: string[];
+    datasets: LineDataset[];
+    tension?: number;
+}
+interface PieChartProps extends BaseChartProps {
+    labels: string[];
+    data: number[];
+    colors?: string[];
+}
+interface DoughnutChartProps extends BaseChartProps {
+    labels: string[];
+    data: number[];
+    colors?: string[];
+    cutout?: number | string;
+}
+
+declare function BarChart({ labels, datasets, title, showLegend, legendPosition, height, className, showValues, horizontal, }: BarChartProps): react_jsx_runtime.JSX.Element;
+
+declare function LineChart({ labels, datasets, title, showLegend, legendPosition, height, className, tension, }: LineChartProps): react_jsx_runtime.JSX.Element;
+
+declare function PieChart({ labels, data, title, showLegend, legendPosition, height, className, colors, }: PieChartProps): react_jsx_runtime.JSX.Element;
+
+declare function DoughnutChart({ labels, data, title, showLegend, legendPosition, height, className, colors, cutout, }: DoughnutChartProps): react_jsx_runtime.JSX.Element;
+
+declare const chartColors: {
+    readonly navy: string;
+    readonly red: string;
+    readonly blue: string;
+    readonly orange: string;
+    readonly purpleDark: string;
+    readonly yellow: string;
+    readonly purple: string;
+    readonly green: string;
+};
+declare const chartColorPalette: string[];
+declare function getChartColor(index: number): string;
+
+declare function useChartColors(count: number, customColors?: string[]): string[];
+declare function useChartColorPalette(): readonly string[];
+
+export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BarChart, type BarChartProps, type BarDataset, type BaseChartProps, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, type CalendarEvent, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, Dialog, type DialogProps, DoughnutChart, type DoughnutChartProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, EventCalendar, type EventCalendarProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, GanttChart, type GanttChartProps, type GanttColumn, type GanttLink, type GanttScale, type GanttTask, Grid, GridItem, type GridItemProps, type GridProps, Icon, type IconName, type IconProps, type IconSize, Input, type InputProps, LineChart, type LineChartProps, type LineDataset, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, PieChart, type PieChartProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement, chartColorPalette, chartColors, getChartColor, useChartColorPalette, useChartColors };

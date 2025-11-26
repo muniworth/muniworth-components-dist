@@ -6837,6 +6837,362 @@ function GanttChartComponent({
 }
 GanttChartComponent.displayName = "GanttChart";
 var GanttChart = forwardRef30(GanttChartComponent);
+
+// src/charts/BarChart.tsx
+import { Bar } from "react-chartjs-2";
+
+// src/charts/ChartContainer.tsx
+var ChartContainer = styled("div", {
+  base: {
+    width: "100%",
+    position: "relative",
+    fontFamily: "brand"
+  }
+});
+var ChartInner = styled("div", {
+  base: {
+    position: "relative",
+    width: "100%"
+  }
+});
+
+// src/charts/chart-config.ts
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  ArcElement,
+  Title as Title7,
+  Tooltip as Tooltip3,
+  Legend,
+  Filler
+} from "chart.js";
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  ArcElement,
+  Title7,
+  Tooltip3,
+  Legend,
+  Filler
+);
+var chartColors = {
+  navy: token("colors.data.navy"),
+  red: token("colors.data.red"),
+  blue: token("colors.data.blue"),
+  orange: token("colors.data.orange"),
+  purpleDark: token("colors.data.purple-dark"),
+  yellow: token("colors.data.yellow"),
+  purple: token("colors.data.purple"),
+  green: token("colors.data.green")
+};
+var chartColorPalette = [
+  chartColors.blue,
+  chartColors.navy,
+  chartColors.orange,
+  chartColors.green,
+  chartColors.purple,
+  chartColors.red,
+  chartColors.purpleDark,
+  chartColors.yellow
+];
+function getChartColor(index) {
+  return chartColorPalette[index % chartColorPalette.length];
+}
+var chartTypography = {
+  fontFamily: token("fonts.brand"),
+  fontSize: {
+    title: 16,
+    label: 12,
+    tick: 11
+  },
+  fontWeight: {
+    normal: "normal",
+    medium: 500,
+    bold: "bold"
+  }
+};
+var chartUIColors = {
+  textPrimary: token("colors.text.primary"),
+  textSecondary: token("colors.text.secondary"),
+  gridLine: token("colors.border.subtle"),
+  background: token("colors.background.base")
+};
+function createBaseChartOptions(options) {
+  const { title, showLegend = true, legendPosition = "top" } = options ?? {};
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: title ? {
+        display: true,
+        text: title,
+        font: {
+          family: chartTypography.fontFamily,
+          size: chartTypography.fontSize.title,
+          weight: chartTypography.fontWeight.medium
+        },
+        color: chartUIColors.textPrimary,
+        padding: { bottom: 16 }
+      } : { display: false },
+      legend: {
+        display: showLegend,
+        position: legendPosition,
+        labels: {
+          font: {
+            family: chartTypography.fontFamily,
+            size: chartTypography.fontSize.label
+          },
+          color: chartUIColors.textSecondary,
+          padding: 16,
+          usePointStyle: true,
+          pointStyle: "circle"
+        }
+      },
+      tooltip: {
+        backgroundColor: token("colors.tooltip.bg"),
+        titleFont: {
+          family: chartTypography.fontFamily,
+          size: chartTypography.fontSize.label,
+          weight: chartTypography.fontWeight.medium
+        },
+        bodyFont: {
+          family: chartTypography.fontFamily,
+          size: chartTypography.fontSize.label
+        },
+        titleColor: token("colors.tooltip.text"),
+        bodyColor: token("colors.tooltip.text"),
+        padding: 12,
+        cornerRadius: 8,
+        displayColors: true,
+        boxPadding: 4
+      }
+    }
+  };
+}
+function createAxisOptions() {
+  return {
+    x: {
+      grid: {
+        display: false
+      },
+      ticks: {
+        font: {
+          family: chartTypography.fontFamily,
+          size: chartTypography.fontSize.tick
+        },
+        color: chartUIColors.textSecondary
+      },
+      border: {
+        color: chartUIColors.gridLine
+      }
+    },
+    y: {
+      grid: {
+        color: chartUIColors.gridLine
+      },
+      ticks: {
+        font: {
+          family: chartTypography.fontFamily,
+          size: chartTypography.fontSize.tick
+        },
+        color: chartUIColors.textSecondary
+      },
+      border: {
+        display: false
+      }
+    }
+  };
+}
+
+// src/charts/BarChart.tsx
+import { jsx as jsx31 } from "react/jsx-runtime";
+function BarChart({
+  labels,
+  datasets,
+  title,
+  showLegend = true,
+  legendPosition = "top",
+  height = 300,
+  className,
+  showValues = false,
+  horizontal = false
+}) {
+  const chartData = {
+    labels,
+    datasets: datasets.map((dataset, index) => ({
+      label: dataset.label,
+      data: dataset.data,
+      backgroundColor: dataset.backgroundColor ?? getChartColor(index),
+      borderColor: dataset.borderColor ?? "transparent",
+      borderWidth: dataset.borderWidth ?? 0,
+      borderRadius: 4
+    }))
+  };
+  const baseOptions = createBaseChartOptions({ title, showLegend, legendPosition });
+  const axisOptions = createAxisOptions();
+  const options = {
+    ...baseOptions,
+    indexAxis: horizontal ? "y" : "x",
+    scales: horizontal ? { x: axisOptions.y, y: axisOptions.x } : axisOptions,
+    plugins: {
+      ...baseOptions.plugins,
+      ...showValues && {
+        datalabels: {
+          display: true,
+          anchor: "end",
+          align: "top"
+        }
+      }
+    }
+  };
+  return /* @__PURE__ */ jsx31(ChartContainer, { className, children: /* @__PURE__ */ jsx31(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx31(Bar, { data: chartData, options }) }) });
+}
+
+// src/charts/LineChart.tsx
+import { Line } from "react-chartjs-2";
+import { jsx as jsx32 } from "react/jsx-runtime";
+function LineChart({
+  labels,
+  datasets,
+  title,
+  showLegend = true,
+  legendPosition = "top",
+  height = 300,
+  className,
+  tension = 0.4
+}) {
+  const chartData = {
+    labels,
+    datasets: datasets.map((dataset, index) => {
+      const color = dataset.borderColor ?? getChartColor(index);
+      return {
+        label: dataset.label,
+        data: dataset.data,
+        borderColor: color,
+        backgroundColor: dataset.fill ? dataset.backgroundColor ?? `${color}33` : "transparent",
+        borderWidth: 2,
+        fill: dataset.fill ?? false,
+        tension: dataset.tension ?? tension,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointBackgroundColor: color,
+        pointBorderColor: "#fff",
+        pointBorderWidth: 2
+      };
+    })
+  };
+  const baseOptions = createBaseChartOptions({ title, showLegend, legendPosition });
+  const axisOptions = createAxisOptions();
+  const options = {
+    ...baseOptions,
+    scales: axisOptions,
+    interaction: {
+      mode: "index",
+      intersect: false
+    },
+    hover: {
+      mode: "index",
+      intersect: false
+    }
+  };
+  return /* @__PURE__ */ jsx32(ChartContainer, { className, children: /* @__PURE__ */ jsx32(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx32(Line, { data: chartData, options }) }) });
+}
+
+// src/charts/PieChart.tsx
+import { Pie } from "react-chartjs-2";
+import { jsx as jsx33 } from "react/jsx-runtime";
+function PieChart({
+  labels,
+  data,
+  title,
+  showLegend = true,
+  legendPosition = "top",
+  height = 300,
+  className,
+  colors
+}) {
+  const segmentColors = colors ?? labels.map((_, index) => getChartColor(index));
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        data,
+        backgroundColor: segmentColors,
+        borderColor: "#fff",
+        borderWidth: 2,
+        hoverOffset: 8
+      }
+    ]
+  };
+  const baseOptions = createBaseChartOptions({ title, showLegend, legendPosition });
+  const options = {
+    ...baseOptions
+  };
+  return /* @__PURE__ */ jsx33(ChartContainer, { className, children: /* @__PURE__ */ jsx33(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx33(Pie, { data: chartData, options }) }) });
+}
+
+// src/charts/DoughnutChart.tsx
+import { Doughnut } from "react-chartjs-2";
+import { jsx as jsx34 } from "react/jsx-runtime";
+function DoughnutChart({
+  labels,
+  data,
+  title,
+  showLegend = true,
+  legendPosition = "top",
+  height = 300,
+  className,
+  colors,
+  cutout = "50%"
+}) {
+  const segmentColors = colors ?? labels.map((_, index) => getChartColor(index));
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        data,
+        backgroundColor: segmentColors,
+        borderColor: "#fff",
+        borderWidth: 2,
+        hoverOffset: 8
+      }
+    ]
+  };
+  const baseOptions = createBaseChartOptions({ title, showLegend, legendPosition });
+  const options = {
+    ...baseOptions,
+    cutout
+  };
+  return /* @__PURE__ */ jsx34(ChartContainer, { className, children: /* @__PURE__ */ jsx34(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx34(Doughnut, { data: chartData, options }) }) });
+}
+
+// src/charts/use-chart-colors.ts
+import { useMemo as useMemo3 } from "react";
+function useChartColors(count, customColors) {
+  return useMemo3(() => {
+    if (customColors && customColors.length > 0) {
+      if (customColors.length >= count) {
+        return customColors.slice(0, count);
+      }
+      const extended = [];
+      for (let i = 0; i < count; i++) {
+        extended.push(customColors[i % customColors.length]);
+      }
+      return extended;
+    }
+    return Array.from({ length: count }, (_, i) => getChartColor(i));
+  }, [count, customColors]);
+}
+function useChartColorPalette() {
+  return chartColorPalette;
+}
 export {
   Accordion,
   AccordionContent,
@@ -6844,6 +7200,7 @@ export {
   AccordionTrigger,
   Alert,
   Badge,
+  BarChart,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbSeparator,
@@ -6853,6 +7210,7 @@ export {
   CardActions,
   Checkbox,
   Dialog,
+  DoughnutChart,
   DropdownMenu,
   EventCalendar,
   FormContainer,
@@ -6864,9 +7222,11 @@ export {
   GridItem,
   Icon,
   Input,
+  LineChart,
   Pagination,
   PaginationButton,
   PaginationEllipsis,
+  PieChart,
   Popover,
   Progress,
   RadioGroup,
@@ -6883,5 +7243,10 @@ export {
   Textarea,
   Toast,
   ToastProvider,
-  Tooltip
+  Tooltip,
+  chartColorPalette,
+  chartColors,
+  getChartColor,
+  useChartColorPalette,
+  useChartColors
 };
