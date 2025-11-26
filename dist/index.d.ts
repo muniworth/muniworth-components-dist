@@ -1,5 +1,5 @@
 import * as react from 'react';
-import { ElementType, ComponentType, Component, JSX as JSX$1, ComponentPropsWithRef, ButtonHTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes, HTMLAttributes, ComponentProps as ComponentProps$1, ReactElement, ReactNode, ComponentPropsWithoutRef, AnchorHTMLAttributes } from 'react';
+import { ElementType, ComponentType, Component, JSX as JSX$1, ComponentPropsWithRef, ButtonHTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes, HTMLAttributes, ComponentProps as ComponentProps$1, CSSProperties, ReactElement, ReactNode, ComponentPropsWithoutRef, AnchorHTMLAttributes } from 'react';
 import * as Panda from '@pandacss/dev';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ColumnDef } from '@tanstack/react-table';
@@ -20475,6 +20475,19 @@ type FormHelperTextProps = ComponentProps$1<typeof FormHelperText> & {
 declare const FormItemContainer: StyledComponent<"div", {}>;
 type FormItemContainerProps = ComponentProps$1<typeof FormItemContainer>;
 
+type IconName = 'chevron-left' | 'chevron-right' | 'chevron-down' | 'chevron-up' | 'angles-left' | 'angles-right' | 'arrow-up' | 'arrow-down' | 'xmark' | 'check' | 'plus' | 'minus' | 'circle-info' | 'circle-check' | 'triangle-exclamation' | 'circle-exclamation';
+type IconSize = 'xs' | 'sm' | 'md' | 'lg';
+interface IconProps {
+    name: IconName;
+    size?: IconSize;
+    className?: string;
+    style?: CSSProperties;
+}
+declare const Icon: {
+    ({ name, size, className, style }: IconProps): react_jsx_runtime.JSX.Element;
+    displayName: string;
+};
+
 type TriggerElement = ReactElement;
 
 declare const cardRecipe: RecipeRuntimeFn<{
@@ -20920,6 +20933,7 @@ interface GanttTask {
     progress?: number;
     parent?: number | string;
     open?: boolean;
+    priority?: 'high' | 'medium' | 'low';
 }
 interface GanttLink {
     id: number | string;
@@ -20949,6 +20963,8 @@ interface GanttChartProps {
     height?: number;
     editable?: boolean;
     readonly?: boolean;
+    showTooltip?: boolean;
+    showEditor?: boolean;
     onTaskClick?: (task: GanttTask) => void;
     onTaskChange?: (task: GanttTask) => void;
     onLinkAdd?: (link: GanttLink) => void;
@@ -20956,4 +20972,4 @@ interface GanttChartProps {
 }
 declare const GanttChart: react.ForwardRefExoticComponent<GanttChartProps & react.RefAttributes<HTMLDivElement>>;
 
-export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, type CalendarEvent, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, Dialog, type DialogProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, EventCalendar, type EventCalendarProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, GanttChart, type GanttChartProps, type GanttColumn, type GanttLink, type GanttScale, type GanttTask, Grid, GridItem, type GridItemProps, type GridProps, Input, type InputProps, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement };
+export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, type CalendarEvent, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, Dialog, type DialogProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, EventCalendar, type EventCalendarProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, GanttChart, type GanttChartProps, type GanttColumn, type GanttLink, type GanttScale, type GanttTask, Grid, GridItem, type GridItemProps, type GridProps, Icon, type IconName, type IconProps, type IconSize, Input, type InputProps, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement };

@@ -1009,6 +1009,27 @@ var Spinner = forwardRef6(
 );
 Spinner.displayName = "Spinner";
 
+// src/shared/Icon.tsx
+import { jsx as jsx6 } from "react/jsx-runtime";
+var sizeMap = {
+  xs: "10px",
+  sm: "12px",
+  md: "14px",
+  lg: "16px"
+};
+var Icon = ({ name, size = "md", className = "", style }) => {
+  const fontSize = sizeMap[size];
+  return /* @__PURE__ */ jsx6(
+    "i",
+    {
+      className: `fa-solid fa-${name} ${className}`.trim(),
+      style: { fontSize, ...style },
+      "aria-hidden": "true"
+    }
+  );
+};
+Icon.displayName = "Icon";
+
 // src/card/Card.tsx
 import { forwardRef as forwardRef7 } from "react";
 
@@ -1042,7 +1063,7 @@ var cardRecipe = cva({
 });
 
 // src/card/Card.tsx
-import { jsx as jsx6 } from "react/jsx-runtime";
+import { jsx as jsx7 } from "react/jsx-runtime";
 var StyledCard = styled("div", cardRecipe);
 var CardActions = styled("div", {
   base: {
@@ -1055,7 +1076,7 @@ var CardActions = styled("div", {
 });
 var Card = forwardRef7(
   (props, ref) => {
-    return /* @__PURE__ */ jsx6(StyledCard, { ref, ...props });
+    return /* @__PURE__ */ jsx7(StyledCard, { ref, ...props });
   }
 );
 Card.displayName = "Card";
@@ -1110,11 +1131,11 @@ var badgeRecipe = cva({
 });
 
 // src/badge/Badge.tsx
-import { jsx as jsx7 } from "react/jsx-runtime";
+import { jsx as jsx8 } from "react/jsx-runtime";
 var StyledBadge = styled("span", badgeRecipe);
 var Badge = forwardRef8(
   (props, ref) => {
-    return /* @__PURE__ */ jsx7(StyledBadge, { ref, ...props });
+    return /* @__PURE__ */ jsx8(StyledBadge, { ref, ...props });
   }
 );
 Badge.displayName = "Badge";
@@ -1122,7 +1143,7 @@ Badge.displayName = "Badge";
 // src/select/Select.tsx
 import { forwardRef as forwardRef9, useId as useId3 } from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { jsx as jsx8, jsxs as jsxs3 } from "react/jsx-runtime";
+import { jsx as jsx9, jsxs as jsxs3 } from "react/jsx-runtime";
 var Trigger2 = styled(SelectPrimitive.Trigger, {
   base: {
     display: "inline-flex",
@@ -1229,7 +1250,7 @@ var Select = forwardRef9(
     const selectId = id || generatedId;
     const hasError = Boolean(error);
     return /* @__PURE__ */ jsxs3(FormContainer, { children: [
-      label && /* @__PURE__ */ jsx8(FormLabel, { htmlFor: selectId, children: label }),
+      label && /* @__PURE__ */ jsx9(FormLabel, { htmlFor: selectId, children: label }),
       /* @__PURE__ */ jsxs3(
         SelectPrimitive.Root,
         {
@@ -1247,24 +1268,24 @@ var Select = forwardRef9(
                 "aria-describedby": error ? `${selectId}-error` : helperText ? `${selectId}-helper` : void 0,
                 hasError,
                 children: [
-                  /* @__PURE__ */ jsx8(SelectPrimitive.Value, { placeholder }),
-                  /* @__PURE__ */ jsx8(SelectPrimitive.Icon, { children: "\u25BC" })
+                  /* @__PURE__ */ jsx9(SelectPrimitive.Value, { placeholder }),
+                  /* @__PURE__ */ jsx9(SelectPrimitive.Icon, { children: /* @__PURE__ */ jsx9(Icon, { name: "chevron-down", size: "sm" }) })
                 ]
               }
             ),
-            /* @__PURE__ */ jsx8(SelectPrimitive.Portal, { children: /* @__PURE__ */ jsx8(Content2, { position: "popper", sideOffset: 4, children: /* @__PURE__ */ jsx8(Viewport2, { children: options.map((option) => /* @__PURE__ */ jsx8(
+            /* @__PURE__ */ jsx9(SelectPrimitive.Portal, { children: /* @__PURE__ */ jsx9(Content2, { position: "popper", sideOffset: 4, children: /* @__PURE__ */ jsx9(Viewport2, { children: options.map((option) => /* @__PURE__ */ jsx9(
               Item2,
               {
                 value: option.value,
                 disabled: option.disabled,
-                children: /* @__PURE__ */ jsx8(SelectPrimitive.ItemText, { children: option.label })
+                children: /* @__PURE__ */ jsx9(SelectPrimitive.ItemText, { children: option.label })
               },
               option.value
             )) }) }) })
           ]
         }
       ),
-      error && /* @__PURE__ */ jsx8(
+      error && /* @__PURE__ */ jsx9(
         FormHelperText,
         {
           id: `${selectId}-error`,
@@ -1273,7 +1294,7 @@ var Select = forwardRef9(
           children: error
         }
       ),
-      !error && helperText && /* @__PURE__ */ jsx8(
+      !error && helperText && /* @__PURE__ */ jsx9(
         FormHelperText,
         {
           id: `${selectId}-helper`,
@@ -1289,7 +1310,7 @@ Select.displayName = "Select";
 // src/checkbox/Checkbox.tsx
 import { forwardRef as forwardRef10, useId as useId4 } from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { jsx as jsx9, jsxs as jsxs4 } from "react/jsx-runtime";
+import { jsx as jsx10, jsxs as jsxs4 } from "react/jsx-runtime";
 var StyledCheckbox = styled(CheckboxPrimitive.Root, {
   base: {
     width: "20px",
@@ -1358,7 +1379,7 @@ var Checkbox = forwardRef10(
     const hasError = Boolean(error);
     return /* @__PURE__ */ jsxs4(FormContainer, { children: [
       /* @__PURE__ */ jsxs4(FormItemContainer, { children: [
-        /* @__PURE__ */ jsx9(
+        /* @__PURE__ */ jsx10(
           StyledCheckbox,
           {
             ref,
@@ -1370,31 +1391,12 @@ var Checkbox = forwardRef10(
             "aria-invalid": hasError,
             "aria-describedby": error ? `${checkboxId}-error` : helperText ? `${checkboxId}-helper` : void 0,
             hasError,
-            children: /* @__PURE__ */ jsx9(Indicator2, { children: /* @__PURE__ */ jsx9(
-              "svg",
-              {
-                width: "12",
-                height: "12",
-                viewBox: "0 0 12 12",
-                fill: "none",
-                xmlns: "http://www.w3.org/2000/svg",
-                children: /* @__PURE__ */ jsx9(
-                  "path",
-                  {
-                    d: "M10 3L4.5 8.5L2 6",
-                    stroke: "currentColor",
-                    strokeWidth: "2",
-                    strokeLinecap: "round",
-                    strokeLinejoin: "round"
-                  }
-                )
-              }
-            ) })
+            children: /* @__PURE__ */ jsx10(Indicator2, { children: /* @__PURE__ */ jsx10(Icon, { name: "check", size: "sm" }) })
           }
         ),
-        label && /* @__PURE__ */ jsx9(Label, { htmlFor: checkboxId, children: label })
+        label && /* @__PURE__ */ jsx10(Label, { htmlFor: checkboxId, children: label })
       ] }),
-      error && /* @__PURE__ */ jsx9(
+      error && /* @__PURE__ */ jsx10(
         FormHelperText,
         {
           id: `${checkboxId}-error`,
@@ -1403,7 +1405,7 @@ var Checkbox = forwardRef10(
           children: error
         }
       ),
-      !error && helperText && /* @__PURE__ */ jsx9(
+      !error && helperText && /* @__PURE__ */ jsx10(
         FormHelperText,
         {
           id: `${checkboxId}-helper`,
@@ -1419,7 +1421,7 @@ Checkbox.displayName = "Checkbox";
 // src/radio-group/RadioGroup.tsx
 import { forwardRef as forwardRef11, useId as useId5 } from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
-import { jsx as jsx10, jsxs as jsxs5 } from "react/jsx-runtime";
+import { jsx as jsx11, jsxs as jsxs5 } from "react/jsx-runtime";
 var Root4 = styled(RadioGroupPrimitive.Root, {
   base: {
     display: "flex",
@@ -1508,8 +1510,8 @@ var RadioGroup = forwardRef11(
     const labelId = `${radioGroupId}-label`;
     const hasError = Boolean(error);
     return /* @__PURE__ */ jsxs5(FormContainer, { children: [
-      label && /* @__PURE__ */ jsx10(FormLabel, { id: labelId, children: label }),
-      /* @__PURE__ */ jsx10(
+      label && /* @__PURE__ */ jsx11(FormLabel, { id: labelId, children: label }),
+      /* @__PURE__ */ jsx11(
         Root4,
         {
           ref,
@@ -1524,22 +1526,22 @@ var RadioGroup = forwardRef11(
           children: options.map((option, index) => {
             const itemId = `${radioGroupId}-${index}`;
             return /* @__PURE__ */ jsxs5(ItemContainer, { children: [
-              /* @__PURE__ */ jsx10(
+              /* @__PURE__ */ jsx11(
                 Item4,
                 {
                   value: option.value,
                   id: itemId,
                   disabled: option.disabled,
                   hasError,
-                  children: /* @__PURE__ */ jsx10(Indicator4, {})
+                  children: /* @__PURE__ */ jsx11(Indicator4, {})
                 }
               ),
-              /* @__PURE__ */ jsx10(ItemLabel, { htmlFor: itemId, children: option.label })
+              /* @__PURE__ */ jsx11(ItemLabel, { htmlFor: itemId, children: option.label })
             ] }, option.value);
           })
         }
       ),
-      error && /* @__PURE__ */ jsx10(
+      error && /* @__PURE__ */ jsx11(
         FormHelperText,
         {
           id: `${radioGroupId}-error`,
@@ -1548,7 +1550,7 @@ var RadioGroup = forwardRef11(
           children: error
         }
       ),
-      !error && helperText && /* @__PURE__ */ jsx10(
+      !error && helperText && /* @__PURE__ */ jsx11(
         FormHelperText,
         {
           id: `${radioGroupId}-helper`,
@@ -1564,7 +1566,7 @@ RadioGroup.displayName = "RadioGroup";
 // src/switch/Switch.tsx
 import { forwardRef as forwardRef12, useId as useId6 } from "react";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
-import { jsx as jsx11, jsxs as jsxs6 } from "react/jsx-runtime";
+import { jsx as jsx12, jsxs as jsxs6 } from "react/jsx-runtime";
 var Root6 = styled(SwitchPrimitive.Root, {
   base: {
     width: "44px",
@@ -1636,7 +1638,7 @@ var Switch = forwardRef12(
     const hasError = Boolean(error);
     return /* @__PURE__ */ jsxs6(FormContainer, { children: [
       /* @__PURE__ */ jsxs6(FormItemContainer, { children: [
-        /* @__PURE__ */ jsx11(
+        /* @__PURE__ */ jsx12(
           Root6,
           {
             ref,
@@ -1648,12 +1650,12 @@ var Switch = forwardRef12(
             "aria-invalid": hasError,
             "aria-describedby": error ? `${switchId}-error` : helperText ? `${switchId}-helper` : void 0,
             hasError,
-            children: /* @__PURE__ */ jsx11(Thumb2, {})
+            children: /* @__PURE__ */ jsx12(Thumb2, {})
           }
         ),
-        label && /* @__PURE__ */ jsx11(Label2, { htmlFor: switchId, children: label })
+        label && /* @__PURE__ */ jsx12(Label2, { htmlFor: switchId, children: label })
       ] }),
-      error && /* @__PURE__ */ jsx11(
+      error && /* @__PURE__ */ jsx12(
         FormHelperText,
         {
           id: `${switchId}-error`,
@@ -1662,7 +1664,7 @@ var Switch = forwardRef12(
           children: error
         }
       ),
-      !error && helperText && /* @__PURE__ */ jsx11(
+      !error && helperText && /* @__PURE__ */ jsx12(
         FormHelperText,
         {
           id: `${switchId}-helper`,
@@ -1678,7 +1680,7 @@ Switch.displayName = "Switch";
 // src/dialog/Dialog.tsx
 import { forwardRef as forwardRef13, isValidElement } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { jsx as jsx12, jsxs as jsxs7 } from "react/jsx-runtime";
+import { jsx as jsx13, jsxs as jsxs7 } from "react/jsx-runtime";
 var Overlay2 = styled(DialogPrimitive.Overlay, {
   base: {
     bg: "overlay.modal",
@@ -1767,32 +1769,14 @@ var Dialog = forwardRef13(
         defaultOpen,
         onOpenChange,
         children: [
-          trigger && /* @__PURE__ */ jsx12(DialogPrimitive.Trigger, { asChild: true, children: trigger }),
+          trigger && /* @__PURE__ */ jsx13(DialogPrimitive.Trigger, { asChild: true, children: trigger }),
           /* @__PURE__ */ jsxs7(DialogPrimitive.Portal, { children: [
-            /* @__PURE__ */ jsx12(Overlay2, {}),
+            /* @__PURE__ */ jsx13(Overlay2, {}),
             /* @__PURE__ */ jsxs7(Content4, { ref, children: [
-              title && /* @__PURE__ */ jsx12(Title2, { children: title }),
-              description && /* @__PURE__ */ jsx12(Description2, { children: description }),
+              title && /* @__PURE__ */ jsx13(Title2, { children: title }),
+              description && /* @__PURE__ */ jsx13(Description2, { children: description }),
               children,
-              /* @__PURE__ */ jsx12(CloseButton, { "aria-label": "Close", children: /* @__PURE__ */ jsx12(
-                "svg",
-                {
-                  width: "16",
-                  height: "16",
-                  viewBox: "0 0 16 16",
-                  fill: "none",
-                  xmlns: "http://www.w3.org/2000/svg",
-                  children: /* @__PURE__ */ jsx12(
-                    "path",
-                    {
-                      d: "M12 4L4 12M4 4L12 12",
-                      stroke: "currentColor",
-                      strokeWidth: "2",
-                      strokeLinecap: "round"
-                    }
-                  )
-                }
-              ) })
+              /* @__PURE__ */ jsx13(CloseButton, { "aria-label": "Close", children: /* @__PURE__ */ jsx13(Icon, { name: "xmark", size: "lg" }) })
             ] })
           ] })
         ]
@@ -1805,7 +1789,7 @@ Dialog.displayName = "Dialog";
 // src/dropdown-menu/DropdownMenu.tsx
 import { forwardRef as forwardRef14, isValidElement as isValidElement2 } from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import { jsx as jsx13, jsxs as jsxs8 } from "react/jsx-runtime";
+import { jsx as jsx14, jsxs as jsxs8 } from "react/jsx-runtime";
 var Content6 = styled(DropdownMenuPrimitive.Content, {
   base: {
     minWidth: "200px",
@@ -1870,8 +1854,8 @@ var DropdownMenu = forwardRef14(
         defaultOpen,
         onOpenChange,
         children: [
-          /* @__PURE__ */ jsx13(DropdownMenuPrimitive.Trigger, { asChild: true, children: trigger }),
-          /* @__PURE__ */ jsx13(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx13(Content6, { ref, sideOffset: 4, align: "start", alignOffset: -8, children: items.map((item) => /* @__PURE__ */ jsx13(
+          /* @__PURE__ */ jsx14(DropdownMenuPrimitive.Trigger, { asChild: true, children: trigger }),
+          /* @__PURE__ */ jsx14(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx14(Content6, { ref, sideOffset: 4, align: "start", alignOffset: -8, children: items.map((item) => /* @__PURE__ */ jsx14(
             Item6,
             {
               onSelect: item.onSelect,
@@ -1890,7 +1874,7 @@ DropdownMenu.displayName = "DropdownMenu";
 // src/tooltip/Tooltip.tsx
 import { forwardRef as forwardRef15, isValidElement as isValidElement3 } from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
-import { jsx as jsx14, jsxs as jsxs9 } from "react/jsx-runtime";
+import { jsx as jsx15, jsxs as jsxs9 } from "react/jsx-runtime";
 var Content8 = styled(TooltipPrimitive.Content, {
   base: {
     bg: "tooltip.bg",
@@ -1920,11 +1904,11 @@ var Tooltip = forwardRef15(
         children
       );
     }
-    return /* @__PURE__ */ jsx14(TooltipPrimitive.Provider, { delayDuration, children: /* @__PURE__ */ jsxs9(TooltipPrimitive.Root, { children: [
-      /* @__PURE__ */ jsx14(TooltipPrimitive.Trigger, { asChild: true, children }),
-      /* @__PURE__ */ jsx14(TooltipPrimitive.Portal, { children: /* @__PURE__ */ jsxs9(Content8, { ref, side, sideOffset: 4, children: [
+    return /* @__PURE__ */ jsx15(TooltipPrimitive.Provider, { delayDuration, children: /* @__PURE__ */ jsxs9(TooltipPrimitive.Root, { children: [
+      /* @__PURE__ */ jsx15(TooltipPrimitive.Trigger, { asChild: true, children }),
+      /* @__PURE__ */ jsx15(TooltipPrimitive.Portal, { children: /* @__PURE__ */ jsxs9(Content8, { ref, side, sideOffset: 4, children: [
         content,
-        /* @__PURE__ */ jsx14(Arrow2, {})
+        /* @__PURE__ */ jsx15(Arrow2, {})
       ] }) })
     ] }) });
   }
@@ -1934,7 +1918,7 @@ Tooltip.displayName = "Tooltip";
 // src/toast/Toast.tsx
 import { forwardRef as forwardRef16 } from "react";
 import * as ToastPrimitive from "@radix-ui/react-toast";
-import { jsx as jsx15, jsxs as jsxs10 } from "react/jsx-runtime";
+import { jsx as jsx16, jsxs as jsxs10 } from "react/jsx-runtime";
 var Viewport4 = styled(ToastPrimitive.Viewport, {
   base: {
     position: "fixed",
@@ -2043,7 +2027,7 @@ var ToastProvider = ({
       swipeThreshold,
       children: [
         children,
-        /* @__PURE__ */ jsx15(Viewport4, {})
+        /* @__PURE__ */ jsx16(Viewport4, {})
       ]
     }
   );
@@ -2067,28 +2051,10 @@ var Toast = forwardRef16(
         onOpenChange,
         duration,
         children: [
-          title && /* @__PURE__ */ jsx15(Title4, { children: title }),
-          description && /* @__PURE__ */ jsx15(Description4, { children: description }),
+          title && /* @__PURE__ */ jsx16(Title4, { children: title }),
+          description && /* @__PURE__ */ jsx16(Description4, { children: description }),
           children,
-          /* @__PURE__ */ jsx15(Close3, { "aria-label": "Close", children: /* @__PURE__ */ jsx15(
-            "svg",
-            {
-              width: "14",
-              height: "14",
-              viewBox: "0 0 14 14",
-              fill: "none",
-              xmlns: "http://www.w3.org/2000/svg",
-              children: /* @__PURE__ */ jsx15(
-                "path",
-                {
-                  d: "M11 3L3 11M3 3L11 11",
-                  stroke: "currentColor",
-                  strokeWidth: "2",
-                  strokeLinecap: "round"
-                }
-              )
-            }
-          ) })
+          /* @__PURE__ */ jsx16(Close3, { "aria-label": "Close", children: /* @__PURE__ */ jsx16(Icon, { name: "xmark", size: "md" }) })
         ]
       }
     );
@@ -2099,7 +2065,7 @@ Toast.displayName = "Toast";
 // src/progress/Progress.tsx
 import { forwardRef as forwardRef17 } from "react";
 import * as ProgressPrimitive from "@radix-ui/react-progress";
-import { jsx as jsx16 } from "react/jsx-runtime";
+import { jsx as jsx17 } from "react/jsx-runtime";
 var Root13 = styled(ProgressPrimitive.Root, {
   base: {
     position: "relative",
@@ -2127,14 +2093,14 @@ var Progress = forwardRef17(
     const safeValue = Math.min(Math.max(value ?? 0, 0), max);
     const percentage = safeValue / max * 100;
     const progressValue = indeterminate ? void 0 : safeValue;
-    return /* @__PURE__ */ jsx16(
+    return /* @__PURE__ */ jsx17(
       Root13,
       {
         ref,
         value: progressValue,
         max,
         "aria-label": ariaLabel,
-        children: /* @__PURE__ */ jsx16(
+        children: /* @__PURE__ */ jsx17(
           Indicator6,
           {
             style: {
@@ -2151,7 +2117,7 @@ Progress.displayName = "Progress";
 // src/tabs/Tabs.tsx
 import { forwardRef as forwardRef18 } from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { jsx as jsx17 } from "react/jsx-runtime";
+import { jsx as jsx18 } from "react/jsx-runtime";
 var Root15 = styled(TabsPrimitive.Root, {
   base: {
     display: "flex",
@@ -2222,7 +2188,7 @@ var Content10 = styled(TabsPrimitive.Content, {
 });
 var Tabs = forwardRef18(
   ({ defaultValue, value, onValueChange, children, orientation = "horizontal" }, ref) => {
-    return /* @__PURE__ */ jsx17(
+    return /* @__PURE__ */ jsx18(
       Root15,
       {
         ref,
@@ -2238,19 +2204,19 @@ var Tabs = forwardRef18(
 Tabs.displayName = "Tabs";
 var TabsList = forwardRef18(
   ({ children, "aria-label": ariaLabel }, ref) => {
-    return /* @__PURE__ */ jsx17(List2, { ref, "aria-label": ariaLabel, children });
+    return /* @__PURE__ */ jsx18(List2, { ref, "aria-label": ariaLabel, children });
   }
 );
 TabsList.displayName = "TabsList";
 var TabsTrigger = forwardRef18(
   ({ value, children, disabled }, ref) => {
-    return /* @__PURE__ */ jsx17(Trigger7, { ref, value, disabled, children });
+    return /* @__PURE__ */ jsx18(Trigger7, { ref, value, disabled, children });
   }
 );
 TabsTrigger.displayName = "TabsTrigger";
 var TabsContent = forwardRef18(
   ({ value, children }, ref) => {
-    return /* @__PURE__ */ jsx17(Content10, { ref, value, children });
+    return /* @__PURE__ */ jsx18(Content10, { ref, value, children });
   }
 );
 TabsContent.displayName = "TabsContent";
@@ -2258,7 +2224,7 @@ TabsContent.displayName = "TabsContent";
 // src/accordion/Accordion.tsx
 import { forwardRef as forwardRef19 } from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { jsx as jsx18, jsxs as jsxs11 } from "react/jsx-runtime";
+import { jsx as jsx19, jsxs as jsxs11 } from "react/jsx-runtime";
 var Root17 = styled(AccordionPrimitive.Root, {
   base: {
     width: "100%",
@@ -2352,7 +2318,7 @@ var ContentInner = styled("div", {
 var Accordion = forwardRef19(
   (props, ref) => {
     if (props.type === "multiple") {
-      return /* @__PURE__ */ jsx18(
+      return /* @__PURE__ */ jsx19(
         Root17,
         {
           ref,
@@ -2365,7 +2331,7 @@ var Accordion = forwardRef19(
         }
       );
     }
-    return /* @__PURE__ */ jsx18(
+    return /* @__PURE__ */ jsx19(
       Root17,
       {
         ref,
@@ -2383,40 +2349,22 @@ var Accordion = forwardRef19(
 Accordion.displayName = "Accordion";
 var AccordionItem = forwardRef19(
   ({ value, children, disabled }, ref) => {
-    return /* @__PURE__ */ jsx18(Item8, { ref, value, disabled, children });
+    return /* @__PURE__ */ jsx19(Item8, { ref, value, disabled, children });
   }
 );
 AccordionItem.displayName = "AccordionItem";
 var AccordionTrigger = forwardRef19(
   ({ children }, ref) => {
-    return /* @__PURE__ */ jsx18(Header2, { children: /* @__PURE__ */ jsxs11(Trigger9, { ref, children: [
+    return /* @__PURE__ */ jsx19(Header2, { children: /* @__PURE__ */ jsxs11(Trigger9, { ref, children: [
       children,
-      /* @__PURE__ */ jsx18(ChevronIcon, { "aria-hidden": true, children: /* @__PURE__ */ jsx18(
-        "svg",
-        {
-          width: "15",
-          height: "15",
-          viewBox: "0 0 15 15",
-          fill: "none",
-          xmlns: "http://www.w3.org/2000/svg",
-          children: /* @__PURE__ */ jsx18(
-            "path",
-            {
-              d: "M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z",
-              fill: "currentColor",
-              fillRule: "evenodd",
-              clipRule: "evenodd"
-            }
-          )
-        }
-      ) })
+      /* @__PURE__ */ jsx19(ChevronIcon, { "aria-hidden": true, children: /* @__PURE__ */ jsx19(Icon, { name: "chevron-down", size: "md" }) })
     ] }) });
   }
 );
 AccordionTrigger.displayName = "AccordionTrigger";
 var AccordionContent = forwardRef19(
   ({ children }, ref) => {
-    return /* @__PURE__ */ jsx18(Content12, { ref, children: /* @__PURE__ */ jsx18(ContentInner, { children }) });
+    return /* @__PURE__ */ jsx19(Content12, { ref, children: /* @__PURE__ */ jsx19(ContentInner, { children }) });
   }
 );
 AccordionContent.displayName = "AccordionContent";
@@ -2424,7 +2372,7 @@ AccordionContent.displayName = "AccordionContent";
 // src/popover/Popover.tsx
 import { forwardRef as forwardRef20, isValidElement as isValidElement4 } from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import { jsx as jsx19, jsxs as jsxs12 } from "react/jsx-runtime";
+import { jsx as jsx20, jsxs as jsxs12 } from "react/jsx-runtime";
 var Content14 = styled(PopoverPrimitive.Content, {
   base: {
     bg: "background.elevated",
@@ -2504,8 +2452,8 @@ var Popover = forwardRef20(
         defaultOpen,
         onOpenChange,
         children: [
-          trigger && /* @__PURE__ */ jsx19(PopoverPrimitive.Trigger, { asChild: true, children: trigger }),
-          /* @__PURE__ */ jsx19(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsxs12(
+          trigger && /* @__PURE__ */ jsx20(PopoverPrimitive.Trigger, { asChild: true, children: trigger }),
+          /* @__PURE__ */ jsx20(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsxs12(
             Content14,
             {
               ref,
@@ -2513,26 +2461,8 @@ var Popover = forwardRef20(
               alignOffset,
               children: [
                 children,
-                showArrow && /* @__PURE__ */ jsx19(Arrow4, {}),
-                /* @__PURE__ */ jsx19(Close5, { "aria-label": "Close", children: /* @__PURE__ */ jsx19(
-                  "svg",
-                  {
-                    width: "12",
-                    height: "12",
-                    viewBox: "0 0 12 12",
-                    fill: "none",
-                    xmlns: "http://www.w3.org/2000/svg",
-                    children: /* @__PURE__ */ jsx19(
-                      "path",
-                      {
-                        d: "M10 2L2 10M2 2L10 10",
-                        stroke: "currentColor",
-                        strokeWidth: "2",
-                        strokeLinecap: "round"
-                      }
-                    )
-                  }
-                ) })
+                showArrow && /* @__PURE__ */ jsx20(Arrow4, {}),
+                /* @__PURE__ */ jsx20(Close5, { "aria-label": "Close", children: /* @__PURE__ */ jsx20(Icon, { name: "xmark", size: "sm" }) })
               ]
             }
           ) })
@@ -2546,7 +2476,7 @@ Popover.displayName = "Popover";
 // src/separator/Separator.tsx
 import { forwardRef as forwardRef21 } from "react";
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
-import { jsx as jsx20 } from "react/jsx-runtime";
+import { jsx as jsx21 } from "react/jsx-runtime";
 var StyledSeparator = styled(SeparatorPrimitive.Root, {
   base: {
     bg: "border.subtle",
@@ -2563,7 +2493,7 @@ var StyledSeparator = styled(SeparatorPrimitive.Root, {
 });
 var Separator = forwardRef21(
   ({ orientation = "horizontal", decorative = true, ...props }, ref) => {
-    return /* @__PURE__ */ jsx20(
+    return /* @__PURE__ */ jsx21(
       StyledSeparator,
       {
         ref,
@@ -2578,10 +2508,10 @@ Separator.displayName = "Separator";
 
 // src/grid/Grid.tsx
 import { forwardRef as forwardRef22 } from "react";
-import { jsx as jsx21 } from "react/jsx-runtime";
+import { jsx as jsx22 } from "react/jsx-runtime";
 var Grid = forwardRef22(
   ({ columns, gap, columnGap, rowGap, minChildWidth, children, ...props }, ref) => {
-    return /* @__PURE__ */ jsx21(
+    return /* @__PURE__ */ jsx22(
       "div",
       {
         ref,
@@ -2596,10 +2526,10 @@ Grid.displayName = "Grid";
 
 // src/grid/GridItem.tsx
 import { forwardRef as forwardRef23 } from "react";
-import { jsx as jsx22 } from "react/jsx-runtime";
+import { jsx as jsx23 } from "react/jsx-runtime";
 var GridItem = forwardRef23(
   ({ colSpan, rowSpan, colStart, rowStart, colEnd, rowEnd, children, ...props }, ref) => {
-    return /* @__PURE__ */ jsx22(
+    return /* @__PURE__ */ jsx23(
       "div",
       {
         ref,
@@ -2658,7 +2588,7 @@ function composeRefs(...refs) {
 }
 
 // ../../node_modules/@radix-ui/react-slot/dist/index.mjs
-import { Fragment as Fragment2, jsx as jsx23 } from "react/jsx-runtime";
+import { Fragment as Fragment2, jsx as jsx24 } from "react/jsx-runtime";
 // @__NO_SIDE_EFFECTS__
 function createSlot(ownerName) {
   const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
@@ -2676,9 +2606,9 @@ function createSlot(ownerName) {
           return child;
         }
       });
-      return /* @__PURE__ */ jsx23(SlotClone, { ...slotProps, ref: forwardedRef, children: React2.isValidElement(newElement) ? React2.cloneElement(newElement, void 0, newChildren) : null });
+      return /* @__PURE__ */ jsx24(SlotClone, { ...slotProps, ref: forwardedRef, children: React2.isValidElement(newElement) ? React2.cloneElement(newElement, void 0, newChildren) : null });
     }
-    return /* @__PURE__ */ jsx23(SlotClone, { ...slotProps, ref: forwardedRef, children });
+    return /* @__PURE__ */ jsx24(SlotClone, { ...slotProps, ref: forwardedRef, children });
   });
   Slot2.displayName = `${ownerName}.Slot`;
   return Slot2;
@@ -2744,7 +2674,7 @@ function getElementRef(element) {
 }
 
 // src/breadcrumbs/Breadcrumbs.tsx
-import { jsx as jsx24, jsxs as jsxs13 } from "react/jsx-runtime";
+import { jsx as jsx25, jsxs as jsxs13 } from "react/jsx-runtime";
 var BreadcrumbNav = styled("nav", {
   base: {
     display: "flex",
@@ -2765,13 +2695,13 @@ var BreadcrumbList = styled("ol", {
 var Breadcrumbs = forwardRef25(
   ({ separator = "/", children, ...props }, ref) => {
     const items = Children2.toArray(children).filter(isValidElement6);
-    return /* @__PURE__ */ jsx24(BreadcrumbNav, { ref, "aria-label": "Breadcrumb", ...props, children: /* @__PURE__ */ jsx24(BreadcrumbList, { children: items.map((child, index) => {
+    return /* @__PURE__ */ jsx25(BreadcrumbNav, { ref, "aria-label": "Breadcrumb", ...props, children: /* @__PURE__ */ jsx25(BreadcrumbList, { children: items.map((child, index) => {
       const isLast = index === items.length - 1;
       return /* @__PURE__ */ jsxs13("li", { style: { display: "flex", alignItems: "center", gap: "8px" }, children: [
         cloneElement2(child, {
           isCurrentPage: isLast
         }),
-        !isLast && /* @__PURE__ */ jsx24(BreadcrumbSeparator, { children: separator })
+        !isLast && /* @__PURE__ */ jsx25(BreadcrumbSeparator, { children: separator })
       ] }, index);
     }) }) });
   }
@@ -2791,7 +2721,7 @@ var BreadcrumbItemRoot = styled("span", {
 });
 var BreadcrumbItem = forwardRef25(
   ({ isCurrentPage, children, ...props }, ref) => {
-    return /* @__PURE__ */ jsx24(
+    return /* @__PURE__ */ jsx25(
       BreadcrumbItemRoot,
       {
         ref,
@@ -2823,9 +2753,9 @@ var BreadcrumbAnchor = styled("a", {
 var BreadcrumbLink = forwardRef25(
   ({ asChild, children, ...props }, ref) => {
     if (asChild) {
-      return /* @__PURE__ */ jsx24(Slot, { ref, ...props, children });
+      return /* @__PURE__ */ jsx25(Slot, { ref, ...props, children });
     }
-    return /* @__PURE__ */ jsx24(BreadcrumbAnchor, { ref, ...props, children });
+    return /* @__PURE__ */ jsx25(BreadcrumbAnchor, { ref, ...props, children });
   }
 );
 BreadcrumbLink.displayName = "BreadcrumbLink";
@@ -2838,7 +2768,7 @@ var SeparatorRoot = styled("span", {
 });
 var BreadcrumbSeparator = forwardRef25(
   ({ children = "/", ...props }, ref) => {
-    return /* @__PURE__ */ jsx24(SeparatorRoot, { ref, "aria-hidden": "true", ...props, children });
+    return /* @__PURE__ */ jsx25(SeparatorRoot, { ref, "aria-hidden": "true", ...props, children });
   }
 );
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
@@ -2907,7 +2837,7 @@ var paginationButtonRecipe = cva({
 });
 
 // src/pagination/Pagination.tsx
-import { jsx as jsx25, jsxs as jsxs14 } from "react/jsx-runtime";
+import { jsx as jsx26, jsxs as jsxs14 } from "react/jsx-runtime";
 var PaginationRoot = styled("nav", {
   base: {
     display: "flex",
@@ -2962,13 +2892,9 @@ function usePagination({
     return [...firstPages, "ellipsis", ...middleRange, "ellipsis", ...lastPages];
   }, [currentPage, totalPages, siblingCount, boundaryCount]);
 }
-var ChevronLeft = () => /* @__PURE__ */ jsx25("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "currentColor", children: /* @__PURE__ */ jsx25("path", { d: "M10.53 3.47a.75.75 0 010 1.06L6.56 8l3.97 3.47a.75.75 0 11-1.06 1.06l-4.5-4a.75.75 0 010-1.06l4.5-4a.75.75 0 011.06 0z" }) });
-var ChevronRight = () => /* @__PURE__ */ jsx25("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "currentColor", children: /* @__PURE__ */ jsx25("path", { d: "M5.47 12.53a.75.75 0 010-1.06L9.44 8 5.47 4.53a.75.75 0 011.06-1.06l4.5 4a.75.75 0 010 1.06l-4.5 4a.75.75 0 01-1.06 0z" }) });
-var ChevronsLeft = () => /* @__PURE__ */ jsx25("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "currentColor", children: /* @__PURE__ */ jsx25("path", { d: "M8.53 3.47a.75.75 0 010 1.06L4.56 8l3.97 3.47a.75.75 0 11-1.06 1.06l-4.5-4a.75.75 0 010-1.06l4.5-4a.75.75 0 011.06 0zm5 0a.75.75 0 010 1.06L9.56 8l3.97 3.47a.75.75 0 11-1.06 1.06l-4.5-4a.75.75 0 010-1.06l4.5-4a.75.75 0 011.06 0z" }) });
-var ChevronsRight = () => /* @__PURE__ */ jsx25("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "currentColor", children: /* @__PURE__ */ jsx25("path", { d: "M3.47 12.53a.75.75 0 010-1.06L7.44 8 3.47 4.53a.75.75 0 011.06-1.06l4.5 4a.75.75 0 010 1.06l-4.5 4a.75.75 0 01-1.06 0zm5 0a.75.75 0 010-1.06L12.44 8 8.47 4.53a.75.75 0 011.06-1.06l4.5 4a.75.75 0 010 1.06l-4.5 4a.75.75 0 01-1.06 0z" }) });
 var PaginationButton = forwardRef26(
   ({ isActive, disabled, children, ...props }, ref) => {
-    return /* @__PURE__ */ jsx25(
+    return /* @__PURE__ */ jsx26(
       "button",
       {
         ref,
@@ -2985,7 +2911,7 @@ var PaginationButton = forwardRef26(
 PaginationButton.displayName = "PaginationButton";
 var PaginationEllipsis = forwardRef26(
   (props, ref) => {
-    return /* @__PURE__ */ jsx25(EllipsisContainer, { ref, "aria-hidden": "true", ...props, children: "..." });
+    return /* @__PURE__ */ jsx26(EllipsisContainer, { ref, "aria-hidden": "true", ...props, children: "..." });
   }
 );
 PaginationEllipsis.displayName = "PaginationEllipsis";
@@ -3006,7 +2932,7 @@ var Pagination = forwardRef26(
       }
     };
     return /* @__PURE__ */ jsxs14(PaginationRoot, { ref, "aria-label": "Pagination", ...props, children: [
-      showFirstLast && /* @__PURE__ */ jsx25(
+      showFirstLast && /* @__PURE__ */ jsx26(
         "button",
         {
           type: "button",
@@ -3014,10 +2940,10 @@ var Pagination = forwardRef26(
           onClick: () => handlePageChange(1),
           disabled: currentPage === 1,
           "aria-label": "Go to first page",
-          children: /* @__PURE__ */ jsx25(ChevronsLeft, {})
+          children: /* @__PURE__ */ jsx26(Icon, { name: "angles-left", size: "lg" })
         }
       ),
-      /* @__PURE__ */ jsx25(
+      /* @__PURE__ */ jsx26(
         "button",
         {
           type: "button",
@@ -3025,11 +2951,11 @@ var Pagination = forwardRef26(
           onClick: () => handlePageChange(currentPage - 1),
           disabled: currentPage === 1,
           "aria-label": "Go to previous page",
-          children: /* @__PURE__ */ jsx25(ChevronLeft, {})
+          children: /* @__PURE__ */ jsx26(Icon, { name: "chevron-left", size: "lg" })
         }
       ),
       pages.map(
-        (page, index) => page === "ellipsis" ? /* @__PURE__ */ jsx25(PaginationEllipsis, {}, `ellipsis-${index}`) : /* @__PURE__ */ jsx25(
+        (page, index) => page === "ellipsis" ? /* @__PURE__ */ jsx26(PaginationEllipsis, {}, `ellipsis-${index}`) : /* @__PURE__ */ jsx26(
           PaginationButton,
           {
             isActive: page === currentPage,
@@ -3040,7 +2966,7 @@ var Pagination = forwardRef26(
           page
         )
       ),
-      /* @__PURE__ */ jsx25(
+      /* @__PURE__ */ jsx26(
         "button",
         {
           type: "button",
@@ -3048,10 +2974,10 @@ var Pagination = forwardRef26(
           onClick: () => handlePageChange(currentPage + 1),
           disabled: currentPage === totalPages,
           "aria-label": "Go to next page",
-          children: /* @__PURE__ */ jsx25(ChevronRight, {})
+          children: /* @__PURE__ */ jsx26(Icon, { name: "chevron-right", size: "lg" })
         }
       ),
-      showFirstLast && /* @__PURE__ */ jsx25(
+      showFirstLast && /* @__PURE__ */ jsx26(
         "button",
         {
           type: "button",
@@ -3059,7 +2985,7 @@ var Pagination = forwardRef26(
           onClick: () => handlePageChange(totalPages),
           disabled: currentPage === totalPages,
           "aria-label": "Go to last page",
-          children: /* @__PURE__ */ jsx25(ChevronsRight, {})
+          children: /* @__PURE__ */ jsx26(Icon, { name: "angles-right", size: "lg" })
         }
       )
     ] });
@@ -3138,7 +3064,7 @@ var sidePanelContentRecipe = cva({
 });
 
 // src/side-panel/SidePanel.tsx
-import { jsx as jsx26, jsxs as jsxs15 } from "react/jsx-runtime";
+import { jsx as jsx27, jsxs as jsxs15 } from "react/jsx-runtime";
 var Overlay4 = styled(DialogPrimitive2.Overlay, {
   base: {
     bg: "overlay.modal",
@@ -3243,39 +3169,21 @@ var SidePanel = forwardRef27(
         defaultOpen,
         onOpenChange,
         children: [
-          trigger && /* @__PURE__ */ jsx26(DialogPrimitive2.Trigger, { asChild: true, children: trigger }),
+          trigger && /* @__PURE__ */ jsx27(DialogPrimitive2.Trigger, { asChild: true, children: trigger }),
           /* @__PURE__ */ jsxs15(DialogPrimitive2.Portal, { children: [
-            /* @__PURE__ */ jsx26(Overlay4, {}),
+            /* @__PURE__ */ jsx27(Overlay4, {}),
             /* @__PURE__ */ jsxs15(
               DialogPrimitive2.Content,
               {
                 ref,
                 className: sidePanelContentRecipe({ side, size }),
                 children: [
-                  /* @__PURE__ */ jsx26(CloseButton2, { "aria-label": "Close panel", children: /* @__PURE__ */ jsx26(
-                    "svg",
-                    {
-                      width: "16",
-                      height: "16",
-                      viewBox: "0 0 16 16",
-                      fill: "none",
-                      xmlns: "http://www.w3.org/2000/svg",
-                      children: /* @__PURE__ */ jsx26(
-                        "path",
-                        {
-                          d: "M12 4L4 12M4 4L12 12",
-                          stroke: "currentColor",
-                          strokeWidth: "2",
-                          strokeLinecap: "round"
-                        }
-                      )
-                    }
-                  ) }),
+                  /* @__PURE__ */ jsx27(CloseButton2, { "aria-label": "Close panel", children: /* @__PURE__ */ jsx27(Icon, { name: "xmark", size: "lg" }) }),
                   (title || description) && /* @__PURE__ */ jsxs15(Header3, { children: [
-                    title && /* @__PURE__ */ jsx26(Title6, { children: title }),
-                    description && /* @__PURE__ */ jsx26(Description6, { children: description })
+                    title && /* @__PURE__ */ jsx27(Title6, { children: title }),
+                    description && /* @__PURE__ */ jsx27(Description6, { children: description })
                   ] }),
-                  /* @__PURE__ */ jsx26(Body, { children })
+                  /* @__PURE__ */ jsx27(Body, { children })
                 ]
               }
             )
@@ -3295,7 +3203,7 @@ import {
   useReactTable
 } from "@tanstack/react-table";
 import { forwardRef as forwardRef28, useEffect, useState } from "react";
-import { jsx as jsx27, jsxs as jsxs16 } from "react/jsx-runtime";
+import { jsx as jsx28, jsxs as jsxs16 } from "react/jsx-runtime";
 var TableContainer = styled("div", {
   base: {
     width: "100%",
@@ -3406,8 +3314,8 @@ function TableComponent({
       onRowSelectionChange(selectedRows);
     }
   }, [rowSelection, onRowSelectionChange, table]);
-  return /* @__PURE__ */ jsx27(TableContainer, { ref, children: /* @__PURE__ */ jsxs16(StyledTable, { children: [
-    /* @__PURE__ */ jsx27(TableHead, { children: table.getHeaderGroups().map((headerGroup) => /* @__PURE__ */ jsx27("tr", { children: headerGroup.headers.map((header) => /* @__PURE__ */ jsx27(
+  return /* @__PURE__ */ jsx28(TableContainer, { ref, children: /* @__PURE__ */ jsxs16(StyledTable, { children: [
+    /* @__PURE__ */ jsx28(TableHead, { children: table.getHeaderGroups().map((headerGroup) => /* @__PURE__ */ jsx28("tr", { children: headerGroup.headers.map((header) => /* @__PURE__ */ jsx28(
       TableHeaderCell,
       {
         onClick: header.column.getToggleSortingHandler(),
@@ -3417,16 +3325,22 @@ function TableComponent({
             header.column.columnDef.header,
             header.getContext()
           ),
-          header.column.getIsSorted() && /* @__PURE__ */ jsx27("span", { children: header.column.getIsSorted() === "asc" ? "\u2191" : "\u2193" })
+          header.column.getIsSorted() && /* @__PURE__ */ jsx28(
+            Icon,
+            {
+              name: header.column.getIsSorted() === "asc" ? "arrow-up" : "arrow-down",
+              size: "sm"
+            }
+          )
         ] })
       },
       header.id
     )) }, headerGroup.id)) }),
-    /* @__PURE__ */ jsx27(TableBody, { children: table.getRowModel().rows.map((row) => /* @__PURE__ */ jsx27(
+    /* @__PURE__ */ jsx28(TableBody, { children: table.getRowModel().rows.map((row) => /* @__PURE__ */ jsx28(
       TableRow,
       {
         "data-selected": row.getIsSelected(),
-        children: row.getVisibleCells().map((cell) => /* @__PURE__ */ jsx27(TableCell, { children: flexRender(cell.column.columnDef.cell, cell.getContext()) }, cell.id))
+        children: row.getVisibleCells().map((cell) => /* @__PURE__ */ jsx28(TableCell, { children: flexRender(cell.column.columnDef.cell, cell.getContext()) }, cell.id))
       },
       row.id
     )) })
@@ -5929,7 +5843,7 @@ function tokenVar(path, fallback) {
 token.var = tokenVar;
 
 // src/event-calendar/EventCalendar.tsx
-import { jsx as jsx28 } from "react/jsx-runtime";
+import { jsx as jsx29 } from "react/jsx-runtime";
 var CalendarContainer = styled("div", {
   base: {
     fontFamily: "brand",
@@ -6103,7 +6017,7 @@ function EventCalendarComponent({
       onEventDrop(event, info.event.start || /* @__PURE__ */ new Date(), info.event.end);
     }
   };
-  return /* @__PURE__ */ jsx28(CalendarContainer, { ref, children: /* @__PURE__ */ jsx28(
+  return /* @__PURE__ */ jsx29(CalendarContainer, { ref, children: /* @__PURE__ */ jsx29(
     FullCalendar,
     {
       plugins: [dayGridPlugin, interactionPlugin],
@@ -6131,15 +6045,84 @@ EventCalendarComponent.displayName = "EventCalendar";
 var EventCalendar = forwardRef29(EventCalendarComponent);
 
 // src/gantt-chart/GanttChart.tsx
-import { Gantt } from "@svar-ui/react-gantt";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Editor, Gantt, Tooltip as Tooltip2 } from "@svar-ui/react-gantt";
 import "@svar-ui/react-gantt/all.css";
 import { forwardRef as forwardRef30, useCallback as useCallback2, useEffect as useEffect2, useRef, useState as useState2 } from "react";
-import { jsx as jsx29, jsxs as jsxs17 } from "react/jsx-runtime";
+import { jsx as jsx30, jsxs as jsxs17 } from "react/jsx-runtime";
 var defaultColumns = [
   { id: "text", header: "Task", width: 150 },
   { id: "start", header: "Start date", width: 90 },
   { id: "duration", header: "Duration", width: 70 }
 ];
+var priorityColors = {
+  high: token("colors.state.danger"),
+  medium: token("colors.state.warning"),
+  low: token("colors.state.success"),
+  default: token("colors.accent.primary")
+};
+var getPriorityColor = (priority) => priorityColors[priority ?? "default"] ?? priorityColors.default;
+var TaskTemplate = ({ data: task }) => {
+  const backgroundColor = getPriorityColor(task.priority);
+  const progress = task.progress ?? 0;
+  if (task.type === "milestone") {
+    return null;
+  }
+  const isProject = task.type === "project";
+  const opacity = isProject ? 0.85 : 1;
+  return /* @__PURE__ */ jsxs17(
+    "div",
+    {
+      className: "wx-bar wx-task",
+      style: {
+        width: "100%",
+        height: "100%",
+        backgroundColor,
+        opacity,
+        borderRadius: token("radii.sm"),
+        color: "#fff",
+        display: "flex",
+        alignItems: "center",
+        paddingLeft: "8px",
+        boxSizing: "border-box",
+        position: "relative",
+        overflow: "hidden"
+      },
+      children: [
+        progress > 0 && progress < 100 && /* @__PURE__ */ jsx30(
+          "div",
+          {
+            style: {
+              position: "absolute",
+              left: 0,
+              top: 0,
+              height: "100%",
+              width: `${progress}%`,
+              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              borderRadius: token("radii.sm")
+            }
+          }
+        ),
+        /* @__PURE__ */ jsx30(
+          "span",
+          {
+            style: {
+              position: "relative",
+              zIndex: 1,
+              fontSize: token("fontSizes.xs"),
+              fontWeight: 500,
+              textShadow: "0 1px 1px rgba(0,0,0,0.2)",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis"
+            },
+            children: task.text
+          }
+        )
+      ]
+    }
+  );
+};
 var scrollNavStyles = css({
   position: "absolute",
   top: "8px",
@@ -6154,6 +6137,7 @@ var scrollButtonStyles = css({
   justifyContent: "center",
   width: "28px",
   height: "28px",
+  padding: "0 !important",
   borderRadius: "sm",
   border: "1px solid",
   borderColor: "border.subtle",
@@ -6176,69 +6160,486 @@ var scrollButtonStyles = css({
     }
   }
 });
-function ChevronLeftIcon() {
-  return /* @__PURE__ */ jsx29("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", children: /* @__PURE__ */ jsx29(
-    "path",
-    {
-      d: "M10 12L6 8L10 4",
-      stroke: "currentColor",
-      strokeWidth: "1.5",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
+var ChevronIcon2 = ({ direction }) => /* @__PURE__ */ jsx30("i", { className: `fa-solid fa-chevron-${direction}`, style: { fontSize: "12px" } });
+var t = {
+  accent: token("colors.accent.primary"),
+  accentSecondary: token("colors.accent.secondary"),
+  bgBase: token("colors.background.base"),
+  bgSubtle: token("colors.background.subtle"),
+  bgElevated: token("colors.background.elevated"),
+  borderSubtle: token("colors.border.subtle"),
+  borderStrong: token("colors.border.strong"),
+  textPrimary: token("colors.text.primary"),
+  textSecondary: token("colors.text.secondary"),
+  neutralBase: token("colors.neutral.base"),
+  neutralLight: token("colors.neutral.light"),
+  btnPrimaryBg: token("colors.button.primary.bg"),
+  btnPrimaryText: token("colors.button.primary.text"),
+  btnPrimaryHover: token("colors.button.primary.bgHover"),
+  btnDangerHover: token("colors.button.danger.bgHover"),
+  stateDanger: token("colors.state.danger"),
+  btnDangerText: token("colors.button.danger.text"),
+  fontBrand: token("fonts.brand"),
+  fontSm: token("fontSizes.sm"),
+  fontXs: token("fontSizes.xs"),
+  fontMd: token("fontSizes.md"),
+  radiusSm: token("radii.sm"),
+  radiusMd: token("radii.md"),
+  radiusLg: token("radii.lg"),
+  spacingXs: token("spacing.xs"),
+  spacingSm: token("spacing.sm"),
+  spacingMd: token("spacing.md"),
+  spacingLg: token("spacing.lg"),
+  spacing2xs: token("spacing.2xs")
+};
+var border1Subtle = `1px solid ${t.borderSubtle}`;
+var svarCssVariables = {
+  // Gantt-specific
+  "--wx-gantt-task-color": t.accent,
+  "--wx-gantt-task-font-color": t.btnPrimaryText,
+  "--wx-gantt-task-fill-color": t.accent,
+  "--wx-gantt-task-border-color": t.accent,
+  "--wx-gantt-project-color": t.accentSecondary,
+  "--wx-gantt-milestone-color": t.accent,
+  "--wx-gantt-bar-border-radius": t.radiusSm,
+  "--wx-gantt-link-color": t.borderStrong,
+  "--wx-gantt-progress-marker-height": "8px",
+  "--wx-gantt-holiday-background": t.bgSubtle,
+  "--wx-gantt-border-color": t.borderSubtle,
+  "--wx-gantt-form-header-border": border1Subtle,
+  "--wx-gantt-icon-color": t.textSecondary,
+  // Grid
+  "--wx-grid-header-font": t.fontBrand,
+  "--wx-grid-header-font-color": t.textSecondary,
+  "--wx-grid-body-font": t.fontBrand,
+  "--wx-grid-body-row-border": "none",
+  "--wx-grid-cell-border": "none",
+  // Timescale
+  "--wx-timescale-font": t.fontBrand,
+  "--wx-timescale-font-color": t.textSecondary,
+  "--wx-timescale-border": border1Subtle,
+  // Tooltip
+  "--wx-tooltip-background": t.bgElevated,
+  "--wx-tooltip-font-color": t.textPrimary,
+  // Background/borders
+  "--wx-background": t.bgBase,
+  "--wx-background-alt": t.bgSubtle,
+  "--wx-background-hover": t.bgSubtle,
+  "--wx-border": border1Subtle,
+  "--wx-color": t.textPrimary,
+  "--wx-color-font": t.textPrimary,
+  "--wx-color-font-alt": t.textSecondary,
+  "--wx-color-font-disabled": t.neutralBase,
+  "--wx-color-secondary": t.textSecondary,
+  // Primary/secondary/danger colors
+  "--wx-color-primary": t.accent,
+  "--wx-color-primary-font": t.btnPrimaryText,
+  "--wx-color-primary-selected": "rgba(0, 178, 204, 0.1)",
+  "--wx-color-secondary-font": t.textPrimary,
+  "--wx-color-secondary-border": t.borderStrong,
+  "--wx-color-secondary-hover": t.bgSubtle,
+  "--wx-color-danger": t.stateDanger,
+  "--wx-button-danger-font-color": t.btnDangerText,
+  "--wx-color-link": t.accent,
+  "--wx-color-disabled": t.neutralLight,
+  // Popup/Modal
+  "--wx-popup-background": t.bgElevated,
+  "--wx-popup-shadow": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+  "--wx-popup-border": border1Subtle,
+  "--wx-popup-border-radius": t.radiusLg,
+  "--wx-popup-z-index": "1200",
+  "--wx-modal-background": t.bgElevated,
+  "--wx-modal-border": border1Subtle,
+  "--wx-modal-border-radius": t.radiusLg,
+  "--wx-modal-width": "360px",
+  "--wx-modal-shadow": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+  "--wx-box-shadow": "0 4px 12px rgba(0, 0, 0, 0.15)",
+  "--wx-padding": t.spacingMd,
+  // Input
+  "--wx-input-width": "100%",
+  "--wx-input-height": "44px",
+  "--wx-input-padding": `${t.spacingSm} ${t.spacingMd}`,
+  "--wx-input-background": t.bgBase,
+  "--wx-input-background-disabled": t.bgSubtle,
+  "--wx-input-border": border1Subtle,
+  "--wx-input-border-focus": `2px solid ${t.accent}`,
+  "--wx-input-border-disabled": border1Subtle,
+  "--wx-input-border-radius": t.radiusMd,
+  "--wx-input-font-family": t.fontBrand,
+  "--wx-input-font-size": t.fontSm,
+  "--wx-input-font-weight": "400",
+  "--wx-input-font-color": t.textPrimary,
+  "--wx-input-line-height": "1.5",
+  "--wx-input-text-align": "left",
+  "--wx-input-placeholder-color": t.neutralBase,
+  "--wx-input-icon-size": "16px",
+  "--wx-input-icon-indent": t.spacingSm,
+  "--wx-input-icon-color": t.textSecondary,
+  // Button
+  "--wx-button-background": t.btnPrimaryBg,
+  "--wx-button-font-color": t.btnPrimaryText,
+  "--wx-button-font-family": t.fontBrand,
+  "--wx-button-font-size": t.fontSm,
+  "--wx-button-font-weight": "500",
+  "--wx-button-line-height": "1.5",
+  "--wx-button-padding": `${t.spacingXs} ${t.spacingMd}`,
+  "--wx-button-border": "none",
+  "--wx-button-border-radius": t.radiusMd,
+  "--wx-button-width": "auto",
+  "--wx-button-icon-size": "14px",
+  "--wx-button-icon-indent": t.spacingXs,
+  "--wx-button-text-transform": "none",
+  "--wx-button-pressed": t.btnPrimaryHover,
+  "--wx-button-box-shadow": "inset 0 2px 4px rgba(0, 0, 0, 0.1)",
+  "--wx-button-primary-pressed": t.btnPrimaryHover,
+  "--wx-button-primary-box-shadow": "inset 0 2px 4px rgba(0, 0, 0, 0.2)",
+  "--wx-button-danger-pressed": t.btnDangerHover,
+  // Checkbox
+  "--wx-checkbox-size": "18px",
+  "--wx-checkbox-height": "24px",
+  "--wx-checkbox-font-family": t.fontBrand,
+  "--wx-checkbox-font-size": t.fontSm,
+  "--wx-checkbox-font-weight": "400",
+  "--wx-checkbox-font-color": t.textPrimary,
+  "--wx-checkbox-line-height": "1.5",
+  "--wx-checkbox-border-width": "1px",
+  "--wx-checkbox-border-color": t.borderStrong,
+  "--wx-checkbox-border-color-disabled": t.neutralLight,
+  "--wx-checkbox-border-radius": t.radiusSm,
+  // Slider/Progress
+  "--wx-slider-track-height": "8px",
+  "--wx-slider-track-background": t.neutralLight,
+  "--wx-slider-thumb-size": "20px",
+  "--wx-slider-thumb-background": t.accent,
+  "--wx-slider-primary": t.accent,
+  "--wx-slider-background": t.neutralLight,
+  "--wx-progress-background": t.neutralLight,
+  "--wx-progress-color": t.accent,
+  "--wx-progress-height": "8px",
+  "--wx-progress-border-radius": t.radiusSm,
+  // Misc
+  "--wx-field-gutter": t.spacingLg,
+  "--wx-sidebar-close-icon": t.textSecondary,
+  "--wx-font-family": t.fontBrand,
+  "--wx-font-size": t.fontSm,
+  "--wx-font-size-sm": t.fontXs,
+  "--wx-font-weight": "400",
+  "--wx-font-weight-md": "500",
+  "--wx-line-height": "1.5",
+  "--wx-line-height-sm": "1.4",
+  "--wx-icon-size": "16px",
+  "--wx-icon-color": t.textSecondary,
+  "--wx-icon-border-radius": t.radiusSm,
+  // Multicombo
+  "--wx-multicombo-tag-gap": t.spacing2xs,
+  "--wx-multicombo-tag-border": border1Subtle,
+  "--wx-multicombo-tag-border-radius": t.radiusSm,
+  "--wx-multicombo-tag-background": t.bgSubtle,
+  "--wx-multicombo-tag-pading": `${t.spacing2xs} ${t.spacingXs}`,
+  // Calendar
+  "--wx-calendar-padding": t.spacingMd,
+  "--wx-calendar-gap": t.spacingXs,
+  "--wx-calendar-line-gap": "2px",
+  "--wx-calendar-cell-size": "36px",
+  "--wx-calendar-font-family": t.fontBrand,
+  "--wx-calendar-font-size": t.fontSm,
+  "--wx-calendar-font-weight": "400",
+  "--wx-calendar-font-color": t.textPrimary,
+  "--wx-calendar-line-height": "1.5",
+  "--wx-calendar-border-radius": t.radiusSm,
+  "--wx-calendar-header-font-size": t.fontMd,
+  "--wx-calendar-header-font-weight": "500",
+  "--wx-calendar-header-line-height": "1.5",
+  "--wx-calendar-icon-size": "16px",
+  "--wx-calendar-icon-color": t.textSecondary,
+  "--wx-calendar-controls-font-family": t.fontBrand,
+  "--wx-calendar-controls-font-size": t.fontSm,
+  "--wx-calendar-controls-font-weight": "500",
+  "--wx-calendar-controls-line-height": "1.5",
+  "--wx-calendar-controls-font-color": t.accent
+};
+var faIconBase = {
+  fontFamily: '"Font Awesome 7 Free" !important',
+  fontWeight: "900 !important",
+  fontStyle: "normal !important",
+  fontSize: "12px"
+};
+var globalIconCss = `i[class*="wxi-"]{font-style:normal!important}
+i.wxi-menu-down:before,i.wxi-angle-down:before{content:"\\f078"!important;font-family:"Font Awesome 7 Free"!important;font-weight:900!important;font-size:12px;font-style:normal!important}
+i.wxi-menu-up:before,i.wxi-angle-up:before{content:"\\f077"!important;font-family:"Font Awesome 7 Free"!important;font-weight:900!important;font-size:12px;font-style:normal!important}
+i.wxi-menu-left:before,i.wxi-angle-left:before{content:"\\f053"!important;font-family:"Font Awesome 7 Free"!important;font-weight:900!important;font-size:12px;font-style:normal!important}
+i.wxi-menu-right:before,i.wxi-angle-right:before{content:"\\f054"!important;font-family:"Font Awesome 7 Free"!important;font-weight:900!important;font-size:12px;font-style:normal!important}
+i.wxi-close:before{content:"\\f00d"!important;font-family:"Font Awesome 7 Free"!important;font-weight:900!important;font-size:14px;font-style:normal!important;transform:translate(0)!important}
+i.wxi-plus:before{content:"\\2b"!important;font-family:"Font Awesome 7 Free"!important;font-weight:900!important;font-size:11px;font-style:normal!important}
+i.wxi-minus:before{content:"\\f068"!important;font-family:"Font Awesome 7 Free"!important;font-weight:900!important;font-size:11px;font-style:normal!important}
+i.wxi-check:before{content:"\\f00c"!important;font-family:"Font Awesome 7 Free"!important;font-weight:900!important;font-size:12px;font-style:normal!important}`;
+var buttonBase = {
+  borderRadius: "component.buttonRadius",
+  fontFamily: "brand",
+  fontSize: "sm",
+  fontWeight: "medium",
+  padding: "xs",
+  paddingLeft: "md",
+  paddingRight: "md",
+  minHeight: "component.buttonMinHeight",
+  cursor: "pointer",
+  transition: "all 0.15s ease",
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  "&:active": { transform: "scale(0.98)" }
+};
+var GanttWrapper = styled("div", {
+  base: {
+    position: "relative",
+    fontFamily: "brand",
+    ...svarCssVariables,
+    // SVAR Icon Overrides - font-style:normal prevents italic skewing on <i> elements
+    '& i[class*="wxi-"]': { fontStyle: "normal !important" },
+    "& i.wxi-menu-down::before, & i.wxi-angle-down::before": { content: '"\\f078" !important', ...faIconBase },
+    "& i.wxi-menu-up::before, & i.wxi-angle-up::before": { content: '"\\f077" !important', ...faIconBase },
+    "& i.wxi-menu-left::before, & i.wxi-angle-left::before": { content: '"\\f053" !important', ...faIconBase },
+    "& i.wxi-menu-right::before, & i.wxi-angle-right::before": { content: '"\\f054" !important', ...faIconBase },
+    "& i.wxi-close::before": { content: '"\\f00d" !important', ...faIconBase, fontSize: "14px" },
+    "& i.wxi-plus::before": { content: '"\\2b" !important', ...faIconBase, fontSize: "11px" },
+    "& i.wxi-minus::before": { content: '"\\f068" !important', ...faIconBase, fontSize: "11px" },
+    "& i.wxi-check::before": { content: '"\\f00c" !important', ...faIconBase },
+    // =====================================================
+    // EDITOR PANEL (SVAR Sidebar/SideArea)
+    // =====================================================
+    // SVAR uses .wx-sidearea for the sidebar container and
+    // .wx-gantt-editor for the editor form. CSS variables
+    // handle most styling; these are additional overrides.
+    // ===== Sidearea Container (Editor Sidebar) =====
+    "& .wx-sidearea": {
+      bg: "background.elevated",
+      borderLeft: "1px solid",
+      borderColor: "border.subtle",
+      boxShadow: "-4px 0 24px rgba(0, 0, 0, 0.08)"
+    },
+    // ===== Gantt Editor Panel =====
+    '& [class*="wx-gantt-editor"]': {
+      padding: "lg",
+      fontFamily: "brand"
+    },
+    // ===== Editor Header (with close/delete buttons) =====
+    '& [class*="wx-gantt-editor"] > div:first-child': {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
+      gap: "sm",
+      paddingBottom: "md",
+      marginBottom: "lg",
+      borderBottom: "1px solid",
+      borderColor: "border.subtle"
+    },
+    // ===== Form Labels - Uppercase micro style =====
+    '& [class*="wx-gantt-editor"] label': {
+      display: "block",
+      color: "text.secondary",
+      fontSize: "xs",
+      fontWeight: "medium",
+      fontFamily: "brand",
+      textTransform: "uppercase",
+      letterSpacing: "0.5px",
+      marginBottom: "xs"
+    },
+    // ===== Delete button styling (smaller, text-like) =====
+    '& [class*="wx-gantt-editor"] .wx-button.wx-danger, & [class*="wx-gantt-editor"] button[class*="danger"]': {
+      padding: "4px 8px !important",
+      fontSize: "12px !important",
+      fontWeight: "500",
+      minHeight: "unset !important",
+      height: "auto !important",
+      lineHeight: "1.4"
+    },
+    // ===== Close button - icon-only, positioned after delete button =====
+    '& [class*="wx-gantt-editor"] .wx-icon': {
+      order: 1,
+      background: "transparent !important",
+      backgroundColor: "transparent !important",
+      border: "none !important",
+      boxShadow: "none !important",
+      width: "28px !important",
+      height: "28px !important",
+      minWidth: "unset !important",
+      minHeight: "unset !important",
+      padding: "0 !important",
+      borderRadius: "sm",
+      color: `${t.textSecondary} !important`,
+      cursor: "pointer",
+      transition: "all 0.15s ease",
+      display: "flex !important",
+      alignItems: "center",
+      justifyContent: "center",
+      "&:hover": { color: `${t.textPrimary} !important`, background: `${t.bgSubtle} !important` }
+    },
+    // ===== Progress/Slider in editor =====
+    '& [class*="wx-gantt-editor"] .wx-slider': { display: "flex", alignItems: "center", gap: "sm", width: "100%" },
+    '& [class*="wx-gantt-editor"] .wx-slider input': {
+      flex: 1,
+      height: "6px",
+      appearance: "none",
+      WebkitAppearance: "none",
+      background: t.neutralLight,
+      borderRadius: "3px",
+      cursor: "pointer",
+      "&::-webkit-slider-thumb, &::-moz-range-thumb": {
+        WebkitAppearance: "none",
+        appearance: "none",
+        width: "16px",
+        height: "16px",
+        borderRadius: "50%",
+        background: t.accent,
+        cursor: "pointer",
+        border: "2px solid white",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.2)"
+      }
+    },
+    '& [class*="wx-gantt-editor"] .wx-slider .wx-label': { minWidth: "36px", textAlign: "right", fontSize: "xs", color: "text.secondary" },
+    // =====================================================
+    // GENERIC MODAL/POPUP STYLING (non-editor)
+    // =====================================================
+    "& .wx-modal, & .wx-popup": {
+      bg: "background.elevated",
+      borderRadius: "component.modalRadius",
+      boxShadow: "component.modalShadow",
+      border: "1px solid",
+      borderColor: "border.subtle",
+      fontFamily: "brand",
+      fontSize: "sm",
+      color: "text.primary",
+      padding: "lg",
+      minWidth: "320px"
+    },
+    "& .wx-modal-header, & .wx-popup-header": {
+      borderBottom: "1px solid",
+      borderColor: "border.subtle",
+      fontWeight: "bold",
+      fontSize: "lg",
+      color: "text.primary",
+      paddingBottom: "md",
+      marginBottom: "md"
+    },
+    "& .wx-modal-footer, & .wx-popup-footer": {
+      borderTop: "1px solid",
+      borderColor: "border.subtle",
+      paddingTop: "md",
+      marginTop: "md",
+      display: "flex",
+      justifyContent: "flex-end",
+      gap: "sm"
+    },
+    // ===== Primary Buttons =====
+    '& [class*="wx-button"][class*="wx-primary"]': {
+      ...buttonBase,
+      bg: "button.primary.bg",
+      color: "button.primary.text",
+      border: "none",
+      "&:hover": { bg: "button.primary.bgHover" },
+      "&:focus": { boxShadow: "focus.button", outline: "none" }
+    },
+    // ===== Secondary Buttons =====
+    '& [class*="wx-button"][class*="wx-secondary"]': {
+      ...buttonBase,
+      bg: "button.secondary.bg",
+      color: "button.secondary.text",
+      border: "1px solid",
+      borderColor: "button.secondary.border",
+      "&:hover": { bg: "button.secondary.bgHover" },
+      "&:focus": { boxShadow: "focus.button", outline: "none" }
+    },
+    // ===== Danger Buttons =====
+    '& [class*="wx-button"][class*="wx-danger"]': {
+      ...buttonBase,
+      bg: "button.danger.bg",
+      color: "button.danger.text",
+      border: "none",
+      "&:hover": { bg: "button.danger.bgHover" },
+      "&:focus": { boxShadow: "focus.danger", outline: "none" }
+    },
+    // ===== Generic Close Button =====
+    "& .wx-close, & .wx-modal-close": {
+      position: "absolute",
+      top: "md",
+      right: "md",
+      width: "32px",
+      height: "32px",
+      borderRadius: "sm",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "text.secondary",
+      cursor: "pointer",
+      border: "none",
+      bg: "transparent",
+      padding: 0,
+      transition: "all 0.15s ease",
+      "&:hover": {
+        bg: "background.subtle",
+        color: "text.primary"
+      },
+      "&:focus": {
+        boxShadow: "focus.dialog",
+        outline: "none"
+      }
+    },
+    // ===== Checkbox =====
+    '& .wx-checkbox, & input[type="checkbox"]': {
+      width: "18px",
+      height: "18px",
+      borderRadius: "sm",
+      border: "1px solid",
+      borderColor: "border.strong",
+      cursor: "pointer",
+      accentColor: t.accent
+    },
+    // ===== Date Picker Popup =====
+    "& .wx-datepicker, & .wx-calendar": {
+      bg: "background.elevated",
+      border: "1px solid",
+      borderColor: "border.subtle",
+      borderRadius: "component.popoverRadius",
+      boxShadow: "none",
+      fontFamily: "brand",
+      fontSize: "sm"
+    },
+    // ===== Progress Slider =====
+    '& [class*="wx-slider"]': { accentColor: t.accent, cursor: "pointer" },
+    // ===== Tab Navigation =====
+    "& .wx-tabs": {
+      borderBottom: "1px solid",
+      borderColor: "border.subtle",
+      marginBottom: "md"
+    },
+    "& .wx-tab": {
+      fontFamily: "brand",
+      fontSize: "sm",
+      fontWeight: "medium",
+      color: "text.secondary",
+      padding: "sm",
+      cursor: "pointer",
+      borderBottom: "2px solid transparent",
+      transition: "all 0.15s ease",
+      "&:hover": {
+        color: "text.primary",
+        bg: "background.subtle"
+      },
+      '&.active, &[aria-selected="true"]': {
+        color: "accent.primary",
+        borderBottomColor: "accent.primary"
+      }
     }
-  ) });
-}
-function ChevronRightIcon() {
-  return /* @__PURE__ */ jsx29("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", children: /* @__PURE__ */ jsx29(
-    "path",
-    {
-      d: "M6 4L10 8L6 12",
-      stroke: "currentColor",
-      strokeWidth: "1.5",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }
-  ) });
-}
+  }
+});
 var GanttContainer = styled("div", {
   base: {
-    fontFamily: "brand",
+    width: "100%",
     borderRadius: "component.cardRadius",
     border: "1px solid",
     borderColor: "border.subtle",
     overflow: "hidden",
     bg: "background.base",
-    // Override SVAR Gantt CSS variables with brand tokens
-    // Task/bar styling
-    "--wx-gantt-task-color": token("colors.accent.primary"),
-    "--wx-gantt-task-font-color": token("colors.button.primary.text"),
-    "--wx-gantt-task-fill-color": token("colors.accent.primary"),
-    "--wx-gantt-task-border-color": token("colors.accent.primary"),
-    "--wx-gantt-project-color": token("colors.accent.secondary"),
-    "--wx-gantt-milestone-color": token("colors.accent.primary"),
-    "--wx-gantt-bar-border-radius": token("radii.sm"),
-    "--wx-gantt-link-color": token("colors.border.strong"),
-    "--wx-gantt-progress-marker-height": "8px",
-    // Grid styling
-    "--wx-grid-header-font": token("fonts.brand"),
-    "--wx-grid-header-font-color": token("colors.text.secondary"),
-    "--wx-grid-body-font": token("fonts.brand"),
-    "--wx-grid-body-row-border": `1px solid ${token("colors.border.subtle")}`,
-    // Timescale styling
-    "--wx-timescale-font": token("fonts.brand"),
-    "--wx-timescale-font-color": token("colors.text.secondary"),
-    "--wx-timescale-border": `1px solid ${token("colors.border.subtle")}`,
-    // Tooltip styling
-    "--wx-tooltip-background": token("colors.background.elevated"),
-    "--wx-tooltip-font-color": token("colors.text.primary"),
-    // Holiday/weekend styling
-    "--wx-gantt-holiday-background": token("colors.background.subtle"),
-    // Background and borders
-    "--wx-background": token("colors.background.base"),
-    "--wx-background-alt": token("colors.background.subtle"),
-    "--wx-border": token("colors.border.subtle"),
-    "--wx-color": token("colors.text.primary"),
-    "--wx-color-secondary": token("colors.text.secondary"),
     // Component internal styling
     "& .wx-gantt": {
       border: "none"
@@ -6258,6 +6659,24 @@ var GanttContainer = styled("div", {
       fontSize: "xs",
       color: "text.primary"
     },
+    // Remove borders from task name cells in the grid
+    "& .wx-grid-body": {
+      "& .wx-row": {
+        border: "none !important",
+        borderBottom: "none !important"
+      },
+      "& .wx-cell": {
+        border: "none !important",
+        borderRight: "none !important",
+        borderBottom: "none !important"
+      }
+    },
+    "& .wx-grid .wx-row": {
+      border: "none !important"
+    },
+    "& .wx-grid .wx-cell": {
+      border: "none !important"
+    },
     "& .wx-timescale-cell": {
       fontSize: "xs",
       fontWeight: "medium"
@@ -6268,28 +6687,15 @@ var GanttContainer = styled("div", {
         opacity: 0.9
       }
     },
-    "& .wx-bar-content": {
-      fontSize: "xs",
-      fontWeight: "medium"
-    },
-    "& .wx-link": {
-      stroke: token("colors.border.strong")
-    },
-    // Fix gap between grid and timeline
-    "& .wx-grid": {
-      borderRight: "1px solid",
-      borderColor: "border.subtle"
-    },
+    "& .wx-bar-content": { fontSize: "xs", fontWeight: "medium" },
+    "& .wx-link": { stroke: t.borderStrong },
+    "& .wx-grid": { borderRight: "1px solid", borderColor: "border.subtle" },
     "& .wx-resizer": {
       cursor: "col-resize",
       bg: "#eee",
       transition: "background 0.15s ease",
-      "&:hover": {
-        bg: "border.strong"
-      },
-      "&:active": {
-        bg: "accent.primary"
-      }
+      "&:hover": { bg: "border.strong" },
+      "&:active": { bg: "accent.primary" }
     }
   }
 });
@@ -6303,128 +6709,130 @@ function GanttChartComponent({
   height = 400,
   editable = false,
   readonly = false,
+  showTooltip = true,
+  showEditor,
   onTaskClick,
   onTaskChange,
   onLinkAdd,
   onLinkDelete
 }, ref) {
+  const shouldShowEditor = showEditor ?? editable;
   const containerRef = useRef(null);
+  const cleanupRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState2(false);
   const [canScrollRight, setCanScrollRight] = useState2(false);
-  const updateScrollState = useCallback2(() => {
+  const [api, setApi] = useState2(null);
+  useEffect2(() => {
+    const styleId = "svar-gantt-icons";
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement("style");
+      style.id = styleId;
+      style.textContent = globalIconCss;
+      document.head.appendChild(style);
+    }
+  }, []);
+  const getScrollableElement = useCallback2(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container) return null;
+    const scrollableArea = container.querySelector(".wx-area");
+    if (scrollableArea && scrollableArea.scrollWidth > scrollableArea.clientWidth) {
+      return scrollableArea;
+    }
     const chartElement = container.querySelector(".wx-chart");
-    if (!chartElement) return;
-    const { scrollLeft, scrollWidth, clientWidth } = chartElement;
+    if (!chartElement) return null;
+    const scrollable = chartElement.querySelector('[style*="overflow"]');
+    if (scrollable && scrollable.scrollWidth > scrollable.clientWidth) {
+      return scrollable;
+    }
+    return chartElement;
+  }, []);
+  const updateScrollState = useCallback2(() => {
+    const scrollableElement = getScrollableElement();
+    if (!scrollableElement) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollableElement;
     setCanScrollLeft(scrollLeft > 0);
     setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
-  }, []);
+  }, [getScrollableElement]);
   useEffect2(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    const chartElement = container.querySelector(".wx-chart");
-    if (!chartElement) return;
-    updateScrollState();
-    chartElement.addEventListener("scroll", updateScrollState);
-    const resizeObserver = new ResizeObserver(updateScrollState);
-    resizeObserver.observe(chartElement);
+    if (!containerRef.current) return;
+    const timeoutId = setTimeout(() => {
+      const el = getScrollableElement();
+      if (!el) return;
+      updateScrollState();
+      el.addEventListener("scroll", updateScrollState);
+      const resizeObserver = new ResizeObserver(updateScrollState);
+      resizeObserver.observe(el);
+      cleanupRef.current = () => {
+        el.removeEventListener("scroll", updateScrollState);
+        resizeObserver.disconnect();
+      };
+    }, 100);
     return () => {
-      chartElement.removeEventListener("scroll", updateScrollState);
-      resizeObserver.disconnect();
+      clearTimeout(timeoutId);
+      cleanupRef.current?.();
     };
-  }, [updateScrollState]);
+  }, [updateScrollState, getScrollableElement]);
   const scroll = (direction) => {
-    const container = containerRef.current;
-    if (!container) return;
-    const chartElement = container.querySelector(".wx-chart");
-    if (!chartElement) return;
-    const scrollAmount = chartElement.clientWidth * 0.5;
-    chartElement.scrollBy({
+    const scrollableElement = getScrollableElement();
+    if (!scrollableElement) return;
+    const scrollAmount = scrollableElement.clientWidth * 0.5;
+    scrollableElement.scrollBy({
       left: direction === "left" ? -scrollAmount : scrollAmount,
       behavior: "smooth"
     });
   };
-  const handleTaskSelect = (task) => {
-    if (onTaskClick) {
-      const foundTask = tasks.find((t) => t.id === task.id);
-      if (foundTask) {
-        onTaskClick(foundTask);
-      }
-    }
-  };
-  const handleTaskUpdate = (updatedTask) => {
-    if (onTaskChange) {
-      onTaskChange(updatedTask);
-    }
-  };
-  const handleLinkAdd = (link) => {
-    if (onLinkAdd) {
-      onLinkAdd(link);
-    }
-  };
-  const handleLinkDelete = (link) => {
-    if (onLinkDelete) {
-      onLinkDelete(link);
-    }
-  };
   const ganttProps = {
     tasks,
     links,
-    readonly: readonly || !editable
+    readonly: readonly || !editable,
+    taskTemplate: TaskTemplate,
+    init: setApi,
+    columns: columns === false ? [] : columns ?? defaultColumns,
+    ...scales && { scales },
+    ...start && { start },
+    ...end && { end },
+    // Event handlers - handleTaskSelect transforms ID to full task object
+    ...onTaskClick && {
+      "select-task": (task) => {
+        const found = tasks.find((t2) => t2.id === task.id);
+        if (found) onTaskClick(found);
+      }
+    },
+    ...onTaskChange && { "update-task": onTaskChange },
+    ...onLinkAdd && { "add-link": onLinkAdd },
+    ...onLinkDelete && { "delete-link": onLinkDelete }
   };
-  if (scales) {
-    ganttProps.scales = scales;
-  }
-  if (columns === false) {
-    ganttProps.columns = [];
-  } else {
-    ganttProps.columns = columns ?? defaultColumns;
-  }
-  if (start) {
-    ganttProps.start = start;
-  }
-  if (end) {
-    ganttProps.end = end;
-  }
-  if (onTaskClick) {
-    ganttProps["select-task"] = handleTaskSelect;
-  }
-  if (onTaskChange) {
-    ganttProps["update-task"] = handleTaskUpdate;
-  }
-  if (onLinkAdd) {
-    ganttProps["add-link"] = handleLinkAdd;
-  }
-  if (onLinkDelete) {
-    ganttProps["delete-link"] = handleLinkDelete;
-  }
-  return /* @__PURE__ */ jsxs17(GanttContainer, { ref, style: { height, position: "relative" }, children: [
-    /* @__PURE__ */ jsx29("div", { ref: containerRef, style: { height: "100%" }, children: /* @__PURE__ */ jsx29(Gantt, { ...ganttProps }) }),
-    /* @__PURE__ */ jsxs17("div", { className: scrollNavStyles, children: [
-      /* @__PURE__ */ jsx29(
-        "button",
-        {
-          type: "button",
-          className: scrollButtonStyles,
-          onClick: () => scroll("left"),
-          disabled: !canScrollLeft,
-          "aria-label": "Scroll timeline left",
-          children: /* @__PURE__ */ jsx29(ChevronLeftIcon, {})
-        }
-      ),
-      /* @__PURE__ */ jsx29(
-        "button",
-        {
-          type: "button",
-          className: scrollButtonStyles,
-          onClick: () => scroll("right"),
-          disabled: !canScrollRight,
-          "aria-label": "Scroll timeline right",
-          children: /* @__PURE__ */ jsx29(ChevronRightIcon, {})
-        }
-      )
-    ] })
+  const ganttElement = /* @__PURE__ */ jsx30(Gantt, { ...ganttProps });
+  const ganttWithTooltip = showTooltip && api ? /* @__PURE__ */ jsx30(Tooltip2, { api, children: ganttElement }) : ganttElement;
+  return /* @__PURE__ */ jsxs17(GanttWrapper, { ref, children: [
+    /* @__PURE__ */ jsxs17(GanttContainer, { style: { height, position: "relative" }, children: [
+      /* @__PURE__ */ jsx30("div", { ref: containerRef, style: { height: "100%" }, children: ganttWithTooltip }),
+      /* @__PURE__ */ jsxs17("div", { className: scrollNavStyles, children: [
+        /* @__PURE__ */ jsx30(
+          "button",
+          {
+            type: "button",
+            className: scrollButtonStyles,
+            onClick: () => scroll("left"),
+            disabled: !canScrollLeft,
+            "aria-label": "Scroll timeline left",
+            children: /* @__PURE__ */ jsx30(ChevronIcon2, { direction: "left" })
+          }
+        ),
+        /* @__PURE__ */ jsx30(
+          "button",
+          {
+            type: "button",
+            className: scrollButtonStyles,
+            onClick: () => scroll("right"),
+            disabled: !canScrollRight,
+            "aria-label": "Scroll timeline right",
+            children: /* @__PURE__ */ jsx30(ChevronIcon2, { direction: "right" })
+          }
+        )
+      ] })
+    ] }),
+    shouldShowEditor && api && /* @__PURE__ */ jsx30(Editor, { api })
   ] });
 }
 GanttChartComponent.displayName = "GanttChart";
@@ -6454,6 +6862,7 @@ export {
   GanttChart,
   Grid,
   GridItem,
+  Icon,
   Input,
   Pagination,
   PaginationButton,
