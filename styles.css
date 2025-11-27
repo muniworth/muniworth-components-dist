@@ -527,6 +527,16 @@
     --colors-text\.on-dark: #FFFFFF;
     --colors-text\.link: #00B2CC;
     --colors-text\.link-hover: var(--colors-text\.link-hover);
+    --colors-dark-bg\.base: #1a1a1a;
+    --colors-dark-bg\.subtle: #262626;
+    --colors-dark-bg\.elevated: #2d2d2d;
+    --colors-dark-text\.main: #f5f5f5;
+    --colors-dark-text\.subtle: #a3a3a3;
+    --colors-dark-text\.link: #33c5db;
+    --colors-dark-text\.link-hover: #66d4e6;
+    --colors-dark-border\.subtle: #404040;
+    --colors-dark-border\.strong: #525252;
+    --colors-state-hover\.danger: #c7382f;
     --spacing-0: 0rem;
     --spacing-1: 0.25rem;
     --spacing-2: 0.5rem;
@@ -713,6 +723,7 @@
     --colors-accent\.dark: var(--colors-brand\.dark);
     --colors-text\.primary: var(--colors-text\.main);
     --colors-text\.secondary: var(--colors-text\.subtle);
+    --colors-text\.link-color: var(--colors-text\.link);
     --colors-background\.base: var(--colors-bg\.base);
     --colors-background\.subtle: var(--colors-bg\.subtle);
     --colors-background\.elevated: var(--colors-bg\.elevated);
@@ -724,7 +735,7 @@
     --colors-button\.secondary\.border: var(--colors-border\.strong);
     --colors-button\.secondary\.text: var(--colors-text\.main);
     --colors-button\.danger\.bg: var(--colors-state\.danger);
-    --colors-button\.danger\.bg-hover: #c7382f;
+    --colors-button\.danger\.bg-hover: var(--colors-state-hover\.danger);
     --colors-button\.danger\.text: var(--colors-text\.on-dark);
     --colors-alert\.info\.bg: rgba(0, 178, 204, 0.1);
     --colors-alert\.info\.border: var(--colors-state\.info);
@@ -782,6 +793,49 @@
     --sizes-component\.spinner-sm: var(--sizes-spinner\.sm);
     --sizes-component\.spinner-md: var(--sizes-spinner\.md);
     --sizes-component\.spinner-lg: var(--sizes-spinner\.lg);
+}
+
+  [data-color-mode=dark] {
+    --colors-accent\.dark: var(--colors-dark-text\.main);
+    --colors-text\.primary: var(--colors-dark-text\.main);
+    --colors-text\.secondary: var(--colors-dark-text\.subtle);
+    --colors-text\.link-color: var(--colors-dark-text\.link);
+    --colors-text\.link-hover: var(--colors-dark-text\.link-hover);
+    --colors-background\.base: var(--colors-dark-bg\.base);
+    --colors-background\.subtle: var(--colors-dark-bg\.subtle);
+    --colors-background\.elevated: var(--colors-dark-bg\.elevated);
+    --colors-button\.secondary\.bg: var(--colors-dark-bg\.elevated);
+    --colors-button\.secondary\.bg-hover: var(--colors-dark-bg\.subtle);
+    --colors-button\.secondary\.border: var(--colors-dark-border\.strong);
+    --colors-button\.secondary\.text: var(--colors-dark-text\.main);
+    --colors-alert\.info\.bg: rgba(0, 178, 204, 0.15);
+    --colors-alert\.info\.text: #7dd3fc;
+    --colors-alert\.success\.bg: rgba(138, 198, 64, 0.15);
+    --colors-alert\.success\.text: #a3e635;
+    --colors-alert\.warning\.bg: rgba(239, 137, 54, 0.15);
+    --colors-alert\.warning\.text: #fdba74;
+    --colors-alert\.danger\.bg: rgba(237, 63, 48, 0.15);
+    --colors-alert\.danger\.text: #fca5a5;
+    --colors-toast\.bg: var(--colors-dark-bg\.elevated);
+    --colors-toast\.text: var(--colors-dark-text\.main);
+    --colors-toast\.border: var(--colors-dark-border\.strong);
+    --colors-toast\.close-hover: rgba(255, 255, 255, 0.15);
+    --colors-progress\.bg: var(--colors-dark-bg\.subtle);
+    --colors-tabs\.inactive\.text: var(--colors-dark-text\.subtle);
+    --colors-tabs\.hover\.bg: var(--colors-dark-bg\.subtle);
+    --colors-accordion\.trigger\.hover: var(--colors-dark-bg\.subtle);
+    --colors-accordion\.content\.bg: var(--colors-dark-bg\.base);
+    --colors-popover\.bg: var(--colors-dark-bg\.elevated);
+    --colors-popover\.border: var(--colors-dark-border\.subtle);
+    --colors-tooltip\.bg: var(--colors-dark-text\.main);
+    --colors-tooltip\.text: var(--colors-dark-bg\.base);
+    --colors-overlay\.modal: rgba(0, 0, 0, 0.7);
+    --colors-selection\.bg: rgba(0, 178, 204, 0.2);
+    --shadows-focus\.primary: 0 0 0 3px rgba(0, 178, 204, 0.3);
+    --shadows-focus\.dialog: 0 0 0 2px rgba(0, 178, 204, 0.5);
+    --shadows-focus\.danger: 0 0 0 3px rgba(220, 38, 38, 0.3);
+    --shadows-focus\.button: 0 0 0 3px rgba(0, 178, 204, 0.5);
+    --shadows-focus\.light: 0 0 0 2px rgba(0, 178, 204, 0.3)
 }
 
   @keyframes ping {

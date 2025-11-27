@@ -962,7 +962,7 @@ var spinnerRecipe = cva({
     borderColor: "currentColor",
     borderTopColor: "transparent",
     borderRadius: "50%",
-    animation: "spin durations.spinner linear infinite",
+    animation: "spin var(--durations-spinner) linear infinite",
     // Use parent's --spinner-color if set (e.g., from Button), otherwise default to blue
     color: "var(--spinner-color, var(--colors-spinner-color))"
   },
@@ -4593,6 +4593,46 @@ var tokens = {
     "value": "#003A5D",
     "variable": "var(--colors-text\\.link-hover)"
   },
+  "colors.dark-bg.base": {
+    "value": "#1a1a1a",
+    "variable": "var(--colors-dark-bg\\.base)"
+  },
+  "colors.dark-bg.subtle": {
+    "value": "#262626",
+    "variable": "var(--colors-dark-bg\\.subtle)"
+  },
+  "colors.dark-bg.elevated": {
+    "value": "#2d2d2d",
+    "variable": "var(--colors-dark-bg\\.elevated)"
+  },
+  "colors.dark-text.main": {
+    "value": "#f5f5f5",
+    "variable": "var(--colors-dark-text\\.main)"
+  },
+  "colors.dark-text.subtle": {
+    "value": "#a3a3a3",
+    "variable": "var(--colors-dark-text\\.subtle)"
+  },
+  "colors.dark-text.link": {
+    "value": "#33c5db",
+    "variable": "var(--colors-dark-text\\.link)"
+  },
+  "colors.dark-text.link-hover": {
+    "value": "#66d4e6",
+    "variable": "var(--colors-dark-text\\.link-hover)"
+  },
+  "colors.dark-border.subtle": {
+    "value": "#404040",
+    "variable": "var(--colors-dark-border\\.subtle)"
+  },
+  "colors.dark-border.strong": {
+    "value": "#525252",
+    "variable": "var(--colors-dark-border\\.strong)"
+  },
+  "colors.state-hover.danger": {
+    "value": "#c7382f",
+    "variable": "var(--colors-state-hover\\.danger)"
+  },
   "spacing.0": {
     "value": "0rem",
     "variable": "var(--spacing-0)"
@@ -5326,31 +5366,35 @@ var tokens = {
     "variable": "var(--colors-accent\\.secondary)"
   },
   "colors.accent.dark": {
-    "value": "var(--colors-brand\\.dark)",
+    "value": "var(--colors-accent\\.dark)",
     "variable": "var(--colors-accent\\.dark)"
   },
   "colors.text.primary": {
-    "value": "var(--colors-text\\.main)",
+    "value": "var(--colors-text\\.primary)",
     "variable": "var(--colors-text\\.primary)"
   },
   "colors.text.secondary": {
-    "value": "var(--colors-text\\.subtle)",
+    "value": "var(--colors-text\\.secondary)",
     "variable": "var(--colors-text\\.secondary)"
+  },
+  "colors.text.linkColor": {
+    "value": "var(--colors-text\\.link-color)",
+    "variable": "var(--colors-text\\.link-color)"
   },
   "colors.text.linkHover": {
     "value": "var(--colors-text\\.link-hover)",
     "variable": "var(--colors-text\\.link-hover)"
   },
   "colors.background.base": {
-    "value": "var(--colors-bg\\.base)",
+    "value": "var(--colors-background\\.base)",
     "variable": "var(--colors-background\\.base)"
   },
   "colors.background.subtle": {
-    "value": "var(--colors-bg\\.subtle)",
+    "value": "var(--colors-background\\.subtle)",
     "variable": "var(--colors-background\\.subtle)"
   },
   "colors.background.elevated": {
-    "value": "var(--colors-bg\\.elevated)",
+    "value": "var(--colors-background\\.elevated)",
     "variable": "var(--colors-background\\.elevated)"
   },
   "colors.button.primary.bg": {
@@ -5366,19 +5410,19 @@ var tokens = {
     "variable": "var(--colors-button\\.primary\\.text)"
   },
   "colors.button.secondary.bg": {
-    "value": "var(--colors-bg\\.elevated)",
+    "value": "var(--colors-button\\.secondary\\.bg)",
     "variable": "var(--colors-button\\.secondary\\.bg)"
   },
   "colors.button.secondary.bgHover": {
-    "value": "var(--colors-bg\\.subtle)",
+    "value": "var(--colors-button\\.secondary\\.bg-hover)",
     "variable": "var(--colors-button\\.secondary\\.bg-hover)"
   },
   "colors.button.secondary.border": {
-    "value": "var(--colors-border\\.strong)",
+    "value": "var(--colors-button\\.secondary\\.border)",
     "variable": "var(--colors-button\\.secondary\\.border)"
   },
   "colors.button.secondary.text": {
-    "value": "var(--colors-text\\.main)",
+    "value": "var(--colors-button\\.secondary\\.text)",
     "variable": "var(--colors-button\\.secondary\\.text)"
   },
   "colors.button.danger.bg": {
@@ -5386,7 +5430,7 @@ var tokens = {
     "variable": "var(--colors-button\\.danger\\.bg)"
   },
   "colors.button.danger.bgHover": {
-    "value": "#c7382f",
+    "value": "var(--colors-state-hover\\.danger)",
     "variable": "var(--colors-button\\.danger\\.bg-hover)"
   },
   "colors.button.danger.text": {
@@ -5394,7 +5438,7 @@ var tokens = {
     "variable": "var(--colors-button\\.danger\\.text)"
   },
   "colors.alert.info.bg": {
-    "value": "rgba(0, 178, 204, 0.1)",
+    "value": "var(--colors-alert\\.info\\.bg)",
     "variable": "var(--colors-alert\\.info\\.bg)"
   },
   "colors.alert.info.border": {
@@ -5402,11 +5446,11 @@ var tokens = {
     "variable": "var(--colors-alert\\.info\\.border)"
   },
   "colors.alert.info.text": {
-    "value": "var(--colors-data\\.navy)",
+    "value": "var(--colors-alert\\.info\\.text)",
     "variable": "var(--colors-alert\\.info\\.text)"
   },
   "colors.alert.success.bg": {
-    "value": "rgba(138, 198, 64, 0.1)",
+    "value": "var(--colors-alert\\.success\\.bg)",
     "variable": "var(--colors-alert\\.success\\.bg)"
   },
   "colors.alert.success.border": {
@@ -5414,11 +5458,11 @@ var tokens = {
     "variable": "var(--colors-alert\\.success\\.border)"
   },
   "colors.alert.success.text": {
-    "value": "#3d6b1a",
+    "value": "var(--colors-alert\\.success\\.text)",
     "variable": "var(--colors-alert\\.success\\.text)"
   },
   "colors.alert.warning.bg": {
-    "value": "rgba(239, 137, 54, 0.1)",
+    "value": "var(--colors-alert\\.warning\\.bg)",
     "variable": "var(--colors-alert\\.warning\\.bg)"
   },
   "colors.alert.warning.border": {
@@ -5426,11 +5470,11 @@ var tokens = {
     "variable": "var(--colors-alert\\.warning\\.border)"
   },
   "colors.alert.warning.text": {
-    "value": "#8b4513",
+    "value": "var(--colors-alert\\.warning\\.text)",
     "variable": "var(--colors-alert\\.warning\\.text)"
   },
   "colors.alert.danger.bg": {
-    "value": "rgba(237, 63, 48, 0.1)",
+    "value": "var(--colors-alert\\.danger\\.bg)",
     "variable": "var(--colors-alert\\.danger\\.bg)"
   },
   "colors.alert.danger.border": {
@@ -5438,27 +5482,27 @@ var tokens = {
     "variable": "var(--colors-alert\\.danger\\.border)"
   },
   "colors.alert.danger.text": {
-    "value": "#a81a0f",
+    "value": "var(--colors-alert\\.danger\\.text)",
     "variable": "var(--colors-alert\\.danger\\.text)"
   },
   "colors.toast.bg": {
-    "value": "var(--colors-brand\\.dark)",
+    "value": "var(--colors-toast\\.bg)",
     "variable": "var(--colors-toast\\.bg)"
   },
   "colors.toast.text": {
-    "value": "var(--colors-text\\.on-dark)",
+    "value": "var(--colors-toast\\.text)",
     "variable": "var(--colors-toast\\.text)"
   },
   "colors.toast.border": {
-    "value": "var(--colors-border\\.strong)",
+    "value": "var(--colors-toast\\.border)",
     "variable": "var(--colors-toast\\.border)"
   },
   "colors.toast.closeHover": {
-    "value": "rgba(255, 255, 255, 0.1)",
+    "value": "var(--colors-toast\\.close-hover)",
     "variable": "var(--colors-toast\\.close-hover)"
   },
   "colors.progress.bg": {
-    "value": "var(--colors-neutral\\.light)",
+    "value": "var(--colors-progress\\.bg)",
     "variable": "var(--colors-progress\\.bg)"
   },
   "colors.progress.fill": {
@@ -5478,43 +5522,43 @@ var tokens = {
     "variable": "var(--colors-tabs\\.active\\.text)"
   },
   "colors.tabs.inactive.text": {
-    "value": "var(--colors-text\\.subtle)",
+    "value": "var(--colors-tabs\\.inactive\\.text)",
     "variable": "var(--colors-tabs\\.inactive\\.text)"
   },
   "colors.tabs.hover.bg": {
-    "value": "var(--colors-bg\\.subtle)",
+    "value": "var(--colors-tabs\\.hover\\.bg)",
     "variable": "var(--colors-tabs\\.hover\\.bg)"
   },
   "colors.accordion.trigger.hover": {
-    "value": "var(--colors-bg\\.subtle)",
+    "value": "var(--colors-accordion\\.trigger\\.hover)",
     "variable": "var(--colors-accordion\\.trigger\\.hover)"
   },
   "colors.accordion.content.bg": {
-    "value": "var(--colors-bg\\.base)",
+    "value": "var(--colors-accordion\\.content\\.bg)",
     "variable": "var(--colors-accordion\\.content\\.bg)"
   },
   "colors.popover.bg": {
-    "value": "var(--colors-bg\\.elevated)",
+    "value": "var(--colors-popover\\.bg)",
     "variable": "var(--colors-popover\\.bg)"
   },
   "colors.popover.border": {
-    "value": "var(--colors-border\\.subtle)",
+    "value": "var(--colors-popover\\.border)",
     "variable": "var(--colors-popover\\.border)"
   },
   "colors.tooltip.bg": {
-    "value": "var(--colors-brand\\.dark)",
+    "value": "var(--colors-tooltip\\.bg)",
     "variable": "var(--colors-tooltip\\.bg)"
   },
   "colors.tooltip.text": {
-    "value": "var(--colors-text\\.on-dark)",
+    "value": "var(--colors-tooltip\\.text)",
     "variable": "var(--colors-tooltip\\.text)"
   },
   "colors.overlay.modal": {
-    "value": "rgba(0, 0, 0, 0.5)",
+    "value": "var(--colors-overlay\\.modal)",
     "variable": "var(--colors-overlay\\.modal)"
   },
   "colors.selection.bg": {
-    "value": "rgba(0, 178, 204, 0.1)",
+    "value": "var(--colors-selection\\.bg)",
     "variable": "var(--colors-selection\\.bg)"
   },
   "radii.component.buttonRadius": {
@@ -5574,23 +5618,23 @@ var tokens = {
     "variable": "var(--shadows-component\\.toast-shadow)"
   },
   "shadows.focus.primary": {
-    "value": "0 0 0 3px rgba(0, 178, 204, 0.1)",
+    "value": "var(--shadows-focus\\.primary)",
     "variable": "var(--shadows-focus\\.primary)"
   },
   "shadows.focus.dialog": {
-    "value": "0 0 0 2px rgba(0, 178, 204, 0.3)",
+    "value": "var(--shadows-focus\\.dialog)",
     "variable": "var(--shadows-focus\\.dialog)"
   },
   "shadows.focus.danger": {
-    "value": "0 0 0 3px rgba(220, 38, 38, 0.1)",
+    "value": "var(--shadows-focus\\.danger)",
     "variable": "var(--shadows-focus\\.danger)"
   },
   "shadows.focus.button": {
-    "value": "0 0 0 3px rgba(0, 178, 204, 0.3)",
+    "value": "var(--shadows-focus\\.button)",
     "variable": "var(--shadows-focus\\.button)"
   },
   "shadows.focus.light": {
-    "value": "0 0 0 2px rgba(255, 255, 255, 0.3)",
+    "value": "var(--shadows-focus\\.light)",
     "variable": "var(--shadows-focus\\.light)"
   },
   "sizes.component.buttonMinHeight": {
@@ -6045,7 +6089,6 @@ EventCalendarComponent.displayName = "EventCalendar";
 var EventCalendar = forwardRef29(EventCalendarComponent);
 
 // src/gantt-chart/GanttChart.tsx
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Editor, Gantt, Tooltip as Tooltip2 } from "@svar-ui/react-gantt";
 import "@svar-ui/react-gantt/all.css";
 import { forwardRef as forwardRef30, useCallback as useCallback2, useEffect as useEffect2, useRef, useState as useState2 } from "react";
@@ -7193,6 +7236,151 @@ function useChartColors(count, customColors) {
 function useChartColorPalette() {
   return chartColorPalette;
 }
+
+// src/theme/ThemeProvider.tsx
+import {
+  createContext,
+  useCallback as useCallback3,
+  useEffect as useEffect3,
+  useState as useState3
+} from "react";
+import { jsx as jsx35 } from "react/jsx-runtime";
+var ThemeContext = createContext(null);
+var STORAGE_KEY = "waterworth-color-mode";
+function getSystemPreference() {
+  if (typeof window === "undefined") return "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+function getStoredColorMode() {
+  if (typeof window === "undefined") return null;
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored === "light" || stored === "dark" || stored === "system") {
+    return stored;
+  }
+  return null;
+}
+function resolveColorMode(mode) {
+  if (mode === "system") {
+    return getSystemPreference();
+  }
+  return mode;
+}
+var ThemeProvider = ({
+  children,
+  defaultColorMode = "system"
+}) => {
+  const [colorMode, setColorModeState] = useState3(() => {
+    return getStoredColorMode() ?? defaultColorMode;
+  });
+  const [resolvedColorMode, setResolvedColorMode] = useState3(
+    () => resolveColorMode(colorMode)
+  );
+  const setColorMode = useCallback3((mode) => {
+    setColorModeState(mode);
+    localStorage.setItem(STORAGE_KEY, mode);
+  }, []);
+  useEffect3(() => {
+    setResolvedColorMode(resolveColorMode(colorMode));
+  }, [colorMode]);
+  useEffect3(() => {
+    if (colorMode !== "system") return;
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e) => {
+      setResolvedColorMode(e.matches ? "dark" : "light");
+    };
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, [colorMode]);
+  useEffect3(() => {
+    document.documentElement.setAttribute("data-color-mode", resolvedColorMode);
+  }, [resolvedColorMode]);
+  return /* @__PURE__ */ jsx35(
+    ThemeContext.Provider,
+    {
+      value: { colorMode, resolvedColorMode, setColorMode },
+      children
+    }
+  );
+};
+ThemeProvider.displayName = "ThemeProvider";
+
+// src/theme/useColorMode.ts
+import { useContext } from "react";
+function useColorMode() {
+  const context2 = useContext(ThemeContext);
+  if (!context2) {
+    throw new Error("useColorMode must be used within a ThemeProvider");
+  }
+  return context2;
+}
+
+// src/theme/ThemeToggle.tsx
+import { jsx as jsx36 } from "react/jsx-runtime";
+var ToggleButton = styled("button", {
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "36px",
+    height: "36px",
+    borderRadius: "sm",
+    border: "1px solid",
+    borderColor: "border.subtle",
+    bg: "background.base",
+    color: "text.primary",
+    cursor: "pointer",
+    transition: "all 0.15s ease",
+    _hover: {
+      bg: "background.subtle",
+      borderColor: "border.strong"
+    },
+    _focus: {
+      outline: "none",
+      boxShadow: "focus.primary"
+    },
+    _active: {
+      transform: "scale(0.95)"
+    }
+  }
+});
+var cycleOrder = ["light", "dark", "system"];
+var ThemeToggle = ({ mode = "simple", className }) => {
+  const { colorMode, resolvedColorMode, setColorMode } = useColorMode();
+  const handleClick = () => {
+    if (mode === "simple") {
+      setColorMode(resolvedColorMode === "light" ? "dark" : "light");
+    } else {
+      const currentIndex = cycleOrder.indexOf(colorMode);
+      const nextIndex = (currentIndex + 1) % cycleOrder.length;
+      setColorMode(cycleOrder[nextIndex]);
+    }
+  };
+  const getAriaLabel = () => {
+    if (mode === "simple") {
+      return resolvedColorMode === "light" ? "Switch to dark mode" : "Switch to light mode";
+    }
+    const nextIndex = (cycleOrder.indexOf(colorMode) + 1) % cycleOrder.length;
+    const nextMode = cycleOrder[nextIndex];
+    return `Current: ${colorMode}. Switch to ${nextMode} mode`;
+  };
+  return /* @__PURE__ */ jsx36(
+    ToggleButton,
+    {
+      type: "button",
+      onClick: handleClick,
+      "aria-label": getAriaLabel(),
+      className,
+      children: /* @__PURE__ */ jsx36(
+        Icon,
+        {
+          name: resolvedColorMode === "light" ? "sun" : "moon",
+          size: "md"
+        }
+      )
+    }
+  );
+};
+ThemeToggle.displayName = "ThemeToggle";
 export {
   Accordion,
   AccordionContent,
@@ -7241,6 +7429,9 @@ export {
   TabsList,
   TabsTrigger,
   Textarea,
+  ThemeContext,
+  ThemeProvider,
+  ThemeToggle,
   Toast,
   ToastProvider,
   Tooltip,
@@ -7248,5 +7439,6 @@ export {
   chartColors,
   getChartColor,
   useChartColorPalette,
-  useChartColors
+  useChartColors,
+  useColorMode
 };
