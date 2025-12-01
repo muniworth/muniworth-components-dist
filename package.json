@@ -12,12 +12,15 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
-    "./styles.css": "./styles.css"
+    "./styles.css": {
+      "default": "./styles.css"
+    }
   },
   "scripts": {
-    "build": "panda cssgen --outfile styles.css && tsup",
+    "build": "cp styled-system/styles.css styles.css && tsup",
     "dev": "tsup --watch",
     "clean": "rm -rf dist styles.css"
   },

@@ -1044,6 +1044,870 @@
 
 @layer utilities{
 
+  .all_unset {
+    all: unset;
+}
+
+  .\--spinner-color_currentColor {
+    --spinner-color: currentColor;
+}
+
+  .\--fc-button-bg-color_var\(--colors-brand\\\.blue\) {
+    --fc-button-bg-color: var(--colors-brand\.blue);
+}
+
+  .\--fc-button-border-color_var\(--colors-brand\\\.blue\) {
+    --fc-button-border-color: var(--colors-brand\.blue);
+}
+
+  .\--fc-button-text-color_var\(--colors-text\\\.on-dark\) {
+    --fc-button-text-color: var(--colors-text\.on-dark);
+}
+
+  .\--fc-button-hover-bg-color_var\(--colors-data\\\.navy\) {
+    --fc-button-hover-bg-color: var(--colors-data\.navy);
+}
+
+  .\--fc-button-hover-border-color_var\(--colors-data\\\.navy\) {
+    --fc-button-hover-border-color: var(--colors-data\.navy);
+}
+
+  .\--fc-button-active-bg-color_var\(--colors-data\\\.navy\) {
+    --fc-button-active-bg-color: var(--colors-data\.navy);
+}
+
+  .\--fc-button-active-border-color_var\(--colors-data\\\.navy\) {
+    --fc-button-active-border-color: var(--colors-data\.navy);
+}
+
+  .\--fc-border-color_\#EAEAEA {
+    --fc-border-color: #EAEAEA;
+}
+
+  .\--fc-today-bg-color_var\(--colors-selection\\\.bg\) {
+    --fc-today-bg-color: var(--colors-selection\.bg);
+}
+
+  .\--fc-event-bg-color_var\(--colors-brand\\\.blue\) {
+    --fc-event-bg-color: var(--colors-brand\.blue);
+}
+
+  .\--fc-event-border-color_var\(--colors-brand\\\.blue\) {
+    --fc-event-border-color: var(--colors-brand\.blue);
+}
+
+  .\--fc-event-text-color_var\(--colors-text\\\.on-dark\) {
+    --fc-event-text-color: var(--colors-text\.on-dark);
+}
+
+  .\--fc-page-bg-color_var\(--colors-background\\\.base\) {
+    --fc-page-bg-color: var(--colors-background\.base);
+}
+
+  .\--fc-neutral-bg-color_var\(--colors-background\\\.subtle\) {
+    --fc-neutral-bg-color: var(--colors-background\.subtle);
+}
+
+  .\--wx-gantt-task-color_var\(--colors-brand\\\.blue\) {
+    --wx-gantt-task-color: var(--colors-brand\.blue);
+}
+
+  .\--wx-gantt-task-font-color_var\(--colors-text\\\.on-dark\) {
+    --wx-gantt-task-font-color: var(--colors-text\.on-dark);
+}
+
+  .\--wx-gantt-task-fill-color_var\(--colors-brand\\\.blue\) {
+    --wx-gantt-task-fill-color: var(--colors-brand\.blue);
+}
+
+  .\--wx-gantt-task-border-color_var\(--colors-brand\\\.blue\) {
+    --wx-gantt-task-border-color: var(--colors-brand\.blue);
+}
+
+  .\--wx-gantt-project-color_var\(--colors-brand\\\.red\) {
+    --wx-gantt-project-color: var(--colors-brand\.red);
+}
+
+  .\--wx-gantt-milestone-color_var\(--colors-brand\\\.blue\) {
+    --wx-gantt-milestone-color: var(--colors-brand\.blue);
+}
+
+  .\--wx-gantt-bar-border-radius_4px {
+    --wx-gantt-bar-border-radius: 4px;
+}
+
+  .\--wx-gantt-link-color_\#8E9191 {
+    --wx-gantt-link-color: #8E9191;
+}
+
+  .\--wx-gantt-progress-marker-height_8px {
+    --wx-gantt-progress-marker-height: 8px;
+}
+
+  .\--wx-gantt-holiday-background_var\(--colors-background\\\.subtle\) {
+    --wx-gantt-holiday-background: var(--colors-background\.subtle);
+}
+
+  .\--wx-gantt-border-color_rgba\(128\,_128\,_128\,_0\.25\) {
+    --wx-gantt-border-color: rgba(128, 128, 128, 0.25);
+}
+
+  .\--wx-gantt-form-header-border_1px_solid_\#EAEAEA {
+    --wx-gantt-form-header-border: 1px solid #EAEAEA;
+}
+
+  .\--wx-gantt-icon-color_var\(--colors-text\\\.secondary\) {
+    --wx-gantt-icon-color: var(--colors-text\.secondary);
+}
+
+  .\--wx-gantt-cell-border_rgba\(128\,_128\,_128\,_0\.25\) {
+    --wx-gantt-cell-border: rgba(128, 128, 128, 0.25);
+}
+
+  .\--wx-gantt-row-border_rgba\(128\,_128\,_128\,_0\.25\) {
+    --wx-gantt-row-border: rgba(128, 128, 128, 0.25);
+}
+
+  .\--wx-gantt-scale-border_rgba\(128\,_128\,_128\,_0\.25\) {
+    --wx-gantt-scale-border: rgba(128, 128, 128, 0.25);
+}
+
+  .\--wx-grid-header-font_\"Benton_Sans\"\,_\"Work_Sans\"\,_\"Trebuchet_MS\"\,_system-ui\,_-apple-system\,_BlinkMacSystemFont\,_\"Segoe_UI\"\,_sans-serif {
+    --wx-grid-header-font: "Benton Sans", "Work Sans", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+  .\--wx-grid-header-font-color_var\(--colors-text\\\.secondary\) {
+    --wx-grid-header-font-color: var(--colors-text\.secondary);
+}
+
+  .\--wx-grid-header-background_var\(--colors-background\\\.subtle\) {
+    --wx-grid-header-background: var(--colors-background\.subtle);
+}
+
+  .\--wx-grid-body-font_\"Benton_Sans\"\,_\"Work_Sans\"\,_\"Trebuchet_MS\"\,_system-ui\,_-apple-system\,_BlinkMacSystemFont\,_\"Segoe_UI\"\,_sans-serif {
+    --wx-grid-body-font: "Benton Sans", "Work Sans", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+  .\--wx-grid-body-font-color_var\(--colors-text\\\.primary\) {
+    --wx-grid-body-font-color: var(--colors-text\.primary);
+}
+
+  .\--wx-grid-body-background_var\(--colors-background\\\.base\) {
+    --wx-grid-body-background: var(--colors-background\.base);
+}
+
+  .\--wx-grid-body-row-border_1px_solid_rgba\(128\,_128\,_128\,_0\.25\) {
+    --wx-grid-body-row-border: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+  .\--wx-grid-cell-border_1px_solid_rgba\(128\,_128\,_128\,_0\.25\) {
+    --wx-grid-cell-border: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+  .\--wx-timescale-font_\"Benton_Sans\"\,_\"Work_Sans\"\,_\"Trebuchet_MS\"\,_system-ui\,_-apple-system\,_BlinkMacSystemFont\,_\"Segoe_UI\"\,_sans-serif {
+    --wx-timescale-font: "Benton Sans", "Work Sans", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+  .\--wx-timescale-font-color_var\(--colors-text\\\.secondary\) {
+    --wx-timescale-font-color: var(--colors-text\.secondary);
+}
+
+  .\--wx-timescale-border_1px_solid_rgba\(128\,_128\,_128\,_0\.25\) {
+    --wx-timescale-border: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+  .\--wx-timescale-background_var\(--colors-background\\\.subtle\) {
+    --wx-timescale-background: var(--colors-background\.subtle);
+}
+
+  .\--wx-tooltip-background_var\(--colors-background\\\.elevated\) {
+    --wx-tooltip-background: var(--colors-background\.elevated);
+}
+
+  .\--wx-tooltip-font-color_var\(--colors-text\\\.primary\) {
+    --wx-tooltip-font-color: var(--colors-text\.primary);
+}
+
+  .\--wx-background_var\(--colors-background\\\.base\) {
+    --wx-background: var(--colors-background\.base);
+}
+
+  .\--wx-background-alt_var\(--colors-background\\\.subtle\) {
+    --wx-background-alt: var(--colors-background\.subtle);
+}
+
+  .\--wx-background-hover_var\(--colors-background\\\.subtle\) {
+    --wx-background-hover: var(--colors-background\.subtle);
+}
+
+  .\--wx-border_1px_solid_\#EAEAEA {
+    --wx-border: 1px solid #EAEAEA;
+}
+
+  .\--wx-color_var\(--colors-text\\\.primary\) {
+    --wx-color: var(--colors-text\.primary);
+}
+
+  .\--wx-color-font_var\(--colors-text\\\.primary\) {
+    --wx-color-font: var(--colors-text\.primary);
+}
+
+  .\--wx-color-font-alt_var\(--colors-text\\\.secondary\) {
+    --wx-color-font-alt: var(--colors-text\.secondary);
+}
+
+  .\--wx-color-font-disabled_\#8E9191 {
+    --wx-color-font-disabled: #8E9191;
+}
+
+  .\--wx-color-secondary_var\(--colors-text\\\.secondary\) {
+    --wx-color-secondary: var(--colors-text\.secondary);
+}
+
+  .\--wx-color-primary_var\(--colors-brand\\\.blue\) {
+    --wx-color-primary: var(--colors-brand\.blue);
+}
+
+  .\--wx-color-primary-font_var\(--colors-text\\\.on-dark\) {
+    --wx-color-primary-font: var(--colors-text\.on-dark);
+}
+
+  .\--wx-color-primary-selected_rgba\(0\,_178\,_204\,_0\.1\) {
+    --wx-color-primary-selected: rgba(0, 178, 204, 0.1);
+}
+
+  .\--wx-color-secondary-font_var\(--colors-text\\\.primary\) {
+    --wx-color-secondary-font: var(--colors-text\.primary);
+}
+
+  .\--wx-color-secondary-border_\#8E9191 {
+    --wx-color-secondary-border: #8E9191;
+}
+
+  .\--wx-color-secondary-hover_var\(--colors-background\\\.subtle\) {
+    --wx-color-secondary-hover: var(--colors-background\.subtle);
+}
+
+  .\--wx-color-danger_\#ED3F30 {
+    --wx-color-danger: #ED3F30;
+}
+
+  .\--wx-button-danger-font-color_var\(--colors-text\\\.on-dark\) {
+    --wx-button-danger-font-color: var(--colors-text\.on-dark);
+}
+
+  .\--wx-color-link_var\(--colors-brand\\\.blue\) {
+    --wx-color-link: var(--colors-brand\.blue);
+}
+
+  .\--wx-color-disabled_\#EAEAEA {
+    --wx-color-disabled: #EAEAEA;
+}
+
+  .\--wx-popup-background_var\(--colors-background\\\.elevated\) {
+    --wx-popup-background: var(--colors-background\.elevated);
+}
+
+  .\--wx-popup-shadow_0_25px_50px_-12px_rgba\(0\,_0\,_0\,_0\.25\) {
+    --wx-popup-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+  .\--wx-popup-border_1px_solid_\#EAEAEA {
+    --wx-popup-border: 1px solid #EAEAEA;
+}
+
+  .\--wx-popup-border-radius_12px {
+    --wx-popup-border-radius: 12px;
+}
+
+  .\--wx-popup-z-index_1200 {
+    --wx-popup-z-index: 1200;
+}
+
+  .\--wx-modal-background_var\(--colors-background\\\.elevated\) {
+    --wx-modal-background: var(--colors-background\.elevated);
+}
+
+  .\--wx-modal-border_1px_solid_\#EAEAEA {
+    --wx-modal-border: 1px solid #EAEAEA;
+}
+
+  .\--wx-modal-border-radius_12px {
+    --wx-modal-border-radius: 12px;
+}
+
+  .\--wx-modal-width_360px {
+    --wx-modal-width: 360px;
+}
+
+  .\--wx-modal-shadow_0_25px_50px_-12px_rgba\(0\,_0\,_0\,_0\.25\) {
+    --wx-modal-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+  .\--wx-box-shadow_0_4px_12px_rgba\(0\,_0\,_0\,_0\.15\) {
+    --wx-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+  .\--wx-padding_16px {
+    --wx-padding: 16px;
+}
+
+  .\--wx-input-width_100\% {
+    --wx-input-width: 100%;
+}
+
+  .\--wx-input-height_44px {
+    --wx-input-height: 44px;
+}
+
+  .\--wx-input-padding_12px_16px {
+    --wx-input-padding: 12px 16px;
+}
+
+  .\--wx-input-background_var\(--colors-background\\\.base\) {
+    --wx-input-background: var(--colors-background\.base);
+}
+
+  .\--wx-input-background-disabled_var\(--colors-background\\\.subtle\) {
+    --wx-input-background-disabled: var(--colors-background\.subtle);
+}
+
+  .\--wx-input-border_1px_solid_\#EAEAEA {
+    --wx-input-border: 1px solid #EAEAEA;
+}
+
+  .\--wx-input-border-focus_2px_solid_var\(--colors-brand\\\.blue\) {
+    --wx-input-border-focus: 2px solid var(--colors-brand\.blue);
+}
+
+  .\--wx-input-border-disabled_1px_solid_\#EAEAEA {
+    --wx-input-border-disabled: 1px solid #EAEAEA;
+}
+
+  .\--wx-input-border-radius_8px {
+    --wx-input-border-radius: 8px;
+}
+
+  .\--wx-input-font-family_\"Benton_Sans\"\,_\"Work_Sans\"\,_\"Trebuchet_MS\"\,_system-ui\,_-apple-system\,_BlinkMacSystemFont\,_\"Segoe_UI\"\,_sans-serif {
+    --wx-input-font-family: "Benton Sans", "Work Sans", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+  .\--wx-input-font-size_14px {
+    --wx-input-font-size: 14px;
+}
+
+  .\--wx-input-font-weight_400 {
+    --wx-input-font-weight: 400;
+}
+
+  .\--wx-input-font-color_var\(--colors-text\\\.primary\) {
+    --wx-input-font-color: var(--colors-text\.primary);
+}
+
+  .\--wx-input-line-height_1\.5 {
+    --wx-input-line-height: 1.5;
+}
+
+  .\--wx-input-text-align_left {
+    --wx-input-text-align: left;
+}
+
+  .\--wx-input-placeholder-color_\#8E9191 {
+    --wx-input-placeholder-color: #8E9191;
+}
+
+  .\--wx-input-icon-size_16px {
+    --wx-input-icon-size: 16px;
+}
+
+  .\--wx-input-icon-indent_12px {
+    --wx-input-icon-indent: 12px;
+}
+
+  .\--wx-input-icon-color_var\(--colors-text\\\.secondary\) {
+    --wx-input-icon-color: var(--colors-text\.secondary);
+}
+
+  .\--wx-text-font-color_var\(--colors-text\\\.primary\) {
+    --wx-text-font-color: var(--colors-text\.primary);
+}
+
+  .\--wx-textarea-font-color_var\(--colors-text\\\.primary\) {
+    --wx-textarea-font-color: var(--colors-text\.primary);
+}
+
+  .\--wx-label-font-color_var\(--colors-text\\\.secondary\) {
+    --wx-label-font-color: var(--colors-text\.secondary);
+}
+
+  .\--wx-field-label-color_var\(--colors-text\\\.secondary\) {
+    --wx-field-label-color: var(--colors-text\.secondary);
+}
+
+  .\--wx-button-background_var\(--colors-brand\\\.blue\) {
+    --wx-button-background: var(--colors-brand\.blue);
+}
+
+  .\--wx-button-font-color_var\(--colors-text\\\.on-dark\) {
+    --wx-button-font-color: var(--colors-text\.on-dark);
+}
+
+  .\--wx-button-font-family_\"Benton_Sans\"\,_\"Work_Sans\"\,_\"Trebuchet_MS\"\,_system-ui\,_-apple-system\,_BlinkMacSystemFont\,_\"Segoe_UI\"\,_sans-serif {
+    --wx-button-font-family: "Benton Sans", "Work Sans", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+  .\--wx-button-font-size_14px {
+    --wx-button-font-size: 14px;
+}
+
+  .\--wx-button-font-weight_500 {
+    --wx-button-font-weight: 500;
+}
+
+  .\--wx-button-line-height_1\.5 {
+    --wx-button-line-height: 1.5;
+}
+
+  .\--wx-button-padding_8px_16px {
+    --wx-button-padding: 8px 16px;
+}
+
+  .\--wx-button-border_none {
+    --wx-button-border: none;
+}
+
+  .\--wx-button-border-radius_8px {
+    --wx-button-border-radius: 8px;
+}
+
+  .\--wx-button-width_auto {
+    --wx-button-width: auto;
+}
+
+  .\--wx-button-icon-size_14px {
+    --wx-button-icon-size: 14px;
+}
+
+  .\--wx-button-icon-indent_8px {
+    --wx-button-icon-indent: 8px;
+}
+
+  .\--wx-button-text-transform_none {
+    --wx-button-text-transform: none;
+}
+
+  .\--wx-button-pressed_var\(--colors-data\\\.navy\) {
+    --wx-button-pressed: var(--colors-data\.navy);
+}
+
+  .\--wx-button-box-shadow_inset_0_2px_4px_rgba\(0\,_0\,_0\,_0\.1\) {
+    --wx-button-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+  .\--wx-button-primary-pressed_var\(--colors-data\\\.navy\) {
+    --wx-button-primary-pressed: var(--colors-data\.navy);
+}
+
+  .\--wx-button-primary-box-shadow_inset_0_2px_4px_rgba\(0\,_0\,_0\,_0\.2\) {
+    --wx-button-primary-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+  .\--wx-button-danger-pressed_var\(--colors-state-hover\\\.danger\) {
+    --wx-button-danger-pressed: var(--colors-state-hover\.danger);
+}
+
+  .\--wx-checkbox-size_18px {
+    --wx-checkbox-size: 18px;
+}
+
+  .\--wx-checkbox-height_24px {
+    --wx-checkbox-height: 24px;
+}
+
+  .\--wx-checkbox-font-family_\"Benton_Sans\"\,_\"Work_Sans\"\,_\"Trebuchet_MS\"\,_system-ui\,_-apple-system\,_BlinkMacSystemFont\,_\"Segoe_UI\"\,_sans-serif {
+    --wx-checkbox-font-family: "Benton Sans", "Work Sans", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+  .\--wx-checkbox-font-size_14px {
+    --wx-checkbox-font-size: 14px;
+}
+
+  .\--wx-checkbox-font-weight_400 {
+    --wx-checkbox-font-weight: 400;
+}
+
+  .\--wx-checkbox-font-color_var\(--colors-text\\\.primary\) {
+    --wx-checkbox-font-color: var(--colors-text\.primary);
+}
+
+  .\--wx-checkbox-line-height_1\.5 {
+    --wx-checkbox-line-height: 1.5;
+}
+
+  .\--wx-checkbox-border-width_1px {
+    --wx-checkbox-border-width: 1px;
+}
+
+  .\--wx-checkbox-border-color_\#8E9191 {
+    --wx-checkbox-border-color: #8E9191;
+}
+
+  .\--wx-checkbox-border-color-disabled_\#EAEAEA {
+    --wx-checkbox-border-color-disabled: #EAEAEA;
+}
+
+  .\--wx-checkbox-border-radius_4px {
+    --wx-checkbox-border-radius: 4px;
+}
+
+  .\--wx-slider-track-height_8px {
+    --wx-slider-track-height: 8px;
+}
+
+  .\--wx-slider-track-background_\#EAEAEA {
+    --wx-slider-track-background: #EAEAEA;
+}
+
+  .\--wx-slider-thumb-size_20px {
+    --wx-slider-thumb-size: 20px;
+}
+
+  .\--wx-slider-thumb-background_var\(--colors-brand\\\.blue\) {
+    --wx-slider-thumb-background: var(--colors-brand\.blue);
+}
+
+  .\--wx-slider-primary_var\(--colors-brand\\\.blue\) {
+    --wx-slider-primary: var(--colors-brand\.blue);
+}
+
+  .\--wx-slider-background_\#EAEAEA {
+    --wx-slider-background: #EAEAEA;
+}
+
+  .\--wx-progress-background_\#EAEAEA {
+    --wx-progress-background: #EAEAEA;
+}
+
+  .\--wx-progress-color_var\(--colors-brand\\\.blue\) {
+    --wx-progress-color: var(--colors-brand\.blue);
+}
+
+  .\--wx-progress-height_8px {
+    --wx-progress-height: 8px;
+}
+
+  .\--wx-progress-border-radius_4px {
+    --wx-progress-border-radius: 4px;
+}
+
+  .\--wx-field-gutter_24px {
+    --wx-field-gutter: 24px;
+}
+
+  .\--wx-sidebar-close-icon_var\(--colors-text\\\.secondary\) {
+    --wx-sidebar-close-icon: var(--colors-text\.secondary);
+}
+
+  .\--wx-font-family_\"Benton_Sans\"\,_\"Work_Sans\"\,_\"Trebuchet_MS\"\,_system-ui\,_-apple-system\,_BlinkMacSystemFont\,_\"Segoe_UI\"\,_sans-serif {
+    --wx-font-family: "Benton Sans", "Work Sans", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+  .\--wx-font-size_14px {
+    --wx-font-size: 14px;
+}
+
+  .\--wx-font-size-sm_12px {
+    --wx-font-size-sm: 12px;
+}
+
+  .\--wx-font-weight_400 {
+    --wx-font-weight: 400;
+}
+
+  .\--wx-font-weight-md_500 {
+    --wx-font-weight-md: 500;
+}
+
+  .\--wx-line-height_1\.5 {
+    --wx-line-height: 1.5;
+}
+
+  .\--wx-line-height-sm_1\.4 {
+    --wx-line-height-sm: 1.4;
+}
+
+  .\--wx-icon-size_16px {
+    --wx-icon-size: 16px;
+}
+
+  .\--wx-icon-color_var\(--colors-text\\\.secondary\) {
+    --wx-icon-color: var(--colors-text\.secondary);
+}
+
+  .\--wx-icon-border-radius_4px {
+    --wx-icon-border-radius: 4px;
+}
+
+  .\--wx-multicombo-tag-gap_4px {
+    --wx-multicombo-tag-gap: 4px;
+}
+
+  .\--wx-multicombo-tag-border_1px_solid_\#EAEAEA {
+    --wx-multicombo-tag-border: 1px solid #EAEAEA;
+}
+
+  .\--wx-multicombo-tag-border-radius_4px {
+    --wx-multicombo-tag-border-radius: 4px;
+}
+
+  .\--wx-multicombo-tag-background_var\(--colors-background\\\.subtle\) {
+    --wx-multicombo-tag-background: var(--colors-background\.subtle);
+}
+
+  .\--wx-multicombo-tag-pading_4px_8px {
+    --wx-multicombo-tag-pading: 4px 8px;
+}
+
+  .\--wx-calendar-padding_16px {
+    --wx-calendar-padding: 16px;
+}
+
+  .\--wx-calendar-gap_8px {
+    --wx-calendar-gap: 8px;
+}
+
+  .\--wx-calendar-line-gap_2px {
+    --wx-calendar-line-gap: 2px;
+}
+
+  .\--wx-calendar-cell-size_36px {
+    --wx-calendar-cell-size: 36px;
+}
+
+  .\--wx-calendar-font-family_\"Benton_Sans\"\,_\"Work_Sans\"\,_\"Trebuchet_MS\"\,_system-ui\,_-apple-system\,_BlinkMacSystemFont\,_\"Segoe_UI\"\,_sans-serif {
+    --wx-calendar-font-family: "Benton Sans", "Work Sans", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+  .\--wx-calendar-font-size_14px {
+    --wx-calendar-font-size: 14px;
+}
+
+  .\--wx-calendar-font-weight_400 {
+    --wx-calendar-font-weight: 400;
+}
+
+  .\--wx-calendar-font-color_var\(--colors-text\\\.primary\) {
+    --wx-calendar-font-color: var(--colors-text\.primary);
+}
+
+  .\--wx-calendar-line-height_1\.5 {
+    --wx-calendar-line-height: 1.5;
+}
+
+  .\--wx-calendar-border-radius_4px {
+    --wx-calendar-border-radius: 4px;
+}
+
+  .\--wx-calendar-header-font-size_16px {
+    --wx-calendar-header-font-size: 16px;
+}
+
+  .\--wx-calendar-header-font-weight_500 {
+    --wx-calendar-header-font-weight: 500;
+}
+
+  .\--wx-calendar-header-line-height_1\.5 {
+    --wx-calendar-header-line-height: 1.5;
+}
+
+  .\--wx-calendar-icon-size_16px {
+    --wx-calendar-icon-size: 16px;
+}
+
+  .\--wx-calendar-icon-color_var\(--colors-text\\\.secondary\) {
+    --wx-calendar-icon-color: var(--colors-text\.secondary);
+}
+
+  .\--wx-calendar-controls-font-family_\"Benton_Sans\"\,_\"Work_Sans\"\,_\"Trebuchet_MS\"\,_system-ui\,_-apple-system\,_BlinkMacSystemFont\,_\"Segoe_UI\"\,_sans-serif {
+    --wx-calendar-controls-font-family: "Benton Sans", "Work Sans", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+  .\--wx-calendar-controls-font-size_14px {
+    --wx-calendar-controls-font-size: 14px;
+}
+
+  .\--wx-calendar-controls-font-weight_500 {
+    --wx-calendar-controls-font-weight: 500;
+}
+
+  .\--wx-calendar-controls-line-height_1\.5 {
+    --wx-calendar-controls-line-height: 1.5;
+}
+
+  .\--wx-calendar-controls-font-color_var\(--colors-brand\\\.blue\) {
+    --wx-calendar-controls-font-color: var(--colors-brand\.blue);
+}
+
+  .bd_1px_solid {
+    border: 1px solid;
+}
+
+  .p_md {
+    padding: var(--spacing-md);
+}
+
+  .bg_alert\.info\.bg {
+    background: var(--colors-alert\.info\.bg);
+}
+
+  .bg_alert\.success\.bg {
+    background: var(--colors-alert\.success\.bg);
+}
+
+  .bg_alert\.warning\.bg {
+    background: var(--colors-alert\.warning\.bg);
+}
+
+  .bg_alert\.danger\.bg {
+    background: var(--colors-alert\.danger\.bg);
+}
+
+  .bg_badge\.info\.bg {
+    background: var(--colors-badge\.info\.bg);
+}
+
+  .bg_badge\.success\.bg {
+    background: var(--colors-badge\.success\.bg);
+}
+
+  .bg_badge\.warning\.bg {
+    background: var(--colors-badge\.warning\.bg);
+}
+
+  .bg_badge\.danger\.bg {
+    background: var(--colors-badge\.danger\.bg);
+}
+
+  .bg_badge\.neutral\.bg {
+    background: var(--colors-badge\.neutral\.bg);
+}
+
+  .m_0 {
+    margin: var(--spacing-0);
+}
+
+  .p_0 {
+    padding: var(--spacing-0);
+}
+
+  .bd_none {
+    border: var(--borders-none);
+}
+
+  .bg_button\.primary\.bg {
+    background: var(--colors-button\.primary\.bg);
+}
+
+  .bg_button\.secondary\.bg {
+    background: var(--colors-button\.secondary\.bg);
+}
+
+  .bg_button\.danger\.bg {
+    background: var(--colors-button\.danger\.bg);
+}
+
+  .bg_transparent {
+    background: var(--colors-transparent);
+}
+
+  .bg_background\.elevated {
+    background: var(--colors-background\.elevated);
+}
+
+  .p_lg {
+    padding: var(--spacing-lg);
+}
+
+  .bd_2px_solid {
+    border: 2px solid;
+}
+
+  .bg_overlay\.modal {
+    background: var(--colors-overlay\.modal);
+}
+
+  .inset_0 {
+    inset: var(--spacing-0);
+}
+
+  .p_xl {
+    padding: var(--spacing-xl);
+}
+
+  .p_xs {
+    padding: var(--spacing-xs);
+}
+
+  .bg_background\.base {
+    background: var(--colors-background\.base);
+}
+
+  .p_0\! {
+    padding: var(--spacing-0) !important;
+}
+
+  .bg_accent\.primary {
+    background: var(--colors-accent\.primary);
+}
+
+  .bg_progress\.bg {
+    background: var(--colors-progress\.bg);
+}
+
+  .bg_progress\.fill {
+    background: var(--colors-progress\.fill);
+}
+
+  .bg_border\.subtle {
+    background: var(--colors-border\.subtle);
+}
+
+  .anim_spin_var\(--durations-spinner\)_linear_infinite {
+    animation: spin var(--durations-spinner) linear infinite;
+}
+
+  .bg_border\.strong {
+    background: var(--colors-border\.strong);
+}
+
+  .bg_background\.subtle {
+    background: var(--colors-background\.subtle);
+}
+
+  .p_sm_md {
+    padding: sm md;
+}
+
+  .bg_toast\.bg {
+    background: var(--colors-toast\.bg);
+}
+
+  .grid-area_title {
+    grid-area: title;
+}
+
+  .grid-area_description {
+    grid-area: description;
+}
+
+  .grid-area_action {
+    grid-area: action;
+}
+
+  .bg_tooltip\.bg {
+    background: var(--colors-tooltip\.bg);
+}
+
   .gap_2xs {
     gap: var(--spacing-2xs);
 }
@@ -1122,6 +1986,230 @@
 
   .grid-r_auto {
     grid-row: auto;
+}
+
+  .bd-c_border\.subtle {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .bdr_radii\.md {
+    border-radius: radii.md;
+}
+
+  .ov_hidden {
+    overflow: hidden;
+}
+
+  .flex_1 {
+    flex: 1 1 0%;
+}
+
+  .trs_all_0\.15s_ease {
+    transition: all 0.15s ease;
+}
+
+  .ring_none {
+    outline: var(--borders-none);
+}
+
+  .trs_transform_0\.2s_ease {
+    transition: transform 0.2s ease;
+}
+
+  .px_md {
+    padding-inline: var(--spacing-md);
+}
+
+  .py_md {
+    padding-block: var(--spacing-md);
+}
+
+  .bdr_component\.alertRadius {
+    border-radius: var(--radii-component\.alert-radius);
+}
+
+  .bd-w_1px {
+    border-width: 1px;
+}
+
+  .border-style_solid {
+    border-style: solid;
+}
+
+  .bd-c_alert\.info\.border {
+    border-color: var(--colors-alert\.info\.border);
+}
+
+  .bd-c_alert\.success\.border {
+    border-color: var(--colors-alert\.success\.border);
+}
+
+  .bd-c_alert\.warning\.border {
+    border-color: var(--colors-alert\.warning\.border);
+}
+
+  .bd-c_alert\.danger\.border {
+    border-color: var(--colors-alert\.danger\.border);
+}
+
+  .px_sm {
+    padding-inline: var(--spacing-sm);
+}
+
+  .py_xs {
+    padding-block: var(--spacing-xs);
+}
+
+  .bdr_component\.badgeRadius {
+    border-radius: var(--radii-component\.badge-radius);
+}
+
+  .li-s_none {
+    list-style: none;
+}
+
+  .td_none {
+    text-decoration: none;
+}
+
+  .trs_color_0\.12s_ease {
+    transition: color 0.12s ease;
+}
+
+  .py_sm {
+    padding-block: var(--spacing-sm);
+}
+
+  .bdr_component\.buttonRadius {
+    border-radius: var(--radii-component\.button-radius);
+}
+
+  .bd-c_button\.secondary\.border {
+    border-color: var(--colors-button\.secondary\.border);
+}
+
+  .px_lg {
+    padding-inline: var(--spacing-lg);
+}
+
+  .bdr_component\.cardRadius {
+    border-radius: var(--radii-component\.card-radius);
+}
+
+  .bdr_sm {
+    border-radius: var(--radii-sm);
+}
+
+  .bd-c_border\.strong {
+    border-color: var(--colors-border\.strong);
+}
+
+  .bd-c_state\.danger {
+    border-color: var(--colors-state\.danger);
+}
+
+  .bdr_component\.modalRadius {
+    border-radius: var(--radii-component\.modal-radius);
+}
+
+  .bdr_component\.inputRadius {
+    border-radius: var(--radii-component\.input-radius);
+}
+
+  .gap_4px {
+    gap: 4px;
+}
+
+  .gap_8px {
+    gap: 8px;
+}
+
+  .bdr_md {
+    border-radius: var(--radii-md);
+}
+
+  .bd-c_border\.default {
+    border-color: var(--colors-border\.default);
+}
+
+  .trs_all_0\.12s_ease {
+    transition: all 0.12s ease;
+}
+
+  .bd-c_accent\.primary {
+    border-color: var(--colors-accent\.primary);
+}
+
+  .bdr_component\.popoverRadius {
+    border-radius: var(--radii-component\.popover-radius);
+}
+
+  .bdr_pill {
+    border-radius: var(--radii-pill);
+}
+
+  .trs_transform_0\.3s_ease {
+    transition: transform 0.3s ease;
+}
+
+  .bd-b_1px_solid {
+    border-bottom: 1px solid;
+}
+
+  .bd-r_1px_solid {
+    border-right: 1px solid;
+}
+
+  .bd-l_1px_solid {
+    border-left: 1px solid;
+}
+
+  .bd-c_currentColor {
+    border-color: currentColor;
+}
+
+  .bdr_50\% {
+    border-radius: 50%;
+}
+
+  .bd-w_2px {
+    border-width: 2px;
+}
+
+  .bd-w_3px {
+    border-width: 3px;
+}
+
+  .bd-w_4px {
+    border-width: 4px;
+}
+
+  .ring_2px_solid {
+    outline: 2px solid;
+}
+
+  .trs_transform_0\.15s_ease {
+    transition: transform 0.15s ease;
+}
+
+  .bd-b_2px_solid {
+    border-bottom: 2px solid;
+}
+
+  .bd-b_2px_solid_transparent {
+    border-bottom: 2px solid transparent;
+}
+
+  .bdr_component\.toastRadius {
+    border-radius: var(--radii-component\.toast-radius);
+}
+
+  .grid-template-areas_\"title_action\"_\"description_action\" {
+    grid-template-areas: "title action" "description action";
+}
+
+  .bd-c_toast\.border {
+    border-color: var(--colors-toast\.border);
 }
 
   .d_grid {
@@ -1230,6 +2318,2305 @@
 
   .grid-tc_repeat\(auto-fit\,_minmax\(300px\,_1fr\)\) {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+  .d_flex {
+    display: flex;
+}
+
+  .ff_brand {
+    font-family: var(--fonts-brand);
+}
+
+  .fs_md {
+    font-size: var(--font-sizes-md);
+}
+
+  .fw_medium {
+    font-weight: var(--font-weights-medium);
+}
+
+  .c_text\.primary {
+    color: var(--colors-text\.primary);
+}
+
+  .ai_center {
+    align-items: center;
+}
+
+  .jc_space-between {
+    justify-content: space-between;
+}
+
+  .cursor_pointer {
+    cursor: pointer;
+}
+
+  .d_inline-flex {
+    display: inline-flex;
+}
+
+  .fs_sm {
+    font-size: var(--font-sizes-sm);
+}
+
+  .lh_normal {
+    line-height: var(--line-heights-normal);
+}
+
+  .c_text\.secondary {
+    color: var(--colors-text\.secondary);
+}
+
+  .ai_flex-start {
+    align-items: flex-start;
+}
+
+  .lh_1\.5 {
+    line-height: 1.5;
+}
+
+  .c_alert\.info\.text {
+    color: var(--colors-alert\.info\.text);
+}
+
+  .c_alert\.success\.text {
+    color: var(--colors-alert\.success\.text);
+}
+
+  .c_alert\.warning\.text {
+    color: var(--colors-alert\.warning\.text);
+}
+
+  .c_alert\.danger\.text {
+    color: var(--colors-alert\.danger\.text);
+}
+
+  .jc_center {
+    justify-content: center;
+}
+
+  .fs_xs {
+    font-size: var(--font-sizes-xs);
+}
+
+  .fw_bold {
+    font-weight: var(--font-weights-bold);
+}
+
+  .lh_1 {
+    line-height: 1;
+}
+
+  .white-space_nowrap {
+    white-space: nowrap;
+}
+
+  .tt_uppercase {
+    text-transform: uppercase;
+}
+
+  .ls_0\.5px {
+    letter-spacing: 0.5px;
+}
+
+  .c_badge\.info\.text {
+    color: var(--colors-badge\.info\.text);
+}
+
+  .c_badge\.success\.text {
+    color: var(--colors-badge\.success\.text);
+}
+
+  .c_badge\.warning\.text {
+    color: var(--colors-badge\.warning\.text);
+}
+
+  .c_badge\.danger\.text {
+    color: var(--colors-badge\.danger\.text);
+}
+
+  .c_badge\.neutral\.text {
+    color: var(--colors-badge\.neutral\.text);
+}
+
+  .flex-wrap_wrap {
+    flex-wrap: wrap;
+}
+
+  .c_text\.linkColor {
+    color: var(--colors-text\.link-color);
+}
+
+  .c_breadcrumb\.separator {
+    color: var(--colors-breadcrumb\.separator);
+}
+
+  .us_none {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+  .c_button\.primary\.text {
+    color: var(--colors-button\.primary\.text);
+}
+
+  .c_button\.secondary\.text {
+    color: var(--colors-button\.secondary\.text);
+}
+
+  .c_button\.danger\.text {
+    color: var(--colors-button\.danger\.text);
+}
+
+  .c_text\.link {
+    color: var(--colors-text\.link);
+}
+
+  .fs_lg {
+    font-size: var(--font-sizes-lg);
+}
+
+  .jc_flex-end {
+    justify-content: flex-end;
+}
+
+  .flex-d_column {
+    flex-direction: column;
+}
+
+  .bx-sh_component\.cardShadow {
+    box-shadow: var(--shadows-component\.card-shadow);
+}
+
+  .pos_relative {
+    position: relative;
+}
+
+  .c_checkbox\.indicator {
+    color: var(--colors-checkbox\.indicator);
+}
+
+  .pos_fixed {
+    position: fixed;
+}
+
+  .z_zIndex\.modal {
+    z-index: zIndex.modal;
+}
+
+  .bx-sh_component\.modalShadow {
+    box-shadow: var(--shadows-component\.modal-shadow);
+}
+
+  .trf_translate\(-50\%\,_-50\%\) {
+    transform: translate(-50%, -50%);
+}
+
+  .fs_2xl {
+    font-size: var(--font-sizes-2xl);
+}
+
+  .pos_absolute {
+    position: absolute;
+}
+
+  .bx-sh_component\.dropdownShadow {
+    box-shadow: var(--shadows-component\.dropdown-shadow);
+}
+
+  .z_zIndex\.dropdown {
+    z-index: zIndex.dropdown;
+}
+
+  .z_10 {
+    z-index: 10;
+}
+
+  .id_text {
+    id: text;
+}
+
+  .header_Task {
+    header: Task;
+}
+
+  .c_text\.subtle {
+    color: var(--colors-text\.subtle);
+}
+
+  .c_text\.on-dark {
+    color: var(--colors-text\.on-dark);
+}
+
+  .fw_regular {
+    font-weight: var(--font-weights-regular);
+}
+
+  .bx-sh_component\.popoverShadow {
+    box-shadow: var(--shadows-component\.popover-shadow);
+}
+
+  .fill_background\.elevated {
+    fill: var(--colors-background\.elevated);
+}
+
+  .trf_translateZ\(0\) {
+    transform: translateZ(0);
+}
+
+  .pos_popper {
+    position: popper;
+}
+
+  .flex-sh_0 {
+    flex-shrink: 0;
+}
+
+  .c_state\.danger {
+    color: var(--colors-state\.danger);
+}
+
+  .fs_xl {
+    font-size: var(--font-sizes-xl);
+}
+
+  .z_1 {
+    z-index: 1;
+}
+
+  .d_inline-block {
+    display: inline-block;
+}
+
+  .c_var\(--spinner-color\,_token\(colors\.spinner\.color\)\) {
+    color: var(--spinner-color, var(--colors-spinner\.color));
+}
+
+  .ring-c_state\.danger {
+    outline-color: var(--colors-state\.danger);
+}
+
+  .d_block {
+    display: block;
+}
+
+  .trf_translateX\(3px\) {
+    transform: translateX(3px);
+}
+
+  .will-change_transform {
+    will-change: transform;
+}
+
+  .bd-cl_collapse {
+    border-collapse: collapse;
+}
+
+  .ta_left {
+    text-align: left;
+}
+
+  .cursor_default {
+    cursor: default;
+}
+
+  .c_tabs\.inactive\.text {
+    color: var(--colors-tabs\.inactive\.text);
+}
+
+  .flex-g_1 {
+    flex-grow: 1;
+}
+
+  .resize_vertical {
+    resize: vertical;
+}
+
+  .z_zIndex\.toast {
+    z-index: zIndex.toast;
+}
+
+  .c_toast\.text {
+    color: var(--colors-toast\.text);
+}
+
+  .bx-sh_component\.toastShadow {
+    box-shadow: var(--shadows-component\.toast-shadow);
+}
+
+  .grid-tc_auto_max-content {
+    grid-template-columns: auto max-content;
+}
+
+  .op_0\.9 {
+    opacity: 0.9;
+}
+
+  .op_0\.8 {
+    opacity: 0.8;
+}
+
+  .c_tooltip\.text {
+    color: var(--colors-tooltip\.text);
+}
+
+  .z_zIndex\.tooltip {
+    z-index: zIndex.tooltip;
+}
+
+  .bx-sh_shadows\.soft {
+    box-shadow: shadows.soft;
+}
+
+  .fill_tooltip\.bg {
+    fill: var(--colors-tooltip\.bg);
+}
+
+  .w_100\% {
+    width: 100%;
+}
+
+  .min-h_32px {
+    min-height: 32px;
+}
+
+  .min-h_component\.buttonMinHeight {
+    min-height: var(--sizes-component\.button-min-height);
+}
+
+  .min-h_48px {
+    min-height: 48px;
+}
+
+  .mt_auto {
+    margin-top: auto;
+}
+
+  .w_20px {
+    width: 20px;
+}
+
+  .h_20px {
+    height: 20px;
+}
+
+  .top_50\% {
+    top: 50%;
+}
+
+  .left_50\% {
+    left: 50%;
+}
+
+  .w_90vw {
+    width: 90vw;
+}
+
+  .max-w_500px {
+    max-width: 500px;
+}
+
+  .max-h_85vh {
+    max-height: 85vh;
+}
+
+  .mb_sm {
+    margin-bottom: var(--spacing-sm);
+}
+
+  .mb_lg {
+    margin-bottom: var(--spacing-lg);
+}
+
+  .top_md {
+    top: var(--spacing-md);
+}
+
+  .right_md {
+    right: var(--spacing-md);
+}
+
+  .w_32px {
+    width: 32px;
+}
+
+  .h_32px {
+    height: 32px;
+}
+
+  .min-w_200px {
+    min-width: 200px;
+}
+
+  .h_auto {
+    height: auto;
+}
+
+  .top_8px {
+    top: 8px;
+}
+
+  .right_20px {
+    right: 20px;
+}
+
+  .w_28px {
+    width: 28px;
+}
+
+  .h_28px {
+    height: 28px;
+}
+
+  .w_150 {
+    width: 150px;
+}
+
+  .min-h_component\.inputMinHeight {
+    min-height: var(--sizes-component\.input-min-height);
+}
+
+  .min-w_36px {
+    min-width: 36px;
+}
+
+  .h_36px {
+    height: 36px;
+}
+
+  .min-w_220px {
+    min-width: 220px;
+}
+
+  .max-w_400px {
+    max-width: 400px;
+}
+
+  .top_xs {
+    top: var(--spacing-xs);
+}
+
+  .right_xs {
+    right: var(--spacing-xs);
+}
+
+  .w_24px {
+    width: 24px;
+}
+
+  .h_24px {
+    height: 24px;
+}
+
+  .h_8px {
+    height: 8px;
+}
+
+  .h_100\% {
+    height: 100%;
+}
+
+  .pr_xl {
+    padding-right: var(--spacing-xl);
+}
+
+  .ov-y_auto {
+    overflow-y: auto;
+}
+
+  .top_0 {
+    top: var(--spacing-0);
+}
+
+  .bottom_0 {
+    bottom: var(--spacing-0);
+}
+
+  .left_0 {
+    left: var(--spacing-0);
+}
+
+  .right_0 {
+    right: var(--spacing-0);
+}
+
+  .w_320px {
+    width: 320px;
+}
+
+  .max-w_90vw {
+    max-width: 90vw;
+}
+
+  .w_480px {
+    width: 480px;
+}
+
+  .w_640px {
+    width: 640px;
+}
+
+  .w_100vw {
+    width: 100vw;
+}
+
+  .bd-t-c_transparent {
+    border-top-color: var(--colors-transparent);
+}
+
+  .w_component\.spinnerSm {
+    width: var(--sizes-component\.spinner-sm);
+}
+
+  .h_component\.spinnerSm {
+    height: var(--sizes-component\.spinner-sm);
+}
+
+  .w_component\.spinnerMd {
+    width: var(--sizes-component\.spinner-md);
+}
+
+  .h_component\.spinnerMd {
+    height: var(--sizes-component\.spinner-md);
+}
+
+  .w_component\.spinnerLg {
+    width: var(--sizes-component\.spinner-lg);
+}
+
+  .h_component\.spinnerLg {
+    height: var(--sizes-component\.spinner-lg);
+}
+
+  .w_44px {
+    width: 44px;
+}
+
+  .w_18px {
+    width: 18px;
+}
+
+  .h_18px {
+    height: 18px;
+}
+
+  .ov-x_auto {
+    overflow-x: auto;
+}
+
+  .mb_-2px {
+    margin-bottom: -2px;
+}
+
+  .min-h_component\.textareaMinHeight {
+    min-height: var(--sizes-component\.textarea-min-height);
+}
+
+  .w_36px {
+    width: 36px;
+}
+
+  .w_390px {
+    width: 390px;
+}
+
+  .max-w_100vw {
+    max-width: 100vw;
+}
+
+  .mb_xs {
+    margin-bottom: var(--spacing-xs);
+}
+
+  .max-w_300px {
+    max-width: 300px;
+}
+
+  .open\:bg_accordion\.trigger\.hover:is([open], [data-open], [data-state="open"], :popover-open) {
+    background: var(--colors-accordion\.trigger\.hover);
+}
+
+  .\[\&\[data-state\=\"open\"\]\]\:anim_slideDown_200ms_cubic-bezier\(0\.87\,_0\,_0\.13\,_1\)[data-state="open"] {
+    animation: slideDown 200ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+  .\[\&\[data-state\=\"closed\"\]\]\:anim_slideUp_200ms_cubic-bezier\(0\.87\,_0\,_0\.13\,_1\)[data-state="closed"] {
+    animation: slideUp 200ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+  .\[\&\[data-state\=\"checked\"\]\]\:bg_accent\.primary[data-state="checked"] {
+    background: var(--colors-accent\.primary);
+}
+
+  .\[\&\[data-highlighted\]\]\:bg_selection\.bg[data-highlighted] {
+    background: var(--colors-selection\.bg);
+}
+
+  .\[\&_\.fc-toolbar\]\:p_md .fc-toolbar {
+    padding: var(--spacing-md);
+}
+
+  .\[\&_\.fc-button\]\:bg_button\.primary\.bg .fc-button {
+    background: var(--colors-button\.primary\.bg);
+}
+
+  .\[\&_\.fc-button\]\:bd_none .fc-button {
+    border: var(--borders-none);
+}
+
+  .\[\&_\.fc-button\]\:p_xs_md .fc-button {
+    padding: xs md;
+}
+
+  .\[\&_\.fc-button-primary\:not\(\:disabled\)\.fc-button-active\]\:bg_button\.primary\.bgHover .fc-button-primary:not(:disabled).fc-button-active {
+    background: var(--colors-button\.primary\.bg-hover);
+}
+
+  .\[\&_\.fc-col-header\]\:bg_background\.subtle .fc-col-header {
+    background: var(--colors-background\.subtle);
+}
+
+  .\[\&_\.fc-col-header-cell\]\:p_sm .fc-col-header-cell {
+    padding: var(--spacing-sm);
+}
+
+  .\[\&_\.fc-daygrid-day-number\]\:p_xs .fc-daygrid-day-number {
+    padding: var(--spacing-xs);
+}
+
+  .\[\&_\.fc-day-today\]\:bg_selection\.bg .fc-day-today {
+    background: var(--colors-selection\.bg);
+}
+
+  .\[\&_\.fc-event\]\:bd_none .fc-event {
+    border: var(--borders-none);
+}
+
+  .\[\&_\.fc-event\]\:p_2xs_xs .fc-event {
+    padding: 2xs xs;
+}
+
+  .\[\&_\.fc-daygrid-week-number\]\:p_xs .fc-daygrid-week-number {
+    padding: var(--spacing-xs);
+}
+
+  .\[\&_\.wx-sidearea\]\:bg_background\.elevated .wx-sidearea {
+    background: var(--colors-background\.elevated);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]\]\:p_lg [class*="wx-gantt-editor"] {
+    padding: var(--spacing-lg);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:p_4px_8px\! [class*="wx-gantt-editor"] .wx-button.wx-danger,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:p_4px_8px\! [class*="wx-gantt-editor"] button[class*="danger"] {
+    padding: 4px 8px !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:bg_transparent\! [class*="wx-gantt-editor"] .wx-icon {
+    background: var(--colors-transparent) !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:bd_none\! [class*="wx-gantt-editor"] .wx-icon {
+    border: var(--borders-none) !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:p_0\! [class*="wx-gantt-editor"] .wx-icon {
+    padding: var(--spacing-0) !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:bg_\#EAEAEA [class*="wx-gantt-editor"] .wx-slider input {
+    background: #EAEAEA;
+}
+
+  .\[\&_\.wx-modal\,_\&_\.wx-popup\]\:bg_background\.elevated .wx-modal,.\[\&_\.wx-modal\,_\&_\.wx-popup\]\:bg_background\.elevated .wx-popup {
+    background: var(--colors-background\.elevated);
+}
+
+  .\[\&_\.wx-modal\,_\&_\.wx-popup\]\:bd_1px_solid .wx-modal,.\[\&_\.wx-modal\,_\&_\.wx-popup\]\:bd_1px_solid .wx-popup {
+    border: 1px solid;
+}
+
+  .\[\&_\.wx-modal\,_\&_\.wx-popup\]\:p_lg .wx-modal,.\[\&_\.wx-modal\,_\&_\.wx-popup\]\:p_lg .wx-popup {
+    padding: var(--spacing-lg);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:p_xs [class*="wx-button"][class*="wx-primary"] {
+    padding: var(--spacing-xs);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:bg_button\.primary\.bg [class*="wx-button"][class*="wx-primary"] {
+    background: var(--colors-button\.primary\.bg);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:bd_none [class*="wx-button"][class*="wx-primary"] {
+    border: var(--borders-none);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:p_xs [class*="wx-button"][class*="wx-secondary"] {
+    padding: var(--spacing-xs);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:bg_button\.secondary\.bg [class*="wx-button"][class*="wx-secondary"] {
+    background: var(--colors-button\.secondary\.bg);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:bd_1px_solid [class*="wx-button"][class*="wx-secondary"] {
+    border: 1px solid;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:p_xs [class*="wx-button"][class*="wx-danger"] {
+    padding: var(--spacing-xs);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:bg_button\.danger\.bg [class*="wx-button"][class*="wx-danger"] {
+    background: var(--colors-button\.danger\.bg);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:bd_none [class*="wx-button"][class*="wx-danger"],.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:bd_none .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:bd_none .wx-modal-close {
+    border: var(--borders-none);
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:bg_transparent .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:bg_transparent .wx-modal-close {
+    background: var(--colors-transparent);
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:p_0 .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:p_0 .wx-modal-close {
+    padding: var(--spacing-0);
+}
+
+  .\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:bd_1px_solid .wx-checkbox,.\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:bd_1px_solid input[type="checkbox"] {
+    border: 1px solid;
+}
+
+  .\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:bg_background\.elevated .wx-datepicker,.\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:bg_background\.elevated .wx-calendar {
+    background: var(--colors-background\.elevated);
+}
+
+  .\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:bd_1px_solid .wx-datepicker,.\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:bd_1px_solid .wx-calendar {
+    border: 1px solid;
+}
+
+  .\[\&_\.wx-tab\]\:p_sm .wx-tab {
+    padding: var(--spacing-sm);
+}
+
+  .\[\&_\.wx-gantt\]\:bd_none .wx-gantt {
+    border: var(--borders-none);
+}
+
+  .\[\&_\.wx-header\]\:bg_background\.subtle .wx-header {
+    background: var(--colors-background\.subtle);
+}
+
+  .\[\&_\.wx-grid-body\]\:bg_background\.base .wx-grid-body {
+    background: var(--colors-background\.base);
+}
+
+  .\[\&_\.wx-resizer\]\:bg_\#eee .wx-resizer {
+    background: #eee;
+}
+
+  .disabled\:bg_background\.subtle:is(:disabled, [disabled], [data-disabled], [aria-disabled=true]) {
+    background: var(--colors-background\.subtle);
+}
+
+  .\[\&\[data-state\=\"open\"\]\]\:anim_fadeIn_150ms_cubic-bezier\(0\.16\,_1\,_0\.3\,_1\)[data-state="open"] {
+    animation: fadeIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+  .\[\&\[data-state\=\"closed\"\]\]\:anim_fadeOut_150ms_cubic-bezier\(0\.16\,_1\,_0\.3\,_1\)[data-state="closed"] {
+    animation: fadeOut 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+  .\[\&\[data-state\=\"indeterminate\"\]\]\:anim_progress-indeterminate_1\.5s_ease-in-out_infinite[data-state="indeterminate"] {
+    animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+  .\[\&\:\:after\]\:bg_accent\.primary::after {
+    background: var(--colors-accent\.primary);
+}
+
+  .\[\&\[data-state\=\"checked\"\]\]\:bg_selection\.bg[data-state="checked"] {
+    background: var(--colors-selection\.bg);
+}
+
+  .\[\&\[data-state\=\"open\"\]\]\:anim_overlayShow_0\.2s_ease-out[data-state="open"] {
+    animation: overlayShow 0.2s ease-out;
+}
+
+  .\[\&\[data-state\=\"closed\"\]\]\:anim_overlayHide_0\.15s_ease-in[data-state="closed"] {
+    animation: overlayHide 0.15s ease-in;
+}
+
+  .\[\&\[data-state\=\"open\"\]\]\:anim_slideInFromLeft_0\.2s_ease-out[data-state="open"] {
+    animation: slideInFromLeft 0.2s ease-out;
+}
+
+  .\[\&\[data-state\=\"closed\"\]\]\:anim_slideOutToLeft_0\.15s_ease-in[data-state="closed"] {
+    animation: slideOutToLeft 0.15s ease-in;
+}
+
+  .\[\&\[data-state\=\"open\"\]\]\:anim_slideInFromRight_0\.2s_ease-out[data-state="open"] {
+    animation: slideInFromRight 0.2s ease-out;
+}
+
+  .\[\&\[data-state\=\"closed\"\]\]\:anim_slideOutToRight_0\.15s_ease-in[data-state="closed"] {
+    animation: slideOutToRight 0.15s ease-in;
+}
+
+  .\[\&\[data-selected\=\"true\"\]\]\:bg_selection\.bg[data-selected="true"] {
+    background: var(--colors-selection\.bg);
+}
+
+  .\[\&\[data-state\=\"open\"\]\]\:anim_slideIn_150ms_cubic-bezier\(0\.16\,_1\,_0\.3\,_1\)[data-state="open"] {
+    animation: slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+  .\[\&\[data-state\=\"closed\"\]\]\:anim_slideOut_100ms_ease-in[data-state="closed"] {
+    animation: slideOut 100ms ease-in;
+}
+
+  .\[\&\[data-swipe\=\"end\"\]\]\:anim_swipeOut_100ms_ease-out[data-swipe="end"] {
+    animation: swipeOut 100ms ease-out;
+}
+
+  .\[\&\:not\(\:last-child\)\]\:bd-b_1px_solid:not(:last-child) {
+    border-bottom: 1px solid;
+}
+
+  .\[\&\:not\(\:last-child\)\]\:bd-c_border\.subtle:not(:last-child) {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&\[data-state\=\"checked\"\]\]\:bd-c_accent\.primary[data-state="checked"] {
+    border-color: var(--colors-accent\.primary);
+}
+
+  .\[\&_\.fc-toolbar\]\:gap_sm .fc-toolbar {
+    gap: var(--spacing-sm);
+}
+
+  .\[\&_\.fc-button\]\:bdr_component\.buttonRadius .fc-button {
+    border-radius: var(--radii-component\.button-radius);
+}
+
+  .\[\&_\.fc-button\]\:trs_all_0\.15s_ease .fc-button {
+    transition: all 0.15s ease;
+}
+
+  .\[\&_\.fc-button-group\]\:gap_2xs .fc-button-group {
+    gap: var(--spacing-2xs);
+}
+
+  .\[\&_\.fc-scrollgrid\]\:bd-c_border\.subtle .fc-scrollgrid {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\.fc-daygrid-day\]\:trs_all_0\.15s_ease .fc-daygrid-day {
+    transition: all 0.15s ease;
+}
+
+  .\[\&_\.fc-event\]\:bdr_sm .fc-event {
+    border-radius: var(--radii-sm);
+}
+
+  .\[\&_\.fc-event\]\:trs_all_0\.15s_ease .fc-event {
+    transition: all 0.15s ease;
+}
+
+  .\[\&_\.fc-daygrid-event-dot\]\:bd-c_accent\.primary .fc-daygrid-event-dot {
+    border-color: var(--colors-accent\.primary);
+}
+
+  .\[\&_th\,_\&_td\]\:bd-c_border\.subtle th,.\[\&_th\,_\&_td\]\:bd-c_border\.subtle td,.\[\&_\.fc-scrollgrid-section_\>_td\]\:bd-c_border\.subtle .fc-scrollgrid-section > td {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\.wx-sidearea\]\:bd-l_1px_solid .wx-sidearea {
+    border-left: 1px solid;
+}
+
+  .\[\&_\.wx-sidearea\]\:bd-c_border\.subtle .wx-sidearea {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\>_div\:first-child\]\:gap_sm [class*="wx-gantt-editor"] > div:first-child {
+    gap: var(--spacing-sm);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\>_div\:first-child\]\:bd-b_1px_solid [class*="wx-gantt-editor"] > div:first-child {
+    border-bottom: 1px solid;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\>_div\:first-child\]\:bd-c_border\.subtle [class*="wx-gantt-editor"] > div:first-child {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:bdr_sm [class*="wx-gantt-editor"] .wx-icon {
+    border-radius: var(--radii-sm);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:trs_all_0\.15s_ease [class*="wx-gantt-editor"] .wx-icon {
+    transition: all 0.15s ease;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider\]\:gap_sm [class*="wx-gantt-editor"] .wx-slider {
+    gap: var(--spacing-sm);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:flex_1 [class*="wx-gantt-editor"] .wx-slider input {
+    flex: 1 1 0%;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:bdr_3px [class*="wx-gantt-editor"] .wx-slider input {
+    border-radius: 3px;
+}
+
+  .\[\&_\.wx-modal\,_\&_\.wx-popup\]\:bdr_component\.modalRadius .wx-modal,.\[\&_\.wx-modal\,_\&_\.wx-popup\]\:bdr_component\.modalRadius .wx-popup {
+    border-radius: var(--radii-component\.modal-radius);
+}
+
+  .\[\&_\.wx-modal\,_\&_\.wx-popup\]\:bd-c_border\.subtle .wx-modal,.\[\&_\.wx-modal\,_\&_\.wx-popup\]\:bd-c_border\.subtle .wx-popup {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:bd-b_1px_solid .wx-modal-header,.\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:bd-b_1px_solid .wx-popup-header {
+    border-bottom: 1px solid;
+}
+
+  .\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:bd-c_border\.subtle .wx-modal-header,.\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:bd-c_border\.subtle .wx-popup-header {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:bd-t_1px_solid .wx-modal-footer,.\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:bd-t_1px_solid .wx-popup-footer {
+    border-top: 1px solid;
+}
+
+  .\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:bd-c_border\.subtle .wx-modal-footer,.\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:bd-c_border\.subtle .wx-popup-footer {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:gap_sm .wx-modal-footer,.\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:gap_sm .wx-popup-footer {
+    gap: var(--spacing-sm);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:bdr_component\.buttonRadius [class*="wx-button"][class*="wx-primary"] {
+    border-radius: var(--radii-component\.button-radius);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:trs_all_0\.15s_ease [class*="wx-button"][class*="wx-primary"] {
+    transition: all 0.15s ease;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:bdr_component\.buttonRadius [class*="wx-button"][class*="wx-secondary"] {
+    border-radius: var(--radii-component\.button-radius);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:trs_all_0\.15s_ease [class*="wx-button"][class*="wx-secondary"] {
+    transition: all 0.15s ease;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:bd-c_button\.secondary\.border [class*="wx-button"][class*="wx-secondary"] {
+    border-color: var(--colors-button\.secondary\.border);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:bdr_component\.buttonRadius [class*="wx-button"][class*="wx-danger"] {
+    border-radius: var(--radii-component\.button-radius);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:trs_all_0\.15s_ease [class*="wx-button"][class*="wx-danger"] {
+    transition: all 0.15s ease;
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:bdr_sm .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:bdr_sm .wx-modal-close {
+    border-radius: var(--radii-sm);
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:trs_all_0\.15s_ease .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:trs_all_0\.15s_ease .wx-modal-close {
+    transition: all 0.15s ease;
+}
+
+  .\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:bdr_sm .wx-checkbox,.\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:bdr_sm input[type="checkbox"] {
+    border-radius: var(--radii-sm);
+}
+
+  .\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:bd-c_border\.strong .wx-checkbox,.\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:bd-c_border\.strong input[type="checkbox"] {
+    border-color: var(--colors-border\.strong);
+}
+
+  .\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:bd-c_border\.subtle .wx-datepicker,.\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:bd-c_border\.subtle .wx-calendar {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:bdr_component\.popoverRadius .wx-datepicker,.\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:bdr_component\.popoverRadius .wx-calendar {
+    border-radius: var(--radii-component\.popover-radius);
+}
+
+  .\[\&_\.wx-tabs\]\:bd-b_1px_solid .wx-tabs {
+    border-bottom: 1px solid;
+}
+
+  .\[\&_\.wx-tabs\]\:bd-c_border\.subtle .wx-tabs {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\.wx-tab\]\:bd-b_2px_solid_transparent .wx-tab {
+    border-bottom: 2px solid transparent;
+}
+
+  .\[\&_\.wx-tab\]\:trs_all_0\.15s_ease .wx-tab {
+    transition: all 0.15s ease;
+}
+
+  .\[\&_\.wx-header\]\:bd-b_1px_solid .wx-header {
+    border-bottom: 1px solid;
+}
+
+  .\[\&_\.wx-header\]\:bd-c_border\.subtle .wx-header {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\.wx-grid-body_\.wx-row\,_\&_\.wx-grid_\.wx-row\,_\&_\.wx-area_\.wx-row\]\:bd-b_1px_solid_rgba\(128\,_128\,_128\,_0\.25\) .wx-grid-body .wx-row,.\[\&_\.wx-grid-body_\.wx-row\,_\&_\.wx-grid_\.wx-row\,_\&_\.wx-area_\.wx-row\]\:bd-b_1px_solid_rgba\(128\,_128\,_128\,_0\.25\) .wx-grid .wx-row,.\[\&_\.wx-grid-body_\.wx-row\,_\&_\.wx-grid_\.wx-row\,_\&_\.wx-area_\.wx-row\]\:bd-b_1px_solid_rgba\(128\,_128\,_128\,_0\.25\) .wx-area .wx-row {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+  .\[\&_\.wx-grid-body_\.wx-cell\,_\&_\.wx-grid_\.wx-cell\]\:bd-r_1px_solid_rgba\(128\,_128\,_128\,_0\.25\) .wx-grid-body .wx-cell,.\[\&_\.wx-grid-body_\.wx-cell\,_\&_\.wx-grid_\.wx-cell\]\:bd-r_1px_solid_rgba\(128\,_128\,_128\,_0\.25\) .wx-grid .wx-cell {
+    border-right: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+  .\[\&_\.wx-bar\]\:trs_all_0\.15s_ease .wx-bar {
+    transition: all 0.15s ease;
+}
+
+  .\[\&_\.wx-grid\]\:bd-r_1px_solid .wx-grid {
+    border-right: 1px solid;
+}
+
+  .\[\&_\.wx-grid\]\:bd-c_border\.subtle .wx-grid {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\.wx-resizer\]\:trs_background_0\.15s_ease .wx-resizer {
+    transition: background 0.15s ease;
+}
+
+  .\[\&\:\:after\]\:bdr_pill::after {
+    border-radius: var(--radii-pill);
+}
+
+  .\[\&\[data-swipe\=\"cancel\"\]\]\:trs_transform_200ms_ease-out[data-swipe="cancel"] {
+    transition: transform 200ms ease-out;
+}
+
+  .\[\&\[data-disabled\]\]\:op_0\.5[data-disabled] {
+    opacity: 0.5;
+}
+
+  .\[\&\[data-disabled\]\]\:cursor_not-allowed[data-disabled] {
+    cursor: not-allowed;
+}
+
+  .\[\&\[data-disabled\]\]\:pointer-events_none[data-disabled] {
+    pointer-events: none;
+}
+
+  [data-state=open] .\[\[data-state\=open\]_\&\]\:trf_rotate\(180deg\) {
+    transform: rotate(180deg);
+}
+
+  .\[\&\[aria-current\=\"page\"\]\]\:c_text\.primary[aria-current="page"] {
+    color: var(--colors-text\.primary);
+}
+
+  .\[\&\[aria-current\=\"page\"\]\]\:fw_medium[aria-current="page"] {
+    font-weight: var(--font-weights-medium);
+}
+
+  .disabled\:op_0\.5:is(:disabled, [disabled], [data-disabled], [aria-disabled=true]) {
+    opacity: 0.5;
+}
+
+  .disabled\:cursor_not-allowed:is(:disabled, [disabled], [data-disabled], [aria-disabled=true]) {
+    cursor: not-allowed;
+}
+
+  .disabled\:pointer-events_none:is(:disabled, [disabled], [data-disabled], [aria-disabled=true]) {
+    pointer-events: none;
+}
+
+  .\[\&\[data-highlighted\]\]\:c_text\.primary[data-highlighted] {
+    color: var(--colors-text\.primary);
+}
+
+  .\[\&_\.fc-toolbar\]\:flex-wrap_wrap .fc-toolbar {
+    flex-wrap: wrap;
+}
+
+  .\[\&_\.fc-toolbar-title\]\:fs_lg .fc-toolbar-title {
+    font-size: var(--font-sizes-lg);
+}
+
+  .\[\&_\.fc-toolbar-title\]\:fw_medium .fc-toolbar-title {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&_\.fc-toolbar-title\]\:c_text\.primary .fc-toolbar-title {
+    color: var(--colors-text\.primary);
+}
+
+  .\[\&_\.fc-button\]\:c_button\.primary\.text .fc-button {
+    color: var(--colors-button\.primary\.text);
+}
+
+  .\[\&_\.fc-button\]\:fs_sm .fc-button {
+    font-size: var(--font-sizes-sm);
+}
+
+  .\[\&_\.fc-button\]\:fw_medium .fc-button {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&_\.fc-button\]\:cursor_pointer .fc-button {
+    cursor: pointer;
+}
+
+  .\[\&_\.fc-col-header-cell\]\:fw_medium .fc-col-header-cell {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&_\.fc-col-header-cell\]\:fs_sm .fc-col-header-cell {
+    font-size: var(--font-sizes-sm);
+}
+
+  .\[\&_\.fc-col-header-cell\]\:c_text\.secondary .fc-col-header-cell {
+    color: var(--colors-text\.secondary);
+}
+
+  .\[\&_\.fc-col-header-cell\]\:tt_uppercase .fc-col-header-cell {
+    text-transform: uppercase;
+}
+
+  .\[\&_\.fc-col-header-cell\]\:ls_0\.5px .fc-col-header-cell {
+    letter-spacing: 0.5px;
+}
+
+  .\[\&_\.fc-daygrid-day-number\]\:fs_sm .fc-daygrid-day-number {
+    font-size: var(--font-sizes-sm);
+}
+
+  .\[\&_\.fc-daygrid-day-number\]\:c_text\.primary .fc-daygrid-day-number {
+    color: var(--colors-text\.primary);
+}
+
+  .\[\&_\.fc-day-other_\.fc-daygrid-day-number\]\:c_text\.secondary .fc-day-other .fc-daygrid-day-number {
+    color: var(--colors-text\.secondary);
+}
+
+  .\[\&_\.fc-day-other_\.fc-daygrid-day-number\]\:op_0\.5 .fc-day-other .fc-daygrid-day-number {
+    opacity: 0.5;
+}
+
+  .\[\&_\.fc-event\]\:fs_xs .fc-event {
+    font-size: var(--font-sizes-xs);
+}
+
+  .\[\&_\.fc-event\]\:cursor_pointer .fc-event {
+    cursor: pointer;
+}
+
+  .\[\&_\.fc-event-title\,_\&_\.fc-event-time\,_\&_\.fc-event-main\]\:c_gray\.900 .fc-event-title,.\[\&_\.fc-event-title\,_\&_\.fc-event-time\,_\&_\.fc-event-main\]\:c_gray\.900 .fc-event-time,.\[\&_\.fc-event-title\,_\&_\.fc-event-time\,_\&_\.fc-event-main\]\:c_gray\.900 .fc-event-main {
+    color: var(--colors-gray-900);
+}
+
+  .\[\&_\.fc-daygrid-week-number\]\:fs_xs .fc-daygrid-week-number {
+    font-size: var(--font-sizes-xs);
+}
+
+  .\[\&_\.fc-daygrid-week-number\]\:c_text\.secondary .fc-daygrid-week-number {
+    color: var(--colors-text\.secondary);
+}
+
+  .disabled\:op_0\.4:is(:disabled, [disabled], [data-disabled], [aria-disabled=true]) {
+    opacity: 0.4;
+}
+
+  .\[\&_i\[class\*\=\"wxi-\"\]\]\:font-style_normal\! i[class*="wxi-"] {
+    font-style: normal !important;
+}
+
+  .\[\&_i\.wxi-menu-down\:\:before\,_\&_i\.wxi-angle-down\:\:before\]\:content_\"\\f078\"\! i.wxi-menu-down::before,.\[\&_i\.wxi-menu-down\:\:before\,_\&_i\.wxi-angle-down\:\:before\]\:content_\"\\f078\"\! i.wxi-angle-down::before {
+    content: "\f078" !important;
+}
+
+  .\[\&_i\.wxi-menu-down\:\:before\,_\&_i\.wxi-angle-down\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-menu-down::before,.\[\&_i\.wxi-menu-down\:\:before\,_\&_i\.wxi-angle-down\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-angle-down::before {
+    font-family: "Font Awesome 7 Free" !important;
+}
+
+  .\[\&_i\.wxi-menu-down\:\:before\,_\&_i\.wxi-angle-down\:\:before\]\:fw_900\! i.wxi-menu-down::before,.\[\&_i\.wxi-menu-down\:\:before\,_\&_i\.wxi-angle-down\:\:before\]\:fw_900\! i.wxi-angle-down::before {
+    font-weight: 900 !important;
+}
+
+  .\[\&_i\.wxi-menu-down\:\:before\,_\&_i\.wxi-angle-down\:\:before\]\:font-style_normal\! i.wxi-menu-down::before,.\[\&_i\.wxi-menu-down\:\:before\,_\&_i\.wxi-angle-down\:\:before\]\:font-style_normal\! i.wxi-angle-down::before {
+    font-style: normal !important;
+}
+
+  .\[\&_i\.wxi-menu-down\:\:before\,_\&_i\.wxi-angle-down\:\:before\]\:fs_12px i.wxi-menu-down::before,.\[\&_i\.wxi-menu-down\:\:before\,_\&_i\.wxi-angle-down\:\:before\]\:fs_12px i.wxi-angle-down::before {
+    font-size: 12px;
+}
+
+  .\[\&_i\.wxi-menu-up\:\:before\,_\&_i\.wxi-angle-up\:\:before\]\:content_\"\\f077\"\! i.wxi-menu-up::before,.\[\&_i\.wxi-menu-up\:\:before\,_\&_i\.wxi-angle-up\:\:before\]\:content_\"\\f077\"\! i.wxi-angle-up::before {
+    content: "\f077" !important;
+}
+
+  .\[\&_i\.wxi-menu-up\:\:before\,_\&_i\.wxi-angle-up\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-menu-up::before,.\[\&_i\.wxi-menu-up\:\:before\,_\&_i\.wxi-angle-up\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-angle-up::before {
+    font-family: "Font Awesome 7 Free" !important;
+}
+
+  .\[\&_i\.wxi-menu-up\:\:before\,_\&_i\.wxi-angle-up\:\:before\]\:fw_900\! i.wxi-menu-up::before,.\[\&_i\.wxi-menu-up\:\:before\,_\&_i\.wxi-angle-up\:\:before\]\:fw_900\! i.wxi-angle-up::before {
+    font-weight: 900 !important;
+}
+
+  .\[\&_i\.wxi-menu-up\:\:before\,_\&_i\.wxi-angle-up\:\:before\]\:font-style_normal\! i.wxi-menu-up::before,.\[\&_i\.wxi-menu-up\:\:before\,_\&_i\.wxi-angle-up\:\:before\]\:font-style_normal\! i.wxi-angle-up::before {
+    font-style: normal !important;
+}
+
+  .\[\&_i\.wxi-menu-up\:\:before\,_\&_i\.wxi-angle-up\:\:before\]\:fs_12px i.wxi-menu-up::before,.\[\&_i\.wxi-menu-up\:\:before\,_\&_i\.wxi-angle-up\:\:before\]\:fs_12px i.wxi-angle-up::before {
+    font-size: 12px;
+}
+
+  .\[\&_i\.wxi-menu-left\:\:before\,_\&_i\.wxi-angle-left\:\:before\]\:content_\"\\f053\"\! i.wxi-menu-left::before,.\[\&_i\.wxi-menu-left\:\:before\,_\&_i\.wxi-angle-left\:\:before\]\:content_\"\\f053\"\! i.wxi-angle-left::before {
+    content: "\f053" !important;
+}
+
+  .\[\&_i\.wxi-menu-left\:\:before\,_\&_i\.wxi-angle-left\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-menu-left::before,.\[\&_i\.wxi-menu-left\:\:before\,_\&_i\.wxi-angle-left\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-angle-left::before {
+    font-family: "Font Awesome 7 Free" !important;
+}
+
+  .\[\&_i\.wxi-menu-left\:\:before\,_\&_i\.wxi-angle-left\:\:before\]\:fw_900\! i.wxi-menu-left::before,.\[\&_i\.wxi-menu-left\:\:before\,_\&_i\.wxi-angle-left\:\:before\]\:fw_900\! i.wxi-angle-left::before {
+    font-weight: 900 !important;
+}
+
+  .\[\&_i\.wxi-menu-left\:\:before\,_\&_i\.wxi-angle-left\:\:before\]\:font-style_normal\! i.wxi-menu-left::before,.\[\&_i\.wxi-menu-left\:\:before\,_\&_i\.wxi-angle-left\:\:before\]\:font-style_normal\! i.wxi-angle-left::before {
+    font-style: normal !important;
+}
+
+  .\[\&_i\.wxi-menu-left\:\:before\,_\&_i\.wxi-angle-left\:\:before\]\:fs_12px i.wxi-menu-left::before,.\[\&_i\.wxi-menu-left\:\:before\,_\&_i\.wxi-angle-left\:\:before\]\:fs_12px i.wxi-angle-left::before {
+    font-size: 12px;
+}
+
+  .\[\&_i\.wxi-menu-right\:\:before\,_\&_i\.wxi-angle-right\:\:before\]\:content_\"\\f054\"\! i.wxi-menu-right::before,.\[\&_i\.wxi-menu-right\:\:before\,_\&_i\.wxi-angle-right\:\:before\]\:content_\"\\f054\"\! i.wxi-angle-right::before {
+    content: "\f054" !important;
+}
+
+  .\[\&_i\.wxi-menu-right\:\:before\,_\&_i\.wxi-angle-right\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-menu-right::before,.\[\&_i\.wxi-menu-right\:\:before\,_\&_i\.wxi-angle-right\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-angle-right::before {
+    font-family: "Font Awesome 7 Free" !important;
+}
+
+  .\[\&_i\.wxi-menu-right\:\:before\,_\&_i\.wxi-angle-right\:\:before\]\:fw_900\! i.wxi-menu-right::before,.\[\&_i\.wxi-menu-right\:\:before\,_\&_i\.wxi-angle-right\:\:before\]\:fw_900\! i.wxi-angle-right::before {
+    font-weight: 900 !important;
+}
+
+  .\[\&_i\.wxi-menu-right\:\:before\,_\&_i\.wxi-angle-right\:\:before\]\:font-style_normal\! i.wxi-menu-right::before,.\[\&_i\.wxi-menu-right\:\:before\,_\&_i\.wxi-angle-right\:\:before\]\:font-style_normal\! i.wxi-angle-right::before {
+    font-style: normal !important;
+}
+
+  .\[\&_i\.wxi-menu-right\:\:before\,_\&_i\.wxi-angle-right\:\:before\]\:fs_12px i.wxi-menu-right::before,.\[\&_i\.wxi-menu-right\:\:before\,_\&_i\.wxi-angle-right\:\:before\]\:fs_12px i.wxi-angle-right::before {
+    font-size: 12px;
+}
+
+  .\[\&_i\.wxi-close\:\:before\]\:content_\"\\f00d\"\! i.wxi-close::before {
+    content: "\f00d" !important;
+}
+
+  .\[\&_i\.wxi-close\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-close::before {
+    font-family: "Font Awesome 7 Free" !important;
+}
+
+  .\[\&_i\.wxi-close\:\:before\]\:fw_900\! i.wxi-close::before {
+    font-weight: 900 !important;
+}
+
+  .\[\&_i\.wxi-close\:\:before\]\:font-style_normal\! i.wxi-close::before {
+    font-style: normal !important;
+}
+
+  .\[\&_i\.wxi-close\:\:before\]\:fs_14px i.wxi-close::before {
+    font-size: 14px;
+}
+
+  .\[\&_i\.wxi-plus\:\:before\]\:content_\"\\2b\"\! i.wxi-plus::before {
+    content: "\2b" !important;
+}
+
+  .\[\&_i\.wxi-plus\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-plus::before {
+    font-family: "Font Awesome 7 Free" !important;
+}
+
+  .\[\&_i\.wxi-plus\:\:before\]\:fw_900\! i.wxi-plus::before {
+    font-weight: 900 !important;
+}
+
+  .\[\&_i\.wxi-plus\:\:before\]\:font-style_normal\! i.wxi-plus::before {
+    font-style: normal !important;
+}
+
+  .\[\&_i\.wxi-plus\:\:before\]\:fs_11px i.wxi-plus::before {
+    font-size: 11px;
+}
+
+  .\[\&_i\.wxi-minus\:\:before\]\:content_\"\\f068\"\! i.wxi-minus::before {
+    content: "\f068" !important;
+}
+
+  .\[\&_i\.wxi-minus\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-minus::before {
+    font-family: "Font Awesome 7 Free" !important;
+}
+
+  .\[\&_i\.wxi-minus\:\:before\]\:fw_900\! i.wxi-minus::before {
+    font-weight: 900 !important;
+}
+
+  .\[\&_i\.wxi-minus\:\:before\]\:font-style_normal\! i.wxi-minus::before {
+    font-style: normal !important;
+}
+
+  .\[\&_i\.wxi-minus\:\:before\]\:fs_11px i.wxi-minus::before {
+    font-size: 11px;
+}
+
+  .\[\&_i\.wxi-check\:\:before\]\:content_\"\\f00c\"\! i.wxi-check::before {
+    content: "\f00c" !important;
+}
+
+  .\[\&_i\.wxi-check\:\:before\]\:ff_\"Font_Awesome_7_Free\"\! i.wxi-check::before {
+    font-family: "Font Awesome 7 Free" !important;
+}
+
+  .\[\&_i\.wxi-check\:\:before\]\:fw_900\! i.wxi-check::before {
+    font-weight: 900 !important;
+}
+
+  .\[\&_i\.wxi-check\:\:before\]\:font-style_normal\! i.wxi-check::before {
+    font-style: normal !important;
+}
+
+  .\[\&_i\.wxi-check\:\:before\]\:fs_12px i.wxi-check::before {
+    font-size: 12px;
+}
+
+  .\[\&_\.wx-sidearea\]\:bx-sh_-4px_0_24px_rgba\(0\,_0\,_0\,_0\.08\) .wx-sidearea {
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.08);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]\]\:ff_brand [class*="wx-gantt-editor"] {
+    font-family: var(--fonts-brand);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\>_div\:first-child\]\:d_flex [class*="wx-gantt-editor"] > div:first-child {
+    display: flex;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\>_div\:first-child\]\:ai_center [class*="wx-gantt-editor"] > div:first-child {
+    align-items: center;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\>_div\:first-child\]\:jc_flex-end [class*="wx-gantt-editor"] > div:first-child {
+    justify-content: flex-end;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:d_block [class*="wx-gantt-editor"] label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:d_block .wx-sidearea label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:d_block .wx-field label {
+    display: block;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:c_var\(--colors-text\\\.secondary\)\! [class*="wx-gantt-editor"] label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:c_var\(--colors-text\\\.secondary\)\! .wx-sidearea label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:c_var\(--colors-text\\\.secondary\)\! .wx-field label {
+    color: var(--colors-text\.secondary) !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:fs_xs [class*="wx-gantt-editor"] label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:fs_xs .wx-sidearea label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:fs_xs .wx-field label {
+    font-size: var(--font-sizes-xs);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:fw_medium [class*="wx-gantt-editor"] label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:fw_medium .wx-sidearea label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:fw_medium .wx-field label {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:ff_brand [class*="wx-gantt-editor"] label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:ff_brand .wx-sidearea label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:ff_brand .wx-field label {
+    font-family: var(--fonts-brand);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:tt_uppercase [class*="wx-gantt-editor"] label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:tt_uppercase .wx-sidearea label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:tt_uppercase .wx-field label {
+    text-transform: uppercase;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:ls_0\.5px [class*="wx-gantt-editor"] label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:ls_0\.5px .wx-sidearea label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:ls_0\.5px .wx-field label {
+    letter-spacing: 0.5px;
+}
+
+  .\[\&_\.wx-field\]\:c_var\(--colors-text\\\.primary\) .wx-field {
+    color: var(--colors-text\.primary);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:fs_12px\! [class*="wx-gantt-editor"] .wx-button.wx-danger,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:fs_12px\! [class*="wx-gantt-editor"] button[class*="danger"] {
+    font-size: 12px !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:fw_500 [class*="wx-gantt-editor"] .wx-button.wx-danger,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:fw_500 [class*="wx-gantt-editor"] button[class*="danger"] {
+    font-weight: 500;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:lh_1\.4 [class*="wx-gantt-editor"] .wx-button.wx-danger,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:lh_1\.4 [class*="wx-gantt-editor"] button[class*="danger"] {
+    line-height: 1.4;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:order_1 [class*="wx-gantt-editor"] .wx-icon {
+    order: 1;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:bg-c_transparent\! [class*="wx-gantt-editor"] .wx-icon {
+    background-color: var(--colors-transparent) !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:bx-sh_none\! [class*="wx-gantt-editor"] .wx-icon {
+    box-shadow: none !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:c_var\(--colors-text\\\.secondary\)\! [class*="wx-gantt-editor"] .wx-icon {
+    color: var(--colors-text\.secondary) !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:cursor_pointer [class*="wx-gantt-editor"] .wx-icon {
+    cursor: pointer;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:d_flex\! [class*="wx-gantt-editor"] .wx-icon {
+    display: flex !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:ai_center [class*="wx-gantt-editor"] .wx-icon {
+    align-items: center;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:jc_center [class*="wx-gantt-editor"] .wx-icon {
+    justify-content: center;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider\]\:d_flex [class*="wx-gantt-editor"] .wx-slider {
+    display: flex;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider\]\:ai_center [class*="wx-gantt-editor"] .wx-slider {
+    align-items: center;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:ap_none [class*="wx-gantt-editor"] .wx-slider input {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:-webkit-appearance_none [class*="wx-gantt-editor"] .wx-slider input {
+    -webkit-appearance: none;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:cursor_pointer [class*="wx-gantt-editor"] .wx-slider input {
+    cursor: pointer;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_\.wx-label\]\:ta_right [class*="wx-gantt-editor"] .wx-slider .wx-label {
+    text-align: right;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_\.wx-label\]\:fs_xs [class*="wx-gantt-editor"] .wx-slider .wx-label {
+    font-size: var(--font-sizes-xs);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_\.wx-label\]\:c_text\.secondary [class*="wx-gantt-editor"] .wx-slider .wx-label {
+    color: var(--colors-text\.secondary);
+}
+
+  .\[\&_\.wx-modal\,_\&_\.wx-popup\]\:bx-sh_component\.modalShadow .wx-modal,.\[\&_\.wx-modal\,_\&_\.wx-popup\]\:bx-sh_component\.modalShadow .wx-popup {
+    box-shadow: var(--shadows-component\.modal-shadow);
+}
+
+  .\[\&_\.wx-modal\,_\&_\.wx-popup\]\:ff_brand .wx-modal,.\[\&_\.wx-modal\,_\&_\.wx-popup\]\:ff_brand .wx-popup {
+    font-family: var(--fonts-brand);
+}
+
+  .\[\&_\.wx-modal\,_\&_\.wx-popup\]\:fs_sm .wx-modal,.\[\&_\.wx-modal\,_\&_\.wx-popup\]\:fs_sm .wx-popup {
+    font-size: var(--font-sizes-sm);
+}
+
+  .\[\&_\.wx-modal\,_\&_\.wx-popup\]\:c_text\.primary .wx-modal,.\[\&_\.wx-modal\,_\&_\.wx-popup\]\:c_text\.primary .wx-popup {
+    color: var(--colors-text\.primary);
+}
+
+  .\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:fw_bold .wx-modal-header,.\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:fw_bold .wx-popup-header {
+    font-weight: var(--font-weights-bold);
+}
+
+  .\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:fs_lg .wx-modal-header,.\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:fs_lg .wx-popup-header {
+    font-size: var(--font-sizes-lg);
+}
+
+  .\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:c_text\.primary .wx-modal-header,.\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:c_text\.primary .wx-popup-header {
+    color: var(--colors-text\.primary);
+}
+
+  .\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:d_flex .wx-modal-footer,.\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:d_flex .wx-popup-footer {
+    display: flex;
+}
+
+  .\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:jc_flex-end .wx-modal-footer,.\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:jc_flex-end .wx-popup-footer {
+    justify-content: flex-end;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:ff_brand [class*="wx-button"][class*="wx-primary"] {
+    font-family: var(--fonts-brand);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:fs_sm [class*="wx-button"][class*="wx-primary"] {
+    font-size: var(--font-sizes-sm);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:fw_medium [class*="wx-button"][class*="wx-primary"] {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:cursor_pointer [class*="wx-button"][class*="wx-primary"] {
+    cursor: pointer;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:d_inline-flex [class*="wx-button"][class*="wx-primary"] {
+    display: inline-flex;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:ai_center [class*="wx-button"][class*="wx-primary"] {
+    align-items: center;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:jc_center [class*="wx-button"][class*="wx-primary"] {
+    justify-content: center;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:c_button\.primary\.text [class*="wx-button"][class*="wx-primary"] {
+    color: var(--colors-button\.primary\.text);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:ff_brand [class*="wx-button"][class*="wx-secondary"] {
+    font-family: var(--fonts-brand);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:fs_sm [class*="wx-button"][class*="wx-secondary"] {
+    font-size: var(--font-sizes-sm);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:fw_medium [class*="wx-button"][class*="wx-secondary"] {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:cursor_pointer [class*="wx-button"][class*="wx-secondary"] {
+    cursor: pointer;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:d_inline-flex [class*="wx-button"][class*="wx-secondary"] {
+    display: inline-flex;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:ai_center [class*="wx-button"][class*="wx-secondary"] {
+    align-items: center;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:jc_center [class*="wx-button"][class*="wx-secondary"] {
+    justify-content: center;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:c_button\.secondary\.text [class*="wx-button"][class*="wx-secondary"] {
+    color: var(--colors-button\.secondary\.text);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:ff_brand [class*="wx-button"][class*="wx-danger"] {
+    font-family: var(--fonts-brand);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:fs_sm [class*="wx-button"][class*="wx-danger"] {
+    font-size: var(--font-sizes-sm);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:fw_medium [class*="wx-button"][class*="wx-danger"] {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:cursor_pointer [class*="wx-button"][class*="wx-danger"] {
+    cursor: pointer;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:d_inline-flex [class*="wx-button"][class*="wx-danger"] {
+    display: inline-flex;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:ai_center [class*="wx-button"][class*="wx-danger"] {
+    align-items: center;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:jc_center [class*="wx-button"][class*="wx-danger"] {
+    justify-content: center;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:c_button\.danger\.text [class*="wx-button"][class*="wx-danger"] {
+    color: var(--colors-button\.danger\.text);
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:pos_absolute .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:pos_absolute .wx-modal-close {
+    position: absolute;
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:d_flex .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:d_flex .wx-modal-close {
+    display: flex;
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:ai_center .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:ai_center .wx-modal-close {
+    align-items: center;
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:jc_center .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:jc_center .wx-modal-close {
+    justify-content: center;
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:c_text\.secondary .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:c_text\.secondary .wx-modal-close {
+    color: var(--colors-text\.secondary);
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:cursor_pointer .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:cursor_pointer .wx-modal-close,.\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:cursor_pointer .wx-checkbox,.\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:cursor_pointer input[type="checkbox"] {
+    cursor: pointer;
+}
+
+  .\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:ac-c_var\(--colors-brand\\\.blue\) .wx-checkbox,.\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:ac-c_var\(--colors-brand\\\.blue\) input[type="checkbox"] {
+    accent-color: var(--colors-brand\.blue);
+}
+
+  .\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:bx-sh_none .wx-datepicker,.\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:bx-sh_none .wx-calendar {
+    box-shadow: none;
+}
+
+  .\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:ff_brand .wx-datepicker,.\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:ff_brand .wx-calendar {
+    font-family: var(--fonts-brand);
+}
+
+  .\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:fs_sm .wx-datepicker,.\[\&_\.wx-datepicker\,_\&_\.wx-calendar\]\:fs_sm .wx-calendar {
+    font-size: var(--font-sizes-sm);
+}
+
+  .\[\&_\[class\*\=\"wx-slider\"\]\]\:ac-c_var\(--colors-brand\\\.blue\) [class*="wx-slider"] {
+    accent-color: var(--colors-brand\.blue);
+}
+
+  .\[\&_\[class\*\=\"wx-slider\"\]\]\:cursor_pointer [class*="wx-slider"] {
+    cursor: pointer;
+}
+
+  .\[\&_\.wx-tab\]\:ff_brand .wx-tab {
+    font-family: var(--fonts-brand);
+}
+
+  .\[\&_\.wx-tab\]\:fs_sm .wx-tab {
+    font-size: var(--font-sizes-sm);
+}
+
+  .\[\&_\.wx-tab\]\:fw_medium .wx-tab {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&_\.wx-tab\]\:c_text\.secondary .wx-tab {
+    color: var(--colors-text\.secondary);
+}
+
+  .\[\&_\.wx-tab\]\:cursor_pointer .wx-tab {
+    cursor: pointer;
+}
+
+  .\[\&_\.wx-grid-header\]\:fw_medium .wx-grid-header {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&_\.wx-grid-header\]\:fs_xs .wx-grid-header {
+    font-size: var(--font-sizes-xs);
+}
+
+  .\[\&_\.wx-grid-header\]\:tt_uppercase .wx-grid-header {
+    text-transform: uppercase;
+}
+
+  .\[\&_\.wx-grid-header\]\:ls_0\.5px .wx-grid-header {
+    letter-spacing: 0.5px;
+}
+
+  .\[\&_\.wx-grid-cell\,_\&_\.wx-timescale-cell\]\:fs_xs .wx-grid-cell,.\[\&_\.wx-grid-cell\,_\&_\.wx-timescale-cell\]\:fs_xs .wx-timescale-cell {
+    font-size: var(--font-sizes-xs);
+}
+
+  .\[\&_\.wx-grid-cell\,_\&_\.wx-timescale-cell\]\:c_text\.primary .wx-grid-cell,.\[\&_\.wx-grid-cell\,_\&_\.wx-timescale-cell\]\:c_text\.primary .wx-timescale-cell {
+    color: var(--colors-text\.primary);
+}
+
+  .\[\&_\.wx-timescale-cell\]\:fw_medium .wx-timescale-cell {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&_\.wx-grid-body\]\:c_text\.primary .wx-grid-body,.\[\&_\.wx-grid-body_\.wx-cell\,_\&_\.wx-grid_\.wx-cell\]\:c_text\.primary .wx-grid-body .wx-cell,.\[\&_\.wx-grid-body_\.wx-cell\,_\&_\.wx-grid_\.wx-cell\]\:c_text\.primary .wx-grid .wx-cell {
+    color: var(--colors-text\.primary);
+}
+
+  .\[\&_\.wx-bar-content\]\:fs_xs .wx-bar-content {
+    font-size: var(--font-sizes-xs);
+}
+
+  .\[\&_\.wx-bar-content\]\:fw_medium .wx-bar-content {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&_\.wx-link\]\:stk_\#8E9191 .wx-link {
+    stroke: #8E9191;
+}
+
+  .\[\&_\.wx-scale-row\,_\&_\.wx-row-lines\,_\&_\.wx-cell-lines\,_\&_\.wx-chart_line\,_\&_\.wx-area_line\]\:stk_rgba\(128\,_128\,_128\,_0\.25\) .wx-scale-row,.\[\&_\.wx-scale-row\,_\&_\.wx-row-lines\,_\&_\.wx-cell-lines\,_\&_\.wx-chart_line\,_\&_\.wx-area_line\]\:stk_rgba\(128\,_128\,_128\,_0\.25\) .wx-row-lines,.\[\&_\.wx-scale-row\,_\&_\.wx-row-lines\,_\&_\.wx-cell-lines\,_\&_\.wx-chart_line\,_\&_\.wx-area_line\]\:stk_rgba\(128\,_128\,_128\,_0\.25\) .wx-cell-lines,.\[\&_\.wx-scale-row\,_\&_\.wx-row-lines\,_\&_\.wx-cell-lines\,_\&_\.wx-chart_line\,_\&_\.wx-area_line\]\:stk_rgba\(128\,_128\,_128\,_0\.25\) .wx-chart line,.\[\&_\.wx-scale-row\,_\&_\.wx-row-lines\,_\&_\.wx-cell-lines\,_\&_\.wx-chart_line\,_\&_\.wx-area_line\]\:stk_rgba\(128\,_128\,_128\,_0\.25\) .wx-area line {
+    stroke: rgba(128, 128, 128, 0.25);
+}
+
+  .\[\&_\.wx-resizer\]\:cursor_col-resize .wx-resizer {
+    cursor: col-resize;
+}
+
+  .placeholder\:c_text\.subtle::placeholder,.placeholder\:c_text\.subtle[data-placeholder] {
+    color: var(--colors-text\.subtle);
+}
+
+  .\[\&\:\:after\]\:content_\"\"::after {
+    content: "";
+}
+
+  .\[\&\:\:after\]\:d_block::after {
+    display: block;
+}
+
+  .\[\&\[data-state\=\"checked\"\]\]\:c_accent\.primary[data-state="checked"] {
+    color: var(--colors-accent\.primary);
+}
+
+  .\[\&\[data-state\=\"checked\"\]\]\:fw_medium[data-state="checked"] {
+    font-weight: var(--font-weights-medium);
+}
+
+  .\[\&\[data-state\=\"checked\"\]\]\:trf_translateX\(23px\)[data-state="checked"] {
+    transform: translateX(23px);
+}
+
+  .\[\&\[data-state\=\"active\"\]\]\:c_tabs\.active\.text[data-state="active"] {
+    color: var(--colors-tabs\.active\.text);
+}
+
+  .\[\&\[data-swipe\=\"move\"\]\]\:trf_translateX\(var\(--radix-toast-swipe-move-x\)\)[data-swipe="move"] {
+    transform: translateX(var(--radix-toast-swipe-move-x));
+}
+
+  .\[\&\[data-swipe\=\"cancel\"\]\]\:trf_translateX\(0\)[data-swipe="cancel"] {
+    transform: translateX(0);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\>_div\:first-child\]\:pb_md [class*="wx-gantt-editor"] > div:first-child {
+    padding-bottom: var(--spacing-md);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\>_div\:first-child\]\:mb_lg [class*="wx-gantt-editor"] > div:first-child {
+    margin-bottom: var(--spacing-lg);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:mb_xs [class*="wx-gantt-editor"] label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:mb_xs .wx-sidearea label,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_label\,_\&_\.wx-sidearea_label\,_\&_\.wx-field_label\]\:mb_xs .wx-field label {
+    margin-bottom: var(--spacing-xs);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:min-h_unset\! [class*="wx-gantt-editor"] .wx-button.wx-danger,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:min-h_unset\! [class*="wx-gantt-editor"] button[class*="danger"] {
+    min-height: unset !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:h_auto\! [class*="wx-gantt-editor"] .wx-button.wx-danger,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-button\.wx-danger\,_\&_\[class\*\=\"wx-gantt-editor\"\]_button\[class\*\=\"danger\"\]\]\:h_auto\! [class*="wx-gantt-editor"] button[class*="danger"] {
+    height: auto !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:w_28px\! [class*="wx-gantt-editor"] .wx-icon {
+    width: 28px !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:h_28px\! [class*="wx-gantt-editor"] .wx-icon {
+    height: 28px !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:min-w_unset\! [class*="wx-gantt-editor"] .wx-icon {
+    min-width: unset !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:min-h_unset\! [class*="wx-gantt-editor"] .wx-icon {
+    min-height: unset !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider\]\:w_100\% [class*="wx-gantt-editor"] .wx-slider {
+    width: 100%;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:h_6px [class*="wx-gantt-editor"] .wx-slider input {
+    height: 6px;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_\.wx-label\]\:min-w_36px [class*="wx-gantt-editor"] .wx-slider .wx-label {
+    min-width: 36px;
+}
+
+  .\[\&_\.wx-modal\,_\&_\.wx-popup\]\:min-w_320px .wx-modal,.\[\&_\.wx-modal\,_\&_\.wx-popup\]\:min-w_320px .wx-popup {
+    min-width: 320px;
+}
+
+  .\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:pb_md .wx-modal-header,.\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:pb_md .wx-popup-header {
+    padding-bottom: var(--spacing-md);
+}
+
+  .\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:mb_md .wx-modal-header,.\[\&_\.wx-modal-header\,_\&_\.wx-popup-header\]\:mb_md .wx-popup-header {
+    margin-bottom: var(--spacing-md);
+}
+
+  .\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:pt_md .wx-modal-footer,.\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:pt_md .wx-popup-footer {
+    padding-top: var(--spacing-md);
+}
+
+  .\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:mt_md .wx-modal-footer,.\[\&_\.wx-modal-footer\,_\&_\.wx-popup-footer\]\:mt_md .wx-popup-footer {
+    margin-top: var(--spacing-md);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:pl_md [class*="wx-button"][class*="wx-primary"] {
+    padding-left: var(--spacing-md);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:pr_md [class*="wx-button"][class*="wx-primary"] {
+    padding-right: var(--spacing-md);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:min-h_component\.buttonMinHeight [class*="wx-button"][class*="wx-primary"] {
+    min-height: var(--sizes-component\.button-min-height);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:pl_md [class*="wx-button"][class*="wx-secondary"] {
+    padding-left: var(--spacing-md);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:pr_md [class*="wx-button"][class*="wx-secondary"] {
+    padding-right: var(--spacing-md);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:min-h_component\.buttonMinHeight [class*="wx-button"][class*="wx-secondary"] {
+    min-height: var(--sizes-component\.button-min-height);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:pl_md [class*="wx-button"][class*="wx-danger"] {
+    padding-left: var(--spacing-md);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:pr_md [class*="wx-button"][class*="wx-danger"] {
+    padding-right: var(--spacing-md);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:min-h_component\.buttonMinHeight [class*="wx-button"][class*="wx-danger"] {
+    min-height: var(--sizes-component\.button-min-height);
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:top_md .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:top_md .wx-modal-close {
+    top: var(--spacing-md);
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:right_md .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:right_md .wx-modal-close {
+    right: var(--spacing-md);
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:w_32px .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:w_32px .wx-modal-close {
+    width: 32px;
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:h_32px .wx-close,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:h_32px .wx-modal-close {
+    height: 32px;
+}
+
+  .\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:w_18px .wx-checkbox,.\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:w_18px input[type="checkbox"] {
+    width: 18px;
+}
+
+  .\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:h_18px .wx-checkbox,.\[\&_\.wx-checkbox\,_\&_input\[type\=\"checkbox\"\]\]\:h_18px input[type="checkbox"] {
+    height: 18px;
+}
+
+  .\[\&_\.wx-tabs\]\:mb_md .wx-tabs {
+    margin-bottom: var(--spacing-md);
+}
+
+  .\[\&\:\:after\]\:w_10px::after {
+    width: 10px;
+}
+
+  .\[\&\:\:after\]\:h_10px::after {
+    height: 10px;
+}
+
+  .\[\&\[data-orientation\=\"horizontal\"\]\]\:h_1px[data-orientation="horizontal"] {
+    height: 1px;
+}
+
+  .\[\&\[data-orientation\=\"horizontal\"\]\]\:w_100\%[data-orientation="horizontal"] {
+    width: 100%;
+}
+
+  .\[\&\[data-orientation\=\"vertical\"\]\]\:w_1px[data-orientation="vertical"] {
+    width: 1px;
+}
+
+  .\[\&\[data-orientation\=\"vertical\"\]\]\:h_100\%[data-orientation="vertical"] {
+    height: 100%;
+}
+
+  .\[\&\[data-state\=\"active\"\]\]\:bd-b-c_tabs\.active\.border[data-state="active"] {
+    border-bottom-color: var(--colors-tabs\.active\.border);
+}
+
+  .focus\:bg_selection\.bg:is(:focus, [data-focus]) {
+    background: var(--colors-selection\.bg);
+}
+
+  .\[\&\:focus-visible\]\:ring_2px_solid:focus-visible {
+    outline: 2px solid;
+}
+
+  .\[\&\:focus-visible\]\:bdr_sm:focus-visible {
+    border-radius: var(--radii-sm);
+}
+
+  .focus\:ring_none:is(:focus, [data-focus]) {
+    outline: var(--borders-none);
+}
+
+  .focus\:bd-c_accent\.primary:is(:focus, [data-focus]) {
+    border-color: var(--colors-accent\.primary);
+}
+
+  .focus\:bd-c_state\.danger:is(:focus, [data-focus]) {
+    border-color: var(--colors-state\.danger);
+}
+
+  .focus\:pos_relative:is(:focus, [data-focus]) {
+    position: relative;
+}
+
+  .focus\:z_1:is(:focus, [data-focus]) {
+    z-index: 1;
+}
+
+  .focus\:bx-sh_focus\.primary:is(:focus, [data-focus]) {
+    box-shadow: var(--shadows-focus\.primary);
+}
+
+  .focusVisible\:bx-sh_focus\.primary:is(:focus-visible, [data-focus-visible]) {
+    box-shadow: var(--shadows-focus\.primary);
+}
+
+  .\[\&\:focus-visible\]\:ring-c_accent\.primary:focus-visible {
+    outline-color: var(--colors-accent\.primary);
+}
+
+  .\[\&\:focus-visible\]\:ring-o_2px:focus-visible {
+    outline-offset: 2px;
+}
+
+  .focus\:bx-sh_focus\.button:is(:focus, [data-focus]) {
+    box-shadow: var(--shadows-focus\.button);
+}
+
+  .focus\:bx-sh_focus\.danger:is(:focus, [data-focus]) {
+    box-shadow: var(--shadows-focus\.danger);
+}
+
+  .focus\:bx-sh_focus\.dialog:is(:focus, [data-focus]) {
+    box-shadow: var(--shadows-focus\.dialog);
+}
+
+  .focusVisible\:bx-sh_focus\.dialog:is(:focus-visible, [data-focus-visible]) {
+    box-shadow: var(--shadows-focus\.dialog);
+}
+
+  .focus\:bx-sh_focus\.light:is(:focus, [data-focus]) {
+    box-shadow: var(--shadows-focus\.light);
+}
+
+  .hover\:bg_accordion\.trigger\.hover:is(:hover, [data-hover]) {
+    background: var(--colors-accordion\.trigger\.hover);
+}
+
+  .hover\:bg_button\.primary\.bgHover:is(:hover, [data-hover]) {
+    background: var(--colors-button\.primary\.bg-hover);
+}
+
+  .hover\:bg_button\.secondary\.bgHover:is(:hover, [data-hover]) {
+    background: var(--colors-button\.secondary\.bg-hover);
+}
+
+  .hover\:bg_button\.danger\.bgHover:is(:hover, [data-hover]) {
+    background: var(--colors-button\.danger\.bg-hover);
+}
+
+  .hover\:bg_background\.subtle:is(:hover, [data-hover]) {
+    background: var(--colors-background\.subtle);
+}
+
+  .hover\:bg_selection\.bg:is(:hover, [data-hover]) {
+    background: var(--colors-selection\.bg);
+}
+
+  .hover\:bg_neutral\.base:is(:hover, [data-hover]) {
+    background: var(--colors-neutral\.base);
+}
+
+  .hover\:bg_background\.elevated:is(:hover, [data-hover]) {
+    background: var(--colors-background\.elevated);
+}
+
+  .hover\:bg_tabs\.hover\.bg:is(:hover, [data-hover]) {
+    background: var(--colors-tabs\.hover\.bg);
+}
+
+  .hover\:bg_toast\.closeHover:is(:hover, [data-hover]) {
+    background: var(--colors-toast\.close-hover);
+}
+
+  .\[\&\:hover\]\:td_underline:hover {
+    text-decoration: underline;
+}
+
+  .hover\:bd-c_accent\.primary:is(:hover, [data-hover]) {
+    border-color: var(--colors-accent\.primary);
+}
+
+  .hover\:bd-c_state\.danger:is(:hover, [data-hover]) {
+    border-color: var(--colors-state\.danger);
+}
+
+  .hover\:bd-c_border\.strong:is(:hover, [data-hover]) {
+    border-color: var(--colors-border\.strong);
+}
+
+  .hover\:bd-c_border\.emphasis:is(:hover, [data-hover]) {
+    border-color: var(--colors-border\.emphasis);
+}
+
+  .hover\:bd-c_button\.primary\.bgHover:is(:hover, [data-hover]) {
+    border-color: var(--colors-button\.primary\.bg-hover);
+}
+
+  .\[\&\:hover\]\:c_text\.linkHover:hover {
+    color: var(--colors-text\.link-hover);
+}
+
+  .hover\:trf_translateY\(-1px\):is(:hover, [data-hover]) {
+    transform: translateY(-1px);
+}
+
+  .hover\:c_text\.linkHover:is(:hover, [data-hover]) {
+    color: var(--colors-text\.link-hover);
+}
+
+  .hover\:trf_translateY\(-2px\):is(:hover, [data-hover]) {
+    transform: translateY(-2px);
+}
+
+  .hover\:bx-sh_component\.modalShadow:is(:hover, [data-hover]) {
+    box-shadow: var(--shadows-component\.modal-shadow);
+}
+
+  .hover\:c_text\.primary:is(:hover, [data-hover]) {
+    color: var(--colors-text\.primary);
+}
+
+  .hover\:op_1:is(:hover, [data-hover]) {
+    opacity: 1;
+}
+
+  .active\:trf_translateY\(0\):is(:active, [data-active]) {
+    transform: translateY(0);
+}
+
+  .active\:trf_scale\(0\.95\):is(:active, [data-active]) {
+    transform: scale(0.95);
+}
+
+  .\[\&_\.fc-button\]\:\[\&\:hover\]\:bg_button\.primary\.bgHover .fc-button:hover {
+    background: var(--colors-button\.primary\.bg-hover);
+}
+
+  .disabled\:hover\:bg_background\.base:is(:disabled, [disabled], [data-disabled], [aria-disabled=true]):is(:hover, [data-hover]) {
+    background: var(--colors-background\.base);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:\[\&\:hover\]\:bg_var\(--colors-background\\\.subtle\)\! [class*="wx-gantt-editor"] .wx-icon:hover {
+    background: var(--colors-background\.subtle) !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:bg_var\(--colors-brand\\\.blue\) [class*="wx-gantt-editor"] .wx-slider input::-webkit-slider-thumb,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:bg_var\(--colors-brand\\\.blue\) [class*="wx-gantt-editor"] .wx-slider input::-moz-range-thumb {
+    background: var(--colors-brand\.blue);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:bd_2px_solid_white [class*="wx-gantt-editor"] .wx-slider input::-webkit-slider-thumb,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:bd_2px_solid_white [class*="wx-gantt-editor"] .wx-slider input::-moz-range-thumb {
+    border: 2px solid white;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:\[\&\:hover\]\:bg_button\.primary\.bgHover [class*="wx-button"][class*="wx-primary"]:hover {
+    background: var(--colors-button\.primary\.bg-hover);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:\[\&\:hover\]\:bg_button\.secondary\.bgHover [class*="wx-button"][class*="wx-secondary"]:hover {
+    background: var(--colors-button\.secondary\.bg-hover);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:\[\&\:hover\]\:bg_button\.danger\.bgHover [class*="wx-button"][class*="wx-danger"]:hover {
+    background: var(--colors-button\.danger\.bg-hover);
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:\[\&\:hover\]\:bg_background\.subtle .wx-close:hover,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:\[\&\:hover\]\:bg_background\.subtle .wx-modal-close:hover,.\[\&_\.wx-tab\]\:\[\&\:hover\]\:bg_background\.subtle .wx-tab:hover {
+    background: var(--colors-background\.subtle);
+}
+
+  .\[\&_\.wx-resizer\]\:\[\&\:hover\]\:bg_border\.strong .wx-resizer:hover {
+    background: var(--colors-border\.strong);
+}
+
+  .\[\&_\.wx-resizer\]\:\[\&\:active\]\:bg_accent\.primary .wx-resizer:active {
+    background: var(--colors-accent\.primary);
+}
+
+  .\[\&\[data-state\=\"checked\"\]\]\:hover\:bg_accent\.dark[data-state="checked"]:is(:hover, [data-hover]) {
+    background: var(--colors-accent\.dark);
+}
+
+  .\[\&_\.fc-button\]\:\[\&\:focus\]\:ring_none .fc-button:focus {
+    outline: var(--borders-none);
+}
+
+  .\[\&_\.fc-button-group\]\:\[\&_\.fc-button\]\:bdr_component\.buttonRadius .fc-button-group .fc-button {
+    border-radius: var(--radii-component\.button-radius);
+}
+
+  .disabled\:hover\:bd-c_border\.subtle:is(:disabled, [disabled], [data-disabled], [aria-disabled=true]):is(:hover, [data-hover]) {
+    border-color: var(--colors-border\.subtle);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:bdr_50\% [class*="wx-gantt-editor"] .wx-slider input::-webkit-slider-thumb,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:bdr_50\% [class*="wx-gantt-editor"] .wx-slider input::-moz-range-thumb {
+    border-radius: 50%;
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:\[\&\:focus\]\:ring_none [class*="wx-button"][class*="wx-primary"]:focus,.\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:\[\&\:focus\]\:ring_none [class*="wx-button"][class*="wx-secondary"]:focus,.\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:\[\&\:focus\]\:ring_none [class*="wx-button"][class*="wx-danger"]:focus,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:\[\&\:focus\]\:ring_none .wx-close:focus,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:\[\&\:focus\]\:ring_none .wx-modal-close:focus {
+    outline: var(--borders-none);
+}
+
+  .\[\&_\.fc-button\]\:\[\&\:focus\]\:bx-sh_focus\.button .fc-button:focus {
+    box-shadow: var(--shadows-focus\.button);
+}
+
+  .\[\&_\.fc-button\]\:\[\&\:disabled\]\:op_0\.5 .fc-button:disabled {
+    opacity: 0.5;
+}
+
+  .\[\&_\.fc-button\]\:\[\&\:disabled\]\:cursor_not-allowed .fc-button:disabled {
+    cursor: not-allowed;
+}
+
+  .\[\&_\.fc-event\]\:\[\&\:hover\]\:op_0\.9 .fc-event:hover {
+    opacity: 0.9;
+}
+
+  [data-color-mode=dark] .\[\&_\.fc-event-title\,_\&_\.fc-event-time\,_\&_\.fc-event-main\]\:dark\:c_white .fc-event-title,[data-color-mode=dark] .\[\&_\.fc-event-title\,_\&_\.fc-event-time\,_\&_\.fc-event-main\]\:dark\:c_white .fc-event-time,[data-color-mode=dark] .\[\&_\.fc-event-title\,_\&_\.fc-event-time\,_\&_\.fc-event-main\]\:dark\:c_white .fc-event-main {
+    color: var(--colors-white);
+}
+
+  .disabled\:hover\:c_text\.secondary:is(:disabled, [disabled], [data-disabled], [aria-disabled=true]):is(:hover, [data-hover]) {
+    color: var(--colors-text\.secondary);
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-icon\]\:\[\&\:hover\]\:c_var\(--colors-text\\\.primary\)\! [class*="wx-gantt-editor"] .wx-icon:hover {
+    color: var(--colors-text\.primary) !important;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:-webkit-appearance_none [class*="wx-gantt-editor"] .wx-slider input::-webkit-slider-thumb,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:-webkit-appearance_none [class*="wx-gantt-editor"] .wx-slider input::-moz-range-thumb {
+    -webkit-appearance: none;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:ap_none [class*="wx-gantt-editor"] .wx-slider input::-webkit-slider-thumb,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:ap_none [class*="wx-gantt-editor"] .wx-slider input::-moz-range-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:cursor_pointer [class*="wx-gantt-editor"] .wx-slider input::-webkit-slider-thumb,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:cursor_pointer [class*="wx-gantt-editor"] .wx-slider input::-moz-range-thumb {
+    cursor: pointer;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:bx-sh_0_1px_3px_rgba\(0\,0\,0\,0\.2\) [class*="wx-gantt-editor"] .wx-slider input::-webkit-slider-thumb,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:bx-sh_0_1px_3px_rgba\(0\,0\,0\,0\.2\) [class*="wx-gantt-editor"] .wx-slider input::-moz-range-thumb {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:\[\&\:active\]\:trf_scale\(0\.98\) [class*="wx-button"][class*="wx-primary"]:active {
+    transform: scale(0.98);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-primary\"\]\]\:\[\&\:focus\]\:bx-sh_focus\.button [class*="wx-button"][class*="wx-primary"]:focus {
+    box-shadow: var(--shadows-focus\.button);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:\[\&\:active\]\:trf_scale\(0\.98\) [class*="wx-button"][class*="wx-secondary"]:active {
+    transform: scale(0.98);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-secondary\"\]\]\:\[\&\:focus\]\:bx-sh_focus\.button [class*="wx-button"][class*="wx-secondary"]:focus {
+    box-shadow: var(--shadows-focus\.button);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:\[\&\:active\]\:trf_scale\(0\.98\) [class*="wx-button"][class*="wx-danger"]:active {
+    transform: scale(0.98);
+}
+
+  .\[\&_\[class\*\=\"wx-button\"\]\[class\*\=\"wx-danger\"\]\]\:\[\&\:focus\]\:bx-sh_focus\.danger [class*="wx-button"][class*="wx-danger"]:focus {
+    box-shadow: var(--shadows-focus\.danger);
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:\[\&\:hover\]\:c_text\.primary .wx-close:hover,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:\[\&\:hover\]\:c_text\.primary .wx-modal-close:hover {
+    color: var(--colors-text\.primary);
+}
+
+  .\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:\[\&\:focus\]\:bx-sh_focus\.dialog .wx-close:focus,.\[\&_\.wx-close\,_\&_\.wx-modal-close\]\:\[\&\:focus\]\:bx-sh_focus\.dialog .wx-modal-close:focus {
+    box-shadow: var(--shadows-focus\.dialog);
+}
+
+  .\[\&_\.wx-tab\]\:\[\&\:hover\]\:c_text\.primary .wx-tab:hover {
+    color: var(--colors-text\.primary);
+}
+
+  .\[\&_\.wx-tab\]\:\[\&\.active\,_\&\[aria-selected\=\"true\"\]\]\:c_accent\.primary .wx-tab.active,.\[\&_\.wx-tab\]\:\[\&\.active\,_\&\[aria-selected\=\"true\"\]\]\:c_accent\.primary .wx-tab[aria-selected="true"] {
+    color: var(--colors-accent\.primary);
+}
+
+  .\[\&_\.wx-bar\]\:\[\&\:hover\]\:op_0\.9 .wx-bar:hover {
+    opacity: 0.9;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:w_16px [class*="wx-gantt-editor"] .wx-slider input::-webkit-slider-thumb,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:w_16px [class*="wx-gantt-editor"] .wx-slider input::-moz-range-thumb {
+    width: 16px;
+}
+
+  .\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:h_16px [class*="wx-gantt-editor"] .wx-slider input::-webkit-slider-thumb,.\[\&_\[class\*\=\"wx-gantt-editor\"\]_\.wx-slider_input\]\:\[\&\:\:-webkit-slider-thumb\,_\&\:\:-moz-range-thumb\]\:h_16px [class*="wx-gantt-editor"] .wx-slider input::-moz-range-thumb {
+    height: 16px;
+}
+
+  .\[\&_\.wx-tab\]\:\[\&\.active\,_\&\[aria-selected\=\"true\"\]\]\:bd-b-c_accent\.primary .wx-tab.active,.\[\&_\.wx-tab\]\:\[\&\.active\,_\&\[aria-selected\=\"true\"\]\]\:bd-b-c_accent\.primary .wx-tab[aria-selected="true"] {
+    border-bottom-color: var(--colors-accent\.primary);
 }
 
   @media screen and (min-width: 30rem) {
@@ -1374,6 +4761,15 @@
     .sm\:grid-tc_repeat\(auto-fit\,_minmax\(300px\,_1fr\)\) {
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
+    .sm\:id_start {
+      id: start;
+}
+    .sm\:header_Start_date {
+      header: Start date;
+}
+    .sm\:w_90 {
+      width: 90px;
+}
 }
 
   @media screen and (min-width: 48rem) {
@@ -1517,6 +4913,15 @@
 }
     .md\:grid-tc_repeat\(auto-fit\,_minmax\(300px\,_1fr\)\) {
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+    .md\:id_duration {
+      id: duration;
+}
+    .md\:header_Duration {
+      header: Duration;
+}
+    .md\:w_70 {
+      width: 70px;
 }
 }
 
