@@ -52,6 +52,24 @@ Add `skipLibCheck: true` to your `tsconfig.json`:
 }
 ```
 
+### 4. Vite Configuration (if using Vite)
+
+Add `resolve.dedupe` to your `vite.config.ts` to ensure shared dependencies resolve correctly:
+
+```ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    dedupe: ['react', 'react-dom'],
+  },
+})
+```
+
+This prevents duplicate React instances which can cause hooks and context to fail.
+
 ## Usage
 
 ```tsx
@@ -111,6 +129,37 @@ function Header() {
   )
 }
 ```
+
+## Troubleshooting
+
+### React hooks or context not working
+
+If you see errors like "Invalid hook call" or context values are undefined, this usually means multiple React instances are loaded. Solutions:
+
+1. **Vite users**: Add `resolve.dedupe: ['react', 'react-dom']` to your vite.config.ts (see Setup step 4)
+2. **Webpack users**: Add resolve aliases in webpack.config.js:
+   ```js
+   resolve: {
+     alias: {
+       react: require.resolve('react'),
+       'react-dom': require.resolve('react-dom'),
+     }
+   }
+   ```
+
+### Dependencies not installing
+
+When installing from git, npm should install all dependencies automatically. If you encounter missing dependency errors:
+
+```bash
+# Clear npm cache and reinstall
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### TypeScript errors in node_modules
+
+Add `skipLibCheck: true` to your tsconfig.json (see Setup step 3).
 
 ## Documentation
 
