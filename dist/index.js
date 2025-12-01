@@ -1104,24 +1104,24 @@ var badgeRecipe = cva({
   variants: {
     status: {
       info: {
-        bg: "state.info",
-        color: "neutral.light"
+        bg: "badge.info.bg",
+        color: "badge.info.text"
       },
       success: {
-        bg: "state.success",
-        color: "neutral.light"
+        bg: "badge.success.bg",
+        color: "badge.success.text"
       },
       warning: {
-        bg: "state.warning",
-        color: "neutral.dark"
+        bg: "badge.warning.bg",
+        color: "badge.warning.text"
       },
       danger: {
-        bg: "state.danger",
-        color: "neutral.light"
+        bg: "badge.danger.bg",
+        color: "badge.danger.text"
       },
       neutral: {
-        bg: "neutral.base",
-        color: "text.primary"
+        bg: "badge.neutral.bg",
+        color: "badge.neutral.text"
       }
     }
   },
@@ -1356,7 +1356,7 @@ var StyledCheckbox = styled(CheckboxPrimitive.Root, {
 });
 var Indicator2 = styled(CheckboxPrimitive.Indicator, {
   base: {
-    color: "neutral.light",
+    color: "checkbox.indicator",
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
@@ -2712,9 +2712,9 @@ var BreadcrumbItemRoot = styled("span", {
     display: "inline-flex",
     alignItems: "center",
     fontSize: "sm",
-    color: "text.subtle",
+    color: "text.secondary",
     '&[aria-current="page"]': {
-      color: "text.main",
+      color: "text.primary",
       fontWeight: "medium"
     }
   }
@@ -2735,11 +2735,11 @@ var BreadcrumbItem = forwardRef25(
 BreadcrumbItem.displayName = "BreadcrumbItem";
 var BreadcrumbAnchor = styled("a", {
   base: {
-    color: "text.link",
+    color: "text.linkColor",
     textDecoration: "none",
     transition: "color 0.12s ease",
     "&:hover": {
-      color: "text.link-hover",
+      color: "text.linkHover",
       textDecoration: "underline"
     },
     "&:focus-visible": {
@@ -2761,7 +2761,7 @@ var BreadcrumbLink = forwardRef25(
 BreadcrumbLink.displayName = "BreadcrumbLink";
 var SeparatorRoot = styled("span", {
   base: {
-    color: "neutral.base",
+    color: "breadcrumb.separator",
     fontSize: "sm",
     userSelect: "none"
   }
@@ -2790,16 +2790,16 @@ var paginationButtonRecipe = cva({
     fontSize: "sm",
     fontWeight: "medium",
     border: "1px solid",
-    borderColor: "border.subtle",
-    bg: "bg.base",
-    color: "text.main",
+    borderColor: "border.default",
+    bg: "background.base",
+    color: "text.primary",
     cursor: "pointer",
     outline: "none",
     transition: "all 0.12s ease",
     userSelect: "none",
     _hover: {
-      bg: "bg.subtle",
-      borderColor: "border.strong"
+      bg: "background.subtle",
+      borderColor: "border.emphasis"
     },
     _focus: {
       boxShadow: "focus.primary"
@@ -5561,6 +5561,62 @@ var tokens = {
     "value": "var(--colors-selection\\.bg)",
     "variable": "var(--colors-selection\\.bg)"
   },
+  "colors.border.default": {
+    "value": "var(--colors-border\\.default)",
+    "variable": "var(--colors-border\\.default)"
+  },
+  "colors.border.emphasis": {
+    "value": "var(--colors-border\\.emphasis)",
+    "variable": "var(--colors-border\\.emphasis)"
+  },
+  "colors.badge.info.bg": {
+    "value": "var(--colors-state\\.info)",
+    "variable": "var(--colors-badge\\.info\\.bg)"
+  },
+  "colors.badge.info.text": {
+    "value": "var(--colors-text\\.on-dark)",
+    "variable": "var(--colors-badge\\.info\\.text)"
+  },
+  "colors.badge.success.bg": {
+    "value": "var(--colors-state\\.success)",
+    "variable": "var(--colors-badge\\.success\\.bg)"
+  },
+  "colors.badge.success.text": {
+    "value": "var(--colors-text\\.on-dark)",
+    "variable": "var(--colors-badge\\.success\\.text)"
+  },
+  "colors.badge.warning.bg": {
+    "value": "var(--colors-state\\.warning)",
+    "variable": "var(--colors-badge\\.warning\\.bg)"
+  },
+  "colors.badge.warning.text": {
+    "value": "var(--colors-neutral\\.dark)",
+    "variable": "var(--colors-badge\\.warning\\.text)"
+  },
+  "colors.badge.danger.bg": {
+    "value": "var(--colors-state\\.danger)",
+    "variable": "var(--colors-badge\\.danger\\.bg)"
+  },
+  "colors.badge.danger.text": {
+    "value": "var(--colors-text\\.on-dark)",
+    "variable": "var(--colors-badge\\.danger\\.text)"
+  },
+  "colors.badge.neutral.bg": {
+    "value": "var(--colors-badge\\.neutral\\.bg)",
+    "variable": "var(--colors-badge\\.neutral\\.bg)"
+  },
+  "colors.badge.neutral.text": {
+    "value": "var(--colors-badge\\.neutral\\.text)",
+    "variable": "var(--colors-badge\\.neutral\\.text)"
+  },
+  "colors.breadcrumb.separator": {
+    "value": "var(--colors-breadcrumb\\.separator)",
+    "variable": "var(--colors-breadcrumb\\.separator)"
+  },
+  "colors.checkbox.indicator": {
+    "value": "var(--colors-text\\.on-dark)",
+    "variable": "var(--colors-checkbox\\.indicator)"
+  },
   "radii.component.buttonRadius": {
     "value": "var(--radii-md)",
     "variable": "var(--radii-component\\.button-radius)"
@@ -6964,7 +7020,7 @@ var chartTypography = {
 var chartUIColors = {
   textPrimary: token("colors.text.primary"),
   textSecondary: token("colors.text.secondary"),
-  gridLine: token("colors.border.subtle"),
+  gridLine: token("colors.border.default"),
   background: token("colors.background.base")
 };
 function createBaseChartOptions(options) {
@@ -6999,7 +7055,7 @@ function createBaseChartOptions(options) {
         }
       },
       tooltip: {
-        backgroundColor: token("colors.tooltip.bg"),
+        backgroundColor: "#333232",
         titleFont: {
           family: chartTypography.fontFamily,
           size: chartTypography.fontSize.label,
@@ -7009,8 +7065,8 @@ function createBaseChartOptions(options) {
           family: chartTypography.fontFamily,
           size: chartTypography.fontSize.label
         },
-        titleColor: token("colors.tooltip.text"),
-        bodyColor: token("colors.tooltip.text"),
+        titleColor: "#FFFFFF",
+        bodyColor: "#FFFFFF",
         padding: 12,
         cornerRadius: 8,
         displayColors: true,
