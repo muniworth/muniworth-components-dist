@@ -35,7 +35,7 @@ The documentation is split into categorized files for efficient context loading:
 ### Installation
 
 ```bash
-npm install @waterworth/react
+npm install git+https://github.com/muniworth/muniworth-components-dist.git
 ```
 
 ### Basic Usage

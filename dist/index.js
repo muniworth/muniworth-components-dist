@@ -7056,6 +7056,10 @@ var ThemeProvider = ({
     setColorModeState(mode);
     localStorage.setItem(STORAGE_KEY, mode);
   }, []);
+  const toggleColorMode = useCallback3(() => {
+    const newMode = resolvedColorMode === "dark" ? "light" : "dark";
+    setColorMode(newMode);
+  }, [resolvedColorMode, setColorMode]);
   useEffect3(() => {
     setResolvedColorMode(resolveColorMode(colorMode));
   }, [colorMode]);
@@ -7074,7 +7078,7 @@ var ThemeProvider = ({
   return /* @__PURE__ */ jsx31(
     ThemeContext.Provider,
     {
-      value: { colorMode, resolvedColorMode, setColorMode },
+      value: { colorMode, resolvedColorMode, setColorMode, toggleColorMode },
       children
     }
   );

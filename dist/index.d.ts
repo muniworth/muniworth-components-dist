@@ -1,5 +1,5 @@
 import * as react from 'react';
-import { ElementType, ComponentType, Component, JSX as JSX$1, ComponentPropsWithRef, ButtonHTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes, HTMLAttributes, ComponentProps as ComponentProps$1, CSSProperties, ReactElement, ReactNode, ComponentPropsWithoutRef, AnchorHTMLAttributes } from 'react';
+import { ElementType, ComponentType, Component, JSX, ComponentPropsWithRef, ButtonHTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes, HTMLAttributes, ComponentProps as ComponentProps$1, CSSProperties, ReactElement, ReactNode, ComponentPropsWithoutRef, AnchorHTMLAttributes } from 'react';
 import * as Panda from '@pandacss/dev';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ColumnDef } from '@tanstack/react-table';
@@ -20311,11 +20311,11 @@ interface AsProps {
 }
 
 type ComponentProps<T extends ElementType> = T extends ComponentType<infer P> | Component<infer P>
-  ? JSX$1.LibraryManagedAttributes<T, P>
+  ? JSX.LibraryManagedAttributes<T, P>
   : ComponentPropsWithRef<T>
 
 interface StyledComponent<T extends ElementType, P extends Dict = {}> {
-  (props: JsxHTMLProps<ComponentProps<T> & UnstyledProps & AsProps, Assign<JsxStyleProps, P>>): JSX$1.Element
+  (props: JsxHTMLProps<ComponentProps<T> & UnstyledProps & AsProps, Assign<JsxStyleProps, P>>): JSX.Element
   displayName?: string | undefined
 }
 
@@ -21047,6 +21047,7 @@ interface ThemeContextValue {
     colorMode: ColorMode;
     resolvedColorMode: ResolvedColorMode;
     setColorMode: (mode: ColorMode) => void;
+    toggleColorMode: () => void;
 }
 declare const ThemeContext: react.Context<ThemeContextValue | null>;
 interface ThemeProviderProps {

@@ -53,7 +53,7 @@ The Waterworth Design System uses a comprehensive set of design tokens defined i
 
 ## Theming
 
-Waterworth has built-in support for light and dark modes using `next-themes` under the hood.
+Waterworth has built-in support for light, dark, and system color modes.
 
 ### ThemeProvider
 
@@ -64,12 +64,15 @@ import { ThemeProvider } from '@waterworth/react'
 
 function App() {
   return (
-    <ThemeProvider attribute="data-color-mode">
+    <ThemeProvider defaultColorMode="system">
       <Component />
     </ThemeProvider>
   )
 }
 ```
+
+**Props:**
+- `defaultColorMode`: 'light' | 'dark' | 'system' (default: 'system')
 
 ### useColorMode
 
@@ -79,15 +82,26 @@ Hook to access and toggle color modes.
 import { useColorMode, Button } from '@waterworth/react'
 
 function ModeToggle() {
-  const { colorMode, setColorMode, toggleColorMode } = useColorMode()
+  const { colorMode, resolvedColorMode, setColorMode, toggleColorMode } = useColorMode()
 
   return (
-    <Button onClick={toggleColorMode}>
-      Current: {colorMode}
-    </Button>
+    <div>
+      <Button onClick={toggleColorMode}>
+        Toggle ({resolvedColorMode})
+      </Button>
+      <Button onClick={() => setColorMode('system')}>
+        Use system preference
+      </Button>
+    </div>
   )
 }
 ```
+
+**Returns:**
+- `colorMode`: Current setting ('light' | 'dark' | 'system')
+- `resolvedColorMode`: Actual applied mode ('light' | 'dark')
+- `setColorMode(mode)`: Set to a specific mode
+- `toggleColorMode()`: Toggle between light and dark
 
 ## Icons
 
