@@ -835,6 +835,7 @@
     --colors-toast\.border: var(--colors-dark-border\.strong);
     --colors-toast\.close-hover: rgba(255, 255, 255, 0.15);
     --colors-progress\.bg: var(--colors-dark-bg\.subtle);
+    --colors-spinner\.color: var(--colors-brand\.blue);
     --colors-tabs\.inactive\.text: var(--colors-dark-text\.subtle);
     --colors-tabs\.hover\.bg: var(--colors-dark-bg\.subtle);
     --colors-accordion\.trigger\.hover: var(--colors-dark-bg\.subtle);

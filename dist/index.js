@@ -963,8 +963,8 @@ var spinnerRecipe = cva({
     borderTopColor: "transparent",
     borderRadius: "50%",
     animation: "spin var(--durations-spinner) linear infinite",
-    // Use parent's --spinner-color if set (e.g., from Button), otherwise default to blue
-    color: "var(--spinner-color, var(--colors-spinner-color))"
+    // Use parent's --spinner-color if set (e.g., from Button), otherwise use semantic token
+    color: "var(--spinner-color, token(colors.spinner.color))"
   },
   variants: {
     size: {
@@ -1037,6 +1037,7 @@ import { forwardRef as forwardRef7 } from "react";
 var cardRecipe = cva({
   base: {
     fontFamily: "brand",
+    color: "text.primary",
     bg: "background.elevated",
     borderRadius: "component.cardRadius",
     border: "1px solid",
@@ -3219,7 +3220,8 @@ var StyledTable = styled("table", {
     borderCollapse: "collapse",
     fontFamily: "brand",
     fontSize: "md",
-    lineHeight: "normal"
+    lineHeight: "normal",
+    bg: "background.base"
   }
 });
 var TableHead = styled("thead", {
@@ -5510,7 +5512,7 @@ var tokens = {
     "variable": "var(--colors-progress\\.fill)"
   },
   "colors.spinner.color": {
-    "value": "var(--colors-brand\\.blue)",
+    "value": "var(--colors-spinner\\.color)",
     "variable": "var(--colors-spinner\\.color)"
   },
   "colors.tabs.active.border": {
@@ -6051,6 +6053,9 @@ var CalendarContainer = styled("div", {
         opacity: 0.9
       }
     },
+    "& .fc-event-title, & .fc-event-time, & .fc-event-main": {
+      color: { base: "gray.900", _dark: "white" }
+    },
     "& .fc-daygrid-event-dot": {
       borderColor: "accent.primary"
     },
@@ -6154,73 +6159,46 @@ var defaultColumns = [
   { id: "start", header: "Start date", width: 90 },
   { id: "duration", header: "Duration", width: 70 }
 ];
-var priorityColors = {
-  high: token("colors.state.danger"),
-  medium: token("colors.state.warning"),
-  low: token("colors.state.success"),
-  default: token("colors.accent.primary")
-};
-var getPriorityColor = (priority) => priorityColors[priority ?? "default"] ?? priorityColors.default;
+var priorityTokens = { high: "colors.state.danger", medium: "colors.state.warning", low: "colors.state.success" };
+var getPriorityColor = (priority) => priority ? token(priorityTokens[priority]) : token("colors.accent.primary");
 var TaskTemplate = ({ data: task }) => {
-  const backgroundColor = getPriorityColor(task.priority);
+  if (task.type === "milestone") return null;
   const progress = task.progress ?? 0;
-  if (task.type === "milestone") {
-    return null;
-  }
-  const isProject = task.type === "project";
-  const opacity = isProject ? 0.85 : 1;
-  return /* @__PURE__ */ jsxs17(
-    "div",
-    {
-      className: "wx-bar wx-task",
-      style: {
-        width: "100%",
-        height: "100%",
-        backgroundColor,
-        opacity,
-        borderRadius: token("radii.sm"),
-        color: "#fff",
-        display: "flex",
-        alignItems: "center",
-        paddingLeft: "8px",
-        boxSizing: "border-box",
-        position: "relative",
-        overflow: "hidden"
-      },
-      children: [
-        progress > 0 && progress < 100 && /* @__PURE__ */ jsx30(
-          "div",
-          {
-            style: {
-              position: "absolute",
-              left: 0,
-              top: 0,
-              height: "100%",
-              width: `${progress}%`,
-              backgroundColor: "rgba(0, 0, 0, 0.2)",
-              borderRadius: token("radii.sm")
-            }
-          }
-        ),
-        /* @__PURE__ */ jsx30(
-          "span",
-          {
-            style: {
-              position: "relative",
-              zIndex: 1,
-              fontSize: token("fontSizes.xs"),
-              fontWeight: 500,
-              textShadow: "0 1px 1px rgba(0,0,0,0.2)",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis"
-            },
-            children: task.text
-          }
-        )
-      ]
-    }
-  );
+  const radiusSm = token("radii.sm");
+  return /* @__PURE__ */ jsxs17("div", { className: "wx-bar wx-task", style: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: getPriorityColor(task.priority),
+    opacity: task.type === "project" ? 0.85 : 1,
+    borderRadius: radiusSm,
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: "8px",
+    boxSizing: "border-box",
+    position: "relative",
+    overflow: "hidden"
+  }, children: [
+    progress > 0 && progress < 100 && /* @__PURE__ */ jsx30("div", { style: {
+      position: "absolute",
+      left: 0,
+      top: 0,
+      height: "100%",
+      width: `${progress}%`,
+      backgroundColor: "rgba(0, 0, 0, 0.2)",
+      borderRadius: radiusSm
+    } }),
+    /* @__PURE__ */ jsx30("span", { style: {
+      position: "relative",
+      zIndex: 1,
+      fontSize: token("fontSizes.xs"),
+      fontWeight: 500,
+      textShadow: "0 1px 1px rgba(0,0,0,0.2)",
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis"
+    }, children: task.text })
+  ] });
 };
 var scrollNavStyles = css({
   position: "absolute",
@@ -6292,6 +6270,7 @@ var t = {
   spacing2xs: token("spacing.2xs")
 };
 var border1Subtle = `1px solid ${t.borderSubtle}`;
+var ganttGridBorder = "1px solid rgba(128, 128, 128, 0.25)";
 var svarCssVariables = {
   // Gantt-specific
   "--wx-gantt-task-color": t.accent,
@@ -6304,19 +6283,27 @@ var svarCssVariables = {
   "--wx-gantt-link-color": t.borderStrong,
   "--wx-gantt-progress-marker-height": "8px",
   "--wx-gantt-holiday-background": t.bgSubtle,
-  "--wx-gantt-border-color": t.borderSubtle,
+  "--wx-gantt-border-color": "rgba(128, 128, 128, 0.25)",
   "--wx-gantt-form-header-border": border1Subtle,
   "--wx-gantt-icon-color": t.textSecondary,
+  // Chart area grid lines
+  "--wx-gantt-cell-border": "rgba(128, 128, 128, 0.25)",
+  "--wx-gantt-row-border": "rgba(128, 128, 128, 0.25)",
+  "--wx-gantt-scale-border": "rgba(128, 128, 128, 0.25)",
   // Grid
   "--wx-grid-header-font": t.fontBrand,
   "--wx-grid-header-font-color": t.textSecondary,
+  "--wx-grid-header-background": t.bgSubtle,
   "--wx-grid-body-font": t.fontBrand,
-  "--wx-grid-body-row-border": "none",
-  "--wx-grid-cell-border": "none",
+  "--wx-grid-body-font-color": t.textPrimary,
+  "--wx-grid-body-background": t.bgBase,
+  "--wx-grid-body-row-border": ganttGridBorder,
+  "--wx-grid-cell-border": ganttGridBorder,
   // Timescale
   "--wx-timescale-font": t.fontBrand,
   "--wx-timescale-font-color": t.textSecondary,
-  "--wx-timescale-border": border1Subtle,
+  "--wx-timescale-border": ganttGridBorder,
+  "--wx-timescale-background": t.bgSubtle,
   // Tooltip
   "--wx-tooltip-background": t.bgElevated,
   "--wx-tooltip-font-color": t.textPrimary,
@@ -6374,6 +6361,12 @@ var svarCssVariables = {
   "--wx-input-icon-size": "16px",
   "--wx-input-icon-indent": t.spacingSm,
   "--wx-input-icon-color": t.textSecondary,
+  // Text/Textarea
+  "--wx-text-font-color": t.textPrimary,
+  "--wx-textarea-font-color": t.textPrimary,
+  // Label
+  "--wx-label-font-color": t.textSecondary,
+  "--wx-field-label-color": t.textSecondary,
   // Button
   "--wx-button-background": t.btnPrimaryBg,
   "--wx-button-font-color": t.btnPrimaryText,
@@ -6503,25 +6496,14 @@ var GanttWrapper = styled("div", {
     "& i.wxi-plus::before": { content: '"\\2b" !important', ...faIconBase, fontSize: "11px" },
     "& i.wxi-minus::before": { content: '"\\f068" !important', ...faIconBase, fontSize: "11px" },
     "& i.wxi-check::before": { content: '"\\f00c" !important', ...faIconBase },
-    // =====================================================
-    // EDITOR PANEL (SVAR Sidebar/SideArea)
-    // =====================================================
-    // SVAR uses .wx-sidearea for the sidebar container and
-    // .wx-gantt-editor for the editor form. CSS variables
-    // handle most styling; these are additional overrides.
-    // ===== Sidearea Container (Editor Sidebar) =====
+    // Editor panel overrides
     "& .wx-sidearea": {
       bg: "background.elevated",
       borderLeft: "1px solid",
       borderColor: "border.subtle",
       boxShadow: "-4px 0 24px rgba(0, 0, 0, 0.08)"
     },
-    // ===== Gantt Editor Panel =====
-    '& [class*="wx-gantt-editor"]': {
-      padding: "lg",
-      fontFamily: "brand"
-    },
-    // ===== Editor Header (with close/delete buttons) =====
+    '& [class*="wx-gantt-editor"]': { padding: "lg", fontFamily: "brand" },
     '& [class*="wx-gantt-editor"] > div:first-child': {
       display: "flex",
       alignItems: "center",
@@ -6532,10 +6514,9 @@ var GanttWrapper = styled("div", {
       borderBottom: "1px solid",
       borderColor: "border.subtle"
     },
-    // ===== Form Labels - Uppercase micro style =====
-    '& [class*="wx-gantt-editor"] label': {
+    '& [class*="wx-gantt-editor"] label, & .wx-sidearea label, & .wx-field label': {
       display: "block",
-      color: "text.secondary",
+      color: `${t.textSecondary} !important`,
       fontSize: "xs",
       fontWeight: "medium",
       fontFamily: "brand",
@@ -6543,7 +6524,7 @@ var GanttWrapper = styled("div", {
       letterSpacing: "0.5px",
       marginBottom: "xs"
     },
-    // ===== Delete button styling (smaller, text-like) =====
+    "& .wx-field": { color: t.textPrimary },
     '& [class*="wx-gantt-editor"] .wx-button.wx-danger, & [class*="wx-gantt-editor"] button[class*="danger"]': {
       padding: "4px 8px !important",
       fontSize: "12px !important",
@@ -6552,7 +6533,6 @@ var GanttWrapper = styled("div", {
       height: "auto !important",
       lineHeight: "1.4"
     },
-    // ===== Close button - icon-only, positioned after delete button =====
     '& [class*="wx-gantt-editor"] .wx-icon': {
       order: 1,
       background: "transparent !important",
@@ -6573,7 +6553,6 @@ var GanttWrapper = styled("div", {
       justifyContent: "center",
       "&:hover": { color: `${t.textPrimary} !important`, background: `${t.bgSubtle} !important` }
     },
-    // ===== Progress/Slider in editor =====
     '& [class*="wx-gantt-editor"] .wx-slider': { display: "flex", alignItems: "center", gap: "sm", width: "100%" },
     '& [class*="wx-gantt-editor"] .wx-slider input': {
       flex: 1,
@@ -6596,9 +6575,7 @@ var GanttWrapper = styled("div", {
       }
     },
     '& [class*="wx-gantt-editor"] .wx-slider .wx-label': { minWidth: "36px", textAlign: "right", fontSize: "xs", color: "text.secondary" },
-    // =====================================================
-    // GENERIC MODAL/POPUP STYLING (non-editor)
-    // =====================================================
+    // Modal/popup styling
     "& .wx-modal, & .wx-popup": {
       bg: "background.elevated",
       borderRadius: "component.modalRadius",
@@ -6629,7 +6606,7 @@ var GanttWrapper = styled("div", {
       justifyContent: "flex-end",
       gap: "sm"
     },
-    // ===== Primary Buttons =====
+    // Button variants
     '& [class*="wx-button"][class*="wx-primary"]': {
       ...buttonBase,
       bg: "button.primary.bg",
@@ -6638,7 +6615,6 @@ var GanttWrapper = styled("div", {
       "&:hover": { bg: "button.primary.bgHover" },
       "&:focus": { boxShadow: "focus.button", outline: "none" }
     },
-    // ===== Secondary Buttons =====
     '& [class*="wx-button"][class*="wx-secondary"]': {
       ...buttonBase,
       bg: "button.secondary.bg",
@@ -6648,7 +6624,6 @@ var GanttWrapper = styled("div", {
       "&:hover": { bg: "button.secondary.bgHover" },
       "&:focus": { boxShadow: "focus.button", outline: "none" }
     },
-    // ===== Danger Buttons =====
     '& [class*="wx-button"][class*="wx-danger"]': {
       ...buttonBase,
       bg: "button.danger.bg",
@@ -6657,7 +6632,6 @@ var GanttWrapper = styled("div", {
       "&:hover": { bg: "button.danger.bgHover" },
       "&:focus": { boxShadow: "focus.danger", outline: "none" }
     },
-    // ===== Generic Close Button =====
     "& .wx-close, & .wx-modal-close": {
       position: "absolute",
       top: "md",
@@ -6683,7 +6657,6 @@ var GanttWrapper = styled("div", {
         outline: "none"
       }
     },
-    // ===== Checkbox =====
     '& .wx-checkbox, & input[type="checkbox"]': {
       width: "18px",
       height: "18px",
@@ -6693,7 +6666,6 @@ var GanttWrapper = styled("div", {
       cursor: "pointer",
       accentColor: t.accent
     },
-    // ===== Date Picker Popup =====
     "& .wx-datepicker, & .wx-calendar": {
       bg: "background.elevated",
       border: "1px solid",
@@ -6703,9 +6675,7 @@ var GanttWrapper = styled("div", {
       fontFamily: "brand",
       fontSize: "sm"
     },
-    // ===== Progress Slider =====
     '& [class*="wx-slider"]': { accentColor: t.accent, cursor: "pointer" },
-    // ===== Tab Navigation =====
     "& .wx-tabs": {
       borderBottom: "1px solid",
       borderColor: "border.subtle",
@@ -6739,63 +6709,20 @@ var GanttContainer = styled("div", {
     borderColor: "border.subtle",
     overflow: "hidden",
     bg: "background.base",
-    // Component internal styling
-    "& .wx-gantt": {
-      border: "none"
-    },
-    "& .wx-header": {
-      bg: "background.subtle",
-      borderBottom: "1px solid",
-      borderColor: "border.subtle"
-    },
-    "& .wx-grid-header": {
-      fontWeight: "medium",
-      fontSize: "xs",
-      textTransform: "uppercase",
-      letterSpacing: "0.5px"
-    },
-    "& .wx-grid-cell": {
-      fontSize: "xs",
-      color: "text.primary"
-    },
-    // Remove borders from task name cells in the grid
-    "& .wx-grid-body": {
-      "& .wx-row": {
-        border: "none !important",
-        borderBottom: "none !important"
-      },
-      "& .wx-cell": {
-        border: "none !important",
-        borderRight: "none !important",
-        borderBottom: "none !important"
-      }
-    },
-    "& .wx-grid .wx-row": {
-      border: "none !important"
-    },
-    "& .wx-grid .wx-cell": {
-      border: "none !important"
-    },
-    "& .wx-timescale-cell": {
-      fontSize: "xs",
-      fontWeight: "medium"
-    },
-    "& .wx-bar": {
-      transition: "all 0.15s ease",
-      "&:hover": {
-        opacity: 0.9
-      }
-    },
+    "& .wx-gantt": { border: "none" },
+    "& .wx-header": { bg: "background.subtle", borderBottom: "1px solid", borderColor: "border.subtle" },
+    "& .wx-grid-header": { fontWeight: "medium", fontSize: "xs", textTransform: "uppercase", letterSpacing: "0.5px" },
+    "& .wx-grid-cell, & .wx-timescale-cell": { fontSize: "xs", color: "text.primary" },
+    "& .wx-timescale-cell": { fontWeight: "medium" },
+    "& .wx-grid-body": { bg: "background.base", color: "text.primary" },
+    "& .wx-grid-body .wx-row, & .wx-grid .wx-row, & .wx-area .wx-row": { borderBottom: "1px solid rgba(128, 128, 128, 0.25)" },
+    "& .wx-grid-body .wx-cell, & .wx-grid .wx-cell": { borderRight: "1px solid rgba(128, 128, 128, 0.25)", color: "text.primary" },
+    "& .wx-bar": { transition: "all 0.15s ease", "&:hover": { opacity: 0.9 } },
     "& .wx-bar-content": { fontSize: "xs", fontWeight: "medium" },
     "& .wx-link": { stroke: t.borderStrong },
     "& .wx-grid": { borderRight: "1px solid", borderColor: "border.subtle" },
-    "& .wx-resizer": {
-      cursor: "col-resize",
-      bg: "#eee",
-      transition: "background 0.15s ease",
-      "&:hover": { bg: "border.strong" },
-      "&:active": { bg: "accent.primary" }
-    }
+    "& .wx-scale-row, & .wx-row-lines, & .wx-cell-lines, & .wx-chart line, & .wx-area line": { stroke: "rgba(128, 128, 128, 0.25)" },
+    "& .wx-resizer": { cursor: "col-resize", bg: "#eee", transition: "background 0.15s ease", "&:hover": { bg: "border.strong" }, "&:active": { bg: "accent.primary" } }
   }
 });
 function GanttChartComponent({
@@ -6833,24 +6760,18 @@ function GanttChartComponent({
   const getScrollableElement = useCallback2(() => {
     const container = containerRef.current;
     if (!container) return null;
-    const scrollableArea = container.querySelector(".wx-area");
-    if (scrollableArea && scrollableArea.scrollWidth > scrollableArea.clientWidth) {
-      return scrollableArea;
-    }
-    const chartElement = container.querySelector(".wx-chart");
-    if (!chartElement) return null;
-    const scrollable = chartElement.querySelector('[style*="overflow"]');
-    if (scrollable && scrollable.scrollWidth > scrollable.clientWidth) {
-      return scrollable;
-    }
-    return chartElement;
+    const isScrollable = (el) => el && el.scrollWidth > el.clientWidth;
+    const area = container.querySelector(".wx-area");
+    if (isScrollable(area)) return area;
+    const chart = container.querySelector(".wx-chart");
+    const overflow = chart?.querySelector('[style*="overflow"]');
+    return isScrollable(overflow) ? overflow : chart;
   }, []);
   const updateScrollState = useCallback2(() => {
-    const scrollableElement = getScrollableElement();
-    if (!scrollableElement) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollableElement;
-    setCanScrollLeft(scrollLeft > 0);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+    const el = getScrollableElement();
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
   }, [getScrollableElement]);
   useEffect2(() => {
     if (!containerRef.current) return;
@@ -6871,14 +6792,9 @@ function GanttChartComponent({
       cleanupRef.current?.();
     };
   }, [updateScrollState, getScrollableElement]);
-  const scroll = (direction) => {
-    const scrollableElement = getScrollableElement();
-    if (!scrollableElement) return;
-    const scrollAmount = scrollableElement.clientWidth * 0.5;
-    scrollableElement.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth"
-    });
+  const scroll = (dir) => {
+    const el = getScrollableElement();
+    el?.scrollBy({ left: (dir === "left" ? -1 : 1) * el.clientWidth * 0.5, behavior: "smooth" });
   };
   const ganttProps = {
     tasks,
@@ -6890,13 +6806,10 @@ function GanttChartComponent({
     ...scales && { scales },
     ...start && { start },
     ...end && { end },
-    // Event handlers - handleTaskSelect transforms ID to full task object
-    ...onTaskClick && {
-      "select-task": (task) => {
-        const found = tasks.find((t2) => t2.id === task.id);
-        if (found) onTaskClick(found);
-      }
-    },
+    ...onTaskClick && { "select-task": (t2) => {
+      const f = tasks.find((x) => x.id === t2.id);
+      if (f) onTaskClick(f);
+    } },
     ...onTaskChange && { "update-task": onTaskChange },
     ...onLinkAdd && { "add-link": onLinkAdd },
     ...onLinkDelete && { "delete-link": onLinkDelete }
@@ -6906,30 +6819,18 @@ function GanttChartComponent({
   return /* @__PURE__ */ jsxs17(GanttWrapper, { ref, children: [
     /* @__PURE__ */ jsxs17(GanttContainer, { style: { height, position: "relative" }, children: [
       /* @__PURE__ */ jsx30("div", { ref: containerRef, style: { height: "100%" }, children: ganttWithTooltip }),
-      /* @__PURE__ */ jsxs17("div", { className: scrollNavStyles, children: [
-        /* @__PURE__ */ jsx30(
-          "button",
-          {
-            type: "button",
-            className: scrollButtonStyles,
-            onClick: () => scroll("left"),
-            disabled: !canScrollLeft,
-            "aria-label": "Scroll timeline left",
-            children: /* @__PURE__ */ jsx30(ChevronIcon2, { direction: "left" })
-          }
-        ),
-        /* @__PURE__ */ jsx30(
-          "button",
-          {
-            type: "button",
-            className: scrollButtonStyles,
-            onClick: () => scroll("right"),
-            disabled: !canScrollRight,
-            "aria-label": "Scroll timeline right",
-            children: /* @__PURE__ */ jsx30(ChevronIcon2, { direction: "right" })
-          }
-        )
-      ] })
+      /* @__PURE__ */ jsx30("div", { className: scrollNavStyles, children: ["left", "right"].map((dir) => /* @__PURE__ */ jsx30(
+        "button",
+        {
+          type: "button",
+          className: scrollButtonStyles,
+          onClick: () => scroll(dir),
+          disabled: dir === "left" ? !canScrollLeft : !canScrollRight,
+          "aria-label": `Scroll timeline ${dir}`,
+          children: /* @__PURE__ */ jsx30(ChevronIcon2, { direction: dir })
+        },
+        dir
+      )) })
     ] }),
     shouldShowEditor && api && /* @__PURE__ */ jsx30(Editor, { api })
   ] });
@@ -7023,7 +6924,7 @@ var chartUIColors = {
   gridLine: token("colors.border.default"),
   background: token("colors.background.base")
 };
-function createBaseChartOptions(options) {
+function createBaseChartOptions(colors, options) {
   const { title, showLegend = true, legendPosition = "top" } = options ?? {};
   return {
     responsive: true,
@@ -7037,7 +6938,7 @@ function createBaseChartOptions(options) {
           size: chartTypography.fontSize.title,
           weight: chartTypography.fontWeight.medium
         },
-        color: chartUIColors.textPrimary,
+        color: colors.textPrimary,
         padding: { bottom: 16 }
       } : { display: false },
       legend: {
@@ -7048,14 +6949,14 @@ function createBaseChartOptions(options) {
             family: chartTypography.fontFamily,
             size: chartTypography.fontSize.label
           },
-          color: chartUIColors.textSecondary,
+          color: colors.textSecondary,
           padding: 16,
           usePointStyle: true,
           pointStyle: "circle"
         }
       },
       tooltip: {
-        backgroundColor: "#333232",
+        backgroundColor: colors.tooltipBg,
         titleFont: {
           family: chartTypography.fontFamily,
           size: chartTypography.fontSize.label,
@@ -7065,8 +6966,8 @@ function createBaseChartOptions(options) {
           family: chartTypography.fontFamily,
           size: chartTypography.fontSize.label
         },
-        titleColor: "#FFFFFF",
-        bodyColor: "#FFFFFF",
+        titleColor: colors.tooltipText,
+        bodyColor: colors.tooltipText,
         padding: 12,
         cornerRadius: 8,
         displayColors: true,
@@ -7075,7 +6976,7 @@ function createBaseChartOptions(options) {
     }
   };
 }
-function createAxisOptions() {
+function createAxisOptions(colors) {
   return {
     x: {
       grid: {
@@ -7086,22 +6987,22 @@ function createAxisOptions() {
           family: chartTypography.fontFamily,
           size: chartTypography.fontSize.tick
         },
-        color: chartUIColors.textSecondary
+        color: colors.textSecondary
       },
       border: {
-        color: chartUIColors.gridLine
+        color: colors.gridLine
       }
     },
     y: {
       grid: {
-        color: chartUIColors.gridLine
+        color: colors.gridLine
       },
       ticks: {
         font: {
           family: chartTypography.fontFamily,
           size: chartTypography.fontSize.tick
         },
-        color: chartUIColors.textSecondary
+        color: colors.textSecondary
       },
       border: {
         display: false
@@ -7110,188 +7011,8 @@ function createAxisOptions() {
   };
 }
 
-// src/charts/BarChart.tsx
-import { jsx as jsx31 } from "react/jsx-runtime";
-function BarChart({
-  labels,
-  datasets,
-  title,
-  showLegend = true,
-  legendPosition = "top",
-  height = 300,
-  className,
-  showValues = false,
-  horizontal = false
-}) {
-  const chartData = {
-    labels,
-    datasets: datasets.map((dataset, index) => ({
-      label: dataset.label,
-      data: dataset.data,
-      backgroundColor: dataset.backgroundColor ?? getChartColor(index),
-      borderColor: dataset.borderColor ?? "transparent",
-      borderWidth: dataset.borderWidth ?? 0,
-      borderRadius: 4
-    }))
-  };
-  const baseOptions = createBaseChartOptions({ title, showLegend, legendPosition });
-  const axisOptions = createAxisOptions();
-  const options = {
-    ...baseOptions,
-    indexAxis: horizontal ? "y" : "x",
-    scales: horizontal ? { x: axisOptions.y, y: axisOptions.x } : axisOptions,
-    plugins: {
-      ...baseOptions.plugins,
-      ...showValues && {
-        datalabels: {
-          display: true,
-          anchor: "end",
-          align: "top"
-        }
-      }
-    }
-  };
-  return /* @__PURE__ */ jsx31(ChartContainer, { className, children: /* @__PURE__ */ jsx31(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx31(Bar, { data: chartData, options }) }) });
-}
-
-// src/charts/LineChart.tsx
-import { Line } from "react-chartjs-2";
-import { jsx as jsx32 } from "react/jsx-runtime";
-function LineChart({
-  labels,
-  datasets,
-  title,
-  showLegend = true,
-  legendPosition = "top",
-  height = 300,
-  className,
-  tension = 0.4
-}) {
-  const chartData = {
-    labels,
-    datasets: datasets.map((dataset, index) => {
-      const color = dataset.borderColor ?? getChartColor(index);
-      return {
-        label: dataset.label,
-        data: dataset.data,
-        borderColor: color,
-        backgroundColor: dataset.fill ? dataset.backgroundColor ?? `${color}33` : "transparent",
-        borderWidth: 2,
-        fill: dataset.fill ?? false,
-        tension: dataset.tension ?? tension,
-        pointRadius: 4,
-        pointHoverRadius: 6,
-        pointBackgroundColor: color,
-        pointBorderColor: "#fff",
-        pointBorderWidth: 2
-      };
-    })
-  };
-  const baseOptions = createBaseChartOptions({ title, showLegend, legendPosition });
-  const axisOptions = createAxisOptions();
-  const options = {
-    ...baseOptions,
-    scales: axisOptions,
-    interaction: {
-      mode: "index",
-      intersect: false
-    },
-    hover: {
-      mode: "index",
-      intersect: false
-    }
-  };
-  return /* @__PURE__ */ jsx32(ChartContainer, { className, children: /* @__PURE__ */ jsx32(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx32(Line, { data: chartData, options }) }) });
-}
-
-// src/charts/PieChart.tsx
-import { Pie } from "react-chartjs-2";
-import { jsx as jsx33 } from "react/jsx-runtime";
-function PieChart({
-  labels,
-  data,
-  title,
-  showLegend = true,
-  legendPosition = "top",
-  height = 300,
-  className,
-  colors
-}) {
-  const segmentColors = colors ?? labels.map((_, index) => getChartColor(index));
-  const chartData = {
-    labels,
-    datasets: [
-      {
-        data,
-        backgroundColor: segmentColors,
-        borderColor: "#fff",
-        borderWidth: 2,
-        hoverOffset: 8
-      }
-    ]
-  };
-  const baseOptions = createBaseChartOptions({ title, showLegend, legendPosition });
-  const options = {
-    ...baseOptions
-  };
-  return /* @__PURE__ */ jsx33(ChartContainer, { className, children: /* @__PURE__ */ jsx33(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx33(Pie, { data: chartData, options }) }) });
-}
-
-// src/charts/DoughnutChart.tsx
-import { Doughnut } from "react-chartjs-2";
-import { jsx as jsx34 } from "react/jsx-runtime";
-function DoughnutChart({
-  labels,
-  data,
-  title,
-  showLegend = true,
-  legendPosition = "top",
-  height = 300,
-  className,
-  colors,
-  cutout = "50%"
-}) {
-  const segmentColors = colors ?? labels.map((_, index) => getChartColor(index));
-  const chartData = {
-    labels,
-    datasets: [
-      {
-        data,
-        backgroundColor: segmentColors,
-        borderColor: "#fff",
-        borderWidth: 2,
-        hoverOffset: 8
-      }
-    ]
-  };
-  const baseOptions = createBaseChartOptions({ title, showLegend, legendPosition });
-  const options = {
-    ...baseOptions,
-    cutout
-  };
-  return /* @__PURE__ */ jsx34(ChartContainer, { className, children: /* @__PURE__ */ jsx34(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx34(Doughnut, { data: chartData, options }) }) });
-}
-
-// src/charts/use-chart-colors.ts
-import { useMemo as useMemo3 } from "react";
-function useChartColors(count, customColors) {
-  return useMemo3(() => {
-    if (customColors && customColors.length > 0) {
-      if (customColors.length >= count) {
-        return customColors.slice(0, count);
-      }
-      const extended = [];
-      for (let i = 0; i < count; i++) {
-        extended.push(customColors[i % customColors.length]);
-      }
-      return extended;
-    }
-    return Array.from({ length: count }, (_, i) => getChartColor(i));
-  }, [count, customColors]);
-}
-function useChartColorPalette() {
-  return chartColorPalette;
-}
+// src/charts/use-chart-ui-colors.ts
+import { useContext } from "react";
 
 // src/theme/ThemeProvider.tsx
 import {
@@ -7300,7 +7021,7 @@ import {
   useEffect as useEffect3,
   useState as useState3
 } from "react";
-import { jsx as jsx35 } from "react/jsx-runtime";
+import { jsx as jsx31 } from "react/jsx-runtime";
 var ThemeContext = createContext(null);
 var STORAGE_KEY = "waterworth-color-mode";
 function getSystemPreference() {
@@ -7350,7 +7071,7 @@ var ThemeProvider = ({
   useEffect3(() => {
     document.documentElement.setAttribute("data-color-mode", resolvedColorMode);
   }, [resolvedColorMode]);
-  return /* @__PURE__ */ jsx35(
+  return /* @__PURE__ */ jsx31(
     ThemeContext.Provider,
     {
       value: { colorMode, resolvedColorMode, setColorMode },
@@ -7360,10 +7081,220 @@ var ThemeProvider = ({
 };
 ThemeProvider.displayName = "ThemeProvider";
 
-// src/theme/useColorMode.ts
-import { useContext } from "react";
-function useColorMode() {
+// src/charts/use-chart-ui-colors.ts
+var lightColors = {
+  textPrimary: "#333232",
+  textSecondary: "#6b7280",
+  gridLine: "#d1d5db",
+  background: "#ffffff",
+  tooltipBg: "#333232",
+  tooltipText: "#ffffff"
+};
+var darkColors = {
+  textPrimary: "#f5f5f5",
+  textSecondary: "#a3a3a3",
+  gridLine: "#404040",
+  background: "#1a1a1a",
+  tooltipBg: "#f5f5f5",
+  tooltipText: "#1a1a1a"
+};
+function useChartUIColors() {
   const context2 = useContext(ThemeContext);
+  const resolvedColorMode = context2?.resolvedColorMode ?? "light";
+  return resolvedColorMode === "dark" ? darkColors : lightColors;
+}
+
+// src/charts/BarChart.tsx
+import { jsx as jsx32 } from "react/jsx-runtime";
+function BarChart({
+  labels,
+  datasets,
+  title,
+  showLegend = true,
+  legendPosition = "top",
+  height = 300,
+  className,
+  showValues = false,
+  horizontal = false
+}) {
+  const uiColors = useChartUIColors();
+  const chartData = {
+    labels,
+    datasets: datasets.map((dataset, index) => ({
+      label: dataset.label,
+      data: dataset.data,
+      backgroundColor: dataset.backgroundColor ?? getChartColor(index),
+      borderColor: dataset.borderColor ?? "transparent",
+      borderWidth: dataset.borderWidth ?? 0,
+      borderRadius: 4
+    }))
+  };
+  const baseOptions = createBaseChartOptions(uiColors, { title, showLegend, legendPosition });
+  const axisOptions = createAxisOptions(uiColors);
+  const options = {
+    ...baseOptions,
+    indexAxis: horizontal ? "y" : "x",
+    scales: horizontal ? { x: axisOptions.y, y: axisOptions.x } : axisOptions,
+    plugins: {
+      ...baseOptions.plugins,
+      ...showValues && {
+        datalabels: {
+          display: true,
+          anchor: "end",
+          align: "top"
+        }
+      }
+    }
+  };
+  return /* @__PURE__ */ jsx32(ChartContainer, { className, children: /* @__PURE__ */ jsx32(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx32(Bar, { data: chartData, options }) }) });
+}
+
+// src/charts/LineChart.tsx
+import { Line } from "react-chartjs-2";
+import { jsx as jsx33 } from "react/jsx-runtime";
+function LineChart({
+  labels,
+  datasets,
+  title,
+  showLegend = true,
+  legendPosition = "top",
+  height = 300,
+  className,
+  tension = 0.4
+}) {
+  const uiColors = useChartUIColors();
+  const chartData = {
+    labels,
+    datasets: datasets.map((dataset, index) => {
+      const color = dataset.borderColor ?? getChartColor(index);
+      return {
+        label: dataset.label,
+        data: dataset.data,
+        borderColor: color,
+        backgroundColor: dataset.fill ? dataset.backgroundColor ?? `${color}33` : "transparent",
+        borderWidth: 2,
+        fill: dataset.fill ?? false,
+        tension: dataset.tension ?? tension,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointBackgroundColor: color,
+        pointBorderColor: "#fff",
+        pointBorderWidth: 2
+      };
+    })
+  };
+  const baseOptions = createBaseChartOptions(uiColors, { title, showLegend, legendPosition });
+  const axisOptions = createAxisOptions(uiColors);
+  const options = {
+    ...baseOptions,
+    scales: axisOptions,
+    interaction: {
+      mode: "index",
+      intersect: false
+    },
+    hover: {
+      mode: "index",
+      intersect: false
+    }
+  };
+  return /* @__PURE__ */ jsx33(ChartContainer, { className, children: /* @__PURE__ */ jsx33(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx33(Line, { data: chartData, options }) }) });
+}
+
+// src/charts/PieChart.tsx
+import { Pie } from "react-chartjs-2";
+import { jsx as jsx34 } from "react/jsx-runtime";
+function PieChart({
+  labels,
+  data,
+  title,
+  showLegend = true,
+  legendPosition = "top",
+  height = 300,
+  className,
+  colors
+}) {
+  const uiColors = useChartUIColors();
+  const segmentColors = colors ?? labels.map((_, index) => getChartColor(index));
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        data,
+        backgroundColor: segmentColors,
+        borderColor: "#fff",
+        borderWidth: 2,
+        hoverOffset: 8
+      }
+    ]
+  };
+  const baseOptions = createBaseChartOptions(uiColors, { title, showLegend, legendPosition });
+  const options = {
+    ...baseOptions
+  };
+  return /* @__PURE__ */ jsx34(ChartContainer, { className, children: /* @__PURE__ */ jsx34(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx34(Pie, { data: chartData, options }) }) });
+}
+
+// src/charts/DoughnutChart.tsx
+import { Doughnut } from "react-chartjs-2";
+import { jsx as jsx35 } from "react/jsx-runtime";
+function DoughnutChart({
+  labels,
+  data,
+  title,
+  showLegend = true,
+  legendPosition = "top",
+  height = 300,
+  className,
+  colors,
+  cutout = "50%"
+}) {
+  const uiColors = useChartUIColors();
+  const segmentColors = colors ?? labels.map((_, index) => getChartColor(index));
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        data,
+        backgroundColor: segmentColors,
+        borderColor: "#fff",
+        borderWidth: 2,
+        hoverOffset: 8
+      }
+    ]
+  };
+  const baseOptions = createBaseChartOptions(uiColors, { title, showLegend, legendPosition });
+  const options = {
+    ...baseOptions,
+    cutout
+  };
+  return /* @__PURE__ */ jsx35(ChartContainer, { className, children: /* @__PURE__ */ jsx35(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx35(Doughnut, { data: chartData, options }) }) });
+}
+
+// src/charts/use-chart-colors.ts
+import { useMemo as useMemo3 } from "react";
+function useChartColors(count, customColors) {
+  return useMemo3(() => {
+    if (customColors && customColors.length > 0) {
+      if (customColors.length >= count) {
+        return customColors.slice(0, count);
+      }
+      const extended = [];
+      for (let i = 0; i < count; i++) {
+        extended.push(customColors[i % customColors.length]);
+      }
+      return extended;
+    }
+    return Array.from({ length: count }, (_, i) => getChartColor(i));
+  }, [count, customColors]);
+}
+function useChartColorPalette() {
+  return chartColorPalette;
+}
+
+// src/theme/useColorMode.ts
+import { useContext as useContext2 } from "react";
+function useColorMode() {
+  const context2 = useContext2(ThemeContext);
   if (!context2) {
     throw new Error("useColorMode must be used within a ThemeProvider");
   }
