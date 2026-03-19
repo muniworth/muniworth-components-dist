@@ -6,20 +6,17 @@ All chart components are built on Chart.js and styled with design system tokens.
 
 ### chartColors
 
-Object containing all data visualization colors from the design system.
+Object containing all data visualization colors from the design system (static light-mode values).
 
 ```tsx
 import { chartColors } from '@waterworth/react'
 
 // Available colors
-chartColors.navy      // #003A5D
-chartColors.red       // #ED3F30
-chartColors.blue      // #00B2CC
-chartColors.orange    // #EF8936
-chartColors.purpleDark // #764FA0
-chartColors.yellow    // #E7E51A
-chartColors.purple    // #B65DA4
-chartColors.green     // #8AC640
+chartColors.blue   // #2563eb
+chartColors.purple // #9333ea
+chartColors.yellow // #eab308
+chartColors.pink   // #ec4899
+chartColors.orange // #f97316
 ```
 
 ### chartColorPalette
@@ -29,7 +26,7 @@ Ordered array of colors for automatic dataset coloring.
 ```tsx
 import { chartColorPalette } from '@waterworth/react'
 
-// Array: [blue, navy, orange, green, purple, red, purpleDark, yellow]
+// Array: [blue, purple, yellow, pink, orange]
 chartColorPalette.forEach((color, i) => {
   console.log(`Color ${i}: ${color}`)
 })
@@ -42,9 +39,26 @@ Get a color by index (wraps around if index exceeds palette length).
 ```tsx
 import { getChartColor } from '@waterworth/react'
 
-getChartColor(0) // blue
-getChartColor(1) // navy
-getChartColor(8) // blue (wraps)
+getChartColor(0) // blue (#2563eb)
+getChartColor(1) // purple (#9333ea)
+getChartColor(5) // blue (wraps)
+```
+
+### useChartDataColors
+
+Theme-aware hook for Chart.js canvas rendering. Returns the appropriate palette based on the current color mode (light/dark), plus a background palette for area fills.
+
+```tsx
+import { useChartDataColors } from '@waterworth/react'
+
+const { palette, bgPalette } = useChartDataColors()
+
+// palette: theme-aware data colors (5 colors)
+//   Light: ['#2563eb', '#9333ea', '#eab308', '#ec4899', '#f97316']
+//   Dark:  ['#60a5fa', '#a78bfa', '#facc15', '#f472b6', '#fb923c']
+
+// bgPalette: light background variants for area fills (same in both themes)
+//   ['#dbeafe', '#f3e8ff', '#fef9c3', '#fce7f3', '#ffedd5']
 ```
 
 ### useChartColors

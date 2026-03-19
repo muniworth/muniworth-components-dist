@@ -578,29 +578,28 @@ var buttonRecipe = cva({
           bg: "button.primary.bgHover"
         }
       },
-      secondary: {
-        bg: "button.secondary.bg",
-        color: "button.secondary.text",
-        border: "1px solid",
-        borderColor: "button.secondary.border",
+      dark: {
+        bg: "button.dark.bg",
+        color: "button.dark.text",
         _hover: {
-          bg: "button.secondary.bgHover",
-          borderColor: "accent.primary"
+          bg: "button.dark.bgHover"
         }
       },
-      danger: {
-        bg: "button.danger.bg",
-        color: "button.danger.text",
+      outlined: {
+        bg: "transparent",
+        color: "button.outlined.text",
+        border: "1px solid",
+        borderColor: "button.outlined.border",
         _hover: {
-          bg: "button.danger.bgHover"
+          bg: "button.outlined.bgHover"
         }
       },
       ghost: {
-        bg: "transparent",
-        color: "text.link",
+        bg: "background.base",
+        color: "text.primary",
         _hover: {
-          bg: "background.subtle",
-          color: "text.linkHover"
+          bg: "button.ghost.bgHover",
+          color: "text.primary"
         }
       }
     },
@@ -609,7 +608,7 @@ var buttonRecipe = cva({
         px: "sm",
         py: "xs",
         fontSize: "sm",
-        minHeight: "32px"
+        minHeight: "component.buttonSmMinHeight"
       },
       md: {
         px: "md",
@@ -621,7 +620,7 @@ var buttonRecipe = cva({
         px: "lg",
         py: "md",
         fontSize: "lg",
-        minHeight: "48px"
+        minHeight: "component.buttonLgMinHeight"
       }
     }
   },
@@ -649,10 +648,11 @@ var Button = forwardRef2(
 Button.displayName = "Button";
 
 // src/input/Input.tsx
-import { forwardRef as forwardRef3, useId } from "react";
+import { forwardRef as forwardRef3 } from "react";
 
 // src/shared/form-elements.tsx
 import "react";
+import { jsx as jsx2 } from "react/jsx-runtime";
 var FormContainer = styled("div", {
   base: {
     display: "flex",
@@ -693,51 +693,83 @@ var FormItemContainer = styled("div", {
     gap: "sm"
   }
 });
+function renderFormHelperText({ error, helperText, fieldId }) {
+  if (error) {
+    return /* @__PURE__ */ jsx2(FormHelperText, { id: `${fieldId}-error`, isError: true, role: "alert", children: error });
+  }
+  if (helperText) {
+    return /* @__PURE__ */ jsx2(FormHelperText, { id: `${fieldId}-helper`, isError: false, children: helperText });
+  }
+  return null;
+}
 
-// src/input/Input.tsx
-import { jsx as jsx2, jsxs } from "react/jsx-runtime";
-var StyledInput = styled("input", {
-  base: {
-    px: "md",
-    py: "sm",
-    fontFamily: "brand",
-    fontSize: "md",
-    lineHeight: "normal",
-    color: "text.primary",
-    bg: "background.elevated",
-    border: "1px solid",
-    borderColor: "border.subtle",
-    borderRadius: "component.inputRadius",
-    outline: "none",
-    transition: "all 0.15s ease",
-    minHeight: "component.inputMinHeight",
-    _placeholder: {
-      color: "text.subtle"
-    },
-    _hover: {
-      borderColor: "border.strong"
-    },
-    _focus: {
-      borderColor: "accent.primary",
-      boxShadow: "focus.primary"
-    },
-    _disabled: {
-      opacity: 0.5,
-      cursor: "not-allowed",
-      bg: "background.subtle"
-    }
+// src/shared/use-form-field.ts
+import { useId } from "react";
+function useFormField({ id, error, helperText }) {
+  const generatedId = useId();
+  const fieldId = id || generatedId;
+  const hasError = Boolean(error);
+  const ariaDescribedBy = error ? `${fieldId}-error` : helperText ? `${fieldId}-helper` : void 0;
+  return {
+    fieldId,
+    hasError,
+    errorId: `${fieldId}-error`,
+    helperId: `${fieldId}-helper`,
+    ariaDescribedBy,
+    ariaInvalid: hasError
+  };
+}
+
+// src/shared/input-base-styles.ts
+var inputBaseStyles = {
+  px: "md",
+  py: "sm",
+  fontFamily: "brand",
+  fontSize: "lg",
+  lineHeight: "normal",
+  color: "text.primary",
+  bg: "background.elevated",
+  border: "1px solid",
+  borderColor: "border.subtle",
+  borderRadius: "component.inputRadius",
+  outline: "none",
+  transition: "all 0.15s ease",
+  _placeholder: {
+    color: "text.placeholder"
   },
-  variants: {
-    hasError: {
-      true: {
+  _hover: {
+    borderColor: "border.strong"
+  },
+  _focus: {
+    borderColor: "accent.primary",
+    boxShadow: "focus.primary"
+  },
+  _disabled: {
+    opacity: 0.5,
+    cursor: "not-allowed",
+    bg: "background.subtle"
+  }
+};
+var inputErrorVariant = {
+  hasError: {
+    true: {
+      borderColor: "state.danger",
+      _focus: {
         borderColor: "state.danger",
-        _focus: {
-          borderColor: "state.danger",
-          boxShadow: "focus.danger"
-        }
+        boxShadow: "focus.danger"
       }
     }
   }
+};
+
+// src/input/Input.tsx
+import { jsx as jsx3, jsxs } from "react/jsx-runtime";
+var StyledInput = styled("input", {
+  base: {
+    ...inputBaseStyles,
+    minHeight: "component.inputMinHeight"
+  },
+  variants: inputErrorVariant
 });
 var Input = forwardRef3(
   ({
@@ -749,91 +781,37 @@ var Input = forwardRef3(
     className,
     ...props
   }, ref) => {
-    const generatedId = useId();
-    const inputId = id || generatedId;
-    const hasError = Boolean(error);
+    const { fieldId, hasError, ariaDescribedBy, ariaInvalid } = useFormField({ id, error, helperText });
     return /* @__PURE__ */ jsxs(FormContainer, { className, children: [
-      label && /* @__PURE__ */ jsx2(FormLabel, { htmlFor: inputId, children: label }),
-      /* @__PURE__ */ jsx2(
+      label && /* @__PURE__ */ jsx3(FormLabel, { htmlFor: fieldId, children: label }),
+      /* @__PURE__ */ jsx3(
         StyledInput,
         {
           ref,
-          id: inputId,
+          id: fieldId,
           disabled,
-          "aria-invalid": hasError,
-          "aria-describedby": error ? `${inputId}-error` : helperText ? `${inputId}-helper` : void 0,
+          "aria-invalid": ariaInvalid,
+          "aria-describedby": ariaDescribedBy,
           hasError,
           ...props
         }
       ),
-      error && /* @__PURE__ */ jsx2(
-        FormHelperText,
-        {
-          id: `${inputId}-error`,
-          isError: true,
-          role: "alert",
-          children: error
-        }
-      ),
-      !error && helperText && /* @__PURE__ */ jsx2(
-        FormHelperText,
-        {
-          id: `${inputId}-helper`,
-          isError: false,
-          children: helperText
-        }
-      )
+      renderFormHelperText({ error, helperText, fieldId })
     ] });
   }
 );
 Input.displayName = "Input";
 
 // src/textarea/Textarea.tsx
-import { forwardRef as forwardRef4, useId as useId2 } from "react";
-import { jsx as jsx3, jsxs as jsxs2 } from "react/jsx-runtime";
+import { forwardRef as forwardRef4 } from "react";
+import { jsx as jsx4, jsxs as jsxs2 } from "react/jsx-runtime";
 var StyledTextarea = styled("textarea", {
   base: {
-    px: "md",
-    py: "sm",
-    fontFamily: "brand",
-    fontSize: "md",
-    lineHeight: "normal",
-    color: "text.primary",
-    bg: "background.elevated",
-    border: "1px solid",
-    borderColor: "border.subtle",
-    borderRadius: "component.inputRadius",
-    outline: "none",
-    transition: "all 0.15s ease",
+    ...inputBaseStyles,
     minHeight: "component.textareaMinHeight",
-    resize: "vertical",
-    _placeholder: {
-      color: "text.subtle"
-    },
-    _hover: {
-      borderColor: "border.strong"
-    },
-    _focus: {
-      borderColor: "accent.primary",
-      boxShadow: "focus.primary"
-    },
-    _disabled: {
-      opacity: 0.5,
-      cursor: "not-allowed",
-      bg: "background.subtle"
-    }
+    resize: "vertical"
   },
-  variants: {
-    hasError: {
-      true: {
-        borderColor: "state.danger",
-        _focus: {
-          borderColor: "state.danger",
-          boxShadow: "focus.danger"
-        }
-      }
-    }
-  }
+  variants: inputErrorVariant
 });
 var Textarea = forwardRef4(
   ({
@@ -845,40 +823,22 @@ var Textarea = forwardRef4(
     className,
     ...props
   }, ref) => {
-    const generatedId = useId2();
-    const textareaId = id || generatedId;
-    const hasError = Boolean(error);
+    const { fieldId, hasError, ariaDescribedBy, ariaInvalid } = useFormField({ id, error, helperText });
     return /* @__PURE__ */ jsxs2(FormContainer, { className, children: [
-      label && /* @__PURE__ */ jsx3(FormLabel, { htmlFor: textareaId, children: label }),
-      /* @__PURE__ */ jsx3(
+      label && /* @__PURE__ */ jsx4(FormLabel, { htmlFor: fieldId, children: label }),
+      /* @__PURE__ */ jsx4(
         StyledTextarea,
         {
           ref,
-          id: textareaId,
+          id: fieldId,
           disabled,
-          "aria-invalid": hasError,
-          "aria-describedby": error ? `${textareaId}-error` : helperText ? `${textareaId}-helper` : void 0,
+          "aria-invalid": ariaInvalid,
+          "aria-describedby": ariaDescribedBy,
           hasError,
           ...props
         }
       ),
-      error && /* @__PURE__ */ jsx3(
-        FormHelperText,
-        {
-          id: `${textareaId}-error`,
-          isError: true,
-          role: "alert",
-          children: error
-        }
-      ),
-      !error && helperText && /* @__PURE__ */ jsx3(
-        FormHelperText,
-        {
-          id: `${textareaId}-helper`,
-          isError: false,
-          children: helperText
-        }
-      )
+      renderFormHelperText({ error, helperText, fieldId })
     ] });
   }
 );
@@ -932,11 +892,11 @@ var alertRecipe = cva({
 });
 
 // src/alert/Alert.tsx
-import { jsx as jsx4 } from "react/jsx-runtime";
+import { jsx as jsx5 } from "react/jsx-runtime";
 var StyledAlert = styled("div", alertRecipe);
 var Alert = forwardRef5(
   ({ children, priority = "polite", ...props }, ref) => {
-    return /* @__PURE__ */ jsx4(
+    return /* @__PURE__ */ jsx5(
       StyledAlert,
       {
         ref,
@@ -991,11 +951,11 @@ var spinnerRecipe = cva({
 });
 
 // src/spinner/Spinner.tsx
-import { jsx as jsx5 } from "react/jsx-runtime";
+import { jsx as jsx6 } from "react/jsx-runtime";
 var StyledSpinner = styled("div", spinnerRecipe);
 var Spinner = forwardRef6(
   ({ label = "Loading", size, ...props }, ref) => {
-    return /* @__PURE__ */ jsx5(
+    return /* @__PURE__ */ jsx6(
       StyledSpinner,
       {
         ref,
@@ -1010,7 +970,7 @@ var Spinner = forwardRef6(
 Spinner.displayName = "Spinner";
 
 // src/shared/Icon.tsx
-import { jsx as jsx6 } from "react/jsx-runtime";
+import { jsx as jsx7 } from "react/jsx-runtime";
 var sizeMap = {
   xs: "10px",
   sm: "12px",
@@ -1019,7 +979,7 @@ var sizeMap = {
 };
 var Icon = ({ name, size = "md", className = "", style }) => {
   const fontSize = sizeMap[size];
-  return /* @__PURE__ */ jsx6(
+  return /* @__PURE__ */ jsx7(
     "i",
     {
       className: `fa-solid fa-${name} ${className}`.trim(),
@@ -1064,7 +1024,7 @@ var cardRecipe = cva({
 });
 
 // src/card/Card.tsx
-import { jsx as jsx7 } from "react/jsx-runtime";
+import { jsx as jsx8 } from "react/jsx-runtime";
 var StyledCard = styled("div", cardRecipe);
 var CardActions = styled("div", {
   base: {
@@ -1077,7 +1037,7 @@ var CardActions = styled("div", {
 });
 var Card = forwardRef7(
   (props, ref) => {
-    return /* @__PURE__ */ jsx7(StyledCard, { ref, ...props });
+    return /* @__PURE__ */ jsx8(StyledCard, { ref, ...props });
   }
 );
 Card.displayName = "Card";
@@ -1132,19 +1092,19 @@ var badgeRecipe = cva({
 });
 
 // src/badge/Badge.tsx
-import { jsx as jsx8 } from "react/jsx-runtime";
+import { jsx as jsx9 } from "react/jsx-runtime";
 var StyledBadge = styled("span", badgeRecipe);
 var Badge = forwardRef8(
   (props, ref) => {
-    return /* @__PURE__ */ jsx8(StyledBadge, { ref, ...props });
+    return /* @__PURE__ */ jsx9(StyledBadge, { ref, ...props });
   }
 );
 Badge.displayName = "Badge";
 
 // src/select/Select.tsx
-import { forwardRef as forwardRef9, useId as useId3 } from "react";
+import { forwardRef as forwardRef9 } from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { jsx as jsx9, jsxs as jsxs3 } from "react/jsx-runtime";
+import { jsx as jsx10, jsxs as jsxs3 } from "react/jsx-runtime";
 var Trigger2 = styled(SelectPrimitive.Trigger, {
   base: {
     display: "inline-flex",
@@ -1247,11 +1207,9 @@ var Item2 = styled(SelectPrimitive.Item, {
 });
 var Select = forwardRef9(
   ({ label, options, value, onValueChange, placeholder, disabled, id, error, helperText }, ref) => {
-    const generatedId = useId3();
-    const selectId = id || generatedId;
-    const hasError = Boolean(error);
+    const { fieldId, hasError, ariaDescribedBy, ariaInvalid } = useFormField({ id, error, helperText });
     return /* @__PURE__ */ jsxs3(FormContainer, { children: [
-      label && /* @__PURE__ */ jsx9(FormLabel, { htmlFor: selectId, children: label }),
+      label && /* @__PURE__ */ jsx10(FormLabel, { htmlFor: fieldId, children: label }),
       /* @__PURE__ */ jsxs3(
         SelectPrimitive.Root,
         {
@@ -1263,55 +1221,39 @@ var Select = forwardRef9(
               Trigger2,
               {
                 ref,
-                id: selectId,
+                id: fieldId,
                 "aria-label": label,
-                "aria-invalid": hasError,
-                "aria-describedby": error ? `${selectId}-error` : helperText ? `${selectId}-helper` : void 0,
+                "aria-invalid": ariaInvalid,
+                "aria-describedby": ariaDescribedBy,
                 hasError,
                 children: [
-                  /* @__PURE__ */ jsx9(SelectPrimitive.Value, { placeholder }),
-                  /* @__PURE__ */ jsx9(SelectPrimitive.Icon, { children: /* @__PURE__ */ jsx9(Icon, { name: "chevron-down", size: "sm" }) })
+                  /* @__PURE__ */ jsx10(SelectPrimitive.Value, { placeholder }),
+                  /* @__PURE__ */ jsx10(SelectPrimitive.Icon, { children: /* @__PURE__ */ jsx10(Icon, { name: "chevron-down", size: "sm" }) })
                 ]
               }
             ),
-            /* @__PURE__ */ jsx9(SelectPrimitive.Portal, { children: /* @__PURE__ */ jsx9(Content2, { position: "popper", sideOffset: 4, children: /* @__PURE__ */ jsx9(Viewport2, { children: options.map((option) => /* @__PURE__ */ jsx9(
+            /* @__PURE__ */ jsx10(SelectPrimitive.Portal, { children: /* @__PURE__ */ jsx10(Content2, { position: "popper", sideOffset: 4, children: /* @__PURE__ */ jsx10(Viewport2, { children: options.map((option) => /* @__PURE__ */ jsx10(
               Item2,
               {
                 value: option.value,
                 disabled: option.disabled,
-                children: /* @__PURE__ */ jsx9(SelectPrimitive.ItemText, { children: option.label })
+                children: /* @__PURE__ */ jsx10(SelectPrimitive.ItemText, { children: option.label })
               },
               option.value
             )) }) }) })
           ]
         }
       ),
-      error && /* @__PURE__ */ jsx9(
-        FormHelperText,
-        {
-          id: `${selectId}-error`,
-          isError: true,
-          role: "alert",
-          children: error
-        }
-      ),
-      !error && helperText && /* @__PURE__ */ jsx9(
-        FormHelperText,
-        {
-          id: `${selectId}-helper`,
-          isError: false,
-          children: helperText
-        }
-      )
+      renderFormHelperText({ error, helperText, fieldId })
     ] });
   }
 );
 Select.displayName = "Select";
 
 // src/checkbox/Checkbox.tsx
-import { forwardRef as forwardRef10, useId as useId4 } from "react";
+import { forwardRef as forwardRef10 } from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { jsx as jsx10, jsxs as jsxs4 } from "react/jsx-runtime";
+import { jsx as jsx11, jsxs as jsxs4 } from "react/jsx-runtime";
 var StyledCheckbox = styled(CheckboxPrimitive.Root, {
   base: {
     width: "20px",
@@ -1375,54 +1317,36 @@ var Label = styled("label", {
 });
 var Checkbox = forwardRef10(
   ({ label, checked, defaultChecked, onCheckedChange, disabled, id, error, helperText }, ref) => {
-    const generatedId = useId4();
-    const checkboxId = id || generatedId;
-    const hasError = Boolean(error);
+    const { fieldId, hasError, ariaDescribedBy, ariaInvalid } = useFormField({ id, error, helperText });
     return /* @__PURE__ */ jsxs4(FormContainer, { children: [
       /* @__PURE__ */ jsxs4(FormItemContainer, { children: [
-        /* @__PURE__ */ jsx10(
+        /* @__PURE__ */ jsx11(
           StyledCheckbox,
           {
             ref,
-            id: checkboxId,
+            id: fieldId,
             checked,
             defaultChecked,
             onCheckedChange,
             disabled,
-            "aria-invalid": hasError,
-            "aria-describedby": error ? `${checkboxId}-error` : helperText ? `${checkboxId}-helper` : void 0,
+            "aria-invalid": ariaInvalid,
+            "aria-describedby": ariaDescribedBy,
             hasError,
-            children: /* @__PURE__ */ jsx10(Indicator2, { children: /* @__PURE__ */ jsx10(Icon, { name: "check", size: "sm" }) })
+            children: /* @__PURE__ */ jsx11(Indicator2, { children: /* @__PURE__ */ jsx11(Icon, { name: "check", size: "sm" }) })
           }
         ),
-        label && /* @__PURE__ */ jsx10(Label, { htmlFor: checkboxId, children: label })
+        label && /* @__PURE__ */ jsx11(Label, { htmlFor: fieldId, children: label })
       ] }),
-      error && /* @__PURE__ */ jsx10(
-        FormHelperText,
-        {
-          id: `${checkboxId}-error`,
-          isError: true,
-          role: "alert",
-          children: error
-        }
-      ),
-      !error && helperText && /* @__PURE__ */ jsx10(
-        FormHelperText,
-        {
-          id: `${checkboxId}-helper`,
-          isError: false,
-          children: helperText
-        }
-      )
+      renderFormHelperText({ error, helperText, fieldId })
     ] });
   }
 );
 Checkbox.displayName = "Checkbox";
 
 // src/radio-group/RadioGroup.tsx
-import { forwardRef as forwardRef11, useId as useId5 } from "react";
+import { forwardRef as forwardRef11 } from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
-import { jsx as jsx11, jsxs as jsxs5 } from "react/jsx-runtime";
+import { jsx as jsx12, jsxs as jsxs5 } from "react/jsx-runtime";
 var Root4 = styled(RadioGroupPrimitive.Root, {
   base: {
     display: "flex",
@@ -1506,68 +1430,50 @@ var ItemLabel = styled("label", {
 });
 var RadioGroup = forwardRef11(
   ({ label, options, value, defaultValue, onValueChange, disabled, id, error, helperText }, ref) => {
-    const generatedId = useId5();
-    const radioGroupId = id || generatedId;
-    const labelId = `${radioGroupId}-label`;
-    const hasError = Boolean(error);
+    const { fieldId, hasError, ariaDescribedBy, ariaInvalid } = useFormField({ id, error, helperText });
+    const labelId = `${fieldId}-label`;
     return /* @__PURE__ */ jsxs5(FormContainer, { children: [
-      label && /* @__PURE__ */ jsx11(FormLabel, { id: labelId, children: label }),
-      /* @__PURE__ */ jsx11(
+      label && /* @__PURE__ */ jsx12(FormLabel, { id: labelId, children: label }),
+      /* @__PURE__ */ jsx12(
         Root4,
         {
           ref,
-          id: radioGroupId,
+          id: fieldId,
           value,
           defaultValue,
           onValueChange,
           disabled,
-          "aria-invalid": hasError,
+          "aria-invalid": ariaInvalid,
           "aria-labelledby": label ? labelId : void 0,
-          "aria-describedby": error ? `${radioGroupId}-error` : helperText ? `${radioGroupId}-helper` : void 0,
+          "aria-describedby": ariaDescribedBy,
           children: options.map((option, index) => {
-            const itemId = `${radioGroupId}-${index}`;
+            const itemId = `${fieldId}-${index}`;
             return /* @__PURE__ */ jsxs5(ItemContainer, { children: [
-              /* @__PURE__ */ jsx11(
+              /* @__PURE__ */ jsx12(
                 Item4,
                 {
                   value: option.value,
                   id: itemId,
                   disabled: option.disabled,
                   hasError,
-                  children: /* @__PURE__ */ jsx11(Indicator4, {})
+                  children: /* @__PURE__ */ jsx12(Indicator4, {})
                 }
               ),
-              /* @__PURE__ */ jsx11(ItemLabel, { htmlFor: itemId, children: option.label })
+              /* @__PURE__ */ jsx12(ItemLabel, { htmlFor: itemId, children: option.label })
             ] }, option.value);
           })
         }
       ),
-      error && /* @__PURE__ */ jsx11(
-        FormHelperText,
-        {
-          id: `${radioGroupId}-error`,
-          isError: true,
-          role: "alert",
-          children: error
-        }
-      ),
-      !error && helperText && /* @__PURE__ */ jsx11(
-        FormHelperText,
-        {
-          id: `${radioGroupId}-helper`,
-          isError: false,
-          children: helperText
-        }
-      )
+      renderFormHelperText({ error, helperText, fieldId })
     ] });
   }
 );
 RadioGroup.displayName = "RadioGroup";
 
 // src/switch/Switch.tsx
-import { forwardRef as forwardRef12, useId as useId6 } from "react";
+import { forwardRef as forwardRef12 } from "react";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
-import { jsx as jsx12, jsxs as jsxs6 } from "react/jsx-runtime";
+import { jsx as jsx13, jsxs as jsxs6 } from "react/jsx-runtime";
 var Root6 = styled(SwitchPrimitive.Root, {
   base: {
     width: "44px",
@@ -1634,45 +1540,27 @@ var Label2 = styled("label", {
 });
 var Switch = forwardRef12(
   ({ label, checked, defaultChecked, onCheckedChange, disabled, id, error, helperText }, ref) => {
-    const generatedId = useId6();
-    const switchId = id || generatedId;
-    const hasError = Boolean(error);
+    const { fieldId, hasError, ariaDescribedBy, ariaInvalid } = useFormField({ id, error, helperText });
     return /* @__PURE__ */ jsxs6(FormContainer, { children: [
       /* @__PURE__ */ jsxs6(FormItemContainer, { children: [
-        /* @__PURE__ */ jsx12(
+        /* @__PURE__ */ jsx13(
           Root6,
           {
             ref,
-            id: switchId,
+            id: fieldId,
             checked,
             defaultChecked,
             onCheckedChange,
             disabled,
-            "aria-invalid": hasError,
-            "aria-describedby": error ? `${switchId}-error` : helperText ? `${switchId}-helper` : void 0,
+            "aria-invalid": ariaInvalid,
+            "aria-describedby": ariaDescribedBy,
             hasError,
-            children: /* @__PURE__ */ jsx12(Thumb2, {})
+            children: /* @__PURE__ */ jsx13(Thumb2, {})
           }
         ),
-        label && /* @__PURE__ */ jsx12(Label2, { htmlFor: switchId, children: label })
+        label && /* @__PURE__ */ jsx13(Label2, { htmlFor: fieldId, children: label })
       ] }),
-      error && /* @__PURE__ */ jsx12(
-        FormHelperText,
-        {
-          id: `${switchId}-error`,
-          isError: true,
-          role: "alert",
-          children: error
-        }
-      ),
-      !error && helperText && /* @__PURE__ */ jsx12(
-        FormHelperText,
-        {
-          id: `${switchId}-helper`,
-          isError: false,
-          children: helperText
-        }
-      )
+      renderFormHelperText({ error, helperText, fieldId })
     ] });
   }
 );
@@ -1681,7 +1569,7 @@ Switch.displayName = "Switch";
 // src/dialog/Dialog.tsx
 import { forwardRef as forwardRef13, isValidElement } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { jsx as jsx13, jsxs as jsxs7 } from "react/jsx-runtime";
+import { jsx as jsx14, jsxs as jsxs7 } from "react/jsx-runtime";
 var Overlay2 = styled(DialogPrimitive.Overlay, {
   base: {
     bg: "overlay.modal",
@@ -1770,14 +1658,14 @@ var Dialog = forwardRef13(
         defaultOpen,
         onOpenChange,
         children: [
-          trigger && /* @__PURE__ */ jsx13(DialogPrimitive.Trigger, { asChild: true, children: trigger }),
+          trigger && /* @__PURE__ */ jsx14(DialogPrimitive.Trigger, { asChild: true, children: trigger }),
           /* @__PURE__ */ jsxs7(DialogPrimitive.Portal, { children: [
-            /* @__PURE__ */ jsx13(Overlay2, {}),
+            /* @__PURE__ */ jsx14(Overlay2, {}),
             /* @__PURE__ */ jsxs7(Content4, { ref, children: [
-              title && /* @__PURE__ */ jsx13(Title2, { children: title }),
-              description && /* @__PURE__ */ jsx13(Description2, { children: description }),
+              title && /* @__PURE__ */ jsx14(Title2, { children: title }),
+              description && /* @__PURE__ */ jsx14(Description2, { children: description }),
               children,
-              /* @__PURE__ */ jsx13(CloseButton, { "aria-label": "Close", children: /* @__PURE__ */ jsx13(Icon, { name: "xmark", size: "lg" }) })
+              /* @__PURE__ */ jsx14(CloseButton, { "aria-label": "Close", children: /* @__PURE__ */ jsx14(Icon, { name: "xmark", size: "lg" }) })
             ] })
           ] })
         ]
@@ -1790,7 +1678,7 @@ Dialog.displayName = "Dialog";
 // src/dropdown-menu/DropdownMenu.tsx
 import { forwardRef as forwardRef14, isValidElement as isValidElement2 } from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import { jsx as jsx14, jsxs as jsxs8 } from "react/jsx-runtime";
+import { jsx as jsx15, jsxs as jsxs8 } from "react/jsx-runtime";
 var Content6 = styled(DropdownMenuPrimitive.Content, {
   base: {
     minWidth: "200px",
@@ -1855,8 +1743,8 @@ var DropdownMenu = forwardRef14(
         defaultOpen,
         onOpenChange,
         children: [
-          /* @__PURE__ */ jsx14(DropdownMenuPrimitive.Trigger, { asChild: true, children: trigger }),
-          /* @__PURE__ */ jsx14(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx14(Content6, { ref, sideOffset: 4, align: "start", alignOffset: -8, children: items.map((item) => /* @__PURE__ */ jsx14(
+          /* @__PURE__ */ jsx15(DropdownMenuPrimitive.Trigger, { asChild: true, children: trigger }),
+          /* @__PURE__ */ jsx15(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx15(Content6, { ref, sideOffset: 4, align: "start", alignOffset: -8, children: items.map((item) => /* @__PURE__ */ jsx15(
             Item6,
             {
               onSelect: item.onSelect,
@@ -1875,7 +1763,7 @@ DropdownMenu.displayName = "DropdownMenu";
 // src/tooltip/Tooltip.tsx
 import { forwardRef as forwardRef15, isValidElement as isValidElement3 } from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
-import { jsx as jsx15, jsxs as jsxs9 } from "react/jsx-runtime";
+import { jsx as jsx16, jsxs as jsxs9 } from "react/jsx-runtime";
 var Content8 = styled(TooltipPrimitive.Content, {
   base: {
     bg: "tooltip.bg",
@@ -1905,11 +1793,11 @@ var Tooltip = forwardRef15(
         children
       );
     }
-    return /* @__PURE__ */ jsx15(TooltipPrimitive.Provider, { delayDuration, children: /* @__PURE__ */ jsxs9(TooltipPrimitive.Root, { children: [
-      /* @__PURE__ */ jsx15(TooltipPrimitive.Trigger, { asChild: true, children }),
-      /* @__PURE__ */ jsx15(TooltipPrimitive.Portal, { children: /* @__PURE__ */ jsxs9(Content8, { ref, side, sideOffset: 4, children: [
+    return /* @__PURE__ */ jsx16(TooltipPrimitive.Provider, { delayDuration, children: /* @__PURE__ */ jsxs9(TooltipPrimitive.Root, { children: [
+      /* @__PURE__ */ jsx16(TooltipPrimitive.Trigger, { asChild: true, children }),
+      /* @__PURE__ */ jsx16(TooltipPrimitive.Portal, { children: /* @__PURE__ */ jsxs9(Content8, { ref, side, sideOffset: 4, children: [
         content,
-        /* @__PURE__ */ jsx15(Arrow2, {})
+        /* @__PURE__ */ jsx16(Arrow2, {})
       ] }) })
     ] }) });
   }
@@ -1919,7 +1807,7 @@ Tooltip.displayName = "Tooltip";
 // src/toast/Toast.tsx
 import { forwardRef as forwardRef16 } from "react";
 import * as ToastPrimitive from "@radix-ui/react-toast";
-import { jsx as jsx16, jsxs as jsxs10 } from "react/jsx-runtime";
+import { jsx as jsx17, jsxs as jsxs10 } from "react/jsx-runtime";
 var Viewport4 = styled(ToastPrimitive.Viewport, {
   base: {
     position: "fixed",
@@ -2028,7 +1916,7 @@ var ToastProvider = ({
       swipeThreshold,
       children: [
         children,
-        /* @__PURE__ */ jsx16(Viewport4, {})
+        /* @__PURE__ */ jsx17(Viewport4, {})
       ]
     }
   );
@@ -2052,10 +1940,10 @@ var Toast = forwardRef16(
         onOpenChange,
         duration,
         children: [
-          title && /* @__PURE__ */ jsx16(Title4, { children: title }),
-          description && /* @__PURE__ */ jsx16(Description4, { children: description }),
+          title && /* @__PURE__ */ jsx17(Title4, { children: title }),
+          description && /* @__PURE__ */ jsx17(Description4, { children: description }),
           children,
-          /* @__PURE__ */ jsx16(Close3, { "aria-label": "Close", children: /* @__PURE__ */ jsx16(Icon, { name: "xmark", size: "md" }) })
+          /* @__PURE__ */ jsx17(Close3, { "aria-label": "Close", children: /* @__PURE__ */ jsx17(Icon, { name: "xmark", size: "md" }) })
         ]
       }
     );
@@ -2066,7 +1954,7 @@ Toast.displayName = "Toast";
 // src/progress/Progress.tsx
 import { forwardRef as forwardRef17 } from "react";
 import * as ProgressPrimitive from "@radix-ui/react-progress";
-import { jsx as jsx17 } from "react/jsx-runtime";
+import { jsx as jsx18 } from "react/jsx-runtime";
 var Root13 = styled(ProgressPrimitive.Root, {
   base: {
     position: "relative",
@@ -2094,14 +1982,14 @@ var Progress = forwardRef17(
     const safeValue = Math.min(Math.max(value ?? 0, 0), max);
     const percentage = safeValue / max * 100;
     const progressValue = indeterminate ? void 0 : safeValue;
-    return /* @__PURE__ */ jsx17(
+    return /* @__PURE__ */ jsx18(
       Root13,
       {
         ref,
         value: progressValue,
         max,
         "aria-label": ariaLabel,
-        children: /* @__PURE__ */ jsx17(
+        children: /* @__PURE__ */ jsx18(
           Indicator6,
           {
             style: {
@@ -2118,7 +2006,7 @@ Progress.displayName = "Progress";
 // src/tabs/Tabs.tsx
 import { forwardRef as forwardRef18 } from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { jsx as jsx18 } from "react/jsx-runtime";
+import { jsx as jsx19 } from "react/jsx-runtime";
 var Root15 = styled(TabsPrimitive.Root, {
   base: {
     display: "flex",
@@ -2189,7 +2077,7 @@ var Content10 = styled(TabsPrimitive.Content, {
 });
 var Tabs = forwardRef18(
   ({ defaultValue, value, onValueChange, children, orientation = "horizontal" }, ref) => {
-    return /* @__PURE__ */ jsx18(
+    return /* @__PURE__ */ jsx19(
       Root15,
       {
         ref,
@@ -2205,19 +2093,19 @@ var Tabs = forwardRef18(
 Tabs.displayName = "Tabs";
 var TabsList = forwardRef18(
   ({ children, "aria-label": ariaLabel }, ref) => {
-    return /* @__PURE__ */ jsx18(List2, { ref, "aria-label": ariaLabel, children });
+    return /* @__PURE__ */ jsx19(List2, { ref, "aria-label": ariaLabel, children });
   }
 );
 TabsList.displayName = "TabsList";
 var TabsTrigger = forwardRef18(
   ({ value, children, disabled }, ref) => {
-    return /* @__PURE__ */ jsx18(Trigger7, { ref, value, disabled, children });
+    return /* @__PURE__ */ jsx19(Trigger7, { ref, value, disabled, children });
   }
 );
 TabsTrigger.displayName = "TabsTrigger";
 var TabsContent = forwardRef18(
   ({ value, children }, ref) => {
-    return /* @__PURE__ */ jsx18(Content10, { ref, value, children });
+    return /* @__PURE__ */ jsx19(Content10, { ref, value, children });
   }
 );
 TabsContent.displayName = "TabsContent";
@@ -2225,7 +2113,7 @@ TabsContent.displayName = "TabsContent";
 // src/accordion/Accordion.tsx
 import { forwardRef as forwardRef19 } from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { jsx as jsx19, jsxs as jsxs11 } from "react/jsx-runtime";
+import { jsx as jsx20, jsxs as jsxs11 } from "react/jsx-runtime";
 var Root17 = styled(AccordionPrimitive.Root, {
   base: {
     width: "100%",
@@ -2319,7 +2207,7 @@ var ContentInner = styled("div", {
 var Accordion = forwardRef19(
   (props, ref) => {
     if (props.type === "multiple") {
-      return /* @__PURE__ */ jsx19(
+      return /* @__PURE__ */ jsx20(
         Root17,
         {
           ref,
@@ -2332,7 +2220,7 @@ var Accordion = forwardRef19(
         }
       );
     }
-    return /* @__PURE__ */ jsx19(
+    return /* @__PURE__ */ jsx20(
       Root17,
       {
         ref,
@@ -2350,22 +2238,22 @@ var Accordion = forwardRef19(
 Accordion.displayName = "Accordion";
 var AccordionItem = forwardRef19(
   ({ value, children, disabled }, ref) => {
-    return /* @__PURE__ */ jsx19(Item8, { ref, value, disabled, children });
+    return /* @__PURE__ */ jsx20(Item8, { ref, value, disabled, children });
   }
 );
 AccordionItem.displayName = "AccordionItem";
 var AccordionTrigger = forwardRef19(
   ({ children }, ref) => {
-    return /* @__PURE__ */ jsx19(Header2, { children: /* @__PURE__ */ jsxs11(Trigger9, { ref, children: [
+    return /* @__PURE__ */ jsx20(Header2, { children: /* @__PURE__ */ jsxs11(Trigger9, { ref, children: [
       children,
-      /* @__PURE__ */ jsx19(ChevronIcon, { "aria-hidden": true, children: /* @__PURE__ */ jsx19(Icon, { name: "chevron-down", size: "md" }) })
+      /* @__PURE__ */ jsx20(ChevronIcon, { "aria-hidden": true, children: /* @__PURE__ */ jsx20(Icon, { name: "chevron-down", size: "md" }) })
     ] }) });
   }
 );
 AccordionTrigger.displayName = "AccordionTrigger";
 var AccordionContent = forwardRef19(
   ({ children }, ref) => {
-    return /* @__PURE__ */ jsx19(Content12, { ref, children: /* @__PURE__ */ jsx19(ContentInner, { children }) });
+    return /* @__PURE__ */ jsx20(Content12, { ref, children: /* @__PURE__ */ jsx20(ContentInner, { children }) });
   }
 );
 AccordionContent.displayName = "AccordionContent";
@@ -2373,7 +2261,7 @@ AccordionContent.displayName = "AccordionContent";
 // src/popover/Popover.tsx
 import { forwardRef as forwardRef20, isValidElement as isValidElement4 } from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import { jsx as jsx20, jsxs as jsxs12 } from "react/jsx-runtime";
+import { jsx as jsx21, jsxs as jsxs12 } from "react/jsx-runtime";
 var Content14 = styled(PopoverPrimitive.Content, {
   base: {
     bg: "background.elevated",
@@ -2453,8 +2341,8 @@ var Popover = forwardRef20(
         defaultOpen,
         onOpenChange,
         children: [
-          trigger && /* @__PURE__ */ jsx20(PopoverPrimitive.Trigger, { asChild: true, children: trigger }),
-          /* @__PURE__ */ jsx20(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsxs12(
+          trigger && /* @__PURE__ */ jsx21(PopoverPrimitive.Trigger, { asChild: true, children: trigger }),
+          /* @__PURE__ */ jsx21(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsxs12(
             Content14,
             {
               ref,
@@ -2462,8 +2350,8 @@ var Popover = forwardRef20(
               alignOffset,
               children: [
                 children,
-                showArrow && /* @__PURE__ */ jsx20(Arrow4, {}),
-                /* @__PURE__ */ jsx20(Close5, { "aria-label": "Close", children: /* @__PURE__ */ jsx20(Icon, { name: "xmark", size: "sm" }) })
+                showArrow && /* @__PURE__ */ jsx21(Arrow4, {}),
+                /* @__PURE__ */ jsx21(Close5, { "aria-label": "Close", children: /* @__PURE__ */ jsx21(Icon, { name: "xmark", size: "sm" }) })
               ]
             }
           ) })
@@ -2477,7 +2365,7 @@ Popover.displayName = "Popover";
 // src/separator/Separator.tsx
 import { forwardRef as forwardRef21 } from "react";
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
-import { jsx as jsx21 } from "react/jsx-runtime";
+import { jsx as jsx22 } from "react/jsx-runtime";
 var StyledSeparator = styled(SeparatorPrimitive.Root, {
   base: {
     bg: "border.subtle",
@@ -2494,7 +2382,7 @@ var StyledSeparator = styled(SeparatorPrimitive.Root, {
 });
 var Separator = forwardRef21(
   ({ orientation = "horizontal", decorative = true, ...props }, ref) => {
-    return /* @__PURE__ */ jsx21(
+    return /* @__PURE__ */ jsx22(
       StyledSeparator,
       {
         ref,
@@ -2509,10 +2397,10 @@ Separator.displayName = "Separator";
 
 // src/grid/Grid.tsx
 import { forwardRef as forwardRef22 } from "react";
-import { jsx as jsx22 } from "react/jsx-runtime";
+import { jsx as jsx23 } from "react/jsx-runtime";
 var Grid = forwardRef22(
   ({ columns, gap, columnGap, rowGap, minChildWidth, children, ...props }, ref) => {
-    return /* @__PURE__ */ jsx22(
+    return /* @__PURE__ */ jsx23(
       "div",
       {
         ref,
@@ -2527,10 +2415,10 @@ Grid.displayName = "Grid";
 
 // src/grid/GridItem.tsx
 import { forwardRef as forwardRef23 } from "react";
-import { jsx as jsx23 } from "react/jsx-runtime";
+import { jsx as jsx24 } from "react/jsx-runtime";
 var GridItem = forwardRef23(
   ({ colSpan, rowSpan, colStart, rowStart, colEnd, rowEnd, children, ...props }, ref) => {
-    return /* @__PURE__ */ jsx23(
+    return /* @__PURE__ */ jsx24(
       "div",
       {
         ref,
@@ -2589,7 +2477,7 @@ function composeRefs(...refs) {
 }
 
 // ../../node_modules/@radix-ui/react-slot/dist/index.mjs
-import { Fragment as Fragment2, jsx as jsx24 } from "react/jsx-runtime";
+import { Fragment as Fragment2, jsx as jsx25 } from "react/jsx-runtime";
 // @__NO_SIDE_EFFECTS__
 function createSlot(ownerName) {
   const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
@@ -2607,9 +2495,9 @@ function createSlot(ownerName) {
           return child;
         }
       });
-      return /* @__PURE__ */ jsx24(SlotClone, { ...slotProps, ref: forwardedRef, children: React2.isValidElement(newElement) ? React2.cloneElement(newElement, void 0, newChildren) : null });
+      return /* @__PURE__ */ jsx25(SlotClone, { ...slotProps, ref: forwardedRef, children: React2.isValidElement(newElement) ? React2.cloneElement(newElement, void 0, newChildren) : null });
     }
-    return /* @__PURE__ */ jsx24(SlotClone, { ...slotProps, ref: forwardedRef, children });
+    return /* @__PURE__ */ jsx25(SlotClone, { ...slotProps, ref: forwardedRef, children });
   });
   Slot2.displayName = `${ownerName}.Slot`;
   return Slot2;
@@ -2675,7 +2563,7 @@ function getElementRef(element) {
 }
 
 // src/breadcrumbs/Breadcrumbs.tsx
-import { jsx as jsx25, jsxs as jsxs13 } from "react/jsx-runtime";
+import { jsx as jsx26, jsxs as jsxs13 } from "react/jsx-runtime";
 var BreadcrumbNav = styled("nav", {
   base: {
     display: "flex",
@@ -2696,13 +2584,13 @@ var BreadcrumbList = styled("ol", {
 var Breadcrumbs = forwardRef25(
   ({ separator = "/", children, ...props }, ref) => {
     const items = Children2.toArray(children).filter(isValidElement6);
-    return /* @__PURE__ */ jsx25(BreadcrumbNav, { ref, "aria-label": "Breadcrumb", ...props, children: /* @__PURE__ */ jsx25(BreadcrumbList, { children: items.map((child, index) => {
+    return /* @__PURE__ */ jsx26(BreadcrumbNav, { ref, "aria-label": "Breadcrumb", ...props, children: /* @__PURE__ */ jsx26(BreadcrumbList, { children: items.map((child, index) => {
       const isLast = index === items.length - 1;
       return /* @__PURE__ */ jsxs13("li", { style: { display: "flex", alignItems: "center", gap: "8px" }, children: [
         cloneElement2(child, {
           isCurrentPage: isLast
         }),
-        !isLast && /* @__PURE__ */ jsx25(BreadcrumbSeparator, { children: separator })
+        !isLast && /* @__PURE__ */ jsx26(BreadcrumbSeparator, { children: separator })
       ] }, index);
     }) }) });
   }
@@ -2722,7 +2610,7 @@ var BreadcrumbItemRoot = styled("span", {
 });
 var BreadcrumbItem = forwardRef25(
   ({ isCurrentPage, children, ...props }, ref) => {
-    return /* @__PURE__ */ jsx25(
+    return /* @__PURE__ */ jsx26(
       BreadcrumbItemRoot,
       {
         ref,
@@ -2754,9 +2642,9 @@ var BreadcrumbAnchor = styled("a", {
 var BreadcrumbLink = forwardRef25(
   ({ asChild, children, ...props }, ref) => {
     if (asChild) {
-      return /* @__PURE__ */ jsx25(Slot, { ref, ...props, children });
+      return /* @__PURE__ */ jsx26(Slot, { ref, ...props, children });
     }
-    return /* @__PURE__ */ jsx25(BreadcrumbAnchor, { ref, ...props, children });
+    return /* @__PURE__ */ jsx26(BreadcrumbAnchor, { ref, ...props, children });
   }
 );
 BreadcrumbLink.displayName = "BreadcrumbLink";
@@ -2769,7 +2657,7 @@ var SeparatorRoot = styled("span", {
 });
 var BreadcrumbSeparator = forwardRef25(
   ({ children = "/", ...props }, ref) => {
-    return /* @__PURE__ */ jsx25(SeparatorRoot, { ref, "aria-hidden": "true", ...props, children });
+    return /* @__PURE__ */ jsx26(SeparatorRoot, { ref, "aria-hidden": "true", ...props, children });
   }
 );
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
@@ -2838,7 +2726,7 @@ var paginationButtonRecipe = cva({
 });
 
 // src/pagination/Pagination.tsx
-import { jsx as jsx26, jsxs as jsxs14 } from "react/jsx-runtime";
+import { jsx as jsx27, jsxs as jsxs14 } from "react/jsx-runtime";
 var PaginationRoot = styled("nav", {
   base: {
     display: "flex",
@@ -2895,7 +2783,7 @@ function usePagination({
 }
 var PaginationButton = forwardRef26(
   ({ isActive, disabled, children, ...props }, ref) => {
-    return /* @__PURE__ */ jsx26(
+    return /* @__PURE__ */ jsx27(
       "button",
       {
         ref,
@@ -2912,7 +2800,7 @@ var PaginationButton = forwardRef26(
 PaginationButton.displayName = "PaginationButton";
 var PaginationEllipsis = forwardRef26(
   (props, ref) => {
-    return /* @__PURE__ */ jsx26(EllipsisContainer, { ref, "aria-hidden": "true", ...props, children: "..." });
+    return /* @__PURE__ */ jsx27(EllipsisContainer, { ref, "aria-hidden": "true", ...props, children: "..." });
   }
 );
 PaginationEllipsis.displayName = "PaginationEllipsis";
@@ -2933,7 +2821,7 @@ var Pagination = forwardRef26(
       }
     };
     return /* @__PURE__ */ jsxs14(PaginationRoot, { ref, "aria-label": "Pagination", ...props, children: [
-      showFirstLast && /* @__PURE__ */ jsx26(
+      showFirstLast && /* @__PURE__ */ jsx27(
         "button",
         {
           type: "button",
@@ -2941,10 +2829,10 @@ var Pagination = forwardRef26(
           onClick: () => handlePageChange(1),
           disabled: currentPage === 1,
           "aria-label": "Go to first page",
-          children: /* @__PURE__ */ jsx26(Icon, { name: "angles-left", size: "lg" })
+          children: /* @__PURE__ */ jsx27(Icon, { name: "angles-left", size: "lg" })
         }
       ),
-      /* @__PURE__ */ jsx26(
+      /* @__PURE__ */ jsx27(
         "button",
         {
           type: "button",
@@ -2952,11 +2840,11 @@ var Pagination = forwardRef26(
           onClick: () => handlePageChange(currentPage - 1),
           disabled: currentPage === 1,
           "aria-label": "Go to previous page",
-          children: /* @__PURE__ */ jsx26(Icon, { name: "chevron-left", size: "lg" })
+          children: /* @__PURE__ */ jsx27(Icon, { name: "chevron-left", size: "lg" })
         }
       ),
       pages.map(
-        (page, index) => page === "ellipsis" ? /* @__PURE__ */ jsx26(PaginationEllipsis, {}, `ellipsis-${index}`) : /* @__PURE__ */ jsx26(
+        (page, index) => page === "ellipsis" ? /* @__PURE__ */ jsx27(PaginationEllipsis, {}, `ellipsis-${index}`) : /* @__PURE__ */ jsx27(
           PaginationButton,
           {
             isActive: page === currentPage,
@@ -2967,7 +2855,7 @@ var Pagination = forwardRef26(
           page
         )
       ),
-      /* @__PURE__ */ jsx26(
+      /* @__PURE__ */ jsx27(
         "button",
         {
           type: "button",
@@ -2975,10 +2863,10 @@ var Pagination = forwardRef26(
           onClick: () => handlePageChange(currentPage + 1),
           disabled: currentPage === totalPages,
           "aria-label": "Go to next page",
-          children: /* @__PURE__ */ jsx26(Icon, { name: "chevron-right", size: "lg" })
+          children: /* @__PURE__ */ jsx27(Icon, { name: "chevron-right", size: "lg" })
         }
       ),
-      showFirstLast && /* @__PURE__ */ jsx26(
+      showFirstLast && /* @__PURE__ */ jsx27(
         "button",
         {
           type: "button",
@@ -2986,7 +2874,7 @@ var Pagination = forwardRef26(
           onClick: () => handlePageChange(totalPages),
           disabled: currentPage === totalPages,
           "aria-label": "Go to last page",
-          children: /* @__PURE__ */ jsx26(Icon, { name: "angles-right", size: "lg" })
+          children: /* @__PURE__ */ jsx27(Icon, { name: "angles-right", size: "lg" })
         }
       )
     ] });
@@ -3065,7 +2953,7 @@ var sidePanelContentRecipe = cva({
 });
 
 // src/side-panel/SidePanel.tsx
-import { jsx as jsx27, jsxs as jsxs15 } from "react/jsx-runtime";
+import { jsx as jsx28, jsxs as jsxs15 } from "react/jsx-runtime";
 var Overlay4 = styled(DialogPrimitive2.Overlay, {
   base: {
     bg: "overlay.modal",
@@ -3170,21 +3058,21 @@ var SidePanel = forwardRef27(
         defaultOpen,
         onOpenChange,
         children: [
-          trigger && /* @__PURE__ */ jsx27(DialogPrimitive2.Trigger, { asChild: true, children: trigger }),
+          trigger && /* @__PURE__ */ jsx28(DialogPrimitive2.Trigger, { asChild: true, children: trigger }),
           /* @__PURE__ */ jsxs15(DialogPrimitive2.Portal, { children: [
-            /* @__PURE__ */ jsx27(Overlay4, {}),
+            /* @__PURE__ */ jsx28(Overlay4, {}),
             /* @__PURE__ */ jsxs15(
               DialogPrimitive2.Content,
               {
                 ref,
                 className: sidePanelContentRecipe({ side, size }),
                 children: [
-                  /* @__PURE__ */ jsx27(CloseButton2, { "aria-label": "Close panel", children: /* @__PURE__ */ jsx27(Icon, { name: "xmark", size: "lg" }) }),
+                  /* @__PURE__ */ jsx28(CloseButton2, { "aria-label": "Close panel", children: /* @__PURE__ */ jsx28(Icon, { name: "xmark", size: "lg" }) }),
                   (title || description) && /* @__PURE__ */ jsxs15(Header3, { children: [
-                    title && /* @__PURE__ */ jsx27(Title6, { children: title }),
-                    description && /* @__PURE__ */ jsx27(Description6, { children: description })
+                    title && /* @__PURE__ */ jsx28(Title6, { children: title }),
+                    description && /* @__PURE__ */ jsx28(Description6, { children: description })
                   ] }),
-                  /* @__PURE__ */ jsx27(Body, { children })
+                  /* @__PURE__ */ jsx28(Body, { children })
                 ]
               }
             )
@@ -3204,7 +3092,7 @@ import {
   useReactTable
 } from "@tanstack/react-table";
 import { forwardRef as forwardRef28, useEffect, useState } from "react";
-import { jsx as jsx28, jsxs as jsxs16 } from "react/jsx-runtime";
+import { jsx as jsx29, jsxs as jsxs16 } from "react/jsx-runtime";
 var TableContainer = styled("div", {
   base: {
     width: "100%",
@@ -3226,7 +3114,8 @@ var StyledTable = styled("table", {
 });
 var TableHead = styled("thead", {
   base: {
-    bg: "background.subtle",
+    bg: "table.header.bg",
+    color: "table.header.text",
     borderBottom: "2px solid",
     borderColor: "border.strong"
   }
@@ -3238,14 +3127,14 @@ var TableHeaderCell = styled("th", {
     textAlign: "left",
     fontFamily: "brand",
     fontWeight: "medium",
-    color: "text.primary",
+    color: "table.header.text",
     fontSize: "sm",
     textTransform: "uppercase",
     letterSpacing: "0.5px",
     userSelect: "none",
     transition: "all 0.15s ease",
     _hover: {
-      bg: "background.elevated"
+      bg: "accent.dark"
     }
   },
   variants: {
@@ -3316,8 +3205,8 @@ function TableComponent({
       onRowSelectionChange(selectedRows);
     }
   }, [rowSelection, onRowSelectionChange, table]);
-  return /* @__PURE__ */ jsx28(TableContainer, { ref, children: /* @__PURE__ */ jsxs16(StyledTable, { children: [
-    /* @__PURE__ */ jsx28(TableHead, { children: table.getHeaderGroups().map((headerGroup) => /* @__PURE__ */ jsx28("tr", { children: headerGroup.headers.map((header) => /* @__PURE__ */ jsx28(
+  return /* @__PURE__ */ jsx29(TableContainer, { ref, children: /* @__PURE__ */ jsxs16(StyledTable, { children: [
+    /* @__PURE__ */ jsx29(TableHead, { children: table.getHeaderGroups().map((headerGroup) => /* @__PURE__ */ jsx29("tr", { children: headerGroup.headers.map((header) => /* @__PURE__ */ jsx29(
       TableHeaderCell,
       {
         onClick: header.column.getToggleSortingHandler(),
@@ -3327,7 +3216,7 @@ function TableComponent({
             header.column.columnDef.header,
             header.getContext()
           ),
-          header.column.getIsSorted() && /* @__PURE__ */ jsx28(
+          header.column.getIsSorted() && /* @__PURE__ */ jsx29(
             Icon,
             {
               name: header.column.getIsSorted() === "asc" ? "arrow-up" : "arrow-down",
@@ -3338,11 +3227,11 @@ function TableComponent({
       },
       header.id
     )) }, headerGroup.id)) }),
-    /* @__PURE__ */ jsx28(TableBody, { children: table.getRowModel().rows.map((row) => /* @__PURE__ */ jsx28(
+    /* @__PURE__ */ jsx29(TableBody, { children: table.getRowModel().rows.map((row) => /* @__PURE__ */ jsx29(
       TableRow,
       {
         "data-selected": row.getIsSelected(),
-        children: row.getVisibleCells().map((cell) => /* @__PURE__ */ jsx28(TableCell, { children: flexRender(cell.column.columnDef.cell, cell.getContext()) }, cell.id))
+        children: row.getVisibleCells().map((cell) => /* @__PURE__ */ jsx29(TableCell, { children: flexRender(cell.column.columnDef.cell, cell.getContext()) }, cell.id))
       },
       row.id
     )) })
@@ -3359,1192 +3248,100 @@ import { forwardRef as forwardRef29 } from "react";
 
 // styled-system/tokens/index.mjs
 var tokens = {
-  "aspectRatios.square": {
-    "value": "1 / 1",
-    "variable": "var(--aspect-ratios-square)"
-  },
-  "aspectRatios.landscape": {
-    "value": "4 / 3",
-    "variable": "var(--aspect-ratios-landscape)"
-  },
-  "aspectRatios.portrait": {
-    "value": "3 / 4",
-    "variable": "var(--aspect-ratios-portrait)"
-  },
-  "aspectRatios.wide": {
-    "value": "16 / 9",
-    "variable": "var(--aspect-ratios-wide)"
-  },
-  "aspectRatios.ultrawide": {
-    "value": "18 / 5",
-    "variable": "var(--aspect-ratios-ultrawide)"
-  },
-  "aspectRatios.golden": {
-    "value": "1.618 / 1",
-    "variable": "var(--aspect-ratios-golden)"
-  },
-  "borders.none": {
-    "value": "none",
-    "variable": "var(--borders-none)"
-  },
-  "easings.default": {
-    "value": "cubic-bezier(0.4, 0, 0.2, 1)",
-    "variable": "var(--easings-default)"
-  },
-  "easings.linear": {
-    "value": "linear",
-    "variable": "var(--easings-linear)"
-  },
-  "easings.in": {
-    "value": "cubic-bezier(0.4, 0, 1, 1)",
-    "variable": "var(--easings-in)"
-  },
-  "easings.out": {
-    "value": "cubic-bezier(0, 0, 0.2, 1)",
-    "variable": "var(--easings-out)"
-  },
-  "easings.in-out": {
-    "value": "cubic-bezier(0.4, 0, 0.2, 1)",
-    "variable": "var(--easings-in-out)"
-  },
-  "letterSpacings.tighter": {
-    "value": "-0.05em",
-    "variable": "var(--letter-spacings-tighter)"
-  },
-  "letterSpacings.tight": {
-    "value": "-0.025em",
-    "variable": "var(--letter-spacings-tight)"
-  },
-  "letterSpacings.normal": {
-    "value": "0em",
-    "variable": "var(--letter-spacings-normal)"
-  },
-  "letterSpacings.wide": {
-    "value": "0.025em",
-    "variable": "var(--letter-spacings-wide)"
-  },
-  "letterSpacings.wider": {
-    "value": "0.05em",
-    "variable": "var(--letter-spacings-wider)"
-  },
-  "letterSpacings.widest": {
-    "value": "0.1em",
-    "variable": "var(--letter-spacings-widest)"
-  },
-  "blurs.xs": {
-    "value": "4px",
-    "variable": "var(--blurs-xs)"
-  },
-  "blurs.sm": {
-    "value": "8px",
-    "variable": "var(--blurs-sm)"
-  },
-  "blurs.md": {
-    "value": "12px",
-    "variable": "var(--blurs-md)"
-  },
-  "blurs.lg": {
-    "value": "16px",
-    "variable": "var(--blurs-lg)"
-  },
-  "blurs.xl": {
-    "value": "24px",
-    "variable": "var(--blurs-xl)"
-  },
-  "blurs.2xl": {
-    "value": "40px",
-    "variable": "var(--blurs-2xl)"
-  },
-  "blurs.3xl": {
-    "value": "64px",
-    "variable": "var(--blurs-3xl)"
-  },
-  "animations.spin": {
-    "value": "spin 1s linear infinite",
-    "variable": "var(--animations-spin)"
-  },
-  "animations.ping": {
-    "value": "ping 1s cubic-bezier(0, 0, 0.2, 1) infinite",
-    "variable": "var(--animations-ping)"
-  },
-  "animations.pulse": {
-    "value": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-    "variable": "var(--animations-pulse)"
-  },
-  "animations.bounce": {
-    "value": "bounce 1s infinite",
-    "variable": "var(--animations-bounce)"
-  },
-  "fonts.sans": {
-    "value": 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-    "variable": "var(--fonts-sans)"
-  },
-  "fonts.serif": {
-    "value": 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
-    "variable": "var(--fonts-serif)"
-  },
-  "fonts.mono": {
-    "value": 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-    "variable": "var(--fonts-mono)"
-  },
-  "fonts.brand": {
-    "value": '"Benton Sans", "Work Sans", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-    "variable": "var(--fonts-brand)"
-  },
-  "colors.current": {
-    "value": "currentColor",
-    "variable": "var(--colors-current)"
-  },
-  "colors.black": {
-    "value": "#000",
-    "variable": "var(--colors-black)"
-  },
-  "colors.white": {
-    "value": "#fff",
-    "variable": "var(--colors-white)"
-  },
-  "colors.transparent": {
-    "value": "rgb(0 0 0 / 0)",
-    "variable": "var(--colors-transparent)"
-  },
-  "colors.rose.50": {
-    "value": "#fff1f2",
-    "variable": "var(--colors-rose-50)"
-  },
-  "colors.rose.100": {
-    "value": "#ffe4e6",
-    "variable": "var(--colors-rose-100)"
-  },
-  "colors.rose.200": {
-    "value": "#fecdd3",
-    "variable": "var(--colors-rose-200)"
-  },
-  "colors.rose.300": {
-    "value": "#fda4af",
-    "variable": "var(--colors-rose-300)"
-  },
-  "colors.rose.400": {
-    "value": "#fb7185",
-    "variable": "var(--colors-rose-400)"
-  },
-  "colors.rose.500": {
-    "value": "#f43f5e",
-    "variable": "var(--colors-rose-500)"
-  },
-  "colors.rose.600": {
-    "value": "#e11d48",
-    "variable": "var(--colors-rose-600)"
-  },
-  "colors.rose.700": {
-    "value": "#be123c",
-    "variable": "var(--colors-rose-700)"
-  },
-  "colors.rose.800": {
-    "value": "#9f1239",
-    "variable": "var(--colors-rose-800)"
-  },
-  "colors.rose.900": {
-    "value": "#881337",
-    "variable": "var(--colors-rose-900)"
-  },
-  "colors.rose.950": {
-    "value": "#4c0519",
-    "variable": "var(--colors-rose-950)"
-  },
-  "colors.pink.50": {
-    "value": "#fdf2f8",
-    "variable": "var(--colors-pink-50)"
-  },
-  "colors.pink.100": {
-    "value": "#fce7f3",
-    "variable": "var(--colors-pink-100)"
-  },
-  "colors.pink.200": {
-    "value": "#fbcfe8",
-    "variable": "var(--colors-pink-200)"
-  },
-  "colors.pink.300": {
-    "value": "#f9a8d4",
-    "variable": "var(--colors-pink-300)"
-  },
-  "colors.pink.400": {
-    "value": "#f472b6",
-    "variable": "var(--colors-pink-400)"
-  },
-  "colors.pink.500": {
-    "value": "#ec4899",
-    "variable": "var(--colors-pink-500)"
-  },
-  "colors.pink.600": {
-    "value": "#db2777",
-    "variable": "var(--colors-pink-600)"
-  },
-  "colors.pink.700": {
-    "value": "#be185d",
-    "variable": "var(--colors-pink-700)"
-  },
-  "colors.pink.800": {
-    "value": "#9d174d",
-    "variable": "var(--colors-pink-800)"
-  },
-  "colors.pink.900": {
-    "value": "#831843",
-    "variable": "var(--colors-pink-900)"
-  },
-  "colors.pink.950": {
-    "value": "#500724",
-    "variable": "var(--colors-pink-950)"
-  },
-  "colors.fuchsia.50": {
-    "value": "#fdf4ff",
-    "variable": "var(--colors-fuchsia-50)"
-  },
-  "colors.fuchsia.100": {
-    "value": "#fae8ff",
-    "variable": "var(--colors-fuchsia-100)"
-  },
-  "colors.fuchsia.200": {
-    "value": "#f5d0fe",
-    "variable": "var(--colors-fuchsia-200)"
-  },
-  "colors.fuchsia.300": {
-    "value": "#f0abfc",
-    "variable": "var(--colors-fuchsia-300)"
-  },
-  "colors.fuchsia.400": {
-    "value": "#e879f9",
-    "variable": "var(--colors-fuchsia-400)"
-  },
-  "colors.fuchsia.500": {
-    "value": "#d946ef",
-    "variable": "var(--colors-fuchsia-500)"
-  },
-  "colors.fuchsia.600": {
-    "value": "#c026d3",
-    "variable": "var(--colors-fuchsia-600)"
-  },
-  "colors.fuchsia.700": {
-    "value": "#a21caf",
-    "variable": "var(--colors-fuchsia-700)"
-  },
-  "colors.fuchsia.800": {
-    "value": "#86198f",
-    "variable": "var(--colors-fuchsia-800)"
-  },
-  "colors.fuchsia.900": {
-    "value": "#701a75",
-    "variable": "var(--colors-fuchsia-900)"
-  },
-  "colors.fuchsia.950": {
-    "value": "#4a044e",
-    "variable": "var(--colors-fuchsia-950)"
-  },
-  "colors.purple.50": {
-    "value": "#faf5ff",
-    "variable": "var(--colors-purple-50)"
-  },
-  "colors.purple.100": {
-    "value": "#f3e8ff",
-    "variable": "var(--colors-purple-100)"
-  },
-  "colors.purple.200": {
-    "value": "#e9d5ff",
-    "variable": "var(--colors-purple-200)"
-  },
-  "colors.purple.300": {
-    "value": "#d8b4fe",
-    "variable": "var(--colors-purple-300)"
-  },
-  "colors.purple.400": {
-    "value": "#c084fc",
-    "variable": "var(--colors-purple-400)"
-  },
-  "colors.purple.500": {
-    "value": "#a855f7",
-    "variable": "var(--colors-purple-500)"
-  },
-  "colors.purple.600": {
-    "value": "#9333ea",
-    "variable": "var(--colors-purple-600)"
-  },
-  "colors.purple.700": {
-    "value": "#7e22ce",
-    "variable": "var(--colors-purple-700)"
-  },
-  "colors.purple.800": {
-    "value": "#6b21a8",
-    "variable": "var(--colors-purple-800)"
-  },
-  "colors.purple.900": {
-    "value": "#581c87",
-    "variable": "var(--colors-purple-900)"
-  },
-  "colors.purple.950": {
-    "value": "#3b0764",
-    "variable": "var(--colors-purple-950)"
-  },
-  "colors.violet.50": {
-    "value": "#f5f3ff",
-    "variable": "var(--colors-violet-50)"
-  },
-  "colors.violet.100": {
-    "value": "#ede9fe",
-    "variable": "var(--colors-violet-100)"
-  },
-  "colors.violet.200": {
-    "value": "#ddd6fe",
-    "variable": "var(--colors-violet-200)"
-  },
-  "colors.violet.300": {
-    "value": "#c4b5fd",
-    "variable": "var(--colors-violet-300)"
-  },
-  "colors.violet.400": {
-    "value": "#a78bfa",
-    "variable": "var(--colors-violet-400)"
-  },
-  "colors.violet.500": {
-    "value": "#8b5cf6",
-    "variable": "var(--colors-violet-500)"
-  },
-  "colors.violet.600": {
-    "value": "#7c3aed",
-    "variable": "var(--colors-violet-600)"
-  },
-  "colors.violet.700": {
-    "value": "#6d28d9",
-    "variable": "var(--colors-violet-700)"
-  },
-  "colors.violet.800": {
-    "value": "#5b21b6",
-    "variable": "var(--colors-violet-800)"
-  },
-  "colors.violet.900": {
-    "value": "#4c1d95",
-    "variable": "var(--colors-violet-900)"
-  },
-  "colors.violet.950": {
-    "value": "#2e1065",
-    "variable": "var(--colors-violet-950)"
-  },
-  "colors.indigo.50": {
-    "value": "#eef2ff",
-    "variable": "var(--colors-indigo-50)"
-  },
-  "colors.indigo.100": {
-    "value": "#e0e7ff",
-    "variable": "var(--colors-indigo-100)"
-  },
-  "colors.indigo.200": {
-    "value": "#c7d2fe",
-    "variable": "var(--colors-indigo-200)"
-  },
-  "colors.indigo.300": {
-    "value": "#a5b4fc",
-    "variable": "var(--colors-indigo-300)"
-  },
-  "colors.indigo.400": {
-    "value": "#818cf8",
-    "variable": "var(--colors-indigo-400)"
-  },
-  "colors.indigo.500": {
-    "value": "#6366f1",
-    "variable": "var(--colors-indigo-500)"
-  },
-  "colors.indigo.600": {
-    "value": "#4f46e5",
-    "variable": "var(--colors-indigo-600)"
-  },
-  "colors.indigo.700": {
-    "value": "#4338ca",
-    "variable": "var(--colors-indigo-700)"
-  },
-  "colors.indigo.800": {
-    "value": "#3730a3",
-    "variable": "var(--colors-indigo-800)"
-  },
-  "colors.indigo.900": {
-    "value": "#312e81",
-    "variable": "var(--colors-indigo-900)"
-  },
-  "colors.indigo.950": {
-    "value": "#1e1b4b",
-    "variable": "var(--colors-indigo-950)"
-  },
-  "colors.blue.50": {
-    "value": "#eff6ff",
-    "variable": "var(--colors-blue-50)"
-  },
-  "colors.blue.100": {
-    "value": "#dbeafe",
-    "variable": "var(--colors-blue-100)"
-  },
-  "colors.blue.200": {
-    "value": "#bfdbfe",
-    "variable": "var(--colors-blue-200)"
-  },
-  "colors.blue.300": {
-    "value": "#93c5fd",
-    "variable": "var(--colors-blue-300)"
-  },
-  "colors.blue.400": {
-    "value": "#60a5fa",
-    "variable": "var(--colors-blue-400)"
-  },
-  "colors.blue.500": {
-    "value": "#3b82f6",
-    "variable": "var(--colors-blue-500)"
-  },
-  "colors.blue.600": {
-    "value": "#2563eb",
-    "variable": "var(--colors-blue-600)"
-  },
-  "colors.blue.700": {
-    "value": "#1d4ed8",
-    "variable": "var(--colors-blue-700)"
-  },
-  "colors.blue.800": {
-    "value": "#1e40af",
-    "variable": "var(--colors-blue-800)"
-  },
-  "colors.blue.900": {
-    "value": "#1e3a8a",
-    "variable": "var(--colors-blue-900)"
-  },
-  "colors.blue.950": {
-    "value": "#172554",
-    "variable": "var(--colors-blue-950)"
-  },
-  "colors.sky.50": {
-    "value": "#f0f9ff",
-    "variable": "var(--colors-sky-50)"
-  },
-  "colors.sky.100": {
-    "value": "#e0f2fe",
-    "variable": "var(--colors-sky-100)"
-  },
-  "colors.sky.200": {
-    "value": "#bae6fd",
-    "variable": "var(--colors-sky-200)"
-  },
-  "colors.sky.300": {
-    "value": "#7dd3fc",
-    "variable": "var(--colors-sky-300)"
-  },
-  "colors.sky.400": {
-    "value": "#38bdf8",
-    "variable": "var(--colors-sky-400)"
-  },
-  "colors.sky.500": {
-    "value": "#0ea5e9",
-    "variable": "var(--colors-sky-500)"
-  },
-  "colors.sky.600": {
-    "value": "#0284c7",
-    "variable": "var(--colors-sky-600)"
-  },
-  "colors.sky.700": {
-    "value": "#0369a1",
-    "variable": "var(--colors-sky-700)"
-  },
-  "colors.sky.800": {
-    "value": "#075985",
-    "variable": "var(--colors-sky-800)"
-  },
-  "colors.sky.900": {
-    "value": "#0c4a6e",
-    "variable": "var(--colors-sky-900)"
-  },
-  "colors.sky.950": {
-    "value": "#082f49",
-    "variable": "var(--colors-sky-950)"
-  },
-  "colors.cyan.50": {
-    "value": "#ecfeff",
-    "variable": "var(--colors-cyan-50)"
-  },
-  "colors.cyan.100": {
-    "value": "#cffafe",
-    "variable": "var(--colors-cyan-100)"
-  },
-  "colors.cyan.200": {
-    "value": "#a5f3fc",
-    "variable": "var(--colors-cyan-200)"
-  },
-  "colors.cyan.300": {
-    "value": "#67e8f9",
-    "variable": "var(--colors-cyan-300)"
-  },
-  "colors.cyan.400": {
-    "value": "#22d3ee",
-    "variable": "var(--colors-cyan-400)"
-  },
-  "colors.cyan.500": {
-    "value": "#06b6d4",
-    "variable": "var(--colors-cyan-500)"
-  },
-  "colors.cyan.600": {
-    "value": "#0891b2",
-    "variable": "var(--colors-cyan-600)"
-  },
-  "colors.cyan.700": {
-    "value": "#0e7490",
-    "variable": "var(--colors-cyan-700)"
-  },
-  "colors.cyan.800": {
-    "value": "#155e75",
-    "variable": "var(--colors-cyan-800)"
-  },
-  "colors.cyan.900": {
-    "value": "#164e63",
-    "variable": "var(--colors-cyan-900)"
-  },
-  "colors.cyan.950": {
-    "value": "#083344",
-    "variable": "var(--colors-cyan-950)"
-  },
-  "colors.teal.50": {
-    "value": "#f0fdfa",
-    "variable": "var(--colors-teal-50)"
-  },
-  "colors.teal.100": {
-    "value": "#ccfbf1",
-    "variable": "var(--colors-teal-100)"
-  },
-  "colors.teal.200": {
-    "value": "#99f6e4",
-    "variable": "var(--colors-teal-200)"
-  },
-  "colors.teal.300": {
-    "value": "#5eead4",
-    "variable": "var(--colors-teal-300)"
-  },
-  "colors.teal.400": {
-    "value": "#2dd4bf",
-    "variable": "var(--colors-teal-400)"
-  },
-  "colors.teal.500": {
-    "value": "#14b8a6",
-    "variable": "var(--colors-teal-500)"
-  },
-  "colors.teal.600": {
-    "value": "#0d9488",
-    "variable": "var(--colors-teal-600)"
-  },
-  "colors.teal.700": {
-    "value": "#0f766e",
-    "variable": "var(--colors-teal-700)"
-  },
-  "colors.teal.800": {
-    "value": "#115e59",
-    "variable": "var(--colors-teal-800)"
-  },
-  "colors.teal.900": {
-    "value": "#134e4a",
-    "variable": "var(--colors-teal-900)"
-  },
-  "colors.teal.950": {
-    "value": "#042f2e",
-    "variable": "var(--colors-teal-950)"
-  },
-  "colors.emerald.50": {
-    "value": "#ecfdf5",
-    "variable": "var(--colors-emerald-50)"
-  },
-  "colors.emerald.100": {
-    "value": "#d1fae5",
-    "variable": "var(--colors-emerald-100)"
-  },
-  "colors.emerald.200": {
-    "value": "#a7f3d0",
-    "variable": "var(--colors-emerald-200)"
-  },
-  "colors.emerald.300": {
-    "value": "#6ee7b7",
-    "variable": "var(--colors-emerald-300)"
-  },
-  "colors.emerald.400": {
-    "value": "#34d399",
-    "variable": "var(--colors-emerald-400)"
-  },
-  "colors.emerald.500": {
-    "value": "#10b981",
-    "variable": "var(--colors-emerald-500)"
-  },
-  "colors.emerald.600": {
-    "value": "#059669",
-    "variable": "var(--colors-emerald-600)"
-  },
-  "colors.emerald.700": {
-    "value": "#047857",
-    "variable": "var(--colors-emerald-700)"
-  },
-  "colors.emerald.800": {
-    "value": "#065f46",
-    "variable": "var(--colors-emerald-800)"
-  },
-  "colors.emerald.900": {
-    "value": "#064e3b",
-    "variable": "var(--colors-emerald-900)"
-  },
-  "colors.emerald.950": {
-    "value": "#022c22",
-    "variable": "var(--colors-emerald-950)"
-  },
-  "colors.green.50": {
-    "value": "#f0fdf4",
-    "variable": "var(--colors-green-50)"
-  },
-  "colors.green.100": {
-    "value": "#dcfce7",
-    "variable": "var(--colors-green-100)"
-  },
-  "colors.green.200": {
-    "value": "#bbf7d0",
-    "variable": "var(--colors-green-200)"
-  },
-  "colors.green.300": {
-    "value": "#86efac",
-    "variable": "var(--colors-green-300)"
-  },
-  "colors.green.400": {
-    "value": "#4ade80",
-    "variable": "var(--colors-green-400)"
-  },
-  "colors.green.500": {
-    "value": "#22c55e",
-    "variable": "var(--colors-green-500)"
-  },
-  "colors.green.600": {
-    "value": "#16a34a",
-    "variable": "var(--colors-green-600)"
-  },
-  "colors.green.700": {
-    "value": "#15803d",
-    "variable": "var(--colors-green-700)"
-  },
-  "colors.green.800": {
-    "value": "#166534",
-    "variable": "var(--colors-green-800)"
-  },
-  "colors.green.900": {
-    "value": "#14532d",
-    "variable": "var(--colors-green-900)"
-  },
-  "colors.green.950": {
-    "value": "#052e16",
-    "variable": "var(--colors-green-950)"
-  },
-  "colors.lime.50": {
-    "value": "#f7fee7",
-    "variable": "var(--colors-lime-50)"
-  },
-  "colors.lime.100": {
-    "value": "#ecfccb",
-    "variable": "var(--colors-lime-100)"
-  },
-  "colors.lime.200": {
-    "value": "#d9f99d",
-    "variable": "var(--colors-lime-200)"
-  },
-  "colors.lime.300": {
-    "value": "#bef264",
-    "variable": "var(--colors-lime-300)"
-  },
-  "colors.lime.400": {
-    "value": "#a3e635",
-    "variable": "var(--colors-lime-400)"
-  },
-  "colors.lime.500": {
-    "value": "#84cc16",
-    "variable": "var(--colors-lime-500)"
-  },
-  "colors.lime.600": {
-    "value": "#65a30d",
-    "variable": "var(--colors-lime-600)"
-  },
-  "colors.lime.700": {
-    "value": "#4d7c0f",
-    "variable": "var(--colors-lime-700)"
-  },
-  "colors.lime.800": {
-    "value": "#3f6212",
-    "variable": "var(--colors-lime-800)"
-  },
-  "colors.lime.900": {
-    "value": "#365314",
-    "variable": "var(--colors-lime-900)"
-  },
-  "colors.lime.950": {
-    "value": "#1a2e05",
-    "variable": "var(--colors-lime-950)"
-  },
-  "colors.yellow.50": {
-    "value": "#fefce8",
-    "variable": "var(--colors-yellow-50)"
-  },
-  "colors.yellow.100": {
-    "value": "#fef9c3",
-    "variable": "var(--colors-yellow-100)"
-  },
-  "colors.yellow.200": {
-    "value": "#fef08a",
-    "variable": "var(--colors-yellow-200)"
-  },
-  "colors.yellow.300": {
-    "value": "#fde047",
-    "variable": "var(--colors-yellow-300)"
-  },
-  "colors.yellow.400": {
-    "value": "#facc15",
-    "variable": "var(--colors-yellow-400)"
-  },
-  "colors.yellow.500": {
-    "value": "#eab308",
-    "variable": "var(--colors-yellow-500)"
-  },
-  "colors.yellow.600": {
-    "value": "#ca8a04",
-    "variable": "var(--colors-yellow-600)"
-  },
-  "colors.yellow.700": {
-    "value": "#a16207",
-    "variable": "var(--colors-yellow-700)"
-  },
-  "colors.yellow.800": {
-    "value": "#854d0e",
-    "variable": "var(--colors-yellow-800)"
-  },
-  "colors.yellow.900": {
-    "value": "#713f12",
-    "variable": "var(--colors-yellow-900)"
-  },
-  "colors.yellow.950": {
-    "value": "#422006",
-    "variable": "var(--colors-yellow-950)"
-  },
-  "colors.amber.50": {
-    "value": "#fffbeb",
-    "variable": "var(--colors-amber-50)"
-  },
-  "colors.amber.100": {
-    "value": "#fef3c7",
-    "variable": "var(--colors-amber-100)"
-  },
-  "colors.amber.200": {
-    "value": "#fde68a",
-    "variable": "var(--colors-amber-200)"
-  },
-  "colors.amber.300": {
-    "value": "#fcd34d",
-    "variable": "var(--colors-amber-300)"
-  },
-  "colors.amber.400": {
-    "value": "#fbbf24",
-    "variable": "var(--colors-amber-400)"
-  },
-  "colors.amber.500": {
-    "value": "#f59e0b",
-    "variable": "var(--colors-amber-500)"
-  },
-  "colors.amber.600": {
-    "value": "#d97706",
-    "variable": "var(--colors-amber-600)"
-  },
-  "colors.amber.700": {
-    "value": "#b45309",
-    "variable": "var(--colors-amber-700)"
-  },
-  "colors.amber.800": {
-    "value": "#92400e",
-    "variable": "var(--colors-amber-800)"
-  },
-  "colors.amber.900": {
-    "value": "#78350f",
-    "variable": "var(--colors-amber-900)"
-  },
-  "colors.amber.950": {
-    "value": "#451a03",
-    "variable": "var(--colors-amber-950)"
-  },
-  "colors.orange.50": {
-    "value": "#fff7ed",
-    "variable": "var(--colors-orange-50)"
-  },
-  "colors.orange.100": {
-    "value": "#ffedd5",
-    "variable": "var(--colors-orange-100)"
-  },
-  "colors.orange.200": {
-    "value": "#fed7aa",
-    "variable": "var(--colors-orange-200)"
-  },
-  "colors.orange.300": {
-    "value": "#fdba74",
-    "variable": "var(--colors-orange-300)"
-  },
-  "colors.orange.400": {
-    "value": "#fb923c",
-    "variable": "var(--colors-orange-400)"
-  },
-  "colors.orange.500": {
-    "value": "#f97316",
-    "variable": "var(--colors-orange-500)"
-  },
-  "colors.orange.600": {
-    "value": "#ea580c",
-    "variable": "var(--colors-orange-600)"
-  },
-  "colors.orange.700": {
-    "value": "#c2410c",
-    "variable": "var(--colors-orange-700)"
-  },
-  "colors.orange.800": {
-    "value": "#9a3412",
-    "variable": "var(--colors-orange-800)"
-  },
-  "colors.orange.900": {
-    "value": "#7c2d12",
-    "variable": "var(--colors-orange-900)"
-  },
-  "colors.orange.950": {
-    "value": "#431407",
-    "variable": "var(--colors-orange-950)"
-  },
-  "colors.red.50": {
-    "value": "#fef2f2",
-    "variable": "var(--colors-red-50)"
-  },
-  "colors.red.100": {
-    "value": "#fee2e2",
-    "variable": "var(--colors-red-100)"
-  },
-  "colors.red.200": {
-    "value": "#fecaca",
-    "variable": "var(--colors-red-200)"
-  },
-  "colors.red.300": {
-    "value": "#fca5a5",
-    "variable": "var(--colors-red-300)"
-  },
-  "colors.red.400": {
-    "value": "#f87171",
-    "variable": "var(--colors-red-400)"
-  },
-  "colors.red.500": {
-    "value": "#ef4444",
-    "variable": "var(--colors-red-500)"
-  },
-  "colors.red.600": {
-    "value": "#dc2626",
-    "variable": "var(--colors-red-600)"
-  },
-  "colors.red.700": {
-    "value": "#b91c1c",
-    "variable": "var(--colors-red-700)"
-  },
-  "colors.red.800": {
-    "value": "#991b1b",
-    "variable": "var(--colors-red-800)"
-  },
-  "colors.red.900": {
-    "value": "#7f1d1d",
-    "variable": "var(--colors-red-900)"
-  },
-  "colors.red.950": {
-    "value": "#450a0a",
-    "variable": "var(--colors-red-950)"
-  },
-  "colors.neutral.50": {
-    "value": "#fafafa",
-    "variable": "var(--colors-neutral-50)"
-  },
-  "colors.neutral.100": {
-    "value": "#f5f5f5",
-    "variable": "var(--colors-neutral-100)"
-  },
-  "colors.neutral.200": {
-    "value": "#e5e5e5",
-    "variable": "var(--colors-neutral-200)"
-  },
-  "colors.neutral.300": {
-    "value": "#d4d4d4",
-    "variable": "var(--colors-neutral-300)"
-  },
-  "colors.neutral.400": {
-    "value": "#a3a3a3",
-    "variable": "var(--colors-neutral-400)"
-  },
-  "colors.neutral.500": {
-    "value": "#737373",
-    "variable": "var(--colors-neutral-500)"
-  },
-  "colors.neutral.600": {
-    "value": "#525252",
-    "variable": "var(--colors-neutral-600)"
-  },
-  "colors.neutral.700": {
-    "value": "#404040",
-    "variable": "var(--colors-neutral-700)"
-  },
-  "colors.neutral.800": {
-    "value": "#262626",
-    "variable": "var(--colors-neutral-800)"
-  },
-  "colors.neutral.900": {
-    "value": "#171717",
-    "variable": "var(--colors-neutral-900)"
-  },
-  "colors.neutral.950": {
-    "value": "#0a0a0a",
-    "variable": "var(--colors-neutral-950)"
-  },
-  "colors.stone.50": {
-    "value": "#fafaf9",
-    "variable": "var(--colors-stone-50)"
-  },
-  "colors.stone.100": {
-    "value": "#f5f5f4",
-    "variable": "var(--colors-stone-100)"
-  },
-  "colors.stone.200": {
-    "value": "#e7e5e4",
-    "variable": "var(--colors-stone-200)"
-  },
-  "colors.stone.300": {
-    "value": "#d6d3d1",
-    "variable": "var(--colors-stone-300)"
-  },
-  "colors.stone.400": {
-    "value": "#a8a29e",
-    "variable": "var(--colors-stone-400)"
-  },
-  "colors.stone.500": {
-    "value": "#78716c",
-    "variable": "var(--colors-stone-500)"
-  },
-  "colors.stone.600": {
-    "value": "#57534e",
-    "variable": "var(--colors-stone-600)"
-  },
-  "colors.stone.700": {
-    "value": "#44403c",
-    "variable": "var(--colors-stone-700)"
-  },
-  "colors.stone.800": {
-    "value": "#292524",
-    "variable": "var(--colors-stone-800)"
-  },
-  "colors.stone.900": {
-    "value": "#1c1917",
-    "variable": "var(--colors-stone-900)"
-  },
-  "colors.stone.950": {
-    "value": "#0c0a09",
-    "variable": "var(--colors-stone-950)"
-  },
-  "colors.zinc.50": {
-    "value": "#fafafa",
-    "variable": "var(--colors-zinc-50)"
-  },
-  "colors.zinc.100": {
-    "value": "#f4f4f5",
-    "variable": "var(--colors-zinc-100)"
-  },
-  "colors.zinc.200": {
-    "value": "#e4e4e7",
-    "variable": "var(--colors-zinc-200)"
-  },
-  "colors.zinc.300": {
-    "value": "#d4d4d8",
-    "variable": "var(--colors-zinc-300)"
-  },
-  "colors.zinc.400": {
-    "value": "#a1a1aa",
-    "variable": "var(--colors-zinc-400)"
-  },
-  "colors.zinc.500": {
-    "value": "#71717a",
-    "variable": "var(--colors-zinc-500)"
-  },
-  "colors.zinc.600": {
-    "value": "#52525b",
-    "variable": "var(--colors-zinc-600)"
-  },
-  "colors.zinc.700": {
-    "value": "#3f3f46",
-    "variable": "var(--colors-zinc-700)"
-  },
-  "colors.zinc.800": {
-    "value": "#27272a",
-    "variable": "var(--colors-zinc-800)"
-  },
-  "colors.zinc.900": {
-    "value": "#18181b",
-    "variable": "var(--colors-zinc-900)"
-  },
-  "colors.zinc.950": {
-    "value": "#09090b",
-    "variable": "var(--colors-zinc-950)"
-  },
-  "colors.gray.50": {
-    "value": "#f9fafb",
-    "variable": "var(--colors-gray-50)"
-  },
-  "colors.gray.100": {
-    "value": "#f3f4f6",
-    "variable": "var(--colors-gray-100)"
-  },
-  "colors.gray.200": {
-    "value": "#e5e7eb",
-    "variable": "var(--colors-gray-200)"
-  },
-  "colors.gray.300": {
-    "value": "#d1d5db",
-    "variable": "var(--colors-gray-300)"
-  },
-  "colors.gray.400": {
-    "value": "#9ca3af",
-    "variable": "var(--colors-gray-400)"
-  },
-  "colors.gray.500": {
-    "value": "#6b7280",
-    "variable": "var(--colors-gray-500)"
-  },
-  "colors.gray.600": {
-    "value": "#4b5563",
-    "variable": "var(--colors-gray-600)"
-  },
-  "colors.gray.700": {
-    "value": "#374151",
-    "variable": "var(--colors-gray-700)"
-  },
-  "colors.gray.800": {
-    "value": "#1f2937",
-    "variable": "var(--colors-gray-800)"
-  },
-  "colors.gray.900": {
-    "value": "#111827",
-    "variable": "var(--colors-gray-900)"
-  },
-  "colors.gray.950": {
-    "value": "#030712",
-    "variable": "var(--colors-gray-950)"
-  },
-  "colors.slate.50": {
-    "value": "#f8fafc",
-    "variable": "var(--colors-slate-50)"
-  },
-  "colors.slate.100": {
-    "value": "#f1f5f9",
-    "variable": "var(--colors-slate-100)"
-  },
-  "colors.slate.200": {
-    "value": "#e2e8f0",
-    "variable": "var(--colors-slate-200)"
-  },
-  "colors.slate.300": {
-    "value": "#cbd5e1",
-    "variable": "var(--colors-slate-300)"
-  },
-  "colors.slate.400": {
-    "value": "#94a3b8",
-    "variable": "var(--colors-slate-400)"
-  },
-  "colors.slate.500": {
-    "value": "#64748b",
-    "variable": "var(--colors-slate-500)"
-  },
-  "colors.slate.600": {
-    "value": "#475569",
-    "variable": "var(--colors-slate-600)"
-  },
-  "colors.slate.700": {
-    "value": "#334155",
-    "variable": "var(--colors-slate-700)"
-  },
-  "colors.slate.800": {
-    "value": "#1e293b",
-    "variable": "var(--colors-slate-800)"
-  },
-  "colors.slate.900": {
-    "value": "#0f172a",
-    "variable": "var(--colors-slate-900)"
-  },
-  "colors.slate.950": {
-    "value": "#020617",
-    "variable": "var(--colors-slate-950)"
-  },
-  "colors.brand.blue": {
-    "value": "#00B2CC",
-    "variable": "var(--colors-brand\\.blue)"
-  },
-  "colors.brand.red": {
-    "value": "#ED3F30",
-    "variable": "var(--colors-brand\\.red)"
+  "colors.brand.primary": {
+    "value": "#EF3F32",
+    "variable": "var(--colors-brand\\.primary)"
+  },
+  "colors.brand.hover": {
+    "value": "#CC170A",
+    "variable": "var(--colors-brand\\.hover)"
   },
   "colors.brand.dark": {
-    "value": "#333232",
+    "value": "#323433",
     "variable": "var(--colors-brand\\.dark)"
   },
   "colors.neutral.dark": {
-    "value": "#333232",
+    "value": "#323433",
     "variable": "var(--colors-neutral\\.dark)"
   },
-  "colors.neutral.medium": {
-    "value": "#5C6464",
-    "variable": "var(--colors-neutral\\.medium)"
-  },
   "colors.neutral.base": {
-    "value": "#8E9191",
+    "value": "#AEAEAE",
     "variable": "var(--colors-neutral\\.base)"
   },
-  "colors.neutral.blue": {
-    "value": "#A3B0B3",
-    "variable": "var(--colors-neutral\\.blue)"
-  },
   "colors.neutral.light": {
-    "value": "#EAEAEA",
+    "value": "#F4F4F4",
     "variable": "var(--colors-neutral\\.light)"
   },
-  "colors.data.navy": {
-    "value": "#003A5D",
-    "variable": "var(--colors-data\\.navy)"
-  },
-  "colors.data.red": {
-    "value": "#ED3F30",
-    "variable": "var(--colors-data\\.red)"
+  "colors.neutral.soft": {
+    "value": "#BDBDBD",
+    "variable": "var(--colors-neutral\\.soft)"
   },
   "colors.data.blue": {
-    "value": "#00B2CC",
+    "value": "#2563eb",
     "variable": "var(--colors-data\\.blue)"
   },
-  "colors.data.orange": {
-    "value": "#EF8936",
-    "variable": "var(--colors-data\\.orange)"
+  "colors.data.blue-dark": {
+    "value": "#60a5fa",
+    "variable": "var(--colors-data\\.blue-dark)"
   },
-  "colors.data.purple-dark": {
-    "value": "#764FA0",
-    "variable": "var(--colors-data\\.purple-dark)"
-  },
-  "colors.data.yellow": {
-    "value": "#E7E51A",
-    "variable": "var(--colors-data\\.yellow)"
+  "colors.data.blue-bg": {
+    "value": "#dbeafe",
+    "variable": "var(--colors-data\\.blue-bg)"
   },
   "colors.data.purple": {
-    "value": "#B65DA4",
+    "value": "#9333ea",
     "variable": "var(--colors-data\\.purple)"
   },
-  "colors.data.green": {
-    "value": "#8AC640",
-    "variable": "var(--colors-data\\.green)"
+  "colors.data.purple-dark": {
+    "value": "#a78bfa",
+    "variable": "var(--colors-data\\.purple-dark)"
+  },
+  "colors.data.purple-bg": {
+    "value": "#f3e8ff",
+    "variable": "var(--colors-data\\.purple-bg)"
+  },
+  "colors.data.yellow": {
+    "value": "#eab308",
+    "variable": "var(--colors-data\\.yellow)"
+  },
+  "colors.data.yellow-dark": {
+    "value": "#facc15",
+    "variable": "var(--colors-data\\.yellow-dark)"
+  },
+  "colors.data.yellow-bg": {
+    "value": "#fef9c3",
+    "variable": "var(--colors-data\\.yellow-bg)"
+  },
+  "colors.data.pink": {
+    "value": "#ec4899",
+    "variable": "var(--colors-data\\.pink)"
+  },
+  "colors.data.pink-dark": {
+    "value": "#f472b6",
+    "variable": "var(--colors-data\\.pink-dark)"
+  },
+  "colors.data.pink-bg": {
+    "value": "#fce7f3",
+    "variable": "var(--colors-data\\.pink-bg)"
+  },
+  "colors.data.orange": {
+    "value": "#f97316",
+    "variable": "var(--colors-data\\.orange)"
+  },
+  "colors.data.orange-dark": {
+    "value": "#fb923c",
+    "variable": "var(--colors-data\\.orange-dark)"
+  },
+  "colors.data.orange-bg": {
+    "value": "#ffedd5",
+    "variable": "var(--colors-data\\.orange-bg)"
   },
   "colors.bg.base": {
     "value": "#FFFFFF",
     "variable": "var(--colors-bg\\.base)"
   },
   "colors.bg.subtle": {
-    "value": "#F7F7F7",
+    "value": "#ECECEC",
     "variable": "var(--colors-bg\\.subtle)"
   },
   "colors.bg.elevated": {
@@ -4552,11 +3349,11 @@ var tokens = {
     "variable": "var(--colors-bg\\.elevated)"
   },
   "colors.border.subtle": {
-    "value": "#EAEAEA",
+    "value": "#F4F4F4",
     "variable": "var(--colors-border\\.subtle)"
   },
   "colors.border.strong": {
-    "value": "#8E9191",
+    "value": "#A2A2A2",
     "variable": "var(--colors-border\\.strong)"
   },
   "colors.state.info": {
@@ -4572,15 +3369,15 @@ var tokens = {
     "variable": "var(--colors-state\\.warning)"
   },
   "colors.state.danger": {
-    "value": "#ED3F30",
+    "value": "#EF3F32",
     "variable": "var(--colors-state\\.danger)"
   },
   "colors.text.main": {
-    "value": "#333232",
+    "value": "#000000",
     "variable": "var(--colors-text\\.main)"
   },
   "colors.text.subtle": {
-    "value": "#5C6464",
+    "value": "#5F5F5F",
     "variable": "var(--colors-text\\.subtle)"
   },
   "colors.text.on-dark": {
@@ -4588,12 +3385,20 @@ var tokens = {
     "variable": "var(--colors-text\\.on-dark)"
   },
   "colors.text.link": {
-    "value": "#00B2CC",
+    "value": "#EF3F32",
     "variable": "var(--colors-text\\.link)"
   },
   "colors.text.link-hover": {
-    "value": "#003A5D",
+    "value": "#CC170A",
     "variable": "var(--colors-text\\.link-hover)"
+  },
+  "colors.text.muted": {
+    "value": "#C3C3C3",
+    "variable": "var(--colors-text\\.muted)"
+  },
+  "colors.text.placeholder": {
+    "value": "#989898",
+    "variable": "var(--colors-text\\.placeholder)"
   },
   "colors.dark-bg.base": {
     "value": "#1a1a1a",
@@ -4632,152 +3437,12 @@ var tokens = {
     "variable": "var(--colors-dark-border\\.strong)"
   },
   "colors.state-hover.danger": {
-    "value": "#c7382f",
+    "value": "#CC170A",
     "variable": "var(--colors-state-hover\\.danger)"
   },
-  "spacing.0": {
-    "value": "0rem",
-    "variable": "var(--spacing-0)"
-  },
-  "spacing.1": {
-    "value": "0.25rem",
-    "variable": "var(--spacing-1)"
-  },
-  "spacing.2": {
-    "value": "0.5rem",
-    "variable": "var(--spacing-2)"
-  },
-  "spacing.3": {
-    "value": "0.75rem",
-    "variable": "var(--spacing-3)"
-  },
-  "spacing.4": {
-    "value": "1rem",
-    "variable": "var(--spacing-4)"
-  },
-  "spacing.5": {
-    "value": "1.25rem",
-    "variable": "var(--spacing-5)"
-  },
-  "spacing.6": {
-    "value": "1.5rem",
-    "variable": "var(--spacing-6)"
-  },
-  "spacing.7": {
-    "value": "1.75rem",
-    "variable": "var(--spacing-7)"
-  },
-  "spacing.8": {
-    "value": "2rem",
-    "variable": "var(--spacing-8)"
-  },
-  "spacing.9": {
-    "value": "2.25rem",
-    "variable": "var(--spacing-9)"
-  },
-  "spacing.10": {
-    "value": "2.5rem",
-    "variable": "var(--spacing-10)"
-  },
-  "spacing.11": {
-    "value": "2.75rem",
-    "variable": "var(--spacing-11)"
-  },
-  "spacing.12": {
-    "value": "3rem",
-    "variable": "var(--spacing-12)"
-  },
-  "spacing.14": {
-    "value": "3.5rem",
-    "variable": "var(--spacing-14)"
-  },
-  "spacing.16": {
-    "value": "4rem",
-    "variable": "var(--spacing-16)"
-  },
-  "spacing.20": {
-    "value": "5rem",
-    "variable": "var(--spacing-20)"
-  },
-  "spacing.24": {
-    "value": "6rem",
-    "variable": "var(--spacing-24)"
-  },
-  "spacing.28": {
-    "value": "7rem",
-    "variable": "var(--spacing-28)"
-  },
-  "spacing.32": {
-    "value": "8rem",
-    "variable": "var(--spacing-32)"
-  },
-  "spacing.36": {
-    "value": "9rem",
-    "variable": "var(--spacing-36)"
-  },
-  "spacing.40": {
-    "value": "10rem",
-    "variable": "var(--spacing-40)"
-  },
-  "spacing.44": {
-    "value": "11rem",
-    "variable": "var(--spacing-44)"
-  },
-  "spacing.48": {
-    "value": "12rem",
-    "variable": "var(--spacing-48)"
-  },
-  "spacing.52": {
-    "value": "13rem",
-    "variable": "var(--spacing-52)"
-  },
-  "spacing.56": {
-    "value": "14rem",
-    "variable": "var(--spacing-56)"
-  },
-  "spacing.60": {
-    "value": "15rem",
-    "variable": "var(--spacing-60)"
-  },
-  "spacing.64": {
-    "value": "16rem",
-    "variable": "var(--spacing-64)"
-  },
-  "spacing.72": {
-    "value": "18rem",
-    "variable": "var(--spacing-72)"
-  },
-  "spacing.80": {
-    "value": "20rem",
-    "variable": "var(--spacing-80)"
-  },
-  "spacing.96": {
-    "value": "24rem",
-    "variable": "var(--spacing-96)"
-  },
-  "spacing.0.5": {
-    "value": "0.125rem",
-    "variable": "var(--spacing-0\\.5)"
-  },
-  "spacing.1.5": {
-    "value": "0.375rem",
-    "variable": "var(--spacing-1\\.5)"
-  },
-  "spacing.2.5": {
-    "value": "0.625rem",
-    "variable": "var(--spacing-2\\.5)"
-  },
-  "spacing.3.5": {
-    "value": "0.875rem",
-    "variable": "var(--spacing-3\\.5)"
-  },
-  "spacing.4.5": {
-    "value": "1.125rem",
-    "variable": "var(--spacing-4\\.5)"
-  },
-  "spacing.5.5": {
-    "value": "1.375rem",
-    "variable": "var(--spacing-5\\.5)"
+  "fonts.brand": {
+    "value": '"Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    "variable": "var(--fonts-brand)"
   },
   "spacing.2xs": {
     "value": "4px",
@@ -4807,34 +3472,6 @@ var tokens = {
     "value": "48px",
     "variable": "var(--spacing-2xl)"
   },
-  "fontSizes.2xs": {
-    "value": "0.5rem",
-    "variable": "var(--font-sizes-2xs)"
-  },
-  "fontSizes.4xl": {
-    "value": "2.25rem",
-    "variable": "var(--font-sizes-4xl)"
-  },
-  "fontSizes.5xl": {
-    "value": "3rem",
-    "variable": "var(--font-sizes-5xl)"
-  },
-  "fontSizes.6xl": {
-    "value": "3.75rem",
-    "variable": "var(--font-sizes-6xl)"
-  },
-  "fontSizes.7xl": {
-    "value": "4.5rem",
-    "variable": "var(--font-sizes-7xl)"
-  },
-  "fontSizes.8xl": {
-    "value": "6rem",
-    "variable": "var(--font-sizes-8xl)"
-  },
-  "fontSizes.9xl": {
-    "value": "8rem",
-    "variable": "var(--font-sizes-9xl)"
-  },
   "fontSizes.xs": {
     "value": "12px",
     "variable": "var(--font-sizes-xs)"
@@ -4856,24 +3493,16 @@ var tokens = {
     "variable": "var(--font-sizes-xl)"
   },
   "fontSizes.2xl": {
-    "value": "32px",
+    "value": "36px",
     "variable": "var(--font-sizes-2xl)"
   },
   "fontSizes.3xl": {
-    "value": "40px",
+    "value": "50px",
     "variable": "var(--font-sizes-3xl)"
   },
-  "lineHeights.none": {
-    "value": "1",
-    "variable": "var(--line-heights-none)"
-  },
-  "lineHeights.snug": {
-    "value": "1.375",
-    "variable": "var(--line-heights-snug)"
-  },
-  "lineHeights.loose": {
-    "value": "2",
-    "variable": "var(--line-heights-loose)"
+  "fontSizes.4xl": {
+    "value": "70px",
+    "variable": "var(--font-sizes-4xl)"
   },
   "lineHeights.tight": {
     "value": "1.2",
@@ -4887,34 +3516,6 @@ var tokens = {
     "value": "1.7",
     "variable": "var(--line-heights-relaxed)"
   },
-  "fontWeights.thin": {
-    "value": "100",
-    "variable": "var(--font-weights-thin)"
-  },
-  "fontWeights.extralight": {
-    "value": "200",
-    "variable": "var(--font-weights-extralight)"
-  },
-  "fontWeights.light": {
-    "value": "300",
-    "variable": "var(--font-weights-light)"
-  },
-  "fontWeights.normal": {
-    "value": "400",
-    "variable": "var(--font-weights-normal)"
-  },
-  "fontWeights.semibold": {
-    "value": "600",
-    "variable": "var(--font-weights-semibold)"
-  },
-  "fontWeights.extrabold": {
-    "value": "800",
-    "variable": "var(--font-weights-extrabold)"
-  },
-  "fontWeights.black": {
-    "value": "900",
-    "variable": "var(--font-weights-black)"
-  },
   "fontWeights.regular": {
     "value": "400",
     "variable": "var(--font-weights-regular)"
@@ -4927,30 +3528,6 @@ var tokens = {
     "value": "700",
     "variable": "var(--font-weights-bold)"
   },
-  "radii.xs": {
-    "value": "0.125rem",
-    "variable": "var(--radii-xs)"
-  },
-  "radii.xl": {
-    "value": "0.75rem",
-    "variable": "var(--radii-xl)"
-  },
-  "radii.2xl": {
-    "value": "1rem",
-    "variable": "var(--radii-2xl)"
-  },
-  "radii.3xl": {
-    "value": "1.5rem",
-    "variable": "var(--radii-3xl)"
-  },
-  "radii.4xl": {
-    "value": "2rem",
-    "variable": "var(--radii-4xl)"
-  },
-  "radii.full": {
-    "value": "9999px",
-    "variable": "var(--radii-full)"
-  },
   "radii.sm": {
     "value": "4px",
     "variable": "var(--radii-sm)"
@@ -4960,52 +3537,12 @@ var tokens = {
     "variable": "var(--radii-md)"
   },
   "radii.lg": {
-    "value": "12px",
+    "value": "10px",
     "variable": "var(--radii-lg)"
   },
   "radii.pill": {
     "value": "9999px",
     "variable": "var(--radii-pill)"
-  },
-  "shadows.2xs": {
-    "value": "0 1px rgb(0 0 0 / 0.05)",
-    "variable": "var(--shadows-2xs)"
-  },
-  "shadows.xs": {
-    "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-    "variable": "var(--shadows-xs)"
-  },
-  "shadows.sm": {
-    "value": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-    "variable": "var(--shadows-sm)"
-  },
-  "shadows.md": {
-    "value": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-    "variable": "var(--shadows-md)"
-  },
-  "shadows.lg": {
-    "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
-    "variable": "var(--shadows-lg)"
-  },
-  "shadows.xl": {
-    "value": "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
-    "variable": "var(--shadows-xl)"
-  },
-  "shadows.2xl": {
-    "value": "0 25px 50px -12px rgb(0 0 0 / 0.25)",
-    "variable": "var(--shadows-2xl)"
-  },
-  "shadows.inset-2xs": {
-    "value": "inset 0 1px rgb(0 0 0 / 0.05)",
-    "variable": "var(--shadows-inset-2xs)"
-  },
-  "shadows.inset-xs": {
-    "value": "inset 0 1px 1px rgb(0 0 0 / 0.05)",
-    "variable": "var(--shadows-inset-xs)"
-  },
-  "shadows.inset-sm": {
-    "value": "inset 0 2px 4px rgb(0 0 0 / 0.05)",
-    "variable": "var(--shadows-inset-sm)"
   },
   "shadows.soft": {
     "value": "0 2px 6px rgba(0, 0, 0, 0.08)",
@@ -5014,22 +3551,6 @@ var tokens = {
   "shadows.strong": {
     "value": "0 6px 24px rgba(0, 0, 0, 0.12)",
     "variable": "var(--shadows-strong)"
-  },
-  "durations.fastest": {
-    "value": "50ms",
-    "variable": "var(--durations-fastest)"
-  },
-  "durations.faster": {
-    "value": "100ms",
-    "variable": "var(--durations-faster)"
-  },
-  "durations.slower": {
-    "value": "400ms",
-    "variable": "var(--durations-slower)"
-  },
-  "durations.slowest": {
-    "value": "500ms",
-    "variable": "var(--durations-slowest)"
   },
   "durations.fast": {
     "value": "80ms",
@@ -5071,218 +3592,6 @@ var tokens = {
     "value": 1400,
     "variable": "var(--z-index-toast)"
   },
-  "sizes.0": {
-    "value": "0rem",
-    "variable": "var(--sizes-0)"
-  },
-  "sizes.1": {
-    "value": "0.25rem",
-    "variable": "var(--sizes-1)"
-  },
-  "sizes.2": {
-    "value": "0.5rem",
-    "variable": "var(--sizes-2)"
-  },
-  "sizes.3": {
-    "value": "0.75rem",
-    "variable": "var(--sizes-3)"
-  },
-  "sizes.4": {
-    "value": "1rem",
-    "variable": "var(--sizes-4)"
-  },
-  "sizes.5": {
-    "value": "1.25rem",
-    "variable": "var(--sizes-5)"
-  },
-  "sizes.6": {
-    "value": "1.5rem",
-    "variable": "var(--sizes-6)"
-  },
-  "sizes.7": {
-    "value": "1.75rem",
-    "variable": "var(--sizes-7)"
-  },
-  "sizes.8": {
-    "value": "2rem",
-    "variable": "var(--sizes-8)"
-  },
-  "sizes.9": {
-    "value": "2.25rem",
-    "variable": "var(--sizes-9)"
-  },
-  "sizes.10": {
-    "value": "2.5rem",
-    "variable": "var(--sizes-10)"
-  },
-  "sizes.11": {
-    "value": "2.75rem",
-    "variable": "var(--sizes-11)"
-  },
-  "sizes.12": {
-    "value": "3rem",
-    "variable": "var(--sizes-12)"
-  },
-  "sizes.14": {
-    "value": "3.5rem",
-    "variable": "var(--sizes-14)"
-  },
-  "sizes.16": {
-    "value": "4rem",
-    "variable": "var(--sizes-16)"
-  },
-  "sizes.20": {
-    "value": "5rem",
-    "variable": "var(--sizes-20)"
-  },
-  "sizes.24": {
-    "value": "6rem",
-    "variable": "var(--sizes-24)"
-  },
-  "sizes.28": {
-    "value": "7rem",
-    "variable": "var(--sizes-28)"
-  },
-  "sizes.32": {
-    "value": "8rem",
-    "variable": "var(--sizes-32)"
-  },
-  "sizes.36": {
-    "value": "9rem",
-    "variable": "var(--sizes-36)"
-  },
-  "sizes.40": {
-    "value": "10rem",
-    "variable": "var(--sizes-40)"
-  },
-  "sizes.44": {
-    "value": "11rem",
-    "variable": "var(--sizes-44)"
-  },
-  "sizes.48": {
-    "value": "12rem",
-    "variable": "var(--sizes-48)"
-  },
-  "sizes.52": {
-    "value": "13rem",
-    "variable": "var(--sizes-52)"
-  },
-  "sizes.56": {
-    "value": "14rem",
-    "variable": "var(--sizes-56)"
-  },
-  "sizes.60": {
-    "value": "15rem",
-    "variable": "var(--sizes-60)"
-  },
-  "sizes.64": {
-    "value": "16rem",
-    "variable": "var(--sizes-64)"
-  },
-  "sizes.72": {
-    "value": "18rem",
-    "variable": "var(--sizes-72)"
-  },
-  "sizes.80": {
-    "value": "20rem",
-    "variable": "var(--sizes-80)"
-  },
-  "sizes.96": {
-    "value": "24rem",
-    "variable": "var(--sizes-96)"
-  },
-  "sizes.0.5": {
-    "value": "0.125rem",
-    "variable": "var(--sizes-0\\.5)"
-  },
-  "sizes.1.5": {
-    "value": "0.375rem",
-    "variable": "var(--sizes-1\\.5)"
-  },
-  "sizes.2.5": {
-    "value": "0.625rem",
-    "variable": "var(--sizes-2\\.5)"
-  },
-  "sizes.3.5": {
-    "value": "0.875rem",
-    "variable": "var(--sizes-3\\.5)"
-  },
-  "sizes.4.5": {
-    "value": "1.125rem",
-    "variable": "var(--sizes-4\\.5)"
-  },
-  "sizes.5.5": {
-    "value": "1.375rem",
-    "variable": "var(--sizes-5\\.5)"
-  },
-  "sizes.xs": {
-    "value": "20rem",
-    "variable": "var(--sizes-xs)"
-  },
-  "sizes.sm": {
-    "value": "24rem",
-    "variable": "var(--sizes-sm)"
-  },
-  "sizes.md": {
-    "value": "28rem",
-    "variable": "var(--sizes-md)"
-  },
-  "sizes.lg": {
-    "value": "32rem",
-    "variable": "var(--sizes-lg)"
-  },
-  "sizes.xl": {
-    "value": "36rem",
-    "variable": "var(--sizes-xl)"
-  },
-  "sizes.2xl": {
-    "value": "42rem",
-    "variable": "var(--sizes-2xl)"
-  },
-  "sizes.3xl": {
-    "value": "48rem",
-    "variable": "var(--sizes-3xl)"
-  },
-  "sizes.4xl": {
-    "value": "56rem",
-    "variable": "var(--sizes-4xl)"
-  },
-  "sizes.5xl": {
-    "value": "64rem",
-    "variable": "var(--sizes-5xl)"
-  },
-  "sizes.6xl": {
-    "value": "72rem",
-    "variable": "var(--sizes-6xl)"
-  },
-  "sizes.7xl": {
-    "value": "80rem",
-    "variable": "var(--sizes-7xl)"
-  },
-  "sizes.8xl": {
-    "value": "90rem",
-    "variable": "var(--sizes-8xl)"
-  },
-  "sizes.prose": {
-    "value": "65ch",
-    "variable": "var(--sizes-prose)"
-  },
-  "sizes.full": {
-    "value": "100%",
-    "variable": "var(--sizes-full)"
-  },
-  "sizes.min": {
-    "value": "min-content",
-    "variable": "var(--sizes-min)"
-  },
-  "sizes.max": {
-    "value": "max-content",
-    "variable": "var(--sizes-max)"
-  },
-  "sizes.fit": {
-    "value": "fit-content",
-    "variable": "var(--sizes-fit)"
-  },
   "sizes.page.max-width": {
     "value": "1120px",
     "variable": "var(--sizes-page\\.max-width)"
@@ -5296,15 +3605,23 @@ var tokens = {
     "variable": "var(--sizes-page\\.gutter-y)"
   },
   "sizes.button.min-height": {
-    "value": "40px",
+    "value": "50px",
     "variable": "var(--sizes-button\\.min-height)"
   },
-  "sizes.input.min-height": {
+  "sizes.button.sm.min-height": {
     "value": "40px",
+    "variable": "var(--sizes-button\\.sm\\.min-height)"
+  },
+  "sizes.button.lg.min-height": {
+    "value": "59px",
+    "variable": "var(--sizes-button\\.lg\\.min-height)"
+  },
+  "sizes.input.min-height": {
+    "value": "60px",
     "variable": "var(--sizes-input\\.min-height)"
   },
   "sizes.textarea.min-height": {
-    "value": "120px",
+    "value": "284px",
     "variable": "var(--sizes-textarea\\.min-height)"
   },
   "sizes.spinner.sm": {
@@ -5360,11 +3677,11 @@ var tokens = {
     "variable": "var(--breakpoints-xl)"
   },
   "colors.accent.primary": {
-    "value": "var(--colors-brand\\.blue)",
+    "value": "var(--colors-brand\\.primary)",
     "variable": "var(--colors-accent\\.primary)"
   },
   "colors.accent.secondary": {
-    "value": "var(--colors-brand\\.red)",
+    "value": "var(--colors-brand\\.hover)",
     "variable": "var(--colors-accent\\.secondary)"
   },
   "colors.accent.dark": {
@@ -5400,44 +3717,52 @@ var tokens = {
     "variable": "var(--colors-background\\.elevated)"
   },
   "colors.button.primary.bg": {
-    "value": "var(--colors-brand\\.blue)",
+    "value": "var(--colors-brand\\.primary)",
     "variable": "var(--colors-button\\.primary\\.bg)"
   },
   "colors.button.primary.bgHover": {
-    "value": "var(--colors-data\\.navy)",
+    "value": "var(--colors-brand\\.hover)",
     "variable": "var(--colors-button\\.primary\\.bg-hover)"
   },
   "colors.button.primary.text": {
     "value": "var(--colors-text\\.on-dark)",
     "variable": "var(--colors-button\\.primary\\.text)"
   },
-  "colors.button.secondary.bg": {
-    "value": "var(--colors-button\\.secondary\\.bg)",
-    "variable": "var(--colors-button\\.secondary\\.bg)"
+  "colors.button.dark.bg": {
+    "value": "var(--colors-brand\\.dark)",
+    "variable": "var(--colors-button\\.dark\\.bg)"
   },
-  "colors.button.secondary.bgHover": {
-    "value": "var(--colors-button\\.secondary\\.bg-hover)",
-    "variable": "var(--colors-button\\.secondary\\.bg-hover)"
+  "colors.button.dark.bgHover": {
+    "value": "#000000",
+    "variable": "var(--colors-button\\.dark\\.bg-hover)"
   },
-  "colors.button.secondary.border": {
-    "value": "var(--colors-button\\.secondary\\.border)",
-    "variable": "var(--colors-button\\.secondary\\.border)"
-  },
-  "colors.button.secondary.text": {
-    "value": "var(--colors-button\\.secondary\\.text)",
-    "variable": "var(--colors-button\\.secondary\\.text)"
-  },
-  "colors.button.danger.bg": {
-    "value": "var(--colors-state\\.danger)",
-    "variable": "var(--colors-button\\.danger\\.bg)"
-  },
-  "colors.button.danger.bgHover": {
-    "value": "var(--colors-state-hover\\.danger)",
-    "variable": "var(--colors-button\\.danger\\.bg-hover)"
-  },
-  "colors.button.danger.text": {
+  "colors.button.dark.text": {
     "value": "var(--colors-text\\.on-dark)",
-    "variable": "var(--colors-button\\.danger\\.text)"
+    "variable": "var(--colors-button\\.dark\\.text)"
+  },
+  "colors.button.outlined.border": {
+    "value": "var(--colors-neutral\\.base)",
+    "variable": "var(--colors-button\\.outlined\\.border)"
+  },
+  "colors.button.outlined.bgHover": {
+    "value": "var(--colors-neutral\\.base)",
+    "variable": "var(--colors-button\\.outlined\\.bg-hover)"
+  },
+  "colors.button.outlined.text": {
+    "value": "#000000",
+    "variable": "var(--colors-button\\.outlined\\.text)"
+  },
+  "colors.button.ghost.bgHover": {
+    "value": "var(--colors-neutral\\.soft)",
+    "variable": "var(--colors-button\\.ghost\\.bg-hover)"
+  },
+  "colors.table.header.bg": {
+    "value": "var(--colors-brand\\.dark)",
+    "variable": "var(--colors-table\\.header\\.bg)"
+  },
+  "colors.table.header.text": {
+    "value": "var(--colors-text\\.on-dark)",
+    "variable": "var(--colors-table\\.header\\.text)"
   },
   "colors.alert.info.bg": {
     "value": "var(--colors-alert\\.info\\.bg)",
@@ -5508,7 +3833,7 @@ var tokens = {
     "variable": "var(--colors-progress\\.bg)"
   },
   "colors.progress.fill": {
-    "value": "var(--colors-brand\\.blue)",
+    "value": "var(--colors-brand\\.primary)",
     "variable": "var(--colors-progress\\.fill)"
   },
   "colors.spinner.color": {
@@ -5516,11 +3841,11 @@ var tokens = {
     "variable": "var(--colors-spinner\\.color)"
   },
   "colors.tabs.active.border": {
-    "value": "var(--colors-brand\\.blue)",
+    "value": "var(--colors-brand\\.primary)",
     "variable": "var(--colors-tabs\\.active\\.border)"
   },
   "colors.tabs.active.text": {
-    "value": "var(--colors-brand\\.blue)",
+    "value": "var(--colors-brand\\.primary)",
     "variable": "var(--colors-tabs\\.active\\.text)"
   },
   "colors.tabs.inactive.text": {
@@ -5619,12 +3944,76 @@ var tokens = {
     "value": "var(--colors-text\\.on-dark)",
     "variable": "var(--colors-checkbox\\.indicator)"
   },
+  "colors.chart.text.primary": {
+    "value": "var(--colors-chart\\.text\\.primary)",
+    "variable": "var(--colors-chart\\.text\\.primary)"
+  },
+  "colors.chart.text.secondary": {
+    "value": "var(--colors-chart\\.text\\.secondary)",
+    "variable": "var(--colors-chart\\.text\\.secondary)"
+  },
+  "colors.chart.gridLine": {
+    "value": "var(--colors-chart\\.grid-line)",
+    "variable": "var(--colors-chart\\.grid-line)"
+  },
+  "colors.chart.background": {
+    "value": "var(--colors-chart\\.background)",
+    "variable": "var(--colors-chart\\.background)"
+  },
+  "colors.chart.tooltip.bg": {
+    "value": "var(--colors-chart\\.tooltip\\.bg)",
+    "variable": "var(--colors-chart\\.tooltip\\.bg)"
+  },
+  "colors.chart.tooltip.text": {
+    "value": "var(--colors-chart\\.tooltip\\.text)",
+    "variable": "var(--colors-chart\\.tooltip\\.text)"
+  },
+  "colors.chart.data.blue": {
+    "value": "var(--colors-chart\\.data\\.blue)",
+    "variable": "var(--colors-chart\\.data\\.blue)"
+  },
+  "colors.chart.data.purple": {
+    "value": "var(--colors-chart\\.data\\.purple)",
+    "variable": "var(--colors-chart\\.data\\.purple)"
+  },
+  "colors.chart.data.yellow": {
+    "value": "var(--colors-chart\\.data\\.yellow)",
+    "variable": "var(--colors-chart\\.data\\.yellow)"
+  },
+  "colors.chart.data.pink": {
+    "value": "var(--colors-chart\\.data\\.pink)",
+    "variable": "var(--colors-chart\\.data\\.pink)"
+  },
+  "colors.chart.data.orange": {
+    "value": "var(--colors-chart\\.data\\.orange)",
+    "variable": "var(--colors-chart\\.data\\.orange)"
+  },
+  "colors.chart.data.bg.blue": {
+    "value": "var(--colors-data\\.blue-bg)",
+    "variable": "var(--colors-chart\\.data\\.bg\\.blue)"
+  },
+  "colors.chart.data.bg.purple": {
+    "value": "var(--colors-data\\.purple-bg)",
+    "variable": "var(--colors-chart\\.data\\.bg\\.purple)"
+  },
+  "colors.chart.data.bg.yellow": {
+    "value": "var(--colors-data\\.yellow-bg)",
+    "variable": "var(--colors-chart\\.data\\.bg\\.yellow)"
+  },
+  "colors.chart.data.bg.pink": {
+    "value": "var(--colors-data\\.pink-bg)",
+    "variable": "var(--colors-chart\\.data\\.bg\\.pink)"
+  },
+  "colors.chart.data.bg.orange": {
+    "value": "var(--colors-data\\.orange-bg)",
+    "variable": "var(--colors-chart\\.data\\.bg\\.orange)"
+  },
   "radii.component.buttonRadius": {
-    "value": "var(--radii-md)",
+    "value": "var(--radii-sm)",
     "variable": "var(--radii-component\\.button-radius)"
   },
   "radii.component.inputRadius": {
-    "value": "var(--radii-md)",
+    "value": "var(--radii-sm)",
     "variable": "var(--radii-component\\.input-radius)"
   },
   "radii.component.cardRadius": {
@@ -5699,6 +4088,14 @@ var tokens = {
     "value": "var(--sizes-button\\.min-height)",
     "variable": "var(--sizes-component\\.button-min-height)"
   },
+  "sizes.component.buttonSmMinHeight": {
+    "value": "var(--sizes-button\\.sm\\.min-height)",
+    "variable": "var(--sizes-component\\.button-sm-min-height)"
+  },
+  "sizes.component.buttonLgMinHeight": {
+    "value": "var(--sizes-button\\.lg\\.min-height)",
+    "variable": "var(--sizes-component\\.button-lg-min-height)"
+  },
   "sizes.component.inputMinHeight": {
     "value": "var(--sizes-input\\.min-height)",
     "variable": "var(--sizes-component\\.input-min-height)"
@@ -5718,146 +4115,6 @@ var tokens = {
   "sizes.component.spinnerLg": {
     "value": "var(--sizes-spinner\\.lg)",
     "variable": "var(--sizes-component\\.spinner-lg)"
-  },
-  "spacing.-1": {
-    "value": "calc(var(--spacing-1) * -1)",
-    "variable": "var(--spacing-1)"
-  },
-  "spacing.-2": {
-    "value": "calc(var(--spacing-2) * -1)",
-    "variable": "var(--spacing-2)"
-  },
-  "spacing.-3": {
-    "value": "calc(var(--spacing-3) * -1)",
-    "variable": "var(--spacing-3)"
-  },
-  "spacing.-4": {
-    "value": "calc(var(--spacing-4) * -1)",
-    "variable": "var(--spacing-4)"
-  },
-  "spacing.-5": {
-    "value": "calc(var(--spacing-5) * -1)",
-    "variable": "var(--spacing-5)"
-  },
-  "spacing.-6": {
-    "value": "calc(var(--spacing-6) * -1)",
-    "variable": "var(--spacing-6)"
-  },
-  "spacing.-7": {
-    "value": "calc(var(--spacing-7) * -1)",
-    "variable": "var(--spacing-7)"
-  },
-  "spacing.-8": {
-    "value": "calc(var(--spacing-8) * -1)",
-    "variable": "var(--spacing-8)"
-  },
-  "spacing.-9": {
-    "value": "calc(var(--spacing-9) * -1)",
-    "variable": "var(--spacing-9)"
-  },
-  "spacing.-10": {
-    "value": "calc(var(--spacing-10) * -1)",
-    "variable": "var(--spacing-10)"
-  },
-  "spacing.-11": {
-    "value": "calc(var(--spacing-11) * -1)",
-    "variable": "var(--spacing-11)"
-  },
-  "spacing.-12": {
-    "value": "calc(var(--spacing-12) * -1)",
-    "variable": "var(--spacing-12)"
-  },
-  "spacing.-14": {
-    "value": "calc(var(--spacing-14) * -1)",
-    "variable": "var(--spacing-14)"
-  },
-  "spacing.-16": {
-    "value": "calc(var(--spacing-16) * -1)",
-    "variable": "var(--spacing-16)"
-  },
-  "spacing.-20": {
-    "value": "calc(var(--spacing-20) * -1)",
-    "variable": "var(--spacing-20)"
-  },
-  "spacing.-24": {
-    "value": "calc(var(--spacing-24) * -1)",
-    "variable": "var(--spacing-24)"
-  },
-  "spacing.-28": {
-    "value": "calc(var(--spacing-28) * -1)",
-    "variable": "var(--spacing-28)"
-  },
-  "spacing.-32": {
-    "value": "calc(var(--spacing-32) * -1)",
-    "variable": "var(--spacing-32)"
-  },
-  "spacing.-36": {
-    "value": "calc(var(--spacing-36) * -1)",
-    "variable": "var(--spacing-36)"
-  },
-  "spacing.-40": {
-    "value": "calc(var(--spacing-40) * -1)",
-    "variable": "var(--spacing-40)"
-  },
-  "spacing.-44": {
-    "value": "calc(var(--spacing-44) * -1)",
-    "variable": "var(--spacing-44)"
-  },
-  "spacing.-48": {
-    "value": "calc(var(--spacing-48) * -1)",
-    "variable": "var(--spacing-48)"
-  },
-  "spacing.-52": {
-    "value": "calc(var(--spacing-52) * -1)",
-    "variable": "var(--spacing-52)"
-  },
-  "spacing.-56": {
-    "value": "calc(var(--spacing-56) * -1)",
-    "variable": "var(--spacing-56)"
-  },
-  "spacing.-60": {
-    "value": "calc(var(--spacing-60) * -1)",
-    "variable": "var(--spacing-60)"
-  },
-  "spacing.-64": {
-    "value": "calc(var(--spacing-64) * -1)",
-    "variable": "var(--spacing-64)"
-  },
-  "spacing.-72": {
-    "value": "calc(var(--spacing-72) * -1)",
-    "variable": "var(--spacing-72)"
-  },
-  "spacing.-80": {
-    "value": "calc(var(--spacing-80) * -1)",
-    "variable": "var(--spacing-80)"
-  },
-  "spacing.-96": {
-    "value": "calc(var(--spacing-96) * -1)",
-    "variable": "var(--spacing-96)"
-  },
-  "spacing.-0.5": {
-    "value": "calc(var(--spacing-0\\.5) * -1)",
-    "variable": "var(--spacing-0\\.5)"
-  },
-  "spacing.-1.5": {
-    "value": "calc(var(--spacing-1\\.5) * -1)",
-    "variable": "var(--spacing-1\\.5)"
-  },
-  "spacing.-2.5": {
-    "value": "calc(var(--spacing-2\\.5) * -1)",
-    "variable": "var(--spacing-2\\.5)"
-  },
-  "spacing.-3.5": {
-    "value": "calc(var(--spacing-3\\.5) * -1)",
-    "variable": "var(--spacing-3\\.5)"
-  },
-  "spacing.-4.5": {
-    "value": "calc(var(--spacing-4\\.5) * -1)",
-    "variable": "var(--spacing-4\\.5)"
-  },
-  "spacing.-5.5": {
-    "value": "calc(var(--spacing-5\\.5) * -1)",
-    "variable": "var(--spacing-5\\.5)"
   },
   "spacing.-2xs": {
     "value": "calc(var(--spacing-2xs) * -1)",
@@ -5890,50 +4147,6 @@ var tokens = {
   "colors.colorPalette": {
     "value": "var(--colors-color-palette)",
     "variable": "var(--colors-color-palette)"
-  },
-  "colors.colorPalette.50": {
-    "value": "var(--colors-color-palette-50)",
-    "variable": "var(--colors-color-palette-50)"
-  },
-  "colors.colorPalette.100": {
-    "value": "var(--colors-color-palette-100)",
-    "variable": "var(--colors-color-palette-100)"
-  },
-  "colors.colorPalette.200": {
-    "value": "var(--colors-color-palette-200)",
-    "variable": "var(--colors-color-palette-200)"
-  },
-  "colors.colorPalette.300": {
-    "value": "var(--colors-color-palette-300)",
-    "variable": "var(--colors-color-palette-300)"
-  },
-  "colors.colorPalette.400": {
-    "value": "var(--colors-color-palette-400)",
-    "variable": "var(--colors-color-palette-400)"
-  },
-  "colors.colorPalette.500": {
-    "value": "var(--colors-color-palette-500)",
-    "variable": "var(--colors-color-palette-500)"
-  },
-  "colors.colorPalette.600": {
-    "value": "var(--colors-color-palette-600)",
-    "variable": "var(--colors-color-palette-600)"
-  },
-  "colors.colorPalette.700": {
-    "value": "var(--colors-color-palette-700)",
-    "variable": "var(--colors-color-palette-700)"
-  },
-  "colors.colorPalette.800": {
-    "value": "var(--colors-color-palette-800)",
-    "variable": "var(--colors-color-palette-800)"
-  },
-  "colors.colorPalette.900": {
-    "value": "var(--colors-color-palette-900)",
-    "variable": "var(--colors-color-palette-900)"
-  },
-  "colors.colorPalette.950": {
-    "value": "var(--colors-color-palette-950)",
-    "variable": "var(--colors-color-palette-950)"
   }
 };
 function token(path, fallback) {
@@ -5945,7 +4158,7 @@ function tokenVar(path, fallback) {
 token.var = tokenVar;
 
 // src/event-calendar/EventCalendar.tsx
-import { jsx as jsx29 } from "react/jsx-runtime";
+import { jsx as jsx30 } from "react/jsx-runtime";
 var CalendarContainer = styled("div", {
   base: {
     fontFamily: "brand",
@@ -6053,8 +4266,11 @@ var CalendarContainer = styled("div", {
         opacity: 0.9
       }
     },
-    "& .fc-event-title, & .fc-event-time, & .fc-event-main": {
-      color: { base: "gray.900", _dark: "white" }
+    "& .fc-daygrid-block-event .fc-event-title, & .fc-daygrid-block-event .fc-event-time": {
+      color: "text.on-dark"
+    },
+    "& .fc-daygrid-dot-event .fc-event-title, & .fc-daygrid-dot-event .fc-event-time": {
+      color: "text.primary"
     },
     "& .fc-daygrid-event-dot": {
       borderColor: "accent.primary"
@@ -6122,7 +4338,7 @@ function EventCalendarComponent({
       onEventDrop(event, info.event.start || /* @__PURE__ */ new Date(), info.event.end);
     }
   };
-  return /* @__PURE__ */ jsx29(CalendarContainer, { ref, children: /* @__PURE__ */ jsx29(
+  return /* @__PURE__ */ jsx30(CalendarContainer, { ref, children: /* @__PURE__ */ jsx30(
     FullCalendar,
     {
       plugins: [dayGridPlugin, interactionPlugin],
@@ -6153,7 +4369,7 @@ var EventCalendar = forwardRef29(EventCalendarComponent);
 import { Editor, Gantt, Tooltip as Tooltip2 } from "@svar-ui/react-gantt";
 import "@svar-ui/react-gantt/all.css";
 import { forwardRef as forwardRef30, useCallback as useCallback2, useEffect as useEffect2, useRef, useState as useState2 } from "react";
-import { jsx as jsx30, jsxs as jsxs17 } from "react/jsx-runtime";
+import { jsx as jsx31, jsxs as jsxs17 } from "react/jsx-runtime";
 var defaultColumns = [
   { id: "text", header: "Task", width: 150 },
   { id: "start", header: "Start date", width: 90 },
@@ -6179,7 +4395,7 @@ var TaskTemplate = ({ data: task }) => {
     position: "relative",
     overflow: "hidden"
   }, children: [
-    progress > 0 && progress < 100 && /* @__PURE__ */ jsx30("div", { style: {
+    progress > 0 && progress < 100 && /* @__PURE__ */ jsx31("div", { style: {
       position: "absolute",
       left: 0,
       top: 0,
@@ -6188,7 +4404,7 @@ var TaskTemplate = ({ data: task }) => {
       backgroundColor: "rgba(0, 0, 0, 0.2)",
       borderRadius: radiusSm
     } }),
-    /* @__PURE__ */ jsx30("span", { style: {
+    /* @__PURE__ */ jsx31("span", { style: {
       position: "relative",
       zIndex: 1,
       fontSize: token("fontSizes.xs"),
@@ -6237,7 +4453,7 @@ var scrollButtonStyles = css({
     }
   }
 });
-var ChevronIcon2 = ({ direction }) => /* @__PURE__ */ jsx30("i", { className: `fa-solid fa-chevron-${direction}`, style: { fontSize: "12px" } });
+var ChevronIcon2 = ({ direction }) => /* @__PURE__ */ jsx31("i", { className: `fa-solid fa-chevron-${direction}`, style: { fontSize: "12px" } });
 var t = {
   accent: token("colors.accent.primary"),
   accentSecondary: token("colors.accent.secondary"),
@@ -6253,9 +4469,7 @@ var t = {
   btnPrimaryBg: token("colors.button.primary.bg"),
   btnPrimaryText: token("colors.button.primary.text"),
   btnPrimaryHover: token("colors.button.primary.bgHover"),
-  btnDangerHover: token("colors.button.danger.bgHover"),
   stateDanger: token("colors.state.danger"),
-  btnDangerText: token("colors.button.danger.text"),
   fontBrand: token("fonts.brand"),
   fontSm: token("fontSizes.sm"),
   fontXs: token("fontSizes.xs"),
@@ -6320,12 +4534,12 @@ var svarCssVariables = {
   // Primary/secondary/danger colors
   "--wx-color-primary": t.accent,
   "--wx-color-primary-font": t.btnPrimaryText,
-  "--wx-color-primary-selected": "rgba(0, 178, 204, 0.1)",
+  "--wx-color-primary-selected": "rgba(239, 63, 50, 0.1)",
   "--wx-color-secondary-font": t.textPrimary,
   "--wx-color-secondary-border": t.borderStrong,
   "--wx-color-secondary-hover": t.bgSubtle,
   "--wx-color-danger": t.stateDanger,
-  "--wx-button-danger-font-color": t.btnDangerText,
+  "--wx-button-danger-font-color": t.btnPrimaryText,
   "--wx-color-link": t.accent,
   "--wx-color-disabled": t.neutralLight,
   // Popup/Modal
@@ -6376,7 +4590,7 @@ var svarCssVariables = {
   "--wx-button-line-height": "1.5",
   "--wx-button-padding": `${t.spacingXs} ${t.spacingMd}`,
   "--wx-button-border": "none",
-  "--wx-button-border-radius": t.radiusMd,
+  "--wx-button-border-radius": t.radiusSm,
   "--wx-button-width": "auto",
   "--wx-button-icon-size": "14px",
   "--wx-button-icon-indent": t.spacingXs,
@@ -6385,7 +4599,7 @@ var svarCssVariables = {
   "--wx-button-box-shadow": "inset 0 2px 4px rgba(0, 0, 0, 0.1)",
   "--wx-button-primary-pressed": t.btnPrimaryHover,
   "--wx-button-primary-box-shadow": "inset 0 2px 4px rgba(0, 0, 0, 0.2)",
-  "--wx-button-danger-pressed": t.btnDangerHover,
+  "--wx-button-danger-pressed": t.btnPrimaryHover,
   // Checkbox
   "--wx-checkbox-size": "18px",
   "--wx-checkbox-height": "24px",
@@ -6617,19 +4831,18 @@ var GanttWrapper = styled("div", {
     },
     '& [class*="wx-button"][class*="wx-secondary"]': {
       ...buttonBase,
-      bg: "button.secondary.bg",
-      color: "button.secondary.text",
-      border: "1px solid",
-      borderColor: "button.secondary.border",
-      "&:hover": { bg: "button.secondary.bgHover" },
+      bg: "button.dark.bg",
+      color: "button.dark.text",
+      border: "none",
+      "&:hover": { bg: "button.dark.bgHover" },
       "&:focus": { boxShadow: "focus.button", outline: "none" }
     },
     '& [class*="wx-button"][class*="wx-danger"]': {
       ...buttonBase,
-      bg: "button.danger.bg",
-      color: "button.danger.text",
+      bg: "button.primary.bg",
+      color: "button.primary.text",
       border: "none",
-      "&:hover": { bg: "button.danger.bgHover" },
+      "&:hover": { bg: "button.primary.bgHover" },
       "&:focus": { boxShadow: "focus.danger", outline: "none" }
     },
     "& .wx-close, & .wx-modal-close": {
@@ -6722,7 +4935,7 @@ var GanttContainer = styled("div", {
     "& .wx-link": { stroke: t.borderStrong },
     "& .wx-grid": { borderRight: "1px solid", borderColor: "border.subtle" },
     "& .wx-scale-row, & .wx-row-lines, & .wx-cell-lines, & .wx-chart line, & .wx-area line": { stroke: "rgba(128, 128, 128, 0.25)" },
-    "& .wx-resizer": { cursor: "col-resize", bg: "#eee", transition: "background 0.15s ease", "&:hover": { bg: "border.strong" }, "&:active": { bg: "accent.primary" } }
+    "& .wx-resizer": { cursor: "col-resize", bg: "background.subtle", transition: "background 0.15s ease", "&:hover": { bg: "border.strong" }, "&:active": { bg: "accent.primary" } }
   }
 });
 function GanttChartComponent({
@@ -6744,11 +4957,11 @@ function GanttChartComponent({
 }, ref) {
   const shouldShowEditor = showEditor ?? editable;
   const containerRef = useRef(null);
-  const cleanupRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState2(false);
   const [canScrollRight, setCanScrollRight] = useState2(false);
   const [api, setApi] = useState2(null);
   useEffect2(() => {
+    if (typeof document === "undefined") return;
     const styleId = "svar-gantt-icons";
     if (!document.getElementById(styleId)) {
       const style = document.createElement("style");
@@ -6775,21 +4988,20 @@ function GanttChartComponent({
   }, [getScrollableElement]);
   useEffect2(() => {
     if (!containerRef.current) return;
+    let el = null;
+    let resizeObserver = null;
     const timeoutId = setTimeout(() => {
-      const el = getScrollableElement();
+      el = getScrollableElement();
       if (!el) return;
       updateScrollState();
       el.addEventListener("scroll", updateScrollState);
-      const resizeObserver = new ResizeObserver(updateScrollState);
+      resizeObserver = new ResizeObserver(updateScrollState);
       resizeObserver.observe(el);
-      cleanupRef.current = () => {
-        el.removeEventListener("scroll", updateScrollState);
-        resizeObserver.disconnect();
-      };
     }, 100);
     return () => {
       clearTimeout(timeoutId);
-      cleanupRef.current?.();
+      el?.removeEventListener("scroll", updateScrollState);
+      resizeObserver?.disconnect();
     };
   }, [updateScrollState, getScrollableElement]);
   const scroll = (dir) => {
@@ -6814,12 +5026,12 @@ function GanttChartComponent({
     ...onLinkAdd && { "add-link": onLinkAdd },
     ...onLinkDelete && { "delete-link": onLinkDelete }
   };
-  const ganttElement = /* @__PURE__ */ jsx30(Gantt, { ...ganttProps });
-  const ganttWithTooltip = showTooltip && api ? /* @__PURE__ */ jsx30(Tooltip2, { api, children: ganttElement }) : ganttElement;
+  const ganttElement = /* @__PURE__ */ jsx31(Gantt, { ...ganttProps });
+  const ganttWithTooltip = showTooltip && api ? /* @__PURE__ */ jsx31(Tooltip2, { api, children: ganttElement }) : ganttElement;
   return /* @__PURE__ */ jsxs17(GanttWrapper, { ref, children: [
     /* @__PURE__ */ jsxs17(GanttContainer, { style: { height, position: "relative" }, children: [
-      /* @__PURE__ */ jsx30("div", { ref: containerRef, style: { height: "100%" }, children: ganttWithTooltip }),
-      /* @__PURE__ */ jsx30("div", { className: scrollNavStyles, children: ["left", "right"].map((dir) => /* @__PURE__ */ jsx30(
+      /* @__PURE__ */ jsx31("div", { ref: containerRef, style: { height: "100%" }, children: ganttWithTooltip }),
+      /* @__PURE__ */ jsx31("div", { className: scrollNavStyles, children: ["left", "right"].map((dir) => /* @__PURE__ */ jsx31(
         "button",
         {
           type: "button",
@@ -6827,12 +5039,12 @@ function GanttChartComponent({
           onClick: () => scroll(dir),
           disabled: dir === "left" ? !canScrollLeft : !canScrollRight,
           "aria-label": `Scroll timeline ${dir}`,
-          children: /* @__PURE__ */ jsx30(ChevronIcon2, { direction: dir })
+          children: /* @__PURE__ */ jsx31(ChevronIcon2, { direction: dir })
         },
         dir
       )) })
     ] }),
-    shouldShowEditor && api && /* @__PURE__ */ jsx30(Editor, { api })
+    shouldShowEditor && api && /* @__PURE__ */ jsx31(Editor, { api })
   ] });
 }
 GanttChartComponent.displayName = "GanttChart";
@@ -6883,24 +5095,18 @@ ChartJS.register(
   Filler
 );
 var chartColors = {
-  navy: token("colors.data.navy"),
-  red: token("colors.data.red"),
   blue: token("colors.data.blue"),
-  orange: token("colors.data.orange"),
-  purpleDark: token("colors.data.purple-dark"),
-  yellow: token("colors.data.yellow"),
   purple: token("colors.data.purple"),
-  green: token("colors.data.green")
+  yellow: token("colors.data.yellow"),
+  pink: token("colors.data.pink"),
+  orange: token("colors.data.orange")
 };
 var chartColorPalette = [
   chartColors.blue,
-  chartColors.navy,
-  chartColors.orange,
-  chartColors.green,
   chartColors.purple,
-  chartColors.red,
-  chartColors.purpleDark,
-  chartColors.yellow
+  chartColors.yellow,
+  chartColors.pink,
+  chartColors.orange
 ];
 function getChartColor(index) {
   return chartColorPalette[index % chartColorPalette.length];
@@ -6917,12 +5123,6 @@ var chartTypography = {
     medium: 500,
     bold: "bold"
   }
-};
-var chartUIColors = {
-  textPrimary: token("colors.text.primary"),
-  textSecondary: token("colors.text.secondary"),
-  gridLine: token("colors.border.default"),
-  background: token("colors.background.base")
 };
 function createBaseChartOptions(colors, options) {
   const { title, showLegend = true, legendPosition = "top" } = options ?? {};
@@ -7021,7 +5221,7 @@ import {
   useEffect as useEffect3,
   useState as useState3
 } from "react";
-import { jsx as jsx31 } from "react/jsx-runtime";
+import { jsx as jsx32 } from "react/jsx-runtime";
 var ThemeContext = createContext(null);
 var STORAGE_KEY = "waterworth-color-mode";
 function getSystemPreference() {
@@ -7030,17 +5230,14 @@ function getSystemPreference() {
 }
 function getStoredColorMode() {
   if (typeof window === "undefined") return null;
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === "light" || stored === "dark" || stored === "system") {
-    return stored;
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === "light" || stored === "dark" || stored === "system") {
+      return stored;
+    }
+  } catch {
   }
   return null;
-}
-function resolveColorMode(mode) {
-  if (mode === "system") {
-    return getSystemPreference();
-  }
-  return mode;
 }
 var ThemeProvider = ({
   children,
@@ -7049,25 +5246,26 @@ var ThemeProvider = ({
   const [colorMode, setColorModeState] = useState3(() => {
     return getStoredColorMode() ?? defaultColorMode;
   });
-  const [resolvedColorMode, setResolvedColorMode] = useState3(
-    () => resolveColorMode(colorMode)
+  const [systemPreference, setSystemPreference] = useState3(
+    getSystemPreference
   );
+  const resolvedColorMode = colorMode === "system" ? systemPreference : colorMode;
   const setColorMode = useCallback3((mode) => {
     setColorModeState(mode);
-    localStorage.setItem(STORAGE_KEY, mode);
+    try {
+      localStorage.setItem(STORAGE_KEY, mode);
+    } catch {
+    }
   }, []);
   const toggleColorMode = useCallback3(() => {
     const newMode = resolvedColorMode === "dark" ? "light" : "dark";
     setColorMode(newMode);
   }, [resolvedColorMode, setColorMode]);
   useEffect3(() => {
-    setResolvedColorMode(resolveColorMode(colorMode));
-  }, [colorMode]);
-  useEffect3(() => {
     if (colorMode !== "system") return;
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = (e) => {
-      setResolvedColorMode(e.matches ? "dark" : "light");
+      setSystemPreference(e.matches ? "dark" : "light");
     };
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
@@ -7075,7 +5273,7 @@ var ThemeProvider = ({
   useEffect3(() => {
     document.documentElement.setAttribute("data-color-mode", resolvedColorMode);
   }, [resolvedColorMode]);
-  return /* @__PURE__ */ jsx31(
+  return /* @__PURE__ */ jsx32(
     ThemeContext.Provider,
     {
       value: { colorMode, resolvedColorMode, setColorMode, toggleColorMode },
@@ -7087,20 +5285,20 @@ ThemeProvider.displayName = "ThemeProvider";
 
 // src/charts/use-chart-ui-colors.ts
 var lightColors = {
-  textPrimary: "#333232",
-  textSecondary: "#6b7280",
-  gridLine: "#d1d5db",
-  background: "#ffffff",
-  tooltipBg: "#333232",
-  tooltipText: "#ffffff"
+  textPrimary: token("colors.brand.dark"),
+  textSecondary: token("colors.text.subtle"),
+  gridLine: token("colors.text.muted"),
+  background: token("colors.bg.base"),
+  tooltipBg: token("colors.brand.dark"),
+  tooltipText: token("colors.text.on-dark")
 };
 var darkColors = {
-  textPrimary: "#f5f5f5",
-  textSecondary: "#a3a3a3",
-  gridLine: "#404040",
-  background: "#1a1a1a",
-  tooltipBg: "#f5f5f5",
-  tooltipText: "#1a1a1a"
+  textPrimary: token("colors.dark-text.main"),
+  textSecondary: token("colors.dark-text.subtle"),
+  gridLine: token("colors.dark-border.subtle"),
+  background: token("colors.dark-bg.base"),
+  tooltipBg: token("colors.dark-text.main"),
+  tooltipText: token("colors.dark-bg.base")
 };
 function useChartUIColors() {
   const context2 = useContext(ThemeContext);
@@ -7108,8 +5306,58 @@ function useChartUIColors() {
   return resolvedColorMode === "dark" ? darkColors : lightColors;
 }
 
+// src/charts/use-chart-colors.ts
+import { useContext as useContext2, useMemo as useMemo3 } from "react";
+function useChartColors(count, customColors) {
+  return useMemo3(() => {
+    if (customColors && customColors.length > 0) {
+      if (customColors.length >= count) {
+        return customColors.slice(0, count);
+      }
+      const extended = [];
+      for (let i = 0; i < count; i++) {
+        extended.push(customColors[i % customColors.length]);
+      }
+      return extended;
+    }
+    return Array.from({ length: count }, (_, i) => getChartColor(i));
+  }, [count, customColors]);
+}
+function useChartColorPalette() {
+  return chartColorPalette;
+}
+var lightDataPalette = [
+  token("colors.data.blue"),
+  token("colors.data.purple"),
+  token("colors.data.yellow"),
+  token("colors.data.pink"),
+  token("colors.data.orange")
+];
+var darkDataPalette = [
+  token("colors.data.blue-dark"),
+  token("colors.data.purple-dark"),
+  token("colors.data.yellow-dark"),
+  token("colors.data.pink-dark"),
+  token("colors.data.orange-dark")
+];
+var bgDataPalette = [
+  token("colors.data.blue-bg"),
+  token("colors.data.purple-bg"),
+  token("colors.data.yellow-bg"),
+  token("colors.data.pink-bg"),
+  token("colors.data.orange-bg")
+];
+function useChartDataColors() {
+  const context2 = useContext2(ThemeContext);
+  const resolvedColorMode = context2?.resolvedColorMode ?? "light";
+  return {
+    palette: resolvedColorMode === "dark" ? darkDataPalette : lightDataPalette,
+    bgPalette: bgDataPalette
+  };
+}
+
 // src/charts/BarChart.tsx
-import { jsx as jsx32 } from "react/jsx-runtime";
+import { jsx as jsx33 } from "react/jsx-runtime";
 function BarChart({
   labels,
   datasets,
@@ -7122,12 +5370,13 @@ function BarChart({
   horizontal = false
 }) {
   const uiColors = useChartUIColors();
+  const { palette } = useChartDataColors();
   const chartData = {
     labels,
     datasets: datasets.map((dataset, index) => ({
       label: dataset.label,
       data: dataset.data,
-      backgroundColor: dataset.backgroundColor ?? getChartColor(index),
+      backgroundColor: dataset.backgroundColor ?? palette[index % palette.length],
       borderColor: dataset.borderColor ?? "transparent",
       borderWidth: dataset.borderWidth ?? 0,
       borderRadius: 4
@@ -7150,12 +5399,12 @@ function BarChart({
       }
     }
   };
-  return /* @__PURE__ */ jsx32(ChartContainer, { className, children: /* @__PURE__ */ jsx32(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx32(Bar, { data: chartData, options }) }) });
+  return /* @__PURE__ */ jsx33(ChartContainer, { className, children: /* @__PURE__ */ jsx33(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx33(Bar, { data: chartData, options }) }) });
 }
 
 // src/charts/LineChart.tsx
 import { Line } from "react-chartjs-2";
-import { jsx as jsx33 } from "react/jsx-runtime";
+import { jsx as jsx34 } from "react/jsx-runtime";
 function LineChart({
   labels,
   datasets,
@@ -7167,15 +5416,16 @@ function LineChart({
   tension = 0.4
 }) {
   const uiColors = useChartUIColors();
+  const { palette, bgPalette } = useChartDataColors();
   const chartData = {
     labels,
     datasets: datasets.map((dataset, index) => {
-      const color = dataset.borderColor ?? getChartColor(index);
+      const color = dataset.borderColor ?? palette[index % palette.length];
       return {
         label: dataset.label,
         data: dataset.data,
         borderColor: color,
-        backgroundColor: dataset.fill ? dataset.backgroundColor ?? `${color}33` : "transparent",
+        backgroundColor: dataset.fill ? dataset.backgroundColor ?? bgPalette[index % bgPalette.length] : "transparent",
         borderWidth: 2,
         fill: dataset.fill ?? false,
         tension: dataset.tension ?? tension,
@@ -7201,12 +5451,12 @@ function LineChart({
       intersect: false
     }
   };
-  return /* @__PURE__ */ jsx33(ChartContainer, { className, children: /* @__PURE__ */ jsx33(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx33(Line, { data: chartData, options }) }) });
+  return /* @__PURE__ */ jsx34(ChartContainer, { className, children: /* @__PURE__ */ jsx34(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx34(Line, { data: chartData, options }) }) });
 }
 
 // src/charts/PieChart.tsx
 import { Pie } from "react-chartjs-2";
-import { jsx as jsx34 } from "react/jsx-runtime";
+import { jsx as jsx35 } from "react/jsx-runtime";
 function PieChart({
   labels,
   data,
@@ -7218,7 +5468,8 @@ function PieChart({
   colors
 }) {
   const uiColors = useChartUIColors();
-  const segmentColors = colors ?? labels.map((_, index) => getChartColor(index));
+  const { palette } = useChartDataColors();
+  const segmentColors = colors ?? labels.map((_, index) => palette[index % palette.length]);
   const chartData = {
     labels,
     datasets: [
@@ -7235,12 +5486,12 @@ function PieChart({
   const options = {
     ...baseOptions
   };
-  return /* @__PURE__ */ jsx34(ChartContainer, { className, children: /* @__PURE__ */ jsx34(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx34(Pie, { data: chartData, options }) }) });
+  return /* @__PURE__ */ jsx35(ChartContainer, { className, children: /* @__PURE__ */ jsx35(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx35(Pie, { data: chartData, options }) }) });
 }
 
 // src/charts/DoughnutChart.tsx
 import { Doughnut } from "react-chartjs-2";
-import { jsx as jsx35 } from "react/jsx-runtime";
+import { jsx as jsx36 } from "react/jsx-runtime";
 function DoughnutChart({
   labels,
   data,
@@ -7253,7 +5504,8 @@ function DoughnutChart({
   cutout = "50%"
 }) {
   const uiColors = useChartUIColors();
-  const segmentColors = colors ?? labels.map((_, index) => getChartColor(index));
+  const { palette } = useChartDataColors();
+  const segmentColors = colors ?? labels.map((_, index) => palette[index % palette.length]);
   const chartData = {
     labels,
     datasets: [
@@ -7271,34 +5523,13 @@ function DoughnutChart({
     ...baseOptions,
     cutout
   };
-  return /* @__PURE__ */ jsx35(ChartContainer, { className, children: /* @__PURE__ */ jsx35(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx35(Doughnut, { data: chartData, options }) }) });
-}
-
-// src/charts/use-chart-colors.ts
-import { useMemo as useMemo3 } from "react";
-function useChartColors(count, customColors) {
-  return useMemo3(() => {
-    if (customColors && customColors.length > 0) {
-      if (customColors.length >= count) {
-        return customColors.slice(0, count);
-      }
-      const extended = [];
-      for (let i = 0; i < count; i++) {
-        extended.push(customColors[i % customColors.length]);
-      }
-      return extended;
-    }
-    return Array.from({ length: count }, (_, i) => getChartColor(i));
-  }, [count, customColors]);
-}
-function useChartColorPalette() {
-  return chartColorPalette;
+  return /* @__PURE__ */ jsx36(ChartContainer, { className, children: /* @__PURE__ */ jsx36(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx36(Doughnut, { data: chartData, options }) }) });
 }
 
 // src/theme/useColorMode.ts
-import { useContext as useContext2 } from "react";
+import { useContext as useContext3 } from "react";
 function useColorMode() {
-  const context2 = useContext2(ThemeContext);
+  const context2 = useContext3(ThemeContext);
   if (!context2) {
     throw new Error("useColorMode must be used within a ThemeProvider");
   }
@@ -7306,7 +5537,7 @@ function useColorMode() {
 }
 
 // src/theme/ThemeToggle.tsx
-import { jsx as jsx36 } from "react/jsx-runtime";
+import { jsx as jsx37 } from "react/jsx-runtime";
 var ToggleButton = styled("button", {
   base: {
     display: "inline-flex",
@@ -7354,14 +5585,14 @@ var ThemeToggle = ({ mode = "simple", className }) => {
     const nextMode = cycleOrder[nextIndex];
     return `Current: ${colorMode}. Switch to ${nextMode} mode`;
   };
-  return /* @__PURE__ */ jsx36(
+  return /* @__PURE__ */ jsx37(
     ToggleButton,
     {
       type: "button",
       onClick: handleClick,
       "aria-label": getAriaLabel(),
       className,
-      children: /* @__PURE__ */ jsx36(
+      children: /* @__PURE__ */ jsx37(
         Icon,
         {
           name: resolvedColorMode === "light" ? "sun" : "moon",
@@ -7431,5 +5662,6 @@ export {
   getChartColor,
   useChartColorPalette,
   useChartColors,
+  useChartDataColors,
   useColorMode
 };
