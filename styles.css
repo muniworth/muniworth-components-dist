@@ -310,8 +310,6 @@
     --sizes-button\.min-height: 50px;
     --sizes-button\.sm\.min-height: 40px;
     --sizes-button\.lg\.min-height: 59px;
-    --sizes-input\.min-height: 60px;
-    --sizes-textarea\.min-height: 284px;
     --sizes-spinner\.sm: 16px;
     --sizes-spinner\.md: 24px;
     --sizes-spinner\.lg: 32px;
@@ -429,8 +427,6 @@
     --sizes-component\.button-min-height: var(--sizes-button\.min-height);
     --sizes-component\.button-sm-min-height: var(--sizes-button\.sm\.min-height);
     --sizes-component\.button-lg-min-height: var(--sizes-button\.lg\.min-height);
-    --sizes-component\.input-min-height: var(--sizes-input\.min-height);
-    --sizes-component\.textarea-min-height: var(--sizes-textarea\.min-height);
     --sizes-component\.spinner-sm: var(--sizes-spinner\.sm);
     --sizes-component\.spinner-md: var(--sizes-spinner\.md);
     --sizes-component\.spinner-lg: var(--sizes-spinner\.lg);
@@ -1783,6 +1779,10 @@
     transition: transform 0.3s ease;
 }
 
+  .trs_color_0\.15s_ease {
+    transition: color 0.15s ease;
+}
+
   .bd-b_1px_solid {
     border-bottom: 1px solid;
 }
@@ -2192,6 +2192,14 @@
     transform: translateZ(0);
 }
 
+  .c_text\.placeholder {
+    color: var(--colors-text\.placeholder);
+}
+
+  .pointer-events_none {
+    pointer-events: none;
+}
+
   .pos_popper {
     position: popper;
 }
@@ -2404,10 +2412,6 @@
     width: 150px;
 }
 
-  .min-h_component\.inputMinHeight {
-    min-height: var(--sizes-component\.input-min-height);
-}
-
   .min-w_36px {
     min-width: 36px;
 }
@@ -2448,6 +2452,26 @@
     height: 100%;
 }
 
+  .pl_xl {
+    padding-left: var(--spacing-xl);
+}
+
+  .left_0 {
+    left: 0;
+}
+
+  .pl_sm {
+    padding-left: var(--spacing-sm);
+}
+
+  .right_0 {
+    right: 0;
+}
+
+  .pr_sm {
+    padding-right: var(--spacing-sm);
+}
+
   .pr_xl {
     padding-right: var(--spacing-xl);
 }
@@ -2462,14 +2486,6 @@
 
   .bottom_0 {
     bottom: 0;
-}
-
-  .left_0 {
-    left: 0;
-}
-
-  .right_0 {
-    right: 0;
 }
 
   .w_320px {
@@ -2538,10 +2554,6 @@
 
   .mb_-2px {
     margin-bottom: -2px;
-}
-
-  .min-h_component\.textareaMinHeight {
-    min-height: var(--sizes-component\.textarea-min-height);
 }
 
   .w_36px {

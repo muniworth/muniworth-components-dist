@@ -11832,7 +11832,7 @@ type DurationToken = "fast" | "normal" | "slow" | "spinner"
 
 type ZIndexToken = "base" | "dropdown" | "sticky" | "modal" | "tooltip" | "toast"
 
-type SizeToken = "page.max-width" | "page.gutter-x" | "page.gutter-y" | "button.min-height" | "button.sm.min-height" | "button.lg.min-height" | "input.min-height" | "textarea.min-height" | "spinner.sm" | "spinner.md" | "spinner.lg" | "breakpoint-2xl" | "breakpoint-sm" | "breakpoint-md" | "breakpoint-lg" | "breakpoint-xl" | "component.buttonMinHeight" | "component.buttonSmMinHeight" | "component.buttonLgMinHeight" | "component.inputMinHeight" | "component.textareaMinHeight" | "component.spinnerSm" | "component.spinnerMd" | "component.spinnerLg"
+type SizeToken = "page.max-width" | "page.gutter-x" | "page.gutter-y" | "button.min-height" | "button.sm.min-height" | "button.lg.min-height" | "spinner.sm" | "spinner.md" | "spinner.lg" | "breakpoint-2xl" | "breakpoint-sm" | "breakpoint-md" | "breakpoint-lg" | "breakpoint-xl" | "component.buttonMinHeight" | "component.buttonSmMinHeight" | "component.buttonLgMinHeight" | "component.spinnerSm" | "component.spinnerMd" | "component.spinnerLg"
 
 type BreakpointToken = "2xl" | "sm" | "md" | "lg" | "xl"
 
@@ -20359,6 +20359,14 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 declare const Textarea: react.ForwardRefExoticComponent<TextareaProps & react.RefAttributes<HTMLTextAreaElement>>;
 
+interface SearchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+    label?: string;
+    error?: string;
+    helperText?: string;
+    onClear?: () => void;
+}
+declare const Search: react.ForwardRefExoticComponent<SearchProps & react.RefAttributes<HTMLInputElement>>;
+
 declare const alertRecipe: RecipeRuntimeFn<{
     variant: {
         info: {
@@ -20437,7 +20445,7 @@ type FormHelperTextProps = ComponentProps$1<typeof FormHelperText> & {
 declare const FormItemContainer: StyledComponent<"div", {}>;
 type FormItemContainerProps = ComponentProps$1<typeof FormItemContainer>;
 
-type IconName = 'chevron-left' | 'chevron-right' | 'chevron-down' | 'chevron-up' | 'angles-left' | 'angles-right' | 'arrow-up' | 'arrow-down' | 'xmark' | 'check' | 'plus' | 'minus' | 'circle-info' | 'circle-check' | 'triangle-exclamation' | 'circle-exclamation' | 'sun' | 'moon';
+type IconName = 'chevron-left' | 'chevron-right' | 'chevron-down' | 'chevron-up' | 'angles-left' | 'angles-right' | 'arrow-up' | 'arrow-down' | 'xmark' | 'check' | 'plus' | 'minus' | 'magnifying-glass' | 'circle-info' | 'circle-check' | 'triangle-exclamation' | 'circle-exclamation' | 'sun' | 'moon';
 type IconSize = 'xs' | 'sm' | 'md' | 'lg';
 interface IconProps {
     name: IconName;
@@ -21033,4 +21041,4 @@ declare const ThemeToggle: {
     displayName: string;
 };
 
-export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BarChart, type BarChartProps, type BarDataset, type BaseChartProps, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, type CalendarEvent, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, type ColorMode, Dialog, type DialogProps, DoughnutChart, type DoughnutChartProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, EventCalendar, type EventCalendarProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, GanttChart, type GanttChartProps, type GanttColumn, type GanttLink, type GanttScale, type GanttTask, Grid, GridItem, type GridItemProps, type GridProps, Icon, type IconName, type IconProps, type IconSize, Input, type InputProps, LineChart, type LineChartProps, type LineDataset, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, PieChart, type PieChartProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, type ResolvedColorMode, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, ThemeContext, type ThemeContextValue, ThemeProvider, type ThemeProviderProps, ThemeToggle, type ThemeToggleProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement, chartColorPalette, chartColors, getChartColor, useChartColorPalette, useChartColors, useChartDataColors, useColorMode };
+export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BarChart, type BarChartProps, type BarDataset, type BaseChartProps, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, type CalendarEvent, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, type ColorMode, Dialog, type DialogProps, DoughnutChart, type DoughnutChartProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, EventCalendar, type EventCalendarProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, GanttChart, type GanttChartProps, type GanttColumn, type GanttLink, type GanttScale, type GanttTask, Grid, GridItem, type GridItemProps, type GridProps, Icon, type IconName, type IconProps, type IconSize, Input, type InputProps, LineChart, type LineChartProps, type LineDataset, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, PieChart, type PieChartProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, type ResolvedColorMode, Search, type SearchProps, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, ThemeContext, type ThemeContextValue, ThemeProvider, type ThemeProviderProps, ThemeToggle, type ThemeToggleProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement, chartColorPalette, chartColors, getChartColor, useChartColorPalette, useChartColors, useChartDataColors, useColorMode };
