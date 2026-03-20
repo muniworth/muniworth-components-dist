@@ -1687,7 +1687,7 @@ var Content4 = styled(DialogPrimitive.Content, {
     width: "90vw",
     maxWidth: "500px",
     maxHeight: "85vh",
-    padding: "xl",
+    padding: "lg",
     zIndex: "zIndex.modal",
     outline: "none",
     _focus: {
@@ -1698,7 +1698,7 @@ var Content4 = styled(DialogPrimitive.Content, {
 var Title2 = styled(DialogPrimitive.Title, {
   base: {
     fontFamily: "brand",
-    fontSize: "2xl",
+    fontSize: "lg",
     fontWeight: "bold",
     color: "text.primary",
     marginBottom: "sm"
@@ -1710,7 +1710,7 @@ var Description2 = styled(DialogPrimitive.Description, {
     fontSize: "md",
     lineHeight: "normal",
     color: "text.secondary",
-    marginBottom: "lg"
+    marginBottom: "md"
   }
 });
 var CloseButton = styled(DialogPrimitive.Close, {

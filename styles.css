@@ -1470,10 +1470,6 @@
     inset: 0;
 }
 
-  .p_xl {
-    padding: var(--spacing-xl);
-}
-
   .p_xs {
     padding: var(--spacing-xs);
 }
@@ -2140,10 +2136,6 @@
     transform: translate(-50%, -50%);
 }
 
-  .fs_2xl {
-    font-size: var(--font-sizes-2xl);
-}
-
   .pos_absolute {
     position: absolute;
 }
@@ -2364,8 +2356,8 @@
     margin-bottom: var(--spacing-sm);
 }
 
-  .mb_lg {
-    margin-bottom: var(--spacing-lg);
+  .mb_md {
+    margin-bottom: var(--spacing-md);
 }
 
   .top_md {
