@@ -1,5 +1,5 @@
 import * as react from 'react';
-import { ElementType, ComponentType, Component, JSX, ComponentPropsWithRef, ButtonHTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes, HTMLAttributes, ComponentProps as ComponentProps$1, CSSProperties, ReactElement, ReactNode, ComponentPropsWithoutRef, AnchorHTMLAttributes } from 'react';
+import { ElementType, ComponentType, Component, JSX, ComponentPropsWithRef, ButtonHTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes, HTMLAttributes, ComponentProps as ComponentProps$1, CSSProperties, ReactElement, ComponentPropsWithoutRef, ReactNode, AnchorHTMLAttributes } from 'react';
 import * as Panda from '@pandacss/dev';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ColumnDef } from '@tanstack/react-table';
@@ -20510,6 +20510,12 @@ declare const Badge: react.ForwardRefExoticComponent<HTMLAttributes<HTMLSpanElem
     status?: "info" | "success" | "warning" | "danger" | "neutral" | undefined;
 } & react.RefAttributes<HTMLSpanElement>>;
 
+interface BlockquoteProps extends ComponentPropsWithoutRef<'blockquote'> {
+    cite?: string;
+    author?: string;
+}
+declare const Blockquote: react.ForwardRefExoticComponent<BlockquoteProps & react.RefAttributes<HTMLQuoteElement>>;
+
 interface SelectOption {
     value: string;
     label: string;
@@ -20580,6 +20586,69 @@ interface DialogProps {
     onOpenChange?: (open: boolean) => void;
 }
 declare const Dialog: react.ForwardRefExoticComponent<DialogProps & react.RefAttributes<HTMLDivElement>>;
+
+interface DrawerProps {
+    title?: string;
+    description?: string;
+    children: ReactNode;
+    trigger?: TriggerElement;
+    direction?: 'top' | 'bottom' | 'left' | 'right';
+    open?: boolean;
+    defaultOpen?: boolean;
+    onOpenChange?: (open: boolean) => void;
+    snapPoints?: (string | number)[];
+    activeSnapPoint?: string | number | null;
+    setActiveSnapPoint?: (snapPoint: string | number | null) => void;
+    shouldScaleBackground?: boolean;
+    dismissible?: boolean;
+}
+declare const Drawer: react.ForwardRefExoticComponent<DrawerProps & react.RefAttributes<HTMLDivElement>>;
+
+declare const drawerContentRecipe: RecipeRuntimeFn<{
+    direction: {
+        bottom: {
+            bottom: "0";
+            left: "0";
+            right: "0";
+            maxHeight: "97vh";
+            borderTopLeftRadius: "component.modalRadius";
+            borderTopRightRadius: "component.modalRadius";
+        };
+        top: {
+            top: "0";
+            left: "0";
+            right: "0";
+            maxHeight: "97vh";
+            borderBottomLeftRadius: "component.modalRadius";
+            borderBottomRightRadius: "component.modalRadius";
+        };
+        left: {
+            top: "0";
+            bottom: "0";
+            left: "0";
+            width: "min(420px, 97vw)";
+            maxWidth: "97vw";
+            borderTopRightRadius: "component.modalRadius";
+            borderBottomRightRadius: "component.modalRadius";
+        };
+        right: {
+            top: "0";
+            bottom: "0";
+            right: "0";
+            width: "min(420px, 97vw)";
+            maxWidth: "97vw";
+            borderTopLeftRadius: "component.modalRadius";
+            borderBottomLeftRadius: "component.modalRadius";
+        };
+    };
+    hasSnapPoints: {
+        true: {
+            height: "100%";
+        };
+        false: {};
+    };
+}>;
+type DrawerContentVariants = RecipeVariantProps<typeof drawerContentRecipe>;
 
 interface DropdownMenuItem {
     id: string;
@@ -21041,4 +21110,4 @@ declare const ThemeToggle: {
     displayName: string;
 };
 
-export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BarChart, type BarChartProps, type BarDataset, type BaseChartProps, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, type CalendarEvent, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, type ColorMode, Dialog, type DialogProps, DoughnutChart, type DoughnutChartProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, EventCalendar, type EventCalendarProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, GanttChart, type GanttChartProps, type GanttColumn, type GanttLink, type GanttScale, type GanttTask, Grid, GridItem, type GridItemProps, type GridProps, Icon, type IconName, type IconProps, type IconSize, Input, type InputProps, LineChart, type LineChartProps, type LineDataset, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, PieChart, type PieChartProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, type ResolvedColorMode, Search, type SearchProps, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, ThemeContext, type ThemeContextValue, ThemeProvider, type ThemeProviderProps, ThemeToggle, type ThemeToggleProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement, chartColorPalette, chartColors, getChartColor, useChartColorPalette, useChartColors, useChartDataColors, useColorMode };
+export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BarChart, type BarChartProps, type BarDataset, type BaseChartProps, Blockquote, type BlockquoteProps, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, type CalendarEvent, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, type ColorMode, Dialog, type DialogProps, DoughnutChart, type DoughnutChartProps, Drawer, type DrawerContentVariants, type DrawerProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, EventCalendar, type EventCalendarProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, GanttChart, type GanttChartProps, type GanttColumn, type GanttLink, type GanttScale, type GanttTask, Grid, GridItem, type GridItemProps, type GridProps, Icon, type IconName, type IconProps, type IconSize, Input, type InputProps, LineChart, type LineChartProps, type LineDataset, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, PieChart, type PieChartProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, type ResolvedColorMode, Search, type SearchProps, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, ThemeContext, type ThemeContextValue, ThemeProvider, type ThemeProviderProps, ThemeToggle, type ThemeToggleProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement, chartColorPalette, chartColors, getChartColor, useChartColorPalette, useChartColors, useChartDataColors, useColorMode };
