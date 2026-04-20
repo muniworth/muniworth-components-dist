@@ -98,7 +98,7 @@ function Example() {
 - Alert, Spinner, Progress, Toast
 
 ### Overlays
-- Dialog, Tooltip, Popover, DropdownMenu, SidePanel
+- Dialog, Tooltip, Popover, DropdownMenu, Drawer
 
 ### Navigation
 - Tabs, Breadcrumb, Pagination

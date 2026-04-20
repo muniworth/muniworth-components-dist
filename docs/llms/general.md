@@ -239,8 +239,6 @@ Available keyframe animations:
 - `swipeOut` - Toast swipe dismiss
 - `slideDown` / `slideUp` - Accordion content
 - `fadeIn` / `fadeOut` - Modal/popover fade
-- `slideInFromRight` / `slideOutToRight` - Side panel (right)
-- `slideInFromLeft` / `slideOutToLeft` - Side panel (left)
 - `overlayShow` / `overlayHide` - Modal overlay
 
 ## Theming

@@ -67,36 +67,35 @@ import { Separator } from '@waterworth/react'
 | `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Separator direction |
 | `decorative` | `boolean` | `true` | If true, removes from accessibility tree |
 
-## SidePanel
+## Drawer
 
-Modal dialog that slides from the side.
+Modal dialog that slides in from any edge of the viewport. (Replaces the previous `SidePanel`: `side` maps to `direction`.)
 
 ```tsx
-import { SidePanel, Button } from '@waterworth/react'
+import { Drawer, Button } from '@waterworth/react'
 
-<SidePanel
+<Drawer
   title="Edit Profile"
   description="Update your information"
   trigger={<Button>Open Settings</Button>}
-  side="right"
+  direction="right"
   size="md"
 >
   <form>...</form>
-</SidePanel>
+</Drawer>
 ```
 
 **Props:**
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `title` | `ReactNode` | - | Panel title |
-| `description` | `ReactNode` | - | Panel description |
+| `title` | `ReactNode` | - | Drawer title |
+| `description` | `ReactNode` | - | Drawer description |
 | `trigger` | `ReactElement` | - | Element that triggers open |
-| `side` | `'left' \| 'right'` | `'right'` | Which side to slide from |
-| `size` | `'sm' \| 'md' \| 'lg' \| 'full'` | `'md'` | Panel width |
+| `direction` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'bottom'` | Edge to slide from |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'full'` | `'md'` | Width for `left`/`right` drawers (320px / 480px / 640px / 100vw). Ignored for `top`/`bottom`. |
 | `open` | `boolean` | - | Controlled open state |
-| `defaultOpen` | `boolean` | - | Uncontrolled default |
 | `onOpenChange` | `(open: boolean) => void` | - | State change callback |
-| `children` | `ReactNode` | required | Panel content |
+| `children` | `ReactNode` | required | Drawer content |
 
 ## Breadcrumbs
 

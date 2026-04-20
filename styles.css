@@ -611,46 +611,6 @@
 }
 }
 
-  @keyframes slideInFromRight {
-    from {
-      transform: translateX(100%);
-}
-
-    to {
-      transform: translateX(0);
-}
-}
-
-  @keyframes slideOutToRight {
-    from {
-      transform: translateX(0);
-}
-
-    to {
-      transform: translateX(100%);
-}
-}
-
-  @keyframes slideInFromLeft {
-    from {
-      transform: translateX(-100%);
-}
-
-    to {
-      transform: translateX(0);
-}
-}
-
-  @keyframes slideOutToLeft {
-    from {
-      transform: translateX(0);
-}
-
-    to {
-      transform: translateX(-100%);
-}
-}
-
   @keyframes overlayShow {
     from {
       opacity: 0;
@@ -1791,14 +1751,6 @@
     transition: color 0.15s ease;
 }
 
-  .bd-r_1px_solid {
-    border-right: 1px solid;
-}
-
-  .bd-l_1px_solid {
-    border-left: 1px solid;
-}
-
   .bd-c_currentColor {
     border-color: currentColor;
 }
@@ -1819,8 +1771,8 @@
     border-width: 4px;
 }
 
-  .ring_2px_solid {
-    outline: 2px solid;
+  .ring_1px_solid {
+    outline: 1px solid;
 }
 
   .trs_transform_0\.15s_ease {
@@ -2464,16 +2416,28 @@
     border-bottom-right-radius: var(--radii-component\.modal-radius);
 }
 
-  .w_min\(420px\,_97vw\) {
-    width: min(420px, 97vw);
+  .h_100\% {
+    height: 100%;
+}
+
+  .w_320px {
+    width: 320px;
 }
 
   .max-w_97vw {
     max-width: 97vw;
 }
 
-  .h_100\% {
-    height: 100%;
+  .w_480px {
+    width: 480px;
+}
+
+  .w_640px {
+    width: 640px;
+}
+
+  .w_100vw {
+    width: 100vw;
 }
 
   .min-w_200px {
@@ -2550,26 +2514,6 @@
 
   .pr_sm {
     padding-right: var(--spacing-sm);
-}
-
-  .w_320px {
-    width: 320px;
-}
-
-  .max-w_90vw {
-    max-width: 90vw;
-}
-
-  .w_480px {
-    width: 480px;
-}
-
-  .w_640px {
-    width: 640px;
-}
-
-  .w_100vw {
-    width: 100vw;
 }
 
   .bd-t-c_transparent {
@@ -2844,35 +2788,7 @@
     background: var(--colors-accent\.primary);
 }
 
-  .\[\&\[data-state\=\"checked\"\]\]\:bg_selection\.bg[data-state="checked"] {
-    background: var(--colors-selection\.bg);
-}
-
-  .\[\&\[data-state\=\"open\"\]\]\:anim_overlayShow_0\.2s_ease-out[data-state="open"] {
-    animation: overlayShow 0.2s ease-out;
-}
-
-  .\[\&\[data-state\=\"closed\"\]\]\:anim_overlayHide_0\.15s_ease-in[data-state="closed"] {
-    animation: overlayHide 0.15s ease-in;
-}
-
-  .\[\&\[data-state\=\"open\"\]\]\:anim_slideInFromLeft_0\.2s_ease-out[data-state="open"] {
-    animation: slideInFromLeft 0.2s ease-out;
-}
-
-  .\[\&\[data-state\=\"closed\"\]\]\:anim_slideOutToLeft_0\.15s_ease-in[data-state="closed"] {
-    animation: slideOutToLeft 0.15s ease-in;
-}
-
-  .\[\&\[data-state\=\"open\"\]\]\:anim_slideInFromRight_0\.2s_ease-out[data-state="open"] {
-    animation: slideInFromRight 0.2s ease-out;
-}
-
-  .\[\&\[data-state\=\"closed\"\]\]\:anim_slideOutToRight_0\.15s_ease-in[data-state="closed"] {
-    animation: slideOutToRight 0.15s ease-in;
-}
-
-  .\[\&\[data-selected\=\"true\"\]\]\:bg_selection\.bg[data-selected="true"] {
+  .\[\&\[data-state\=\"checked\"\]\]\:bg_selection\.bg[data-state="checked"],.\[\&\[data-selected\=\"true\"\]\]\:bg_selection\.bg[data-selected="true"] {
     background: var(--colors-selection\.bg);
 }
 
@@ -4034,8 +3950,8 @@
     outline-color: var(--colors-accent\.primary);
 }
 
-  .\[\&\:focus-visible\]\:ring-o_2px:focus-visible {
-    outline-offset: 2px;
+  .\[\&\:focus-visible\]\:ring-o_1px:focus-visible {
+    outline-offset: 1px;
 }
 
   .focus\:bx-sh_focus\.button:is(:focus, [data-focus]) {

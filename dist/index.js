@@ -1648,7 +1648,7 @@ var Root6 = styled(SwitchPrimitive.Root, {
   variants: {
     hasError: {
       true: {
-        outline: "2px solid",
+        outline: "1px solid",
         outlineColor: "state.danger",
         _focus: {
           boxShadow: "focus.danger"
@@ -1859,8 +1859,6 @@ var drawerContentRecipe = cva({
         top: "0",
         bottom: "0",
         left: "0",
-        width: "min(420px, 97vw)",
-        maxWidth: "97vw",
         borderTopRightRadius: "component.modalRadius",
         borderBottomRightRadius: "component.modalRadius"
       },
@@ -1868,8 +1866,6 @@ var drawerContentRecipe = cva({
         top: "0",
         bottom: "0",
         right: "0",
-        width: "min(420px, 97vw)",
-        maxWidth: "97vw",
         borderTopLeftRadius: "component.modalRadius",
         borderBottomLeftRadius: "component.modalRadius"
       }
@@ -1882,11 +1878,60 @@ var drawerContentRecipe = cva({
         height: "100%"
       },
       false: {}
+    },
+    size: {
+      sm: {},
+      md: {},
+      lg: {},
+      full: {}
     }
   },
+  compoundVariants: [
+    {
+      direction: "left",
+      size: "sm",
+      css: { width: "320px", maxWidth: "97vw" }
+    },
+    {
+      direction: "left",
+      size: "md",
+      css: { width: "480px", maxWidth: "97vw" }
+    },
+    {
+      direction: "left",
+      size: "lg",
+      css: { width: "640px", maxWidth: "97vw" }
+    },
+    {
+      direction: "left",
+      size: "full",
+      css: { width: "100vw" }
+    },
+    {
+      direction: "right",
+      size: "sm",
+      css: { width: "320px", maxWidth: "97vw" }
+    },
+    {
+      direction: "right",
+      size: "md",
+      css: { width: "480px", maxWidth: "97vw" }
+    },
+    {
+      direction: "right",
+      size: "lg",
+      css: { width: "640px", maxWidth: "97vw" }
+    },
+    {
+      direction: "right",
+      size: "full",
+      css: { width: "100vw" }
+    }
+  ],
   defaultVariants: {
     direction: "bottom",
-    hasSnapPoints: false
+    hasSnapPoints: false,
+    size: "md"
   }
 });
 
@@ -1981,6 +2026,7 @@ var Drawer = forwardRef16(
     children,
     trigger,
     direction = "bottom",
+    size = "md",
     open,
     defaultOpen,
     onOpenChange,
@@ -2020,7 +2066,8 @@ var Drawer = forwardRef16(
                 ref,
                 className: drawerContentRecipe({
                   direction,
-                  hasSnapPoints: Boolean(snapPoints && snapPoints.length > 0)
+                  hasSnapPoints: Boolean(snapPoints && snapPoints.length > 0),
+                  size
                 }),
                 children: [
                   direction === "bottom" && /* @__PURE__ */ jsx17(Handle, {}),
@@ -3000,7 +3047,7 @@ var BreadcrumbAnchor = styled("a", {
     "&:focus-visible": {
       outline: "1px solid",
       outlineColor: "accent.primary",
-      outlineOffset: "2px",
+      outlineOffset: "1px",
       borderRadius: "sm"
     }
   }
@@ -3248,208 +3295,6 @@ var Pagination = forwardRef29(
 );
 Pagination.displayName = "Pagination";
 
-// src/side-panel/SidePanel.tsx
-import { forwardRef as forwardRef30, isValidElement as isValidElement8 } from "react";
-import * as DialogPrimitive2 from "@radix-ui/react-dialog";
-
-// src/side-panel/side-panel.recipes.ts
-var sidePanelContentRecipe = cva({
-  base: {
-    bg: "background.elevated",
-    boxShadow: "component.modalShadow",
-    position: "fixed",
-    top: "0",
-    bottom: "0",
-    display: "flex",
-    flexDirection: "column",
-    zIndex: "zIndex.modal",
-    outline: "none",
-    overflow: "hidden",
-    _focus: {
-      outline: "none"
-    }
-  },
-  variants: {
-    side: {
-      left: {
-        left: "0",
-        borderRight: "1px solid",
-        borderColor: "border.subtle",
-        '&[data-state="open"]': {
-          animation: "slideInFromLeft 0.2s ease-out"
-        },
-        '&[data-state="closed"]': {
-          animation: "slideOutToLeft 0.15s ease-in"
-        }
-      },
-      right: {
-        right: "0",
-        borderLeft: "1px solid",
-        borderColor: "border.subtle",
-        '&[data-state="open"]': {
-          animation: "slideInFromRight 0.2s ease-out"
-        },
-        '&[data-state="closed"]': {
-          animation: "slideOutToRight 0.15s ease-in"
-        }
-      }
-    },
-    size: {
-      sm: {
-        width: "320px",
-        maxWidth: "90vw"
-      },
-      md: {
-        width: "480px",
-        maxWidth: "90vw"
-      },
-      lg: {
-        width: "640px",
-        maxWidth: "90vw"
-      },
-      full: {
-        width: "100vw"
-      }
-    }
-  },
-  defaultVariants: {
-    side: "right",
-    size: "md"
-  }
-});
-
-// src/side-panel/SidePanel.tsx
-import { jsx as jsx31, jsxs as jsxs18 } from "react/jsx-runtime";
-var Overlay5 = styled(DialogPrimitive2.Overlay, {
-  base: {
-    bg: "overlay.modal",
-    position: "fixed",
-    inset: "0",
-    zIndex: "zIndex.modal",
-    '&[data-state="open"]': {
-      animation: "overlayShow 0.2s ease-out"
-    },
-    '&[data-state="closed"]': {
-      animation: "overlayHide 0.15s ease-in"
-    }
-  }
-});
-var Header4 = styled("div", {
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "xs",
-    padding: "lg",
-    borderBottom: "1px solid",
-    borderColor: "border.subtle",
-    flexShrink: 0
-  }
-});
-var Title7 = styled(DialogPrimitive2.Title, {
-  base: {
-    fontFamily: "brand",
-    fontSize: "xl",
-    fontWeight: "bold",
-    color: "text.primary",
-    margin: 0,
-    paddingRight: "xl"
-  }
-});
-var Description7 = styled(DialogPrimitive2.Description, {
-  base: {
-    fontFamily: "brand",
-    fontSize: "sm",
-    lineHeight: "normal",
-    color: "text.secondary",
-    margin: 0
-  }
-});
-var Body = styled("div", {
-  base: {
-    flex: 1,
-    padding: "lg",
-    overflowY: "auto"
-  }
-});
-var CloseButton3 = styled(DialogPrimitive2.Close, {
-  base: {
-    position: "absolute",
-    top: "md",
-    right: "md",
-    width: "32px",
-    height: "32px",
-    borderRadius: "sm",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "text.secondary",
-    cursor: "pointer",
-    border: "none",
-    bg: "transparent",
-    outline: "none",
-    transition: "all 0.15s ease",
-    zIndex: 1,
-    _hover: {
-      bg: "background.subtle",
-      color: "text.primary"
-    },
-    _focus: {
-      boxShadow: "focus.dialog"
-    }
-  }
-});
-var SidePanel = forwardRef30(
-  ({
-    open,
-    defaultOpen,
-    onOpenChange,
-    trigger,
-    side = "right",
-    size = "md",
-    title,
-    description,
-    children
-  }, ref) => {
-    if (process.env.NODE_ENV !== "production" && trigger && !isValidElement8(trigger)) {
-      console.warn(
-        "SidePanel: `trigger` prop must be a single React element. Received:",
-        typeof trigger,
-        trigger
-      );
-    }
-    return /* @__PURE__ */ jsxs18(
-      DialogPrimitive2.Root,
-      {
-        open,
-        defaultOpen,
-        onOpenChange,
-        children: [
-          trigger && /* @__PURE__ */ jsx31(DialogPrimitive2.Trigger, { asChild: true, children: trigger }),
-          /* @__PURE__ */ jsxs18(DialogPrimitive2.Portal, { children: [
-            /* @__PURE__ */ jsx31(Overlay5, {}),
-            /* @__PURE__ */ jsxs18(
-              DialogPrimitive2.Content,
-              {
-                ref,
-                className: sidePanelContentRecipe({ side, size }),
-                children: [
-                  /* @__PURE__ */ jsx31(CloseButton3, { "aria-label": "Close panel", children: /* @__PURE__ */ jsx31(Icon, { name: "xmark", size: "lg" }) }),
-                  (title || description) && /* @__PURE__ */ jsxs18(Header4, { children: [
-                    title && /* @__PURE__ */ jsx31(Title7, { children: title }),
-                    description && /* @__PURE__ */ jsx31(Description7, { children: description })
-                  ] }),
-                  /* @__PURE__ */ jsx31(Body, { children })
-                ]
-              }
-            )
-          ] })
-        ]
-      }
-    );
-  }
-);
-SidePanel.displayName = "SidePanel";
-
 // src/table/Table.tsx
 import {
   flexRender,
@@ -3457,8 +3302,8 @@ import {
   getSortedRowModel,
   useReactTable
 } from "@tanstack/react-table";
-import { forwardRef as forwardRef31, useEffect, useState } from "react";
-import { jsx as jsx32, jsxs as jsxs19 } from "react/jsx-runtime";
+import { forwardRef as forwardRef30, useEffect, useState } from "react";
+import { jsx as jsx31, jsxs as jsxs18 } from "react/jsx-runtime";
 var TableContainer = styled("div", {
   base: {
     width: "100%",
@@ -3571,18 +3416,18 @@ function TableComponent({
       onRowSelectionChange(selectedRows);
     }
   }, [rowSelection, onRowSelectionChange, table]);
-  return /* @__PURE__ */ jsx32(TableContainer, { ref, children: /* @__PURE__ */ jsxs19(StyledTable, { children: [
-    /* @__PURE__ */ jsx32(TableHead, { children: table.getHeaderGroups().map((headerGroup) => /* @__PURE__ */ jsx32("tr", { children: headerGroup.headers.map((header) => /* @__PURE__ */ jsx32(
+  return /* @__PURE__ */ jsx31(TableContainer, { ref, children: /* @__PURE__ */ jsxs18(StyledTable, { children: [
+    /* @__PURE__ */ jsx31(TableHead, { children: table.getHeaderGroups().map((headerGroup) => /* @__PURE__ */ jsx31("tr", { children: headerGroup.headers.map((header) => /* @__PURE__ */ jsx31(
       TableHeaderCell,
       {
         onClick: header.column.getToggleSortingHandler(),
         sortable: header.column.getCanSort(),
-        children: header.isPlaceholder ? null : /* @__PURE__ */ jsxs19(HeaderCellContent, { children: [
+        children: header.isPlaceholder ? null : /* @__PURE__ */ jsxs18(HeaderCellContent, { children: [
           flexRender(
             header.column.columnDef.header,
             header.getContext()
           ),
-          header.column.getIsSorted() && /* @__PURE__ */ jsx32(
+          header.column.getIsSorted() && /* @__PURE__ */ jsx31(
             Icon,
             {
               name: header.column.getIsSorted() === "asc" ? "arrow-up" : "arrow-down",
@@ -3593,24 +3438,24 @@ function TableComponent({
       },
       header.id
     )) }, headerGroup.id)) }),
-    /* @__PURE__ */ jsx32(TableBody, { children: table.getRowModel().rows.map((row) => /* @__PURE__ */ jsx32(
+    /* @__PURE__ */ jsx31(TableBody, { children: table.getRowModel().rows.map((row) => /* @__PURE__ */ jsx31(
       TableRow,
       {
         "data-selected": row.getIsSelected(),
-        children: row.getVisibleCells().map((cell) => /* @__PURE__ */ jsx32(TableCell, { children: flexRender(cell.column.columnDef.cell, cell.getContext()) }, cell.id))
+        children: row.getVisibleCells().map((cell) => /* @__PURE__ */ jsx31(TableCell, { children: flexRender(cell.column.columnDef.cell, cell.getContext()) }, cell.id))
       },
       row.id
     )) })
   ] }) });
 }
 TableComponent.displayName = "Table";
-var Table = forwardRef31(TableComponent);
+var Table = forwardRef30(TableComponent);
 
 // src/event-calendar/EventCalendar.tsx
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { forwardRef as forwardRef32 } from "react";
+import { forwardRef as forwardRef31 } from "react";
 
 // styled-system/tokens/index.mjs
 var tokens = {
@@ -4508,7 +4353,7 @@ function tokenVar(path, fallback) {
 token.var = tokenVar;
 
 // src/event-calendar/EventCalendar.tsx
-import { jsx as jsx33 } from "react/jsx-runtime";
+import { jsx as jsx32 } from "react/jsx-runtime";
 var CalendarContainer = styled("div", {
   base: {
     fontFamily: "brand",
@@ -4688,7 +4533,7 @@ function EventCalendarComponent({
       onEventDrop(event, info.event.start || /* @__PURE__ */ new Date(), info.event.end);
     }
   };
-  return /* @__PURE__ */ jsx33(CalendarContainer, { ref, children: /* @__PURE__ */ jsx33(
+  return /* @__PURE__ */ jsx32(CalendarContainer, { ref, children: /* @__PURE__ */ jsx32(
     FullCalendar,
     {
       plugins: [dayGridPlugin, interactionPlugin],
@@ -4713,13 +4558,13 @@ function EventCalendarComponent({
   ) });
 }
 EventCalendarComponent.displayName = "EventCalendar";
-var EventCalendar = forwardRef32(EventCalendarComponent);
+var EventCalendar = forwardRef31(EventCalendarComponent);
 
 // src/gantt-chart/GanttChart.tsx
 import { Editor, Gantt, Tooltip as Tooltip2 } from "@svar-ui/react-gantt";
 import "@svar-ui/react-gantt/all.css";
-import { forwardRef as forwardRef33, useCallback as useCallback2, useEffect as useEffect2, useRef, useState as useState2 } from "react";
-import { jsx as jsx34, jsxs as jsxs20 } from "react/jsx-runtime";
+import { forwardRef as forwardRef32, useCallback as useCallback2, useEffect as useEffect2, useRef, useState as useState2 } from "react";
+import { jsx as jsx33, jsxs as jsxs19 } from "react/jsx-runtime";
 var defaultColumns = [
   { id: "text", header: "Task", width: 150 },
   { id: "start", header: "Start date", width: 90 },
@@ -4731,7 +4576,7 @@ var TaskTemplate = ({ data: task }) => {
   if (task.type === "milestone") return null;
   const progress = task.progress ?? 0;
   const radiusSm = token("radii.sm");
-  return /* @__PURE__ */ jsxs20("div", { className: "wx-bar wx-task", style: {
+  return /* @__PURE__ */ jsxs19("div", { className: "wx-bar wx-task", style: {
     width: "100%",
     height: "100%",
     backgroundColor: getPriorityColor(task.priority),
@@ -4745,7 +4590,7 @@ var TaskTemplate = ({ data: task }) => {
     position: "relative",
     overflow: "hidden"
   }, children: [
-    progress > 0 && progress < 100 && /* @__PURE__ */ jsx34("div", { style: {
+    progress > 0 && progress < 100 && /* @__PURE__ */ jsx33("div", { style: {
       position: "absolute",
       left: 0,
       top: 0,
@@ -4754,7 +4599,7 @@ var TaskTemplate = ({ data: task }) => {
       backgroundColor: "rgba(0, 0, 0, 0.2)",
       borderRadius: radiusSm
     } }),
-    /* @__PURE__ */ jsx34("span", { style: {
+    /* @__PURE__ */ jsx33("span", { style: {
       position: "relative",
       zIndex: 1,
       fontSize: token("fontSizes.xs"),
@@ -4803,7 +4648,7 @@ var scrollButtonStyles = css({
     }
   }
 });
-var ChevronIcon2 = ({ direction }) => /* @__PURE__ */ jsx34("i", { className: `fa-solid fa-chevron-${direction}`, style: { fontSize: "12px" } });
+var ChevronIcon2 = ({ direction }) => /* @__PURE__ */ jsx33("i", { className: `fa-solid fa-chevron-${direction}`, style: { fontSize: "12px" } });
 var t = {
   accent: token("colors.accent.primary"),
   accentSecondary: token("colors.accent.secondary"),
@@ -5376,12 +5221,12 @@ function GanttChartComponent({
     ...onLinkAdd && { "add-link": onLinkAdd },
     ...onLinkDelete && { "delete-link": onLinkDelete }
   };
-  const ganttElement = /* @__PURE__ */ jsx34(Gantt, { ...ganttProps });
-  const ganttWithTooltip = showTooltip && api ? /* @__PURE__ */ jsx34(Tooltip2, { api, children: ganttElement }) : ganttElement;
-  return /* @__PURE__ */ jsxs20(GanttWrapper, { ref, children: [
-    /* @__PURE__ */ jsxs20(GanttContainer, { style: { height, position: "relative" }, children: [
-      /* @__PURE__ */ jsx34("div", { ref: containerRef, style: { height: "100%" }, children: ganttWithTooltip }),
-      /* @__PURE__ */ jsx34("div", { className: scrollNavStyles, children: ["left", "right"].map((dir) => /* @__PURE__ */ jsx34(
+  const ganttElement = /* @__PURE__ */ jsx33(Gantt, { ...ganttProps });
+  const ganttWithTooltip = showTooltip && api ? /* @__PURE__ */ jsx33(Tooltip2, { api, children: ganttElement }) : ganttElement;
+  return /* @__PURE__ */ jsxs19(GanttWrapper, { ref, children: [
+    /* @__PURE__ */ jsxs19(GanttContainer, { style: { height, position: "relative" }, children: [
+      /* @__PURE__ */ jsx33("div", { ref: containerRef, style: { height: "100%" }, children: ganttWithTooltip }),
+      /* @__PURE__ */ jsx33("div", { className: scrollNavStyles, children: ["left", "right"].map((dir) => /* @__PURE__ */ jsx33(
         "button",
         {
           type: "button",
@@ -5389,16 +5234,16 @@ function GanttChartComponent({
           onClick: () => scroll(dir),
           disabled: dir === "left" ? !canScrollLeft : !canScrollRight,
           "aria-label": `Scroll timeline ${dir}`,
-          children: /* @__PURE__ */ jsx34(ChevronIcon2, { direction: dir })
+          children: /* @__PURE__ */ jsx33(ChevronIcon2, { direction: dir })
         },
         dir
       )) })
     ] }),
-    shouldShowEditor && api && /* @__PURE__ */ jsx34(Editor, { api })
+    shouldShowEditor && api && /* @__PURE__ */ jsx33(Editor, { api })
   ] });
 }
 GanttChartComponent.displayName = "GanttChart";
-var GanttChart = forwardRef33(GanttChartComponent);
+var GanttChart = forwardRef32(GanttChartComponent);
 
 // src/charts/BarChart.tsx
 import { Bar } from "react-chartjs-2";
@@ -5427,7 +5272,7 @@ import {
   LineElement,
   PointElement,
   ArcElement,
-  Title as Title8,
+  Title as Title6,
   Tooltip as Tooltip3,
   Legend,
   Filler
@@ -5439,7 +5284,7 @@ ChartJS.register(
   LineElement,
   PointElement,
   ArcElement,
-  Title8,
+  Title6,
   Tooltip3,
   Legend,
   Filler
@@ -5571,7 +5416,7 @@ import {
   useEffect as useEffect3,
   useState as useState3
 } from "react";
-import { jsx as jsx35 } from "react/jsx-runtime";
+import { jsx as jsx34 } from "react/jsx-runtime";
 var ThemeContext = createContext(null);
 var STORAGE_KEY = "waterworth-color-mode";
 function getSystemPreference() {
@@ -5623,7 +5468,7 @@ var ThemeProvider = ({
   useEffect3(() => {
     document.documentElement.setAttribute("data-color-mode", resolvedColorMode);
   }, [resolvedColorMode]);
-  return /* @__PURE__ */ jsx35(
+  return /* @__PURE__ */ jsx34(
     ThemeContext.Provider,
     {
       value: { colorMode, resolvedColorMode, setColorMode, toggleColorMode },
@@ -5707,7 +5552,7 @@ function useChartDataColors() {
 }
 
 // src/charts/BarChart.tsx
-import { jsx as jsx36 } from "react/jsx-runtime";
+import { jsx as jsx35 } from "react/jsx-runtime";
 function BarChart({
   labels,
   datasets,
@@ -5749,12 +5594,12 @@ function BarChart({
       }
     }
   };
-  return /* @__PURE__ */ jsx36(ChartContainer, { className, children: /* @__PURE__ */ jsx36(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx36(Bar, { data: chartData, options }) }) });
+  return /* @__PURE__ */ jsx35(ChartContainer, { className, children: /* @__PURE__ */ jsx35(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx35(Bar, { data: chartData, options }) }) });
 }
 
 // src/charts/LineChart.tsx
 import { Line } from "react-chartjs-2";
-import { jsx as jsx37 } from "react/jsx-runtime";
+import { jsx as jsx36 } from "react/jsx-runtime";
 function LineChart({
   labels,
   datasets,
@@ -5801,12 +5646,12 @@ function LineChart({
       intersect: false
     }
   };
-  return /* @__PURE__ */ jsx37(ChartContainer, { className, children: /* @__PURE__ */ jsx37(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx37(Line, { data: chartData, options }) }) });
+  return /* @__PURE__ */ jsx36(ChartContainer, { className, children: /* @__PURE__ */ jsx36(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx36(Line, { data: chartData, options }) }) });
 }
 
 // src/charts/PieChart.tsx
 import { Pie } from "react-chartjs-2";
-import { jsx as jsx38 } from "react/jsx-runtime";
+import { jsx as jsx37 } from "react/jsx-runtime";
 function PieChart({
   labels,
   data,
@@ -5836,12 +5681,12 @@ function PieChart({
   const options = {
     ...baseOptions
   };
-  return /* @__PURE__ */ jsx38(ChartContainer, { className, children: /* @__PURE__ */ jsx38(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx38(Pie, { data: chartData, options }) }) });
+  return /* @__PURE__ */ jsx37(ChartContainer, { className, children: /* @__PURE__ */ jsx37(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx37(Pie, { data: chartData, options }) }) });
 }
 
 // src/charts/DoughnutChart.tsx
 import { Doughnut } from "react-chartjs-2";
-import { jsx as jsx39 } from "react/jsx-runtime";
+import { jsx as jsx38 } from "react/jsx-runtime";
 function DoughnutChart({
   labels,
   data,
@@ -5873,7 +5718,7 @@ function DoughnutChart({
     ...baseOptions,
     cutout
   };
-  return /* @__PURE__ */ jsx39(ChartContainer, { className, children: /* @__PURE__ */ jsx39(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx39(Doughnut, { data: chartData, options }) }) });
+  return /* @__PURE__ */ jsx38(ChartContainer, { className, children: /* @__PURE__ */ jsx38(ChartInner, { style: { height }, children: /* @__PURE__ */ jsx38(Doughnut, { data: chartData, options }) }) });
 }
 
 // src/theme/useColorMode.ts
@@ -5887,7 +5732,7 @@ function useColorMode() {
 }
 
 // src/theme/ThemeToggle.tsx
-import { jsx as jsx40 } from "react/jsx-runtime";
+import { jsx as jsx39 } from "react/jsx-runtime";
 var ToggleButton = styled("button", {
   base: {
     display: "inline-flex",
@@ -5935,14 +5780,14 @@ var ThemeToggle = ({ mode = "simple", className }) => {
     const nextMode = cycleOrder[nextIndex];
     return `Current: ${colorMode}. Switch to ${nextMode} mode`;
   };
-  return /* @__PURE__ */ jsx40(
+  return /* @__PURE__ */ jsx39(
     ToggleButton,
     {
       type: "button",
       onClick: handleClick,
       "aria-label": getAriaLabel(),
       className,
-      children: /* @__PURE__ */ jsx40(
+      children: /* @__PURE__ */ jsx39(
         Icon,
         {
           name: resolvedColorMode === "light" ? "sun" : "moon",
@@ -5995,7 +5840,6 @@ export {
   Search,
   Select,
   Separator,
-  SidePanel,
   Spinner,
   Switch,
   Table,

@@ -81,7 +81,7 @@ function MyComponent() {
 | `DropdownMenu` | Overlays | Menu of actions |
 | `Popover` | Overlays | Pop-up content |
 | `Tooltip` | Overlays | Hover information |
-| `SidePanel` | Overlays | Slide-in panel |
+| `Drawer` | Overlays | Slide-in panel from any edge |
 | `Card`, `CardActions` | Data Display | Content container |
 | `Badge` | Data Display | Status indicator |
 | `Table` | Data Display | Data table with sorting |
@@ -194,7 +194,7 @@ Layout components accept responsive values:
 
 ### Triggers for Overlays
 
-Dialog, Popover, DropdownMenu, and SidePanel accept triggers:
+Dialog, Popover, DropdownMenu, and Drawer accept triggers:
 
 ```tsx
 // With trigger prop

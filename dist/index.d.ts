@@ -11987,7 +11987,7 @@ interface UtilityValues {
 	transitionDuration: Tokens["durations"];
 	transitionProperty: "common" | "colors" | "size" | "position" | "background";
 	transition: "all" | "common" | "size" | "position" | "background" | "colors" | "opacity" | "shadow" | "transform";
-	animationName: "ping" | "pulse" | "bounce" | "spin" | "progress-indeterminate" | "slideIn" | "slideOut" | "swipeOut" | "slideDown" | "slideUp" | "fadeIn" | "fadeOut" | "slideInFromRight" | "slideOutToRight" | "slideInFromLeft" | "slideOutToLeft" | "overlayShow" | "overlayHide";
+	animationName: "ping" | "pulse" | "bounce" | "spin" | "progress-indeterminate" | "slideIn" | "slideOut" | "swipeOut" | "slideDown" | "slideUp" | "fadeIn" | "fadeOut" | "overlayShow" | "overlayHide";
 	animationDuration: Tokens["durations"];
 	animationDelay: Tokens["durations"];
 	rotate: "auto" | "auto-3d" | CssProperties["rotate"];
@@ -20593,6 +20593,7 @@ interface DrawerProps {
     children: ReactNode;
     trigger?: TriggerElement;
     direction?: 'top' | 'bottom' | 'left' | 'right';
+    size?: 'sm' | 'md' | 'lg' | 'full';
     open?: boolean;
     defaultOpen?: boolean;
     onOpenChange?: (open: boolean) => void;
@@ -20626,8 +20627,6 @@ declare const drawerContentRecipe: RecipeRuntimeFn<{
             top: "0";
             bottom: "0";
             left: "0";
-            width: "min(420px, 97vw)";
-            maxWidth: "97vw";
             borderTopRightRadius: "component.modalRadius";
             borderBottomRightRadius: "component.modalRadius";
         };
@@ -20635,8 +20634,6 @@ declare const drawerContentRecipe: RecipeRuntimeFn<{
             top: "0";
             bottom: "0";
             right: "0";
-            width: "min(420px, 97vw)";
-            maxWidth: "97vw";
             borderTopLeftRadius: "component.modalRadius";
             borderBottomLeftRadius: "component.modalRadius";
         };
@@ -20646,6 +20643,12 @@ declare const drawerContentRecipe: RecipeRuntimeFn<{
             height: "100%";
         };
         false: {};
+    };
+    size: {
+        sm: {};
+        md: {};
+        lg: {};
+        full: {};
     };
 }>;
 type DrawerContentVariants = RecipeVariantProps<typeof drawerContentRecipe>;
@@ -20870,64 +20873,6 @@ declare const paginationButtonRecipe: RecipeRuntimeFn<{
 }>;
 type PaginationButtonVariants = RecipeVariantProps<typeof paginationButtonRecipe>;
 
-interface SidePanelProps {
-    open?: boolean;
-    defaultOpen?: boolean;
-    onOpenChange?: (open: boolean) => void;
-    trigger?: TriggerElement;
-    side?: 'left' | 'right';
-    size?: 'sm' | 'md' | 'lg' | 'full';
-    title?: ReactNode;
-    description?: ReactNode;
-    children: ReactNode;
-}
-declare const SidePanel: react.ForwardRefExoticComponent<SidePanelProps & react.RefAttributes<HTMLDivElement>>;
-
-declare const sidePanelContentRecipe: RecipeRuntimeFn<{
-    side: {
-        left: {
-            left: "0";
-            borderRight: "1px solid";
-            borderColor: "border.subtle";
-            '&[data-state="open"]': {
-                animation: "slideInFromLeft 0.2s ease-out";
-            };
-            '&[data-state="closed"]': {
-                animation: "slideOutToLeft 0.15s ease-in";
-            };
-        };
-        right: {
-            right: "0";
-            borderLeft: "1px solid";
-            borderColor: "border.subtle";
-            '&[data-state="open"]': {
-                animation: "slideInFromRight 0.2s ease-out";
-            };
-            '&[data-state="closed"]': {
-                animation: "slideOutToRight 0.15s ease-in";
-            };
-        };
-    };
-    size: {
-        sm: {
-            width: "320px";
-            maxWidth: "90vw";
-        };
-        md: {
-            width: "480px";
-            maxWidth: "90vw";
-        };
-        lg: {
-            width: "640px";
-            maxWidth: "90vw";
-        };
-        full: {
-            width: "100vw";
-        };
-    };
-}>;
-type SidePanelContentVariants = RecipeVariantProps<typeof sidePanelContentRecipe>;
-
 interface TableProps<TData> {
     columns: ColumnDef<TData, unknown>[];
     data: TData[];
@@ -21110,4 +21055,4 @@ declare const ThemeToggle: {
     displayName: string;
 };
 
-export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BarChart, type BarChartProps, type BarDataset, type BaseChartProps, Blockquote, type BlockquoteProps, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, type CalendarEvent, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, type ColorMode, Dialog, type DialogProps, DoughnutChart, type DoughnutChartProps, Drawer, type DrawerContentVariants, type DrawerProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, EventCalendar, type EventCalendarProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, GanttChart, type GanttChartProps, type GanttColumn, type GanttLink, type GanttScale, type GanttTask, Grid, GridItem, type GridItemProps, type GridProps, Icon, type IconName, type IconProps, type IconSize, Input, type InputProps, LineChart, type LineChartProps, type LineDataset, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, PieChart, type PieChartProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, type ResolvedColorMode, Search, type SearchProps, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, SidePanel, type SidePanelContentVariants, type SidePanelProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, ThemeContext, type ThemeContextValue, ThemeProvider, type ThemeProviderProps, ThemeToggle, type ThemeToggleProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement, chartColorPalette, chartColors, getChartColor, useChartColorPalette, useChartColors, useChartDataColors, useColorMode };
+export { Accordion, AccordionContent, type AccordionContentProps, AccordionItem, type AccordionItemProps, type AccordionProps, AccordionTrigger, type AccordionTriggerProps, Alert, type AlertProps, type AlertVariants, Badge, type BadgeProps, type BadgeVariants, BarChart, type BarChartProps, type BarDataset, type BaseChartProps, Blockquote, type BlockquoteProps, BreadcrumbItem, type BreadcrumbItemProps, BreadcrumbLink, type BreadcrumbLinkProps, BreadcrumbSeparator, type BreadcrumbSeparatorProps, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonVariants, type CalendarEvent, Card, CardActions, type CardProps, type CardVariants, Checkbox, type CheckboxProps, type ColorMode, Dialog, type DialogProps, DoughnutChart, type DoughnutChartProps, Drawer, type DrawerContentVariants, type DrawerProps, DropdownMenu, type DropdownMenuItem, type DropdownMenuProps, EventCalendar, type EventCalendarProps, FormContainer, type FormContainerProps, FormHelperText, type FormHelperTextProps, FormItemContainer, type FormItemContainerProps, FormLabel, type FormLabelProps, GanttChart, type GanttChartProps, type GanttColumn, type GanttLink, type GanttScale, type GanttTask, Grid, GridItem, type GridItemProps, type GridProps, Icon, type IconName, type IconProps, type IconSize, Input, type InputProps, LineChart, type LineChartProps, type LineDataset, Pagination, PaginationButton, type PaginationButtonProps, type PaginationButtonVariants, PaginationEllipsis, type PaginationEllipsisProps, type PaginationProps, PieChart, type PieChartProps, Popover, type PopoverProps, Progress, type ProgressProps, RadioGroup, type RadioGroupProps, type RadioOption, type ResolvedColorMode, Search, type SearchProps, Select, type SelectOption, type SelectProps, Separator, type SeparatorProps, Spinner, type SpinnerProps, type SpinnerVariants, Switch, type SwitchProps, Table, type TableProps, Tabs, TabsContent, type TabsContentProps, TabsList, type TabsListProps, type TabsProps, TabsTrigger, type TabsTriggerProps, Textarea, type TextareaProps, ThemeContext, type ThemeContextValue, ThemeProvider, type ThemeProviderProps, ThemeToggle, type ThemeToggleProps, Toast, type ToastProps, ToastProvider, type ToastProviderProps, Tooltip, type TooltipProps, type TriggerElement, chartColorPalette, chartColors, getChartColor, useChartColorPalette, useChartColors, useChartDataColors, useColorMode };
